@@ -1,0 +1,29 @@
+# Decisions
+
+Do not act on a pending decision. Record a new one here with the date and the reason, in the same commit as the work.
+
+## Made
+
+| Date | Decision | Why | Where |
+|---|---|---|---|
+| 2026-09-24 | Two plans: Starter $19 (3 sites, 20 scans), Pro $49 (5 sites, 100 scans). Free is 3 scans a month. | Priced against the rivals' $19 to $49 for 20 to 250 scans | scanner repo `plans.ts` |
+| 2026-09-24 | Free scans renew monthly, not once | A one-time total gave nobody a reason to return | scanner repo `freeTrial.ts` |
+| 2026-10-03 | Keep Seclayer artifacts out of this repo | Separate product | `AGENTS.md` |
+| 2026-10-03 | Free tier gets perks, not more scans: one watched site, a grade badge, free perks advertised | Cost and abuse; the aim is a reason to return and to share | `docs/STATUS.md` |
+| 2026-10-03 | The badge has its own token and shows grade and date only | A share token opens the full report | scanner repo `reportBadge.ts` |
+| 2026-10-03 | A cancelled or paused account does not get the free site | It is for accounts that never had a plan | scanner repo `entitlements.ts` |
+| 2026-10-03 | Order of work and the sizes in the improvement plan | My judgement, not Carlos's | `docs/IMPROVEMENT-PLAN.md` |
+
+## Pending, waiting on Carlos
+
+| # | Decision | Options and my recommendation | Blocks |
+|---|---|---|---|
+| 3 | **Pricing and allowance shape.** What counts against the allowance; whether Pro's 100 scans stays. Rivals: Vibe App Scanner Pro about $0.26 a scan, CheckVibe Pro about $0.32, VibeEval $19 unlimited. SecScan Pro is $0.49. | Suggested: Pro to about 150 scans at $49, Starter unchanged. Carlos said he wants to adjust the price tag and options and has not yet given numbers. Payments are off, so it is free to change. | Pricing copy, `plans.ts`, tests |
+| 5 | **Code-side positioning.** Stay the outside view, or add a defined code-side scope. | Recommend staying outside: builders now ship free code scans (Lovable, Bolt, Base44, Replit). | Product copy, items 1 and 4 |
+| 1a | **Build the vibe-stack target set** (Next.js plus Supabase apps with planted faults, ground truth from published incidents and written before scanning) or use only classic public apps. | Recommend both, vibe-stack second. It needs someone besides the scanner's authors to write the ground truth. | Runbook step 5 |
+| 1b | **Publish whatever the number is**, including a weak one on classic apps. | Recommend yes. | Runbook step 7 |
+| 1c | **Outbound access to the 30 sites** for the false-positive sweep. | A session or PC with normal internet access runs it. | Sweep rerun |
+| 2 | Monitoring cadence: which plans get daily rescans, and full scan or passive pass. | Not yet discussed in depth. | Improvement 2 |
+| 6 | A GitHub repo and tag for the Action, an npm account, directory accounts (Smithery, cursor.directory). | Cheapest unblocked win. | Improvement 6 |
+| 8 | An AI-feature app Carlos owns, to prove the four September 29 probes. | | Improvement 8 |
+| 9 | Try importing Nuclei detections, or not. | Experiment only, each with a clean twin. | Improvement 9 |
