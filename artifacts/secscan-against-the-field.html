@@ -1,0 +1,358 @@
+<title>SecScan Against the Field</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* LAYOUT: a working comparison file. One reading column for argument, full-width tables for the side-by-side. SecScan is the first row of every table so each rival is read against it. */
+:root{
+  --bg:#F3F4F1; --surface:#FFFFFF; --wash:#E9ECE7;
+  --ink:#151A1E; --ink2:#434C54; --ink3:#5E6870;
+  --rule:#D9DDD8; --rule2:#BCC4BE;
+  --accent:#1B4F8A; --accent-wash:#E1EAF5;
+  --good:#1E7B4F; --good-wash:#E0F0E7;
+  --mid:#8F6200; --mid-wash:#F6EACA;
+  --bad:#B23A2F; --bad-wash:#F6DFDB;
+  --f-display:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Hanken Grotesk","Segoe UI",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --gutter:clamp(1rem,4vw,2.5rem);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1317; --surface:#161B20; --wash:#1D242A;
+    --ink:#E8ECEF; --ink2:#B0BAC2; --ink3:#8C969E;
+    --rule:#262D34; --rule2:#38424B;
+    --accent:#8DB8EE; --accent-wash:#1A2A3E;
+    --good:#52C48C; --good-wash:#14291F;
+    --mid:#E6B743; --mid-wash:#2C2410;
+    --bad:#F28B80; --bad-wash:#321917;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1317; --surface:#161B20; --wash:#1D242A;
+  --ink:#E8ECEF; --ink2:#B0BAC2; --ink3:#8C969E;
+  --rule:#262D34; --rule2:#38424B;
+  --accent:#8DB8EE; --accent-wash:#1A2A3E;
+  --good:#52C48C; --good-wash:#14291F;
+  --mid:#E6B743; --mid-wash:#2C2410;
+  --bad:#F28B80; --bad-wash:#321917;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.6;margin:0;padding-inline:var(--gutter);padding-block:0 5rem}
+a{color:var(--accent);text-underline-offset:.15em}
+code{font-family:var(--f-mono);font-size:.84em;background:var(--wash);padding:.08em .3em;border-radius:3px;overflow-wrap:anywhere}
+h1,h2,h3{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spacing:-.02em}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:74rem;margin-inline:auto}
+.col{max-width:44rem}
+.kick{font:500 .72rem/1.2 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0}
+
+header.top{padding-block:2.4rem 1.6rem;border-bottom:2px solid var(--ink);display:grid;gap:1rem}
+h1{font-weight:800;font-size:clamp(2.4rem,7vw,4.6rem);line-height:.98}
+.deck{font-size:1.2rem;line-height:1.5;color:var(--ink2);max-width:46rem;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:.3rem 1.6rem;font:400 .76rem/1.5 var(--f-mono);color:var(--ink3);margin:0}
+nav.jump{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;padding-block:.9rem;border-bottom:1px solid var(--rule);font:500 .8rem/1.3 var(--f-body)}
+nav.jump a{text-decoration:none;color:var(--ink2)}
+nav.jump a:hover{color:var(--accent);text-decoration:underline}
+
+section{padding-top:3rem;display:grid;gap:1.1rem;min-width:0;scroll-margin-top:1rem}
+h2{font-weight:700;font-size:clamp(1.7rem,3.6vw,2.4rem);line-height:1.08}
+h3{font-weight:700;font-size:1.25rem;line-height:1.2;margin-top:.8rem}
+p{margin:0}
+.col>p+p{margin-top:.8rem}
+ul.plain{margin:0;padding-left:1.2rem;display:grid;gap:.5rem}
+
+/* findings list */
+.finds{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--rule2)}
+.finds li{display:grid;grid-template-columns:2rem minmax(0,1fr);gap:.2rem 1rem;padding:1rem 0;border-bottom:1px solid var(--rule)}
+.finds .n{font:700 1.5rem/1 var(--f-display);color:var(--accent)}
+.finds b{font-weight:700}
+.finds p{max-width:46rem;color:var(--ink2)}
+
+/* tables */
+.tw{overflow-x:auto;border-top:1px solid var(--rule2);border-bottom:1px solid var(--rule2);max-width:100%;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:.9rem;line-height:1.45}
+th{font:500 .66rem/1.2 var(--f-mono);letter-spacing:.09em;text-transform:uppercase;text-align:left;color:var(--ink3);padding:.65rem .8rem;border-bottom:1px solid var(--rule2);white-space:nowrap;background:var(--bg)}
+td{padding:.75rem .8rem;vertical-align:top;border-bottom:1px solid var(--rule);min-width:0}
+tbody tr:last-child td{border-bottom:0}
+td.who{min-width:9.5rem;font-weight:700;font-family:var(--f-display);font-size:1rem;line-height:1.2}
+td.who small{display:block;font:400 .72rem/1.4 var(--f-body);color:var(--ink3);margin-top:.2rem;font-weight:400}
+tr.us td{background:var(--accent-wash)}
+tr.us td.who{color:var(--accent)}
+.t-gap{min-width:64rem}
+.t-field{min-width:62rem}
+td ul{margin:0;padding-left:1rem;display:grid;gap:.25rem}
+.src{display:block;margin-top:.35rem;font:400 .7rem/1.4 var(--f-mono);color:var(--ink3)}
+
+/* chips: state is written out, color only backs it up */
+.chip{display:inline-block;font:500 .62rem/1 var(--f-mono);letter-spacing:.07em;text-transform:uppercase;padding:.25rem .4rem;border-radius:3px;border:1px solid var(--rule2);white-space:nowrap;background:var(--surface);color:var(--ink)}
+.chip.ahead{background:var(--good-wash);border-color:var(--good);color:var(--good)}
+.chip.par{background:var(--mid-wash);border-color:var(--mid);color:var(--mid)}
+.chip.behind{background:var(--bad-wash);border-color:var(--bad);color:var(--bad)}
+.chip.unk{border-style:dashed;color:var(--ink3)}
+.tag{font:500 .62rem/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);background:var(--wash);padding:.22rem .38rem;border-radius:2px;white-space:nowrap}
+
+/* callouts */
+.note{border-top:1px solid var(--rule2);border-bottom:1px solid var(--rule2);padding:1rem 0;display:grid;gap:.5rem;font-size:.97rem}
+.note h3{margin:0;font:600 .72rem/1.2 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+
+/* price per scan bars */
+.bars{display:grid;gap:.5rem;max-width:46rem}
+.bar{display:grid;grid-template-columns:minmax(0,11.5rem) minmax(0,1fr) 3.6rem;gap:.7rem;align-items:center;font-size:.86rem}
+.bar .t{height:14px;background:var(--wash);border-radius:0 3px 3px 0;position:relative}
+.bar .f{position:absolute;inset:0 auto 0 0;background:var(--ink3);border-radius:0 3px 3px 0}
+.bar.us .f{background:var(--accent)}
+.bar .v{font:500 .8rem/1 var(--f-mono);text-align:right;font-variant-numeric:tabular-nums}
+.bar .l{line-height:1.25}
+@media (max-width:640px){.bar{grid-template-columns:minmax(0,7.5rem) minmax(0,1fr) 3.2rem;gap:.5rem}}
+
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:1.4rem}
+.card{border-top:3px solid var(--ink);padding-top:.8rem;display:grid;gap:.5rem;align-content:start}
+.card h3{margin:0}
+.card ul{margin:0;padding-left:1.1rem;display:grid;gap:.35rem;font-size:.95rem;color:var(--ink2)}
+
+.foot{margin-top:3.5rem;border-top:1px solid var(--rule2);padding-top:1rem;font:400 .76rem/1.7 var(--f-mono);color:var(--ink3);display:grid;gap:.3rem}
+.srcs{columns:2 22rem;column-gap:2rem;font-size:.82rem;line-height:1.5;padding-left:1.1rem;margin:0}
+.srcs li{break-inside:avoid;margin-bottom:.3rem;overflow-wrap:anywhere}
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="kick">Competitive research &middot; companion to the Grading the Grader reports</p>
+  <h1>SecScan Against the Field</h1>
+  <p class="deck">Every company, platform and tool named in the 17 SecScan reports, researched on October 3, 2026 and set beside what SecScan does today. The aim is a ranked list of what to improve, with the evidence for each item.</p>
+  <p class="meta"><span>Prepared for Carlos</span><span>Reports read: 17 of 17 in the grading-the-grader repo</span><span>Companies and tools researched: 22</span><span>Prices as found on Oct 3, 2026</span></p>
+</header>
+
+<nav class="jump" aria-label="Sections">
+  <a href="#short">The short version</a>
+  <a href="#improve">What to improve, ranked</a>
+  <a href="#holds">Where SecScan holds up</a>
+  <a href="#field">The field side by side</a>
+  <a href="#price">Price per scan</a>
+  <a href="#fixes">Corrections to the reports</a>
+  <a href="#limits">Method and limits</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<section id="short">
+  <p class="kick">The short version</p>
+  <h2>SecScan is hard to beat on discipline and easy to beat on proof, price and reach</h2>
+  <div class="col">
+    <p>The reports describe a careful scanner: ownership-verified active tests, a ledger of what ran and what was skipped, hand-checked false positives, an MCP server with OAuth 2.1. The research found no rival that advertises all of that together. It also found three things that matter more for the next quarter than any single check.</p>
+  </div>
+  <ol class="finds">
+    <li><span class="n">1</span><div><b>The free baseline moved into the builders.</b><p>Lovable scans every publish, Bolt audits and fixes on publish, Base44 and Replit scan code before launch, and Aikido's free plan covers code, secrets and one domain. These look at source. SecScan looks at the live site, so its case rests on being independent and continuous, not on being the only check.</p></div></li>
+    <li><span class="n">2</span><div><b>Three direct rivals undercut or match SecScan's pricing while offering more cadence.</b><p>VibeEval lists $19 a month with unlimited scans and daily re-scans. CheckVibe's Pro runs about $0.32 a scan with daily monitoring. Vibe App Scanner's Pro is about $0.26 a scan. SecScan Starter is $0.95 a scan and re-scans a grade-A site every 14 days. Payments are still off, so this can be changed before anyone pays.</p></div></li>
+    <li><span class="n">3</span><div><b>Nobody has independent numbers, which is an opening.</b><p>SecScan's 68 of 74 comes from its own test app, and the reports say so. Vendors elsewhere claim far more than independent tests show: Invicti states 99.98% accuracy while one third-party benchmark measured 23% false positives. A published, rerunnable result against vulnerable apps that ZAP and Nuclei can also scan would be rare in this market. The reports list that work (U1) as not started.</p></div></li>
+  </ol>
+</section>
+
+<section id="improve">
+  <p class="kick">What to improve, ranked</p>
+  <h2>Twelve gaps, in the order the evidence supports</h2>
+  <div class="col"><p>Order is my judgement, weighted by how many rivals do the thing, how much the reports already admit the gap, and how cheap it is to close. "In the reports" cites the open list, the not-built list or the upgrade table. Where the research is a vendor's own claim, the row says so.</p></div>
+  <div class="tw"><table class="t-gap">
+    <thead><tr><th>#</th><th>Gap</th><th>In the reports</th><th>In the field</th><th>Next step</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="who">Independent proof of detection<small><span class="tag">Proof</span></small></td><td>68 of 74 and 88 of 88 come from SecScan's own fixture, "which flatters the scanner." Nine September 26 checks, SSRF and the four September 29 probes have not been seen to fire on a real fault. No sweep since PRs 12 to 14. Public head-to-head (U1) not started.</td><td>Invicti sells proof-based scanning. VibeEval says findings are engineer-verified with reproducible proofs. Both are vendor claims. One third-party benchmark measured Invicti at 23% false positives against Burp's 15%.</td><td>Run SecScan, ZAP and Nuclei, which are free, against public intentionally vulnerable apps. Publish raw output and the scoring script. Rerun the 30-site sweep on current master.</td></tr>
+      <tr><td>2</td><td class="who">Monitoring cadence and user control<small><span class="tag">Product</span></small></td><td>Full re-scan every 14 days at grade A, 7 at B or C, 3 at D or F. Choosing frequency is not built. Hourly pulse and CVE matching exist.</td><td>VibeEval Pro: daily re-scans. CheckVibe Pro: daily monitoring. Vibe App Scanner Pro: weekly deep scans and monitoring. Detectify: continuous surface monitoring.</td><td>Let users pick cadence per site, at least daily for paid plans. Keep the grade-based default.</td></tr>
+      <tr><td>3</td><td class="who">Price and allowance shape<small><span class="tag">Pricing</span></small></td><td>Starter $19 for 20 scans, Pro $49 for 100. Free is 3 a month. Payments off pending the sweep.</td><td>VibeEval $19 unlimited. Vibe App Scanner Pro $39 for 150, first scan free. CheckVibe free to scan, paid for the full report (one source).</td><td>Decide whether scheduled and passive scans count against the allowance. Revisit Pro's 100 against $39 for 150 at a rival. See <a href="#price">price per scan</a>.</td></tr>
+      <tr><td>4</td><td class="who">Evidence a developer can replay<small><span class="tag">Product</span></small></td><td>Curl replay only when evidence is a plain GET, HEAD or OPTIONS (U16). PR 17 improved request lines for active tests. 2 of 24 active findings on the fixture still list no request.</td><td>VibeEval: captured exploits and reproducible proofs of concept. Invicti: exploit-backed proof. Detectify: validation scan after a fix.</td><td>Store the request and response pair for every active finding and offer a replay for POST. Close the last 2 of 24.</td></tr>
+      <tr><td>5</td><td class="who">Code-side coverage and positioning<small><span class="tag">Strategy</span></small></td><td>Only a passive check of a public GitHub repo, one test. Research of Sept 24 called SAST the largest opening.</td><td>Lovable deep scan, Bolt project audit, Base44 SAST/SCA/secrets, Replit Semgrep plus an LLM layer, Aikido free plan, Claude Code security review, Cursor Bugbot.</td><td>Treat as a decision. Chasing SAST means competing with free tools inside the builders. The alternative is to own the outside view and say so.</td></tr>
+      <tr><td>6</td><td class="who">Integrations that ship<small><span class="tag">Product</span></small></td><td>GitHub Action and npm package written, not published. Jira, Linear and GitHub issue alerts not built. Teams, evidence packs, white-label, status page not built.</td><td>StackHawk runs in 12+ CI platforms and has agent skills for Claude Code. Detectify, Burp, Pentest-Tools and Bright ship MCP servers. Pentest-Tools has workspaces and reports.</td><td>Publish the Action and package first. Then ticket destinations. MCP is already at parity.</td></tr>
+      <tr><td>7</td><td class="who">SPA, auth and API depth<small><span class="tag">Product</span></small></td><td>Inner routes of single-page apps fetched raw. WebSocket not built. Mass assignment missed without a spec. Command, NoSQL and XXE injection left out.</td><td>StackHawk tests REST, GraphQL, SOAP and gRPC and reads source to find undocumented endpoints. VibeEval runs authenticated access-control tests. Burp, Invicti and ZAP cover broad injection classes.</td><td>Render inner routes. Add NoSQL and command injection with clean twins, as the reports require for every check.</td></tr>
+      <tr><td>8</td><td class="who">AI-feature testing, unproven<small><span class="tag">Product</span></small></td><td>Passive AI-in-client checks ran clean. The four September 29 probes were skipped in the one real scan.</td><td>Bright covers the OWASP LLM Top 10 including prompt injection. Aikido sells a pentest for AI agents.</td><td>Exercise the four probes on a real AI app and record the result before advertising them.</td></tr>
+      <tr><td>9</td><td class="who">Known-vulnerability depth<small><span class="tag">Product</span></small></td><td>Version matches plus OSV.dev. Two CVE floors missing. Nginx 1.31.2 not covered.</td><td>Nuclei ships 12,000+ community templates, MIT licensed, with 226 added in April 2026.</td><td>Evaluate importing safe, passive Nuclei detections, with a clean twin per template to hold the false-positive record.</td></tr>
+      <tr><td>10</td><td class="who">Single point of failure on TLS<small><span class="tag">Product</span></small></td><td>TLS grade is delegated to Qualys SSL Labs, waited on for up to 120 seconds.</td><td>SSL Labs limits assessments and answers 429 when over its quota. Security Headers' API was shut down by Snyk in April 2026.</td><td>Add a fallback so a quota error shows as "TLS not graded" with a reason, and consider an in-house check. The 429 behaviour is documented. The fallback is my inference.</td></tr>
+      <tr><td>11</td><td class="who">Attack-surface breadth<small><span class="tag">Product</span></small></td><td>Subdomains found from 64 common names. Port scan of 33 ports needs a verified domain.</td><td>Detectify's Surface Monitoring tracks up to 25 assets continuously from €302 a month. Pentest-Tools has a subdomain finder.</td><td>Low priority for SecScan's buyers. Revisit if agencies become a target.</td></tr>
+      <tr><td>12</td><td class="who">Bot-protected sites<small><span class="tag">Product</span></small></td><td>Six to eight of 30 sites a sweep are withheld. DataDome, AWS WAF, Akamai and cf-mitigated signals have no public source.</td><td>Not researched. No rival's handling was found.</td><td>Keep withholding. Ask each rival's scanner what it reports for a challenge page, which is an open question.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="holds">
+  <p class="kick">Where SecScan holds up</p>
+  <h2>Things the reports show and no rival was seen advertising</h2>
+  <div class="col"><p>"Not seen advertising" means absent from the pages and summaries I could reach. It does not mean absent from the product. The reports make the same hedge about the per-scan ledger.</p></div>
+  <div class="two">
+    <div class="card"><h3>Safety and honesty</h3><ul>
+      <li>Active tests only after the owner proves the domain, and the gate fails closed.</li>
+      <li>A ledger of every test as ran, skipped with a reason, or failed.</li>
+      <li>Challenge and platform pages are withheld and not graded.</li>
+      <li>Compliance mapping that never claims a pass.</li>
+      <li>An account switch that keeps findings from the AI provider.</li></ul></div>
+    <div class="card"><h3>Method</h3><ul>
+      <li>A fixture with known faults, and a clean twin for every check.</li>
+      <li>239 stored scans of 54 real sites, with a written list of findings that look false and are correct.</li>
+      <li>A blind benchmark against ZAP and Nuclei, with the author's own caveat.</li>
+      <li>2,699 API tests and 141 frontend tests, run in CI.</li></ul></div>
+    <div class="card"><h3>Reach</h3><ul>
+      <li>MCP server with 12 tools, OAuth 2.1 and separate token scopes.</li>
+      <li>REST API v1, SARIF export, a CLI, hourly pulse and CVE matching.</li>
+      <li>Works on any platform, not only the one that built the app.</li>
+      <li>Three free scans a month on every account.</li></ul></div>
+  </div>
+</section>
+
+<section id="field">
+  <p class="kick">The field side by side</p>
+  <h2>Each row sets a rival against the SecScan row above it</h2>
+  <div class="col"><p>Cells give what the sources said, with the source type under each row. "Via search" means a summary of the vendor's page. "Third party" means a review or comparison site. Prices are in the currency the source gave.</p></div>
+
+  <h3>Vibe-coding scanners, the direct competition</h3>
+  <div class="tw"><table class="t-field">
+    <thead><tr><th>Company</th><th>What it does</th><th>Price</th><th>Testing and cadence</th><th>Agents and CI</th><th>Against SecScan</th></tr></thead>
+    <tbody>
+      <tr class="us"><td class="who">SecScan<small>secscan.us</small></td><td>Black-box scan of a live URL, graded A to F, 143 to 144 checks in 41 tests, fixes written for the stack.</td><td>Free 3 scans a month. Starter $19, 3 sites, 20 scans. Pro $49, 5 sites, 100 scans. Packs $12 and $49. Payments off.</td><td>17 of 41 tests need a verified domain. Rescan every 14, 7 or 3 days by grade. Hourly pulse.</td><td>MCP (12 tools, OAuth 2.1), REST v1, SARIF, CLI. Action unpublished.</td><td>Reference row.</td></tr>
+      <tr><td class="who">Vibe App Scanner<small>vibeappscanner.com</small></td><td>Scans the live site for secrets in JS bundles, Supabase RLS, Firebase rules and headers. Also SEO and AI-search readiness, performance, accessibility, compliance and email checks.</td><td>First scan free. Go $19, 20 scans, 3 projects. Pro $39, 150 scans, 10 projects.<span class="src">Via search. AppSumo listing also exists.</span></td><td>Pro adds weekly deep scans, weekly monitoring, breach monitoring and a basic attempt to reach other users' data.</td><td>MCP and API on all tiers. No repo access and no CI/CD integration, per its own page.</td><td><span class="chip behind">Behind</span> on price per scan and on breadth of non-security checks. <span class="chip ahead">Ahead</span> on SARIF, a CLI and ownership gating.</td></tr>
+      <tr><td class="who">CheckVibe<small>checkvibe.dev</small></td><td>Scans the live site for exposed keys, SQL injection, XSS, SSL/TLS, CORS and CSP issues. Also SEO and AI visibility. 100+ checks.</td><td>Free, Starter (1 project, 30 scans; shown as $24 and as £13), Pro $49 (5 projects, 155 scans), Team Basic and Advanced. One source says scans are free and you pay for the full report.<span class="src">Via search. Prices conflict.</span></td><td>Pro adds daily monitoring and live threat detection. About 30 seconds a scan.</td><td>MCP server, API access, AI fix prompts, PDF export.</td><td><span class="chip behind">Behind</span> on cadence and per-scan price. <span class="chip par">Parity</span> on MCP. Check count favours SecScan.</td></tr>
+      <tr><td class="who">VibeEval<small>vibe-eval.com</small></td><td>Autonomous agents probe the deployed app for missing RLS, exposed keys, auth bypass, CORS, open buckets and IDOR. Black-box, evidence-first.</td><td>Pro $19, unlimited projects and scans, daily re-scans. Team $79 for 5 seats with GDPR, SOC2 and HIPAA gap analysis. Lifetime $199. 14-day trial.<span class="src">Via search. Check count given as 310+ and as 243+ across 13 scenarios.</span></td><td>Anonymous tests first, then authenticated access-control tests. Captured exploits and reproducible proofs. Publishes monthly data studies.</td><td>MCP and webhook API on Team. Fix prompts for Claude Code, Cursor and Lovable.</td><td><span class="chip behind">Behind</span> on price, cadence and evidence format. Its accuracy claims are unverified. It runs no ownership gate that I found.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Builder platforms that bundle security</h3>
+  <div class="tw"><table class="t-field">
+    <thead><tr><th>Company</th><th>What it checks</th><th>When and what it costs</th><th>Against SecScan</th></tr></thead>
+    <tbody>
+      <tr><td class="who">Lovable<small>with Aikido</small></td><td>Quick scan: database access rules and RLS mistakes, npm dependencies, unauthenticated MCP exposure. Deep scan: app code for access-control and permission flaws.</td><td>Quick scan on every publish, about 10 seconds. Deep scan on demand, about 3 minutes. AI pentest powered by Aikido: $100 per test since Apr 1, 2026, refunded if nothing is found. Pro plan $25 a month.<span class="src">Via search and Lovable docs.</span></td><td><span class="chip par">Parity</span> on RLS checks, but pre-publish and code-aware. SecScan is outside, continuous and cross-platform. The $100 pentest has no SecScan equivalent.</td></tr>
+      <tr><td class="who">Bolt<small>bolt.new</small></td><td>Agent audits six categories (access control, secrets, business logic and more), applies fixes, checks the build.</td><td>Runs on publish since July 2026. Free and uses no tokens. Database checks on all plans. Project audit on paid plans.<span class="src">Via search.</span></td><td><span class="chip par">Parity</span> on the baseline. Fix-and-verify happens inside the builder, which SecScan cannot match.</td></tr>
+      <tr><td class="who">Base44<small>base44.com</small></td><td>SCA, SAST, exposed secrets, missing login checks and weak data-access rules. One-click fixes. Security Center across a workspace. Optional Wiz integration.</td><td>Built in on every plan.<span class="src">Via search and Base44 docs.</span></td><td><span class="chip par">Parity</span> on the baseline. Wiz is a third company worth adding to the watch list.</td></tr>
+      <tr><td class="who">Replit<small>replit.com</small></td><td>Security Agent: SAST and SCA with about 200 Semgrep rules, HoundDog for sensitive data, and an LLM layer that threat-models the app. Scans before publish.</td><td>Large projects can take up to 15 minutes. Replit claims the LLM layer cut false positives by 90%, which is a vendor claim.<span class="src">Via search.</span></td><td><span class="chip par">Parity</span> on the baseline. Deeper on code, blind to the live site.</td></tr>
+      <tr><td class="who">Supabase<small>supabase.com</small></td><td>Security Advisor, built on the open-source Splinter linter: RLS disabled in public, policies without RLS, auth.users exposed, security-definer views, mutable function search paths.</td><td>Free, inside the dashboard.<span class="src">Via search and Supabase docs.</span></td><td><span class="chip par">Parity</span> on the config lints. SecScan adds proof from outside that anonymous reads and writes really work.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Developer and enterprise scanners</h3>
+  <div class="tw"><table class="t-field">
+    <thead><tr><th>Company</th><th>What it is</th><th>Price</th><th>Agents and CI</th><th>Against SecScan</th></tr></thead>
+    <tbody>
+      <tr><td class="who">StackHawk<small>stackhawk.com</small></td><td>DAST built on ZAP and configured in YAML in the repo. REST, GraphQL, SOAP and gRPC. HawkAI reads source to find undocumented endpoints.</td><td>Pro $42 per contributor per month, minimum 5. Enterprise $59, minimum 20. New Wingman tier $10 per user with 50 agentic scans. 14-day trial, no free tier.<span class="src">Via search and third party. The reports quote $39.</span></td><td>12+ CI platforms. Open-source MCP server and Claude Code agent skills that scan, fix and rescan.</td><td><span class="chip behind">Behind</span> on CI and API protocols. A different buyer: StackHawk needs the code and a pipeline, SecScan needs a URL.</td></tr>
+      <tr><td class="who">Detectify<small>detectify.com</small></td><td>External attack surface management plus DAST. Crowdsourced detections.</td><td>Surface Monitoring €302 a month for 25 assets. Application Scanning €90. API Scanning €90. Enterprise by quote.<span class="src">Via search and third party.</span></td><td>MCP server launched May 26, 2026, with a find, fix and validation-scan loop.</td><td><span class="chip behind">Behind</span> on depth and surface discovery. <span class="chip par">Parity</span> on MCP and verify-the-fix.</td></tr>
+      <tr><td class="who">Invicti and Acunetix<small>invicti.com</small></td><td>Enterprise DAST with proof-based scanning. Formed from Netsparker, Acunetix and Kondukto. Adds IAST, SAST, SCA, secrets and ASPM.</td><td>Invicti by quote, entry about $7,000 a year. Acunetix per target, 5-target minimum, about $1,400 per target a year at 5.<span class="src">Third party. Not on the vendor's site.</span></td><td>Not established.</td><td><span class="chip behind">Behind</span> on depth and proof. A different buyer and price range. Claims 99.98% accuracy, which one independent benchmark did not reproduce.</td></tr>
+      <tr><td class="who">Burp Suite<small>PortSwigger</small></td><td>Professional (manual and automated) and Burp Suite DAST, formerly Enterprise Edition.</td><td>Pro $499 per user a year, up from $449 on Jan 6, 2026. DAST by quote, estimated from $6,000 a year.<span class="src">Third party.</span></td><td>Official MCP server extension on GitHub. Burp AI in Pro.</td><td><span class="chip behind">Behind</span> on depth. Different buyer, a tester rather than an app owner.</td></tr>
+      <tr><td class="who">Pentest-Tools.com</td><td>Website scanner, subdomain finder and network scanner with 20+ other tools, workspaces and reports.</td><td>Free, Basic $72, Advanced $162, Teams $336 a month.<span class="src">Third party.</span></td><td>Official MCP server, local and remote. Needs a paid plan's API key.</td><td><span class="chip behind">Behind</span> on tooling and reporting. <span class="chip par">Parity</span> on MCP.</td></tr>
+      <tr><td class="who">Bright Security<small>brightsec.com</small></td><td>DAST and the Bright STAR platform with auto-fix. Covers web, APIs and LLM apps.</td><td>Pro from $99 and Business $999 a month on one source. AWS Marketplace shows $48,000 a year for one engine and $650 per developer for STAR.<span class="src">Third party. Sources disagree on tiers.</span></td><td>Official Bright MCP server that uploads OpenAPI definitions.</td><td><span class="chip behind">Behind</span> on LLM testing and API discovery.</td></tr>
+      <tr><td class="who">Tenable Nessus<small>tenable.com</small></td><td>Network and infrastructure vulnerability scanner.</td><td>Professional $4,790 a year, no web-app scanning. Expert $6,790 adds 5 web-app targets. Web App Scanning from about $3,500.<span class="src">Third party.</span></td><td>Not established.</td><td>A different category. The reports name it only as an unbenchmarked tool.</td></tr>
+      <tr><td class="who">Aikido<small>aikido.dev</small></td><td>All-in-one: SAST, SCA, secrets, cloud, IaC, containers, DAST, AI autotriage and autofix, plus AI pentests.</td><td>Free for 2 users with 10 repos and 1 domain. Basic $350, Pro $700, Advanced $1,050 a month for 10 users. Pentests from $4,000.<span class="src">Third party for tiers.</span></td><td>Powers Lovable's pentest. Pentest for AI agents.</td><td><span class="chip behind">Behind</span> on scope. Its free domain scan is a direct substitute for SecScan's free tier.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Open source, single-purpose graders and AI code reviewers</h3>
+  <div class="tw"><table class="t-field">
+    <thead><tr><th>Tool</th><th>What it is</th><th>Cost and licence</th><th>Against SecScan</th></tr></thead>
+    <tbody>
+      <tr><td class="who">OWASP ZAP<small>now ZAP by Checkmarx</small></td><td>Open-source DAST. YAML automation framework. Monthly releases. The three project leads joined Checkmarx in Sept 2024.</td><td>Free, Apache 2.0, no gated features.<span class="src">Via search.</span></td><td><span class="chip par">Parity</span> on headers and TLS, per the reports. Third parties report higher false positives on single-page apps without tuning. SecScan beat it 68 to 19 on its own fixture.</td></tr>
+      <tr><td class="who">Nuclei<small>ProjectDiscovery</small></td><td>Template-driven scanner across HTTP, DNS, TCP, SSL and code. 12,000+ community templates.</td><td>Free, MIT. ProjectDiscovery Cloud from $250 pay-as-you-go. Neo, an AI offensive platform, went generally available Aug 4, 2026.<span class="src">Via search and GitHub.</span></td><td>Broader on known CVEs. SecScan beat it 68 to 8 on its own fixture. No official ProjectDiscovery MCP server was confirmed, only community ones.</td></tr>
+      <tr><td class="who">Qualys SSL Labs</td><td>Free TLS grader using 60+ browser handshake simulations. Grades A+ to F and T. No TLS 1.3 caps the grade at A-.</td><td>Free. API limits concurrent and total assessments and answers 429.<span class="src">Via search.</span></td><td>A dependency, not a rival. SecScan's TLS grade comes from it.</td></tr>
+      <tr><td class="who">SecurityHeaders.com</td><td>Free grader for about eight core headers. Created by Scott Helme, sold to Probely, which Snyk then acquired.</td><td>Free scanner continues. The API was shut down in April 2026.<span class="src">Via search.</span></td><td><span class="chip ahead">Ahead</span>. SecScan covers far more than headers.</td></tr>
+      <tr><td class="who">Claude Code security review</td><td>The /security-review command and a GitHub Action that review a diff for injection, access-control and secret issues.</td><td>Open source Action. Not hardened against prompt injection, so for trusted PRs only.<span class="src">Via search.</span></td><td>Code-side and free. Different vantage from SecScan.</td></tr>
+      <tr><td class="who">Cursor Bugbot</td><td>AI pull-request reviewer for bugs and security flaws.</td><td>Usage-based since June 2026, about $1.00 to $1.50 a review. A third party reports 80.45% F1 on the OpenSSF CVE benchmark.<span class="src">Via search.</span></td><td>Code-side. The same position as the builder scans.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="price">
+  <p class="kick">Price per scan</p>
+  <h2>SecScan's cheapest scans cost the same as a rival's, and its Pro costs more</h2>
+  <div class="col"><p>Plan price divided by scans included. These are my arithmetic on the prices above, and the rival prices conflict in places. VibeEval's $19 plan lists unlimited scans, so it has no bar.</p></div>
+  <div class="bars" role="list">
+    <div class="bar" role="listitem"><span class="l">Vibe App Scanner Pro</span><span class="t"><span class="f" style="width:21.7%"></span></span><span class="v">$0.26</span></div>
+    <div class="bar" role="listitem"><span class="l">CheckVibe Pro</span><span class="t"><span class="f" style="width:26.3%"></span></span><span class="v">$0.32</span></div>
+    <div class="bar us" role="listitem"><span class="l">SecScan Pro</span><span class="t"><span class="f" style="width:40.8%"></span></span><span class="v">$0.49</span></div>
+    <div class="bar" role="listitem"><span class="l">CheckVibe Starter</span><span class="t"><span class="f" style="width:66.7%"></span></span><span class="v">$0.80</span></div>
+    <div class="bar us" role="listitem"><span class="l">SecScan Starter</span><span class="t"><span class="f" style="width:79.2%"></span></span><span class="v">$0.95</span></div>
+    <div class="bar" role="listitem"><span class="l">Vibe App Scanner Go</span><span class="t"><span class="f" style="width:79.2%"></span></span><span class="v">$0.95</span></div>
+    <div class="bar us" role="listitem"><span class="l">SecScan 50-scan pack</span><span class="t"><span class="f" style="width:81.7%"></span></span><span class="v">$0.98</span></div>
+    <div class="bar us" role="listitem"><span class="l">SecScan 10-scan pack</span><span class="t"><span class="f" style="width:100%"></span></span><span class="v">$1.20</span></div>
+  </div>
+  <div class="note"><h3>What the bars leave out</h3><p>SecScan's plans include monitored sites with hourly pulse and CVE checks, and scheduler rescans do not spend the allowance. A rival's per-scan price may not include that. Read the bars as the cost of a manual scan, not the cost of coverage.</p></div>
+</section>
+
+<section id="fixes">
+  <p class="kick">Corrections to the reports</p>
+  <h2>Where the research disagrees with what the reports say about the field</h2>
+  <div class="tw"><table class="t-gap">
+    <thead><tr><th>Claim in the reports</th><th>What I found</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>StackHawk costs $39 per contributor per month.</td><td>Pro $42 per contributor (minimum 5) and Enterprise $59 (minimum 20). A $10 per user Wingman tier is new.</td><td><span class="chip behind">Out of date</span></td></tr>
+      <tr><td>Rivals charge $19 to $49 a month for 20 to 250 scans.</td><td>VibeEval's $19 plan lists unlimited scans. CheckVibe Pro is 155 scans. No 250-scan plan appeared in my sources.</td><td><span class="chip par">Partly right</span></td></tr>
+      <tr><td>Detectify, StackHawk, Pentest-Tools, PortSwigger, Bright, ProjectDiscovery, CheckVibe and Vibe App Scanner all have an MCP server.</td><td>Confirmed for seven. Detectify launched its on May 26, 2026. ProjectDiscovery's own server was not confirmed, though community Nuclei servers exist.</td><td><span class="chip par">Mostly right</span></td></tr>
+      <tr><td>Lovable sells a $100 live-app pentest, refunded if nothing is found.</td><td>Confirmed. Launched April 1, 2026, powered by Aikido, with a zero-findings refund.</td><td><span class="chip ahead">Confirmed</span></td></tr>
+      <tr><td>Lovable runs a free scan on every publish.</td><td>Confirmed. The quick scan runs in about 10 seconds and covers RLS, dependencies and MCP exposure.</td><td><span class="chip ahead">Confirmed</span></td></tr>
+      <tr><td>Replit, Bolt, Base44 and Supabase bundle checks.</td><td>Confirmed, and Bolt's July 2026 publish audit now also fixes issues and verifies the build.</td><td><span class="chip ahead">Confirmed</span></td></tr>
+      <tr><td>Aikido powers Lovable's pentest.</td><td>Confirmed.</td><td><span class="chip ahead">Confirmed</span></td></tr>
+      <tr><td>securityheaders.com is a long-standing grader.</td><td>True, and its API was shut down by Snyk in April 2026.</td><td><span class="chip par">Add a note</span></td></tr>
+      <tr><td>Invicti, Burp and Detectify have years more depth.</td><td>Consistent with the research. Invicti's accuracy claim is contested by one independent benchmark.</td><td><span class="chip ahead">Consistent</span></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="limits">
+  <p class="kick">Method and limits</p>
+  <h2>How far to trust this</h2>
+  <div class="col">
+    <p>I read the 17 grading and test reports in the grading-the-grader repo and pulled every company, platform and tool they name as a competitor, a bundled check or a comparison. I then searched for each one on October 3, 2026.</p>
+    <p><b>The network blocked the vendors' own sites.</b> Fetching zaproxy.org, portswigger.net, stackhawk.com, vibeappscanner.com, checkvibe.dev and vibe-eval.com was refused by the session's egress policy, and I did not route around it. Only github.com could be fetched. Every fact here therefore comes from search-engine summaries of vendor pages and from third-party review and pricing sites. I read no vendor page in full, and I ran no competitor's scanner.</p>
+    <p><b>Prices are the weakest facts.</b> Several conflict between sources (CheckVibe, Bright, Detectify's starter tier). Enterprise prices come from aggregators and quote requests, not price lists. Treat any number as a starting point to confirm on the vendor's page.</p>
+    <p><b>Left out on purpose.</b> Scan-target sites in the sweeps (Stripe, GitHub, Google and the rest), hosting vendors named as environments (Vercel, Cloudflare, Render, Railway, Netlify), and the detection-rule sources (webappanalyzer, wafw00f, TruffleHog, OSV.dev, can-i-take-over-xyz). The Seclayer reports were also left out, as you asked to keep them separate. Seclayer is a sibling product, so its own comparison belongs in its own repository.</p>
+    <p><b>Rankings are my judgement.</b> The ranked list weighs how many rivals offer a thing and how much the reports already admit the gap. Reasonable people could reorder it.</p>
+  </div>
+</section>
+
+<section id="sources">
+  <p class="kick">Sources</p>
+  <h2>What the summaries came from</h2>
+  <ol class="srcs">
+    <li><a href="https://vibeappscanner.com/pricing">Vibe App Scanner pricing</a></li>
+    <li><a href="https://vibeappscanner.com/best-ai-security-scanner">Vibe App Scanner: best AI security scanner</a></li>
+    <li><a href="https://appsumo.com/products/vibe-app-scanner/">Vibe App Scanner on AppSumo</a></li>
+    <li><a href="https://checkvibe.dev/pricing">CheckVibe pricing</a></li>
+    <li><a href="https://checkvibe.dev/about">About CheckVibe</a></li>
+    <li><a href="https://vibe-eval.com/">VibeEval</a></li>
+    <li><a href="https://vibe-eval.com/methodology/">VibeEval methodology</a></li>
+    <li><a href="https://vibe-eval.com/alternatives/vibeappscanner">VibeEval: Vibe App Scanner alternatives</a></li>
+    <li><a href="https://dev.to/solobillions/i-tested-every-vibe-coding-security-scanner-2026-heres-what-actually-works-p9k">DEV: I Tested Every Vibe Coding Security Scanner</a></li>
+    <li><a href="https://appsecsanta.com/dast-tools/stackhawk-vs-zap">AppSec Santa: StackHawk vs ZAP</a></li>
+    <li><a href="https://beaglesecurity.com/blog/article/stackhawk-pricing.html">Beagle Security: StackHawk pricing</a></li>
+    <li><a href="https://www.stackhawk.com/blog/mcp-server-for-security-scanning/">StackHawk MCP server</a></li>
+    <li><a href="https://docs.stackhawk.com/ai-security/agent-skills/claude-code/">StackHawk agent skills for Claude Code</a></li>
+    <li><a href="https://detectify.com/pricing">Detectify pricing</a></li>
+    <li><a href="https://newsroom.detectify.com/detectify-launches-mcp-server-to-secure-the-autonomous-coding-loop">Detectify MCP server launch</a></li>
+    <li><a href="https://appsecsanta.com/invicti">AppSec Santa: Invicti review</a></li>
+    <li><a href="https://beaglesecurity.com/blog/article/invicti-pricing.html">Beagle Security: Invicti pricing</a></li>
+    <li><a href="https://pentest.ae/blog/acunetix-pricing-2026/">Acunetix pricing 2026</a></li>
+    <li><a href="https://aimultiple.com/dast-tools">AIMultiple: DAST benchmarking results</a></li>
+    <li><a href="https://codeant.ai/blogs/burp-suite-pricing">Burp Suite pricing 2026</a></li>
+    <li><a href="https://github.com/PortSwigger/mcp-server">PortSwigger Burp MCP server</a></li>
+    <li><a href="https://pentest-tools.com/docs/ai/mcp/overview">Pentest-Tools MCP overview</a></li>
+    <li><a href="https://www.capterra.com/p/211194/Pentest-Tools-com/alternatives/">Pentest-Tools pricing</a></li>
+    <li><a href="https://brightsec.com/research/dast-pricing-and-cost-drivers-2026/">Bright Security DAST pricing</a></li>
+    <li><a href="https://appsecsanta.com/bright-security">AppSec Santa: Bright Security</a></li>
+    <li><a href="https://www.penetrify.cloud/en/pricing/nessus/">Nessus pricing 2026</a></li>
+    <li><a href="https://www.aikido.dev/pricing">Aikido pricing</a></li>
+    <li><a href="https://lovable.dev/blog/announcing-pentesting">Lovable and Aikido pentesting</a></li>
+    <li><a href="https://docs.lovable.dev/features/security">Lovable security overview</a></li>
+    <li><a href="https://bolt.new/blog/security-audit-on-publish">Bolt: security audit on publish</a></li>
+    <li><a href="https://docs.base44.com/Setting-up-your-app/running-a-security-scan">Base44: running a security scan</a></li>
+    <li><a href="https://replit.com/blog/meet-replit-security-agent">Replit Security Agent</a></li>
+    <li><a href="https://supabase.com/blog/security-performance-advisor">Supabase Security Advisor</a></li>
+    <li><a href="https://appsecsanta.com/zap">AppSec Santa: ZAP review</a></li>
+    <li><a href="https://github.com/projectdiscovery/nuclei">Nuclei on GitHub</a></li>
+    <li><a href="https://appsecsanta.com/nuclei">AppSec Santa: Nuclei review</a></li>
+    <li><a href="https://docs.qualys.com/en/certview/latest/scans/ssl_grading.htm">Qualys SSL grading</a></li>
+    <li><a href="https://github.com/ssllabs/ssllabs-scan/blob/master/ssllabs-api-docs-v4.md">SSL Labs API v4</a></li>
+    <li><a href="https://scotthelme.co.uk/security-headers-is-joining-probely/">Security Headers joins Probely</a></li>
+    <li><a href="https://github.com/anthropics/claude-code-security-review">Claude Code security review Action</a></li>
+    <li><a href="https://cursor.com/docs/bugbot">Cursor Bugbot</a></li>
+  </ol>
+  <div class="foot">
+    <p>Built from the 17 reports in cc4480/grading-the-grader, artifacts/. SecScan facts are from those reports and were not rechecked against the code today.</p>
+    <p>Research date: October 3, 2026. Re-run before quoting any price or claim to a customer.</p>
+  </div>
+</section>
+
+</div>

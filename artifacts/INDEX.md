@@ -9,6 +9,7 @@ Open a snapshot by downloading the `.html` file and opening it in a browser. Fon
 
 | Artifact | Updated | Snapshot | Live |
 |---|---|---|---|
+| SecScan Against the Field | 2026-10-03 | [`secscan-against-the-field.html`](secscan-against-the-field.html) | [link](https://claude.ai/artifact/L2KivPf5SvvL2hqWQ32Drp) |
 | Grading the Grader | 2026-10-03 | [`grading-the-grader.html`](grading-the-grader.html) | [link](https://claude.ai/artifact/5An56frDVPGYuSGXLMRYHh) |
 | SEO Audit Corrections | 2026-09-30 | [`seo-audit-corrections.html`](seo-audit-corrections.html) | [link](https://claude.ai/artifact/R5dx9wEXLpCrf76cUiWFmY) |
 | SecScan Test Report (Copy) | 2026-09-22 | [`secscan-test-report-copy.html`](secscan-test-report-copy.html) | [link](https://claude.ai/artifact/RVbVhH18daUtTf1AfkTJwd) |
