@@ -1,0 +1,561 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>SecScan Product Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one reading column (~60rem) under a jump list; every check sits in a collapsible test; wide tables scroll inside their own box. */
+:root {
+  --bg: #f4f7f5; --surface: #ffffff; --fg: #12201a; --muted: #55675d; --rule: #d3dfd8;
+  --accent: #15803d; --accent-soft: #dcf1e3;
+  --crit: #b3261e; --high: #c2410c; --med: #a16207; --low: #1d6fa5; --info: #5f6f78; --var: #6b4fa1;
+  --crit-bg: #fbe3e1; --high-bg: #fde7d9; --med-bg: #fbf0cf; --low-bg: #dcecf7; --info-bg: #e5eaed; --var-bg: #ebe4f6;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1511; --surface: #121e18; --fg: #e3eee7; --muted: #94a89c; --rule: #263a2f;
+    --accent: #4ade80; --accent-soft: #163222;
+    --crit: #f59a93; --high: #f7a66a; --med: #e6c15a; --low: #7fc0ec; --info: #a9b7bf; --var: #c0a8ec;
+    --crit-bg: #3c1a18; --high-bg: #3b2415; --med-bg: #362c0f; --low-bg: #142b3a; --info-bg: #232f35; --var-bg: #2b2140; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1511; --surface: #121e18; --fg: #e3eee7; --muted: #94a89c; --rule: #263a2f;
+  --accent: #4ade80; --accent-soft: #163222;
+  --crit: #f59a93; --high: #f7a66a; --med: #e6c15a; --low: #7fc0ec; --info: #a9b7bf; --var: #c0a8ec;
+  --crit-bg: #3c1a18; --high-bg: #3b2415; --med-bg: #362c0f; --low-bg: #142b3a; --info-bg: #232f35; --var-bg: #2b2140; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 400 1rem/1.6 var(--body); padding-inline: 1rem; padding-block: 2rem 4rem; }
+main { max-width: 60rem; margin-inline: auto; display: flex; flex-direction: column; gap: 3rem; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(1.9rem, 5vw, 2.6rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.45rem; font-weight: 700; scroll-margin-top: 1rem; }
+h3 { font-size: 1.05rem; font-weight: 600; }
+p { margin: 0; max-width: 68ch; }
+ul, ol { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; max-width: 72ch; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code { font: 500 0.85em var(--mono); background: var(--accent-soft); padding: 0.05em 0.3em; border-radius: 0.25rem; overflow-wrap: anywhere; }
+.meta { font: 500 0.78rem/1.4 var(--mono); color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; }
+header, section { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+.lede { font-size: 1.12rem; }
+.jump { display: flex; flex-wrap: wrap; gap: 0.4rem 0.9rem; font-size: 0.88rem; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: 0.75rem; }
+.tile { background: var(--surface); border: 1px solid var(--rule); border-radius: 0.5rem; padding: 0.85rem 0.9rem; display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+.tile b { font: 700 1.9rem/1.1 var(--display); color: var(--accent); font-variant-numeric: tabular-nums; }
+.tile span { font-size: 0.82rem; color: var(--muted); }
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 0.5rem; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.88rem; min-width: 34rem; }
+th, td { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--rule); }
+th { font: 500 0.72rem/1.3 var(--mono); letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); background: var(--bg); }
+tbody tr:last-child td { border-bottom: 0; }
+td:first-child { font-weight: 500; }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sev, .lv { display: inline-block; font: 500 0.7rem/1 var(--mono); padding: 0.28rem 0.5rem; border-radius: 99rem; letter-spacing: 0.03em; white-space: nowrap; }
+.sev.critical { background: var(--crit-bg); color: var(--crit); } .sev.high { background: var(--high-bg); color: var(--high); }
+.sev.medium { background: var(--med-bg); color: var(--med); } .sev.low { background: var(--low-bg); color: var(--low); }
+.sev.info { background: var(--info-bg); color: var(--info); } .sev.varies { background: var(--var-bg); color: var(--var); }
+.lv.open { background: var(--accent-soft); color: var(--accent); } .lv.repo { background: var(--low-bg); color: var(--low); }
+.lv.owned { background: var(--med-bg); color: var(--med); } .lv.owned-extra { background: var(--high-bg); color: var(--high); }
+details { background: var(--surface); border: 1px solid var(--rule); border-radius: 0.5rem; }
+details + details { margin-top: 0.5rem; }
+summary { cursor: pointer; list-style: none; display: grid; grid-template-columns: 1.6rem minmax(0, 1fr) auto auto; gap: 0.3rem 0.75rem; align-items: center; padding: 0.7rem 0.85rem; }
+summary::-webkit-details-marker { display: none; }
+summary .tn { font: 500 0.78rem var(--mono); color: var(--muted); }
+summary .tt { font-weight: 600; overflow-wrap: anywhere; }
+summary .tc { grid-column: 2; font-size: 0.78rem; color: var(--muted); grid-row: 2; }
+summary .lv { grid-column: 3; grid-row: 1; }
+summary .ct { grid-column: 4; grid-row: 1; font: 600 0.85rem var(--mono); min-width: 1.6rem; text-align: right; }
+summary::after { content: ""; }
+details[open] > summary { border-bottom: 1px solid var(--rule); }
+.dbody { padding: 0.75rem 0.85rem 0.9rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.cond { font-size: 0.88rem; color: var(--high); }
+.src { font-size: 0.78rem; color: var(--muted); }
+.checks { min-width: 28rem; }
+.checks td:last-child { white-space: nowrap; }
+.cat { font: 400 0.7rem var(--mono); color: var(--muted); margin-left: 0.35rem; }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); gap: 1.25rem; }
+.two > div { display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
+.note { font-size: 0.85rem; color: var(--muted); max-width: 72ch; }
+.callout { border-left: 3px solid var(--med); padding: 0.4rem 0 0.4rem 1rem; display: flex; flex-direction: column; gap: 0.4rem; }
+.callout.good { border-color: var(--accent); }
+.legend { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.sources ul { columns: 2 20rem; column-gap: 2rem; font-size: 0.82rem; }
+.sources li { break-inside: avoid; overflow-wrap: anywhere; }
+@media (max-width: 34rem) { summary { grid-template-columns: 1.4rem minmax(0, 1fr) auto; } summary .lv { grid-column: 2; grid-row: 3; justify-self: start; } summary .ct { grid-column: 3; grid-row: 1; } }
+</style>
+
+<main>
+<header>
+  <div class="meta">Private · built from source at master 68ad7c7 · 2026-09-30</div>
+  <h1>SecScan product report</h1>
+  <p class="lede">SecScan (secscan.us) scans a live website from the outside and grades it A to F. It is aimed at apps built with AI tools such as Lovable and Bolt. There is one kind of scan, the full one: it makes <b>143 checks</b> across <b>41 tests</b>, sends test traffic only to domains the user has proven they own, and can watch sites continuously. Every account gets 3 free scans a month. Paid plans start at $19 a month, but payments are switched off.</p>
+  <nav class="jump" aria-label="Sections">
+    <a href="#scan">What a scan is</a><a href="#access">Access levels</a><a href="#checks">Every check</a><a href="#inputs">Inputs and safety</a><a href="#report">The report</a><a href="#monitor">Monitoring</a><a href="#integrations">Integrations</a><a href="#limits">Limits</a><a href="#pricing">Pricing</a><a href="#fp">False positives</a><a href="#status">Validation</a><a href="#gaps">Not built</a><a href="#drift">Docs vs code</a>
+  </nav>
+</header>
+
+<div class="tiles">
+  <div class="tile"><b>143</b><span>checks, counted from the catalog in code</span></div>
+  <div class="tile"><b>41</b><span>tests in the scan log</span></div>
+  <div class="tile"><b>310</b><span>distinct finding names (generated index)</span></div>
+  <div class="tile"><b>12</b><span>MCP tools for AI editors</span></div>
+  <div class="tile"><b>2,611</b><span>tests, none skipped, all passing today</span></div>
+  <div class="tile"><b>$0 · $19 · $49</b><span>free, Starter, Pro (per month)</span></div>
+</div>
+
+<section id="scan">
+  <h2>What a scan is</h2>
+  <p>Three words are used for counts, and they are not interchangeable. A <b>test</b> is one thing the scan records in its log (41). A <b>check</b> is one detection inside a test (143, the number the product advertises). A <b>finding name</b> is a distinct title that can appear in a report (310 in the generated index), because one check can report several variants. One path probe covers 78 paths and one secret scanner covers 35 patterns, so these numbers differ by design.</p>
+  <div class="callout good">
+    <h3>One scan type</h3>
+    <p>The old Basic and Deep tiers are gone. The scan route sets every scan to the full run, and the API still accepts <code>"deep"</code> only so old clients keep working. What changes from one scan to the next is how much of the target the scanner is allowed to reach: proof of domain ownership, credentials, a second account, an out-of-band collector, a GitHub repository, and one opt-in test.</p>
+  </div>
+  <h3>What happens during a scan</h3>
+  <ol>
+    <li><b>Passive analysis.</b> One request to the target, then headers, cookies, HTML, JWTs, structured data and technology fingerprints are analysed.</li>
+    <li><b>Probes in parallel.</b> Sensitive files, email and DNS security, source maps, API docs, cloud storage, GraphQL, Supabase and Firebase, JavaScript secrets, a crawl of up to 20 pages, known CVEs, and more, depending on the access level below.</li>
+    <li><b>Worker checks.</b> A TLS grade from Qualys SSL Labs, plus reconnaissance: DNS records, subdomain enumeration over 64 common names, and a port scan of 33 ports (the port scan needs a verified domain).</li>
+    <li><b>Report.</b> Findings with severity and confidence, a score and grade, an AI-written analysis (or a built-in template when the AI is unavailable or switched off), and a log of every test with the reason for any that did not run.</li>
+  </ol>
+  <h3>How the grade works (verified in <code>scannerGrade.ts</code>)</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Finding severity</th><th>Risk points</th><th>Risk score</th><th>Grade</th></tr></thead>
+    <tbody>
+      <tr><td>Critical</td><td class="num">+30</td><td class="num">0 to 10</td><td class="num">A</td></tr>
+      <tr><td>High</td><td class="num">+15</td><td class="num">11 to 25</td><td class="num">B</td></tr>
+      <tr><td>Medium</td><td class="num">+5</td><td class="num">26 to 45</td><td class="num">C</td></tr>
+      <tr><td>Low</td><td class="num">+1</td><td class="num">46 to 65</td><td class="num">D</td></tr>
+      <tr><td>Info</td><td class="num">0</td><td class="num">66 to 100</td><td class="num">F</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">The score is the sum of points, capped at 100, and lower is better. SecScan's scale is the opposite of Seclayer's, so the two numbers are not comparable. A scan that a bot-protection layer answered is not graded at all: the grade is an "incomplete" marker, because the score would otherwise read as a perfect 0.</p>
+</section>
+
+<section id="access">
+  <h2>What runs at each access level</h2>
+  <p>The gate is one function (<code>activeProbeGate.ts</code>). Active tests run only when the user has proven ownership of the target's domain by a DNS TXT record or a well-known file. The gate fails closed: any error while looking up the verification counts as "not verified". An operator setting can unlock it on a private instance, and a development flag can do so outside production. Tests that do not run are listed in the report as "not tested", with the reason. In total, <b>17 of the 41 tests (50 of the 143 checks)</b> need a verified domain, so an unverified scan runs the rest.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Level</th><th>Tests</th><th>Checks</th><th>What it means</th></tr></thead>
+    <tbody><tr><td><span class="lv open">Anyone</span></td><td class="num">23</td><td class="num">92</td><td>Runs on every scan of any public URL. No account or proof of ownership needed.</td></tr><tr><td><span class="lv repo">GitHub repo supplied</span></td><td class="num">1</td><td class="num">1</td><td>Passive, but only runs when the scan is given a public GitHub repository URL.</td></tr><tr><td><span class="lv owned">Verified domain</span></td><td class="num">13</td><td class="num">44</td><td>Sends test traffic. Runs only after the user proves they own the domain (DNS TXT record or a well-known file). Skipped and listed as "not tested" otherwise.</td></tr><tr><td><span class="lv owned-extra">Verified domain plus a condition</span></td><td class="num">4</td><td class="num">6</td><td>Needs ownership and something more, stated per test.</td></tr></tbody>
+  </table></div>
+  <p class="note">Two reconnaissance tests sit outside the check catalog because they report information, not findings: DNS records and subdomain enumeration. Both run for everyone.</p>
+</section>
+
+<section id="checks">
+  <h2>Every check</h2>
+  <p>Generated from the product's own check catalog (<code>checkCatalog*.ts</code>), the same data that drives the live scan terminal and the report colours. A unit test requires every name here to appear in the source file that raises it, so a rename or an addition fails the build. Open a test to see its checks.</p>
+  <div class="legend"><span class="sev critical">critical 33</span> <span class="sev high">high 25</span> <span class="sev medium">medium 27</span> <span class="sev low">low 22</span> <span class="sev info">info 25</span> <span class="sev varies">varies 11</span></div>
+  <p class="note"><b>varies</b> means the severity depends on what is found: per file type for sensitive files, per CVSS score for CVEs, per port for the port scan, and so on.</p>
+  <div><details id="t-response-headers-and-cookies"><summary><span class="tn">1</span><span class="tt">response headers and cookies</span><span class="tc">HTTP Security</span><span class="lv open">Anyone</span><span class="ct">28</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>No HTTPS / Plaintext HTTP</td><td><span class="sev critical">critical</span></td></tr><tr><td>Missing HTTP Strict-Transport-Security (HSTS)</td><td><span class="sev medium">medium</span></td></tr><tr><td>HSTS max-age Too Short</td><td><span class="sev low">low</span></td></tr><tr><td>Missing Content-Security-Policy (CSP)</td><td><span class="sev high">high</span></td></tr><tr><td>CSP script-src Contains Wildcard</td><td><span class="sev high">high</span></td></tr><tr><td>Content-Security-Policy is report-only (not enforced)</td><td><span class="sev medium">medium</span></td></tr><tr><td>Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)</td><td><span class="sev medium">medium</span></td></tr><tr><td>Content-Security-Policy Allows Inline Styles</td><td><span class="sev low">low</span></td></tr><tr><td>CSP Missing object-src 'none' Directive</td><td><span class="sev low">low</span></td></tr><tr><td>CSP Missing base-uri Directive</td><td><span class="sev low">low</span></td></tr><tr><td>Missing Clickjacking Protection (X-Frame-Options)</td><td><span class="sev medium">medium</span></td></tr><tr><td>Missing X-Content-Type-Options: nosniff</td><td><span class="sev low">low</span></td></tr><tr><td>Missing Referrer-Policy Header</td><td><span class="sev low">low</span></td></tr><tr><td>Missing Permissions-Policy Header</td><td><span class="sev low">low</span></td></tr><tr><td>Missing Cross-Origin-Opener-Policy (COOP)</td><td><span class="sev info">info</span></td></tr><tr><td>Missing Cross-Origin-Embedder-Policy (COEP)</td><td><span class="sev info">info</span></td></tr><tr><td>Missing Cross-Origin-Resource-Policy (CORP)</td><td><span class="sev info">info</span></td></tr><tr><td>Missing Cache-Control Headers</td><td><span class="sev info">info</span></td></tr><tr><td>Permissive CORS Policy (Wildcard Origin) <span class="cat">CORS Misconfiguration</span></td><td><span class="sev info">info</span></td></tr><tr><td>Mixed Content (HTTP Resources on HTTPS Page)</td><td><span class="sev medium">medium</span></td></tr><tr><td>Server Version Disclosure <span class="cat">Information Disclosure</span></td><td><span class="sev info">info</span></td></tr><tr><td>X-Powered-By Header Discloses Technology Stack <span class="cat">Information Disclosure</span></td><td><span class="sev info">info</span></td></tr><tr><td>Session Cookie Missing Secure Flag <span class="cat">Session Management</span></td><td><span class="sev high">high</span></td></tr><tr><td>Session Cookie Missing HttpOnly Flag <span class="cat">Session Management</span></td><td><span class="sev medium">medium</span></td></tr><tr><td>Session Cookie Missing SameSite Attribute <span class="cat">Session Management</span></td><td><span class="sev medium">medium</span></td></tr><tr><td>Non-Session Cookie Missing Secure Flag <span class="cat">Session Management</span></td><td><span class="sev low">low</span></td></tr><tr><td>Non-Session Cookie Readable by JavaScript <span class="cat">Session Management</span></td><td><span class="sev info">info</span></td></tr><tr><td>Non-Session Cookie Missing SameSite Attribute <span class="cat">Session Management</span></td><td><span class="sev info">info</span></td></tr></tbody></table></div><p class="src">Raised in <code>scanner.ts</code></p></div></details>
+<details id="t-sensitive-file-exposure"><summary><span class="tn">2</span><span class="tt">sensitive file exposure</span><span class="tc">Information Disclosure</span><span class="lv open">Anyone</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Sensitive file or path publicly readable (78 paths)</td><td><span class="sev varies">varies</span></td></tr></tbody></table></div><p class="src">Raised in <code>probes.ts</code></p></div></details>
+<details id="t-robots-txt-disclosure"><summary><span class="tn">3</span><span class="tt">robots.txt disclosure</span><span class="tc">Information Disclosure</span><span class="lv open">Anyone</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>robots.txt Discloses Sensitive Application Paths</td><td><span class="sev low">low</span></td></tr></tbody></table></div><p class="src">Raised in <code>probes.ts</code></p></div></details>
+<details id="t-subresource-integrity"><summary><span class="tn">4</span><span class="tt">subresource integrity</span><span class="tc">Supply Chain Security</span><span class="lv open">Anyone</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>External Resources Missing Subresource Integrity (SRI)</td><td><span class="sev medium">medium</span></td></tr></tbody></table></div><p class="src">Raised in <code>probes.ts</code></p></div></details>
+<details id="t-verbose-error-pages"><summary><span class="tn">5</span><span class="tt">verbose error pages</span><span class="tc">Information Disclosure</span><span class="lv open">Anyone</span><span class="ct">2</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Verbose Error Pages Expose Internal Application Details</td><td><span class="sev medium">medium</span></td></tr><tr><td>Flask/Werkzeug Interactive Debugger Exposed</td><td><span class="sev critical">critical</span></td></tr></tbody></table></div><p class="src">Raised in <code>probes.ts</code></p></div></details>
+<details id="t-http-to-https-redirect"><summary><span class="tn">6</span><span class="tt">HTTP to HTTPS redirect</span><span class="tc">Transport Security</span><span class="lv open">Anyone</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>HTTP Traffic Not Redirected to HTTPS</td><td><span class="sev high">high</span></td></tr></tbody></table></div><p class="src">Raised in <code>probes.ts</code></p></div></details>
+<details id="t-rate-limit-headers"><summary><span class="tn">7</span><span class="tt">rate-limit headers</span><span class="tc">Brute Force Protection</span><span class="lv open">Anyone</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Rate Limiting Not Advertised in Response Headers</td><td><span class="sev low">low</span></td></tr></tbody></table></div><p class="src">Raised in <code>probes.ts</code></p></div></details>
+<details id="t-clickjacking-headers"><summary><span class="tn">8</span><span class="tt">clickjacking headers</span><span class="tc">UI Security</span><span class="lv open">Anyone</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>X-Frame-Options Header Misconfigured</td><td><span class="sev medium">medium</span></td></tr></tbody></table></div><p class="src">Raised in <code>probes.ts</code></p></div></details>
+<details id="t-directory-listing"><summary><span class="tn">9</span><span class="tt">directory listing</span><span class="tc">Information Disclosure</span><span class="lv open">Anyone</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Directory Listing Enabled</td><td><span class="sev medium">medium</span></td></tr></tbody></table></div><p class="src">Raised in <code>probes.ts</code></p></div></details>
+<details id="t-security-txt"><summary><span class="tn">10</span><span class="tt">security.txt</span><span class="tc">Information Disclosure</span><span class="lv open">Anyone</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Missing security.txt (RFC 9116)</td><td><span class="sev info">info</span></td></tr></tbody></table></div><p class="src">Raised in <code>probes.ts</code></p></div></details>
+<details id="t-http-methods"><summary><span class="tn">11</span><span class="tt">HTTP methods</span><span class="tc">HTTP Security</span><span class="lv owned">Verified domain</span><span class="ct">3</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>HTTP TRACE Method Enabled (Cross-Site Tracing)</td><td><span class="sev medium">medium</span></td></tr><tr><td>Write HTTP Methods Advertised</td><td><span class="sev high">high</span></td></tr><tr><td>HTTP CONNECT Method Enabled</td><td><span class="sev medium">medium</span></td></tr></tbody></table></div><p class="src">Raised in <code>probes.ts</code></p></div></details>
+<details id="t-active-cors"><summary><span class="tn">12</span><span class="tt">active CORS</span><span class="tc">CORS Misconfiguration</span><span class="lv owned">Verified domain</span><span class="ct">2</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>CORS Misconfiguration — Credentials Allowed from Arbitrary Origin</td><td><span class="sev high">high</span></td></tr><tr><td>CORS — Origin Reflected Without Credentials</td><td><span class="sev low">low</span></td></tr></tbody></table></div><p class="src">Raised in <code>probes.ts</code></p></div></details>
+<details id="t-open-redirect"><summary><span class="tn">13</span><span class="tt">open redirect</span><span class="tc">Unvalidated Redirects</span><span class="lv owned">Verified domain</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Open Redirect Vulnerability</td><td><span class="sev medium">medium</span></td></tr></tbody></table></div><p class="src">Raised in <code>probes.ts</code></p></div></details>
+<details id="t-supabase-rls"><summary><span class="tn">14</span><span class="tt">Supabase RLS</span><span class="tc">Database Security</span><span class="lv owned">Verified domain</span><span class="ct">2</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Supabase Tables Exposed — Row Level Security (RLS) Disabled</td><td><span class="sev critical">critical</span></td></tr><tr><td>Supabase Detected — Verify Row Level Security (RLS)</td><td><span class="sev info">info</span></td></tr></tbody></table></div><p class="src">Raised in <code>probes.ts</code></p></div></details>
+<details id="t-dns-and-email-authentication"><summary><span class="tn">15</span><span class="tt">DNS and email authentication</span><span class="tc">Email Security</span><span class="lv open">Anyone</span><span class="ct">9</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Missing SPF Record — Email Spoofing Possible</td><td><span class="sev high">high</span></td></tr><tr><td>SPF Record Uses +all (Allows Any Sender)</td><td><span class="sev critical">critical</span></td></tr><tr><td>SPF Record Uses ?all (Neutral — No Enforcement)</td><td><span class="sev medium">medium</span></td></tr><tr><td>SPF Record Exceeds DNS Lookup Limit</td><td><span class="sev low">low</span></td></tr><tr><td>Missing DMARC Record — No Email Authentication Enforcement</td><td><span class="sev high">high</span></td></tr><tr><td>DMARC Policy Set to None (Monitoring Only — No Enforcement)</td><td><span class="sev medium">medium</span></td></tr><tr><td>DMARC Record Missing Aggregate Report Address (rua=)</td><td><span class="sev info">info</span></td></tr><tr><td>No DKIM Records Found Under Common Selectors</td><td><span class="sev low">low</span></td></tr><tr><td>DNSSEC Not Enabled <span class="cat">DNS Security</span></td><td><span class="sev info">info</span></td></tr></tbody></table></div><p class="src">Raised in <code>dnsChecks.ts</code></p></div></details>
+<details id="t-mail-transport-security"><summary><span class="tn">16</span><span class="tt">mail transport security</span><span class="tc">Mail Transport Security</span><span class="lv open">Anyone</span><span class="ct">3</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Mail Server Does Not Offer STARTTLS</td><td><span class="sev medium">medium</span></td></tr><tr><td>Mail Server TLS Certificate Expired</td><td><span class="sev high">high</span></td></tr><tr><td>Mail Server TLS Certificate Expiring Soon</td><td><span class="sev low">low</span></td></tr></tbody></table></div><p class="src">Raised in <code>mailTls.ts</code></p></div></details>
+<details id="t-structured-data-and-social-metadata"><summary><span class="tn">17</span><span class="tt">structured data and social metadata</span><span class="tc">Structured Data</span><span class="lv open">Anyone</span><span class="ct">9</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Internal Hostname Exposed in Structured Data</td><td><span class="sev low">low</span></td></tr><tr><td>Social Preview Asset Referenced Over HTTP</td><td><span class="sev low">low</span></td></tr><tr><td>Canonical URL Points to an External Domain</td><td><span class="sev low">low</span></td></tr><tr><td>Malformed JSON-LD Structured Data</td><td><span class="sev info">info</span></td></tr><tr><td>Structured Data Missing @context or @type</td><td><span class="sev info">info</span></td></tr><tr><td>No Structured Data Found</td><td><span class="sev info">info</span></td></tr><tr><td>Incomplete Open Graph Metadata</td><td><span class="sev info">info</span></td></tr><tr><td>Twitter Card Metadata Absent</td><td><span class="sev info">info</span></td></tr><tr><td>Page Excluded From Search Indexes</td><td><span class="sev info">info</span></td></tr></tbody></table></div><p class="src">Raised in <code>structuredData.ts</code></p></div></details>
+<details id="t-next-js-next-data-secrets"><summary><span class="tn">18</span><span class="tt">Next.js __NEXT_DATA__ secrets</span><span class="tc">Credential Exposure</span><span class="lv open">Anyone</span><span class="ct">9</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Stripe Live Secret Key in __NEXT_DATA__</td><td><span class="sev critical">critical</span></td></tr><tr><td>Supabase Service Role Key in __NEXT_DATA__</td><td><span class="sev critical">critical</span></td></tr><tr><td>Private Key in __NEXT_DATA__</td><td><span class="sev critical">critical</span></td></tr><tr><td>AWS Access Key ID in __NEXT_DATA__</td><td><span class="sev critical">critical</span></td></tr><tr><td>AWS Secret Access Key in __NEXT_DATA__</td><td><span class="sev critical">critical</span></td></tr><tr><td>GitHub Token in __NEXT_DATA__</td><td><span class="sev critical">critical</span></td></tr><tr><td>SendGrid API Key in __NEXT_DATA__</td><td><span class="sev high">high</span></td></tr><tr><td>Slack Token in __NEXT_DATA__</td><td><span class="sev high">high</span></td></tr><tr><td>Hardcoded Database Connection String in __NEXT_DATA__</td><td><span class="sev critical">critical</span></td></tr></tbody></table></div><p class="src">Raised in <code>nextjsProbe.ts</code></p></div></details>
+<details id="t-known-cve-and-end-of-life-versions"><summary><span class="tn">19</span><span class="tt">known-CVE and end-of-life versions</span><span class="tc">Outdated Software</span><span class="lv open">Anyone</span><span class="ct">7</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>PHP end-of-life release</td><td><span class="sev critical">critical</span></td></tr><tr><td>Nginx version with a known CVE</td><td><span class="sev varies">varies</span></td></tr><tr><td>Nginx end-of-life release cycle</td><td><span class="sev high">high</span></td></tr><tr><td>Apache version with a known CVE</td><td><span class="sev varies">varies</span></td></tr><tr><td>Apache HTTPD end-of-life release branch</td><td><span class="sev critical">critical</span></td></tr><tr><td>Microsoft IIS 6.0 — CVE-2017-7269 WebDAV RCE</td><td><span class="sev critical">critical</span></td></tr><tr><td>Detected version matched against OSV.dev</td><td><span class="sev varies">varies</span></td></tr></tbody></table></div><p class="src">Raised in <code>cveCheck.ts</code></p></div></details>
+<details id="t-dependency-cves-from-an-exposed-manifest"><summary><span class="tn">20</span><span class="tt">dependency CVEs from an exposed manifest</span><span class="tc">Vulnerable Components</span><span class="lv owned">Verified domain</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Vulnerable dependency named in an exposed manifest</td><td><span class="sev varies">varies</span></td></tr></tbody></table></div><p class="src">Raised in <code>manifestSca.ts</code></p></div></details>
+<details id="t-jwt-analysis"><summary><span class="tn">21</span><span class="tt">JWT analysis</span><span class="tc">Session Management</span><span class="lv open">Anyone</span><span class="ct">6</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>JWT Using alg:none — Signature Verification Bypass</td><td><span class="sev critical">critical</span></td></tr><tr><td>JWT Has Empty Signature — Possible Verification Bypass</td><td><span class="sev critical">critical</span></td></tr><tr><td>JWT Token Has No Expiry (exp Claim Missing)</td><td><span class="sev high">high</span></td></tr><tr><td>JWT Uses HS256 Without Expiry — Offline Brute-Force Risk</td><td><span class="sev high">high</span></td></tr><tr><td>JWT Token Lifetime Excessive</td><td><span class="sev medium">medium</span></td></tr><tr><td>Sensitive Data Stored in JWT Payload</td><td><span class="sev medium">medium</span></td></tr></tbody></table></div><p class="src">Raised in <code>jwtAnalysis.ts</code></p></div></details>
+<details id="t-supabase-rls-and-firebase-rules"><summary><span class="tn">22</span><span class="tt">Supabase RLS and Firebase rules</span><span class="tc">Database Security</span><span class="lv owned">Verified domain</span><span class="ct">13</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Supabase Service Role Key Exposed in Client-Side Code</td><td><span class="sev critical">critical</span></td></tr><tr><td>Supabase Backend Detected</td><td><span class="sev info">info</span></td></tr><tr><td>Supabase Tables Readable Without Authentication (CVE-2025-48757)</td><td><span class="sev critical">critical</span></td></tr><tr><td>Supabase Tables Returned Empty Results To Anonymous Requests</td><td><span class="sev info">info</span></td></tr><tr><td>Supabase Tables Accept Unauthenticated Writes</td><td><span class="sev critical">critical</span></td></tr><tr><td>Supabase Backend Detected — RLS Appears Configured</td><td><span class="sev info">info</span></td></tr><tr><td>Supabase Storage Bucket List Exposed Without Authentication</td><td><span class="sev medium">medium</span></td></tr><tr><td>Firestore Security Rules Allow Unauthenticated Read Access</td><td><span class="sev critical">critical</span></td></tr><tr><td>Firebase Backend Detected — Firestore Rules Appear Restrictive</td><td><span class="sev info">info</span></td></tr><tr><td>Firebase Realtime Database Open to Unauthenticated Access</td><td><span class="sev critical">critical</span></td></tr><tr><td>Supabase Email Confirmation Disabled</td><td><span class="sev low">low</span></td></tr><tr><td>Supabase Storage Files Listable Without Authentication</td><td><span class="sev medium">medium</span></td></tr><tr><td>Firebase Storage Files Listable Without Authentication</td><td><span class="sev high">high</span></td></tr></tbody></table></div><p class="src">Raised in <code>supabase-probes.ts</code></p></div></details>
+<details id="t-cross-account-access-control"><summary><span class="tn">23</span><span class="tt">cross-account access control</span><span class="tc">Broken Access Control</span><span class="lv owned-extra">Verified domain plus a condition</span><span class="ct">3</span></summary>
+<div class="dbody"><p class="cond">Also needs two accounts on the target (supplied, or created automatically when the automatic second account option is on). With one account it is the single skipped test.</p><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Broken Object-Level Authorisation (IDOR)</td><td><span class="sev critical">critical</span></td></tr><tr><td>Records Enumerable by Editing the Identifier</td><td><span class="sev critical">critical</span></td></tr><tr><td>Records Readable Without Signing In</td><td><span class="sev high">high</span></td></tr></tbody></table></div><p class="src">Raised in <code>accessControlFindings.ts</code></p></div></details>
+<details id="t-api-endpoint-testing"><summary><span class="tn">24</span><span class="tt">API endpoint testing</span><span class="tc">API Security</span><span class="lv owned">Verified domain</span><span class="ct">7</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>API Endpoints Served Without Authentication</td><td><span class="sev high">high</span></td></tr><tr><td>API Records Readable by Another Account</td><td><span class="sev critical">critical</span></td></tr><tr><td>Write Endpoints Reachable Without Authentication</td><td><span class="sev critical">critical</span></td></tr><tr><td>Sensitive Fields Returned by the API</td><td><span class="sev high">high</span></td></tr><tr><td>Privilege Fields Accepted in Request Bodies</td><td><span class="sev medium">medium</span></td></tr><tr><td>No Rate Limiting Observed on Sensitive API Endpoints</td><td><span class="sev info">info</span></td></tr><tr><td>SQL Injection in API Parameters</td><td><span class="sev critical">critical</span></td></tr></tbody></table></div><p class="src">Raised in <code>apiProbe.ts</code></p></div></details>
+<details id="t-public-cloud-storage-buckets"><summary><span class="tn">25</span><span class="tt">public cloud storage buckets</span><span class="tc">Cloud Storage Misconfiguration</span><span class="lv owned">Verified domain</span><span class="ct">3</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Public S3 Bucket Listing</td><td><span class="sev high">high</span></td></tr><tr><td>Public Google Cloud Storage Bucket Listing</td><td><span class="sev high">high</span></td></tr><tr><td>Public Azure Blob Container Listing</td><td><span class="sev high">high</span></td></tr></tbody></table></div><p class="src">Raised in <code>storageProbe.ts</code></p></div></details>
+<details id="t-baas-open-data"><summary><span class="tn">26</span><span class="tt">BaaS open data</span><span class="tc">BaaS Misconfiguration</span><span class="lv owned">Verified domain</span><span class="ct">2</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>PocketBase Collections Readable Without Authentication</td><td><span class="sev critical">critical</span></td></tr><tr><td>Appwrite Collections Readable Without Authentication</td><td><span class="sev critical">critical</span></td></tr></tbody></table></div><p class="src">Raised in <code>baasProbes.ts</code></p></div></details>
+<details id="t-graphql-introspection"><summary><span class="tn">27</span><span class="tt">GraphQL introspection</span><span class="tc">API Security</span><span class="lv owned">Verified domain</span><span class="ct">4</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>GraphQL Introspection Enabled in Production</td><td><span class="sev medium">medium</span></td></tr><tr><td>GraphQL Field Suggestions Enabled</td><td><span class="sev low">low</span></td></tr><tr><td>GraphQL Query Batching Enabled</td><td><span class="sev low">low</span></td></tr><tr><td>GraphQL IDE Exposed</td><td><span class="sev medium">medium</span></td></tr></tbody></table></div><p class="src">Raised in <code>graphqlProbe.ts</code></p></div></details>
+<details id="t-injection"><summary><span class="tn">28</span><span class="tt">injection</span><span class="tc">Injection</span><span class="lv owned">Verified domain</span><span class="ct">4</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Reflected Cross-Site Scripting (XSS)</td><td><span class="sev high">high</span></td></tr><tr><td>Server-Side Template Injection</td><td><span class="sev critical">critical</span></td></tr><tr><td>HTTP Header Injection (CRLF)</td><td><span class="sev medium">medium</span></td></tr><tr><td>SQL Injection (Error-Based)</td><td><span class="sev critical">critical</span></td></tr></tbody></table></div><p class="src">Raised in <code>injectionProbe.ts</code></p></div></details>
+<details id="t-path-traversal"><summary><span class="tn">29</span><span class="tt">path traversal</span><span class="tc">Injection</span><span class="lv owned">Verified domain</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Path Traversal / Local File Inclusion (LFI)</td><td><span class="sev critical">critical</span></td></tr></tbody></table></div><p class="src">Raised in <code>pathTraversal.ts</code></p></div></details>
+<details id="t-ssrf"><summary><span class="tn">30</span><span class="tt">SSRF</span><span class="tc">Server-Side Request Forgery</span><span class="lv owned-extra">Verified domain plus a condition</span><span class="ct">1</span></summary>
+<div class="dbody"><p class="cond">Also needs the out-of-band collector to be reachable from the internet (OOB_BASE_URL or a public app origin); otherwise skipped.</p><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Server-Side Request Forgery (SSRF)</td><td><span class="sev critical">critical</span></td></tr></tbody></table></div><p class="src">Raised in <code>ssrfProbe.ts</code></p></div></details>
+<details id="t-source-map-exposure"><summary><span class="tn">31</span><span class="tt">source map exposure</span><span class="tc">Source Code Exposure</span><span class="lv open">Anyone</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>JavaScript Source Map Exposed — Full Source Code Accessible</td><td><span class="sev high">high</span></td></tr></tbody></table></div><p class="src">Raised in <code>sourceMaps.ts</code></p></div></details>
+<details id="t-exposed-api-documentation"><summary><span class="tn">32</span><span class="tt">exposed API documentation</span><span class="tc">API Security</span><span class="lv open">Anyone</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Exposed API Documentation (OpenAPI / Swagger)</td><td><span class="sev medium">medium</span></td></tr></tbody></table></div><p class="src">Raised in <code>apiDocsProbe.ts</code></p></div></details>
+<details id="t-health-endpoint-disclosure"><summary><span class="tn">33</span><span class="tt">health endpoint disclosure</span><span class="tc">Information Disclosure</span><span class="lv open">Anyone</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Health Endpoint Discloses Runtime Details</td><td><span class="sev info">info</span></td></tr></tbody></table></div><p class="src">Raised in <code>healthEndpointProbe.ts</code></p></div></details>
+<details id="t-subdomain-takeover"><summary><span class="tn">34</span><span class="tt">subdomain takeover</span><span class="tc">DNS Security</span><span class="lv open">Anyone</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Dangling CNAME to a Claimable Service</td><td><span class="sev critical">critical</span></td></tr></tbody></table></div><p class="src">Raised in <code>subdomainTakeover.ts</code></p></div></details>
+<details id="t-javascript-secret-scanning"><summary><span class="tn">35</span><span class="tt">JavaScript secret scanning</span><span class="tc">Credential Exposure</span><span class="lv open">Anyone</span><span class="ct">3</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Credential found in JavaScript (34 secret patterns)</td><td><span class="sev varies">varies</span></td></tr><tr><td>AI provider called directly from the browser <span class="cat">AI Feature Security</span></td><td><span class="sev low">low</span></td></tr><tr><td>AI system prompt shipped in client-side code <span class="cat">AI Feature Security</span></td><td><span class="sev low">low</span></td></tr></tbody></table></div><p class="src">Raised in <code>jsScanner.ts</code></p></div></details>
+<details id="t-site-crawl"><summary><span class="tn">36</span><span class="tt">site crawl</span><span class="tc">Information Disclosure</span><span class="lv open">Anyone</span><span class="ct">3</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Sensitive path found on a crawled page (8 paths per page)</td><td><span class="sev varies">varies</span></td></tr><tr><td>Security header missing on internal routes</td><td><span class="sev varies">varies</span></td></tr><tr><td>Insecure Deserialization — serialized object in a cookie <span class="cat">Insecure Deserialization</span></td><td><span class="sev high">high</span></td></tr></tbody></table></div><p class="src">Raised in <code>crawler.ts</code></p></div></details>
+<details id="t-port-scan"><summary><span class="tn">37</span><span class="tt">port scan</span><span class="tc">Network Exposure</span><span class="lv owned">Verified domain</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Unexpected open port</td><td><span class="sev varies">varies</span></td></tr></tbody></table></div><p class="src">Raised in <code>recon.ts</code></p></div></details>
+<details id="t-ssl-labs-tls-grade"><summary><span class="tn">38</span><span class="tt">SSL Labs TLS grade</span><span class="tc">Transport Security</span><span class="lv open">Anyone</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Weak TLS Configuration (SSL Labs grade C or below)</td><td><span class="sev varies">varies</span></td></tr></tbody></table></div><p class="src">Raised in <code>worker.ts</code></p></div></details>
+<details id="t-github-source-code-secrets"><summary><span class="tn">39</span><span class="tt">GitHub source code secrets</span><span class="tc">Credential Exposure</span><span class="lv repo">GitHub repo supplied</span><span class="ct">1</span></summary>
+<div class="dbody"><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Credential found in a public GitHub repository's source (34 secret patterns)</td><td><span class="sev varies">varies</span></td></tr></tbody></table></div><p class="src">Raised in <code>githubSourceProbe.ts</code></p></div></details>
+<details id="t-llm-prompt-injection"><summary><span class="tn">40</span><span class="tt">LLM prompt injection</span><span class="tc">AI Feature Security</span><span class="lv owned-extra">Verified domain plus a condition</span><span class="ct">1</span></summary>
+<div class="dbody"><p class="cond">Also needs the site’s own client-side code to contain a system prompt to check against; otherwise skipped.</p><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>LLM Prompt Injection Extracts the System Prompt</td><td><span class="sev medium">medium</span></td></tr></tbody></table></div><p class="src">Raised in <code>promptInjectionProbe.ts</code></p></div></details>
+<details id="t-race-condition"><summary><span class="tn">41</span><span class="tt">race condition</span><span class="tc">Business Logic</span><span class="lv owned-extra">Verified domain plus a condition</span><span class="ct">1</span></summary>
+<div class="dbody"><p class="cond">Also needs an explicit per-scan opt-in and a signed-in test account.</p><div class="tablewrap"><table class="checks"><thead><tr><th>Check (finding name as the report shows it)</th><th>Severity</th></tr></thead><tbody><tr><td>Race Condition Allows a One-Time Action to Succeed Multiple Times</td><td><span class="sev high">high</span></td></tr></tbody></table></div><p class="src">Raised in <code>raceConditionProbe.ts</code></p></div></details></div>
+  <h3>Sizes behind the checks</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>What</th><th>Size</th><th>How I know</th></tr></thead>
+    <tbody>
+      <tr><td>Sensitive paths probed</td><td class="num">78</td><td>Counted from <code>SENSITIVE_PATHS</code></td></tr>
+      <tr><td>Secret patterns (JavaScript and GitHub)</td><td class="num">35</td><td>Counted from <code>SECRET_PATTERNS</code>. The catalog and site say 34.</td></tr>
+      <tr><td>DKIM selectors tried</td><td class="num">42</td><td>Counted from <code>COMMON_DKIM_SELECTORS</code>. The docs say 30.</td></tr>
+      <tr><td>Ports scanned</td><td class="num">33</td><td>Counted from <code>TOP_PORTS</code></td></tr>
+      <tr><td>Common subdomains enumerated</td><td class="num">64</td><td>Counted from <code>COMMON_SUBDOMAINS</code></td></tr>
+      <tr><td>Crawl budget</td><td class="num">20 pages</td><td>Coverage doc; the catalog says 8 sensitive paths per page</td></tr>
+      <tr><td>JavaScript scanned</td><td class="num">inline + 8 files × 512 KB</td><td>Coverage doc</td></tr>
+      <tr><td>Subdomain-takeover services</td><td class="num">19</td><td>Coverage doc (not re-counted)</td></tr>
+      <tr><td>Technologies fingerprinted</td><td class="num">about 60</td><td>Coverage doc (not re-counted)</td></tr>
+      <tr><td>Supabase tables tested / Firestore collections tried</td><td class="num">up to 12 / 20</td><td>Coverage doc</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="inputs">
+  <h2>Inputs and safety rules</h2>
+  <div class="two">
+    <div>
+      <h3>What a scan can be given</h3>
+      <ul>
+        <li><b>A URL.</b> Public <code>http</code> or <code>https</code> only. Private, local and link-local addresses are refused before anything is queued, and checked again on every request and every redirect.</li>
+        <li><b>Credentials.</b> A session cookie or bearer token, or a sign-in through the site's own login form using a headless browser. Needs a registered, email-verified account. Stored encrypted, decrypted only inside the worker for one scan, then discarded. Sent only to requests aimed at the target and dropped on any redirect away from it. A form login can sign back in if the session expires; a pasted cookie cannot, and the report says which happened.</li>
+        <li><b>A second account.</b> Supplied as a pasted session or as a username and password, or created automatically (the automatic second account option needs first-account credentials). Unlocks the cross-account access-control test.</li>
+        <li><b>A GitHub repository URL.</b> Public repositories are searched for committed secrets. A private or missing repository shows as "not tested".</li>
+        <li><b>The race-condition opt-in.</b> Off by default, needs a signed-in test account.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>What the scanner will not do</h3>
+      <ul>
+        <li>It never sends a request whose success changes customer data. Authentication coverage uses GET and HEAD only, because an unauthenticated POST sent to see whether it is rejected performs the write when the answer is "no".</li>
+        <li>Body injection is limited to read-shaped endpoints (search, query, filter, report, graphql). Write-verb authorisation is tested against an identifier nothing can exist at. PUT is never sent. Mass assignment is read from the declared API contract, never probed.</li>
+        <li>The Supabase write probe uses a field that cannot exist in any real schema. If a row is created anyway, it is cleaned up immediately.</li>
+        <li>Out-of-band URLs point only at SecScan's own collector, never at an internal range or a cloud metadata address.</li>
+        <li>A destructive-action guard keeps the crawler and injection probes away from URLs that read as delete, cancel, revoke or log out.</li>
+        <li>The scanner identifies itself as <code>SecScan-Security-Bot/1.0</code> with a link to <code>secscan.us/bot</code>, a plain page for site owners who see it in their logs.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="report">
+  <h2>The report</h2>
+  <ul>
+    <li><b>Live scan terminal.</b> A replay of the scan test by test with each check's outcome. A check shows "clear" only when that is certain; otherwise it shows "checked". Tests that did not run are listed last under "Not tested on this scan".</li>
+    <li><b>Findings</b> with severity, confidence, evidence, and filters. Categories use one colour palette across terminal and report (38 categories in 11 families).</li>
+    <li><b>Reproduce steps.</b> A <code>curl</code> replay, shown only when the evidence is a plain GET, HEAD or OPTIONS request. Nothing is guessed.</li>
+    <li><b>Fix prompts that know the platform.</b> Ready-to-paste prompts for Lovable, Bolt, Next.js, WordPress, Supabase, and (per the build report) Shopify, Wix, Squarespace, Webflow, Firebase, Vercel and Netlify.</li>
+    <li><b>AI analysis</b> written by DeepSeek, with a built-in template as the fallback. A Settings switch stops findings from being sent to the AI provider; the report then says the analysis is off. Findings are redacted before sending.</li>
+    <li><b>Compliance mapping.</b> Findings mapped to controls in SOC 2, PCI DSS, ISO 27001, OWASP ASVS, NIST SP 800-53 Rev. 5 and the HIPAA Security Rule technical safeguards. It is conservative and never a verdict: only an auditor signs off on compliance.</li>
+    <li><b>Changes since the last scan.</b> New, fixed and unchanged findings. A finding counts as fixed only if its test ran again; otherwise it is "not re-checked".</li>
+    <li><b>Verify the fix.</b> A free, limited re-scan (10 a day) judged against one finding. Fixed only if that test ran again; otherwise "could not be checked".</li>
+    <li><b>Dismiss a finding</b> as not applicable, by the web app or the MCP tool, and restore it later.</li>
+    <li><b>Share link.</b> A public, revocable link to a report. <b>PDF and print export</b> from the report page.</li>
+    <li><b>Coverage honesty.</b> The report states when a bot-protection page answered instead of the site, when active tests were skipped, and when a sign-in expired mid-scan.</li>
+  </ul>
+</section>
+
+<section id="monitor">
+  <h2>Monitoring</h2>
+  <p>Monitoring re-scans a site automatically and raises alerts. It is sold as part of the plans (3 sites on Starter, 5 on Pro) and is gated by a setting (<code>MONITORING_REQUIRES_PLAN</code>) that the go-live checklist turns on.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Job</th><th>Schedule</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Adaptive rescan</td><td>Sweep every 6 hours; per site every <b>14 days at grade A</b>, <b>7 at B or C</b>, <b>3 at D or F</b></td><td>Full scan, compared with the last one to find regressions. The cadence reacts to the grade.</td></tr>
+      <tr><td>Pulse</td><td>Hourly</td><td>One request and one TLS handshake: is it up, is the certificate valid, has anything visible changed (headers removed, HSTS weakened, TLS downgrade, final URL changed). Down alerts need two consecutive failures. Pulse rows are kept 30 days.</td></tr>
+      <tr><td>CVE check</td><td>Hourly</td><td>Matches newly published CVEs against the software detected on each site.</td></tr>
+      <tr><td>Certificate expiry</td><td>Daily at 07:00 UTC</td><td>Alerts before the TLS certificate lapses.</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li><b>Alert kinds:</b> new CVE, regression, certificate expiry, scan complete, availability, header drift. Each can be muted by kind and by minimum severity.</li>
+    <li><b>Channels:</b> email, and a webhook that sends Slack-compatible JSON (works with Slack, Discord's Slack endpoint and Teams incoming webhooks), retried once on failure.</li>
+    <li><b>Per site:</b> history, score history, regressions, pulses and alerts; pause and resume (nothing is deleted); a "scan now" that draws on the same allowance as any scan.</li>
+    <li>Scans the scheduler starts on its own do not spend the user's free scans.</li>
+  </ul>
+</section>
+
+<section id="integrations">
+  <h2>Integrations and API</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Surface</th><th>What it is</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>MCP server</td><td>Version 1.1.0, 12 tools: <code>scan_url</code>, <code>get_scan_status</code>, <code>get_report</code>, <code>list_recent_scans</code>, <code>list_monitors</code>, <code>add_monitor</code>, <code>monitor_scan_now</code>, <code>dismiss_finding</code>, <code>list_verified_domains</code>, <code>start_domain_verification</code>, <code>check_domain_verification</code>, <code>get_account</code>. Runs the same handler as the website, so the free allowance, credits, SSRF guard and ownership gate apply identically.</td><td>Live; listed on the official MCP Registry (per notes)</td></tr>
+      <tr><td>OAuth 2.1 for MCP</td><td>Discovery, dynamic client registration, PKCE (S256), a consent page, one-hour access tokens and rotating refresh tokens with reuse detection, and a Connected apps list in Settings.</td><td>Live</td></tr>
+      <tr><td>API tokens</td><td>Two scopes that cannot be mixed: an <code>mcp</code> token is refused by the REST API and an <code>api</code> token by the MCP endpoint. Shown once, revocable.</td><td>Live</td></tr>
+      <tr><td>REST API v1</td><td><code>POST /api/v1/scans</code>, <code>GET /scans</code>, <code>/scans/:id</code>, <code>/scans/:id/report</code>, <code>/scans/:id/sarif</code>, <code>GET /me</code>, and an OpenAPI document. Errors are always <code>{ error: { code, message } }</code>; another user's scan is a 404.</td><td>Live</td></tr>
+      <tr><td>SARIF export</td><td>Results for GitHub code scanning. Since SecScan scans a running site, each result is located at its URL, not at a file and line.</td><td>Live</td></tr>
+      <tr><td>CLI and GitHub Action</td><td><code>secscan.mjs scan &lt;url&gt; --fail-on high --min-grade C --sarif file</code>; exit codes 0 pass, 1 policy fail, 2 usage or scan failure, 3 token or network. It always prints how many tests were skipped.</td><td>Written; the Action repository and the npm package are not yet published</td></tr>
+      <tr><td>Domain verification</td><td>DNS TXT record or a well-known file, from the web app or the MCP tools.</td><td>Live</td></tr>
+      <tr><td>Outbound email</td><td>Sign-in, verification, report-ready and monitoring alert emails, with unsubscribe and bounce handling (per the deploy docs, through Resend).</td><td>Live</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">The content site, secscan.info, carries the public description: coverage, how scanning works, reports, monitoring, AI editors, developers, a sample report, testing, security, false positives, about, and 10 guides (for example Supabase RLS exposure, exposed API keys in JavaScript, IDOR, Lovable app security, SPF and DMARC).</p>
+</section>
+
+<section id="limits">
+  <h2>Accounts, limits and abuse controls</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Control</th><th>Value</th><th>Where</th></tr></thead>
+    <tbody>
+      <tr><td>Sign-in</td><td>Email and password with email verification and password reset; Google sign-in. A visitor can also scan without an account on an anonymous identity, with lower limits and no stored credentials.</td><td>account routes</td></tr>
+      <tr><td>New accounts per network</td><td class="num">2 per 30 days</td><td><code>signupNetwork.ts</code></td></tr>
+      <tr><td>Scan rate, per account</td><td class="num">5 an hour, 20 a day</td><td><code>rateLimit</code></td></tr>
+      <tr><td>Scan rate, per network address</td><td class="num">10 an hour, 30 a day</td><td><code>rateLimit</code></td></tr>
+      <tr><td>Daily scan cap</td><td class="num">50 registered, 10 anonymous</td><td><code>scansCreate.ts</code> (adjustable by setting)</td></tr>
+      <tr><td>Verify-the-fix</td><td class="num">10 a day, free</td><td>roadmap doc</td></tr>
+      <tr><td>Credentialed scans</td><td>Registered and email-verified account only</td><td><code>scansCreate.ts</code></td></tr>
+      <tr><td>Data controls</td><td>Delete account, privacy settings (including the AI switch), email preferences</td><td>account routes</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">The limits stack, so the strictest one that applies is the one a user meets. The memory note said 20 a day per account; the code confirms 5 an hour and 20 a day from the rate limiter, with a separate 50 a day cap behind it.</p>
+</section>
+
+<section id="pricing">
+  <h2>Pricing</h2>
+  <div class="callout">
+    <h3>Payments are switched off</h3>
+    <p>No Stripe keys are set, so nothing can be bought. The live pricing API returns the plans below with purchase disabled. Going live is configuration only: a restricted Stripe key, a webhook secret, and two Railway variables. Prices are defined in code (<code>plans.ts</code>, <code>stripe.ts</code>), so no products are created in Stripe by hand.</p>
+  </div>
+  <h3>Plans (monthly subscriptions)</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Plan</th><th>Price</th><th>Sites monitored</th><th>Scans included</th><th>Effective per scan</th></tr></thead>
+    <tbody>
+      <tr><td>Free</td><td class="num">$0</td><td class="num">none</td><td class="num">3 a month (UTC calendar month)</td><td class="num">$0</td></tr>
+      <tr><td>SecScan Starter</td><td class="num">$19 / month</td><td class="num">3</td><td class="num">20, no rollover</td><td class="num">$0.95</td></tr>
+      <tr><td>SecScan Pro</td><td class="num">$49 / month</td><td class="num">5</td><td class="num">100, no rollover</td><td class="num">$0.49</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Scan packs (one-time, never expire)</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Pack</th><th>Price</th><th>Credits</th><th>Per scan</th></tr></thead>
+    <tbody>
+      <tr><td>10-scan pack</td><td class="num">$12</td><td class="num">10</td><td class="num">$1.20</td></tr>
+      <tr><td>50-scan pack</td><td class="num">$49</td><td class="num">50</td><td class="num">$0.98</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li><b>Spend order:</b> free scans first, then the month's plan scans, then credits. One function decides this for the website, the MCP endpoint and the Monitor page, so no route can price a scan differently.</li>
+    <li><b>Refunds:</b> a scan that fails after being charged is refunded exactly once, to the place it was paid from (free, plan or credit).</li>
+    <li><b>Free scans</b> count scans the user started, plus monitor baselines and "scan now" on the free allowance. Scheduler-started rescans do not count.</li>
+    <li><b>Why the packs cost more per scan:</b> they are priced above both plans so a pack never undercuts a subscription; they never expire and need no commitment.</li>
+    <li><b>Retired and not sold:</b> the old $9 Basic, $19 Deep, $12 single, $50 five-pack and $160 twenty-pack. They stay named in code so an old link cannot resolve to a different product.</li>
+    <li><b>Decisions on record:</b> pricing decided 2026-09-24 against the field. Starter moved from one site to three on 2026-09-26.</li>
+  </ul>
+</section>
+
+<section id="fp">
+  <h2>False-positive testing record</h2>
+  <p>A false positive is a finding that is not true of the site. The product's claim is that it reports only what a server actually said, so this is the evidence behind that claim. Everything here is read from <code>FALSE-POSITIVE-AUDIT.md</code> (620 lines, written as each round happened), the committed raw results in <code>scripts/scan-results/</code>, the benchmark output, and git history. Numbers in the tables are computed from the stored result files.</p>
+
+  <div class="tiles">
+    <div class="tile"><b>239</b><span>scans of real third-party sites, stored as raw JSON</span></div>
+    <div class="tile"><b>54</b><span>distinct sites scanned</span></div>
+    <div class="tile"><b>12</b><span>stored result sets, 2026-09-08 to 2026-09-30</span></div>
+    <div class="tile"><b>8</b><span>dated sections in the audit, each hand-verified</span></div>
+    <div class="tile"><b>52</b><span>of 334 commits since 09-07 mention false positives, clean twins or suppression in their message</span></div>
+    <div class="tile"><b>686 → 2,611</b><span>automated tests, 09-08 to today</span></div>
+  </div>
+
+  <h3>How many times the 30-site list was run</h3>
+  <div class="callout">
+    <p>The exact answer from the stored data, since the number matters:</p>
+    <ul>
+      <li><b>5 complete passes of all 30 sites</b> are stored as raw output: 2026-09-08, the 09-10 38-target re-scan (which contains all 30), 09-24, and two on 09-30 (before and after that day's fixes).</li>
+      <li><b>10 rounds included at least one of the 30 sites:</b> those 5, plus two 20-target sweeps (09-10 and 09-19), the 20 guard targets (09-30) and the 14-target technology sweep (09-30), all stored, plus the 09-12 pre-marketing sweep, which the audit documents but whose raw output was not committed.</li>
+      <li><b>Each of the 30 sites has between 5 and 9 stored scans</b> (190 in total). The busiest is npmjs.com (9), then 11 sites scanned 8 times.</li>
+      <li><b>Repeats that are not in the stored files:</b> nasa.gov was scanned ten more times to catch an intermittent false "Missing SPF Record"; reddit.com's CSP finding was re-fetched in repeated batches (four repeats of seven paths, six repeats of three); the 09-07 fixes were verified over three rounds across five sites, and over 15 sites for the bot-protection fix.</li>
+    </ul>
+    <p>So "the 30 URL test at least 10 times" holds as 10 rounds that included the list, but the complete 30-site list as a single pass has been stored 5 times.</p>
+  </div>
+
+  <h3>Every stored result set</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Date</th><th>Run</th><th>Sites</th><th>Findings</th><th>Above Info</th><th>Of the 30</th></tr></thead>
+    <tbody><tr><td class="num">2026-09-08</td><td>30-site corpus, first published baseline</td><td class="num">30</td><td class="num">294</td><td class="num">107</td><td class="num">30</td></tr><tr><td class="num">2026-09-10</td><td>20-target sweep</td><td class="num">20</td><td class="num">243</td><td class="num">98</td><td class="num">12</td></tr><tr><td class="num">2026-09-10</td><td>Active probes on an owned domain (seclayer.app)</td><td class="num">1</td><td class="num">2</td><td class="num">1</td><td class="num">0</td></tr><tr><td class="num">2026-09-10</td><td>38-target re-scan (contains all 30 sites)</td><td class="num">38</td><td class="num">401</td><td class="num">151</td><td class="num">30</td></tr><tr><td class="num">2026-09-19</td><td>20-target passive sweep before deploy</td><td class="num">20</td><td class="num">225</td><td class="num">85</td><td class="num">12</td></tr><tr><td class="num">2026-09-19</td><td>Active probes on both owned domains</td><td class="num">2</td><td class="num">6</td><td class="num">4</td><td class="num">0</td></tr><tr><td class="num">2026-09-24</td><td>30-site re-sweep on the current scanner</td><td class="num">30</td><td class="num">282</td><td class="num">98</td><td class="num">30</td></tr><tr><td class="num">2026-09-30</td><td>30-site sweep after the probe-review fixes</td><td class="num">30</td><td class="num">279</td><td class="num">92</td><td class="num">30</td></tr><tr><td class="num">2026-09-30</td><td>20 guard targets built into live-scan.ts</td><td class="num">20</td><td class="num">192</td><td class="num">66</td><td class="num">12</td></tr><tr><td class="num">2026-09-30</td><td>30-site re-sweep after that day’s fixes</td><td class="num">30</td><td class="num">296</td><td class="num">102</td><td class="num">30</td></tr><tr><td class="num">2026-09-30</td><td>14-target technology, CVE and SRI sweep</td><td class="num">14</td><td class="num">186</td><td class="num">75</td><td class="num">4</td></tr><tr><td class="num">2026-09-30</td><td>4 replacement guard targets</td><td class="num">4</td><td class="num">47</td><td class="num">18</td><td class="num">0</td></tr></tbody>
+  </table></div>
+  <p class="note">"Above Info" counts critical, high, medium and low. Two of these result sets are active tests on domains the team owns (secscan.us and seclayer.app). All others are passive: plain requests to public pages, no attack traffic.</p>
+
+  <h3>How every finding was checked</h3>
+  <ul>
+    <li><b>Against the live response, with the scanner's own user agent.</b> Targets answer a browser and a scanner differently, and that difference is where the mistakes hide. Google serves its <code>NID</code> cookie without <code>Secure</code> to a scanner and with it to Chrome, so checking in a browser shows the opposite of what the scanner saw and nearly got a correct detector removed.</li>
+    <li><b>Repeated, through the scanner's own fetch layer,</b> because a plain <code>curl</code> is sometimes refused (reddit answers it 403) and a single observation can be a flap.</li>
+    <li><b>Independent re-derivation.</b> On 09-30 every header finding (CSP present or weak, <code>nosniff</code>, clickjacking, <code>base-uri</code>, cookies, the HTTP redirect) was recomputed by a separate fetch and compared. It agreed on every one. DNS findings were checked against Cloudflare and Google resolvers.</li>
+    <li><b>A written "checked and correct, do not fix" list</b> for each round, so a true finding that looks false is never deleted again.</li>
+    <li><b>A clean twin for every fix.</b> Each fix has a test that fails on the old code, and a test that the real problem is still found.</li>
+    <li><b>A code review of every probe family (09-30).</b> Six reviewers fed the real functions realistic benign responses through a mocked fetch, looking for any finding that fires on a healthy site. Every item was reproduced before it was fixed.</li>
+    <li><b>A target whose faults are known exactly.</b> The vulnerable-app gate plants the faults, and the clean twins check the same code against the safe version.</li>
+  </ul>
+
+  <h3>False positives found and fixed, round by round</h3>
+  <div class="tablewrap"><table style="min-width:46rem">
+    <thead><tr><th>Round</th><th>What was run</th><th>False positives found</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td class="num">2026-09-07</td><td>google, github, cloudflare, mozilla, then 15 sites for the bot-protection fix</td><td>Google <code>NID</code> cookie "readable by JavaScript" (the cookie header was split on the comma inside its expiry date) and a duplicate Secure finding; "No rate limiting" on github; "CSP wildcard" HIGH on cloudflare and mozilla (matched any <code>*</code>, including <code>*.google-analytics.com</code>); a hardcoded "not found" in the security.txt evidence. <b>Caught before shipping:</b> "No STARTTLS" on cloudflare (a silent mail server read as "no"), bot-protection pages reported as the site on stackoverflow and npmjs, and then the detector flagging nytimes on a header that marks <i>allowed</i> traffic.</td><td>Counts fell on all four (google 15→13, github 12→11, cloudflare 9→8, mozilla 8→7). The mail probe stayed silent over three rounds on five sites.</td></tr>
+      <tr><td class="num">2026-09-08</td><td>30-site corpus; then re-run after the DNS fixes</td><td>gov.uk reported "Missing SPF" and "Missing DMARC" at HIGH, from three bugs (a domain derived from label lengths, a CNAME counted as MX, hardcoded "NOERROR" evidence). The re-run found more: nasa.gov "DNSSEC Not Enabled" (introduced by the first fix), "No rate limiting" on 15 of 30 sites, a survey-widget key flagged as a hardcoded JWT at HIGH on nytimes, and every content finding on five bot-protected sites (etsy, ebay, amazon.co.uk, stackoverflow, reuters).</td><td>gov.uk 12→7 findings, 3→0 above Info. etsy 18/6→4/1. stackoverflow 13/4→3/0. 686 tests passed, with twelve new regressions.</td></tr>
+      <tr><td class="num">2026-09-10</td><td>38-target re-scan</td><td>PayPal "frame-ancestors missing on 5 internal routes": the detection was right but the evidence dropped the query string and so pointed at URLs that did carry the header. A correct check nearly got deleted over wrong evidence.</td><td>Evidence fixed. Three of the five routes are truly missing the header.</td></tr>
+      <tr><td class="num">2026-09-12</td><td>Pre-marketing sweep of the list, before claiming "no false positives"</td><td>nytimes "permissive crossdomain.xml" at Medium (it fired on a <code>site-control</code> setting while the finding claimed access from all domains, which nytimes does not grant). "Exposed OpenAPI spec" at Medium on vercel, cloudflare and netlify (publishing a spec is not a mistake).</td><td>Both fixed and re-verified on the live sites. The OpenAPI finding is now Info.</td></tr>
+      <tr><td class="num">2026-09-19</td><td>20 passive targets, plus the first active run on two owned domains</td><td>None found. The audit counted 80 actionable findings across 20 sites, 8 of them HIGH, every one true; 4 more on the two active targets, all true. Injection, path-traversal, IDOR, BFLA and mass-assignment probes returned nothing on either app. Hardening only: header gaps now need confirmation (reddit's edge sends its CSP on some responses and not others), deserialization markers anchored, advertised HTTP methods reported as an observation (was 7.5), cookie values no longer quoted in evidence.</td><td>All 19 planted flaws still detected afterwards.</td></tr>
+      <tr><td class="num">2026-09-24</td><td>30-site re-sweep on the current scanner</td><td>amazon.co.uk: five findings about a page Amazon never published (an interstitial), including one HIGH. The "Ghost CMS" technology tag matched <code>AkamaiGHost</code> on every Akamai site, which would have fed wrong advisories to monitored sites.</td><td>16 of the 17 HIGHs the first pass returned were true; the one set that was false is fixed. The 82 medium and low findings were not re-checked that round.</td></tr>
+      <tr><td class="num">2026-09-30 (probe review)</td><td>Six reviewers, every probe family, benign inputs through a mocked fetch</td><td>Public <code>NEXT_PUBLIC_*</code> keys and dev-config passwords read as secrets; technology tags from prose that merely named a product; a bot-protection script tag grading a whole report N/A; EOL dates and distro-patched versions; same-shell pages read as access-control leaks; 404s read as missing authorisation; empty <code>[]</code> read as open data; live hosts mentioning a provider read as takeover; third-party hosts filed against the customer; redirects followed onto the scanner's own collector; XSS reflections inside scripts and titles; and more (18 areas).</td><td>Every fix has a clean twin. The vulnerable-app gate stayed at 82 of 82 with no false alarms.</td></tr>
+      <tr><td class="num">2026-09-30 (sweeps)</td><td>30 sites twice, 20 guard targets, a 14-target technology sweep, 4 replacement targets</td><td>Weak CSP on archive.org and bbc.co.uk (nonce and <code>strict-dynamic</code> make <code>unsafe-inline</code> inert); duplicate <code>nosniff</code> on figma; SRI on a site's own CDN (cloudflare, dropbox, europa.eu, stripe); SPF "over the limit" on nasa and etsy (IPv6 ranges counted); deleted cookies on theguardian; wildcard CORS without credentials on zoom. Then: a resolver SERVFAIL read as "no SPF record" (nasa.gov, <b>one scan in five</b>, found by scanning it ten times); missing security.txt on npmjs (Cloudflare refused the request); robots.txt "admin" matched inside <i>Administratoren</i> on wikipedia; <code>Server: BunnyCDN-HOU1-893</code> read as a software version on php.net; a CSP delivered in a <code>&lt;meta&gt;</code> tag missed on gitlab.</td><td>Above-Info findings on the 30 fell from 98 to 92. Every difference from 09-24 was checked against the live site. The header findings were re-derived independently and agreed on all of them.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Findings that look false and are correct</h3>
+  <p>These were checked, reproduced and recorded so nobody "fixes" them.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Finding</th><th>Site</th><th>Why it is real</th></tr></thead>
+    <tbody>
+      <tr><td>Missing Content-Security-Policy (High)</td><td>europa.eu, fastly, nasa, shopify, slack, wikipedia, zoom</td><td>No CSP header and no CSP meta tag on the final response, on both user agents.</td></tr>
+      <tr><td>CSP missing on internal routes</td><td>reddit, bbc, vercel, cloudflare, github</td><td>Reproduced per route. reddit's edge emits the header on some responses and not others, seconds apart on the same path.</td></tr>
+      <tr><td>Session cookie missing HttpOnly</td><td>linkedin (<code>JSESSIONID</code>)</td><td>The live <code>Set-Cookie</code> has no <code>HttpOnly</code>.</td></tr>
+      <tr><td>Source map exposed (High)</td><td>gitlab, fastly, archive.org, pypi</td><td>HTTP 200 with source text embedded. archive.org's is a vendored library, rated by whose code it embeds.</td></tr>
+      <tr><td>Missing DMARC record</td><td>european-union.europa.eu</td><td><code>_dmarc</code> is NXDOMAIN at both the host and <code>europa.eu</code>, which publishes real MX records.</td></tr>
+      <tr><td>CSP is report-only, not missing</td><td>google.com</td><td>Only <code>Content-Security-Policy-Report-Only</code> is sent, and the report says so.</td></tr>
+      <tr><td>Known CVEs on old libraries</td><td>python.org (jQuery 1.8.2)</td><td>The page loads <code>jquery-1.8.2.min.js</code>; CVE-2012-6708 and CVE-2019-11358 apply.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Ground truth and benchmarks</h3>
+  <ul>
+    <li><b>Planted-flaw check.</b> <code>detection-check.ts</code> plants 19 flaws and returns 34 findings. The 15 it never asked about were checked by hand, including the Nginx 1.14.0 and PHP 5.6.40 end-of-life matches, which were true of what the fixture serves.</li>
+    <li><b>Vulnerable-app gate.</b> The real scanner (passive, active and signed in with two accounts) is pointed at a fixture whose faults are known, and must find 82 of 82 with no false alarms. Every new check ships with a vulnerable case and a clean twin.</li>
+    <li><b>Head-to-head benchmark (detection, not false alarms).</b> Against the same fixture with 74 known faults, blind adjudicators scored SecScan 68 of 74, OWASP ZAP 18 to 19, and Nuclei 7 to 8. The adjudicators agreed on 95.9% of calls (9 disagreements). The benchmark also caught SecScan's own unfairness: it found faults at paths only its wordlist knew, so the fixture now links real features from its navigation. The authors say plainly that this is not independent verification.</li>
+    <li><b>Automated tests.</b> 686 passed on 2026-09-08 with 12 new regressions for that day's six bugs. 2,611 pass today. Test fixtures themselves were a cause: one helper built DNS answers with no record type, which made the CNAME-as-MX bug impossible to express.</li>
+  </ul>
+
+  <h3>Not verified or still open</h3>
+  <ul>
+    <li>The 09-24 round did not re-check its 82 medium and low findings, and the 09-30 round did not re-check technology fingerprints, CVE and end-of-life matches, or the JSON-LD notes.</li>
+    <li>Several fixes narrow a check on purpose, so a real problem in those shapes can now be missed: an app that renders the same record for any id, an unauthenticated DELETE answered 404 for a missing id, inner-route config files without credential-shaped keys, and a bucket whose first 100 objects are all static assets.</li>
+    <li>The "unclaimed resource" page texts for Vercel, Ghost, Tumblr, Readme, Heroku and GitHub Pages were written from memory of each provider's page, not fetched. No version floor exists for two 2026 nginx and Apache CVEs, and none was invented.</li>
+    <li>Technology rules for Google Analytics, jQuery, Lodash, Alpine and HTMX still match loosely. The 30-day certificate-expiry alert cannot tell a certificate about to auto-renew.</li>
+    <li>As of the 09-19 audit note, SSRF and the out-of-band collector had not been exercised by any sweep of a real site (the runner skips them). They are covered by the vulnerable-app gate. I did not check whether that changed after 09-19.</li>
+    <li>The audit recorded 80 actionable findings for the 09-19 passive round; the committed file counts 85 above Info. I did not reconcile the difference. For 09-24 and 09-30 the audit and the files agree (98 and 92).</li>
+    <li>The build report of 2026-09-26 lists "a full false-positive sweep" as still to do before launch. The 09-30 sweeps came after that note, and no final sign-off is recorded.</li>
+    <li>Bot-protected sites (npmjs, stackoverflow, apnews) answer this scanner with a challenge, so a scan of them tests nothing. The guard list swapped two of them for pypi.org and rubygems.org for that reason.</li>
+  </ul>
+
+  <p class="note">The same method was applied to Seclayer, SecScan's sibling product, on 2026-09-30: 38 real sites, 67 above-Info findings, each independently re-checked, one false positive found (a challenge page that echoed the request path) and fixed, and the report now states exactly why a blocked scan was judged blocked. That record lives in the Seclayer repository.</p>
+</section>
+
+
+<section id="status">
+  <h2>Validation status</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>What</th><th>Result</th><th>When and how</th></tr></thead>
+    <tbody>
+      <tr><td>API tests, including real Postgres</td><td class="num">2,611 of 2,611 pass, none skipped</td><td>Run today on master 68ad7c7 against a disposable Postgres (never the live database). In the single 15-minute run, 2 billing tests timed out in a setup hook under machine load; both files passed when rerun alone (8 of 8).</td></tr>
+      <tr><td>Vulnerable-app check</td><td class="num">82 of 82, 194 findings</td><td>From my notes of a run earlier today by another session on a fresh fixture; <b>not re-run by me</b>. The 2026-09-26 build report said 80 of 80.</td></tr>
+      <tr><td>Frontend tests</td><td class="num">131 passed</td><td>From the 2026-09-26 build report; not re-run today</td></tr>
+      <tr><td>Live site</td><td>Home, learn, bot page, REST OpenAPI, OAuth discovery and the pricing API all answer; health reports ok</td><td>Checked today against secscan.us</td></tr>
+      <tr><td>Full false-positive sweep</td><td>Still to do before launch</td><td>Build report, "Still before launch"</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Every new check ships with a vulnerable case and a clean twin in <code>artifacts/vuln-fixture</code>. The Supabase, Firebase and AI-in-client checks are tested against mocked responses or a fixture, not against live third-party hosts.</p>
+</section>
+
+<section id="gaps">
+  <h2>Not built, partial, or waiting on a decision</h2>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Item</th><th>State</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Ticketing and more alert destinations (Jira, Linear, GitHub issues)</td><td>Not built</td><td>Needs stored third-party credentials</td></tr>
+      <tr><td>Teams and shared workspaces</td><td>Not built</td><td>Large multi-tenant change</td></tr>
+      <tr><td>Evidence packs and white-label reports</td><td>Not built</td><td>Large build</td></tr>
+      <tr><td>Public status page</td><td>Not built</td><td>Needs an uptime page</td></tr>
+      <tr><td>Publish the GitHub Action and npm package</td><td>Ready, unpublished</td><td>Needs a separate repository and tag</td></tr>
+      <tr><td>Merge duplicate findings (one defect, one finding)</td><td>Needs a decision</td><td>It would change grades</td></tr>
+      <tr><td>WebSocket testing</td><td>Not built</td><td>An open handshake is legitimate on many sites, so a finding would not be trustworthy</td></tr>
+      <tr><td>Rendering inner routes of single-page apps</td><td>Partial</td><td>Inner routes are fetched raw; the rendered page's own API calls do feed the API tests</td></tr>
+      <tr><td>Choosing scan frequency and quiet hours</td><td>Not built</td><td>The cadence is fixed by grade</td></tr>
+      <tr><td>Published median scan time</td><td>Not measured</td><td>No figure to publish</td></tr>
+      <tr><td>Public head-to-head benchmark against rivals</td><td>Not done</td><td>Needs accounts on rival services</td></tr>
+      <tr><td>Independent third-party security proof</td><td>Not done</td><td>Needs an outside firm</td></tr>
+      <tr><td>Brand and search collision decision</td><td>Decided to keep the name; brand as "SecScan.us"</td><td>Per notes, 2026-09-27</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="drift">
+  <h2>Where the docs disagree with the code</h2>
+  <p>These were found while building this report. The code is the source of truth, and each one is a claim a customer could read.</p>
+  <ul>
+    <li><b>Check count.</b> The code catalog has 143 checks in 41 tests. My notes said 140 (written 2026-09-26) and the coverage doc says "about 129 or more".</li>
+    <li><b>Tiers.</b> <code>SCAN_COVERAGE.md</code> still describes Basic and Deep scans with approximate request counts. <code>SCAN_TESTS.md</code> and the route code say there is one scan type.</li>
+    <li><b>Secret patterns.</b> The code array holds 35; the catalog and site say 34; the coverage doc says 32 in one place and lists 21 in another.</li>
+    <li><b>DKIM selectors.</b> The code tries 42; the coverage doc says 30.</li>
+    <li><b>Finding names.</b> <code>SCAN_CHECKS.md</code> (generated) says 310; the coverage doc says 279. The generated index also prints "probes-data is one path probe applied to 0 paths", a generator slip, since the code has 78 paths.</li>
+    <li><b>Sensitive paths.</b> The coverage doc says "about 75"; the code has 78.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>What I did not verify</h2>
+  <ul>
+    <li>I did not run the vulnerable-app check or the frontend tests myself; the first is from notes of a run earlier today, the second from the 2026-09-26 build report.</li>
+    <li>The 310 finding-name count, the 19 takeover services and the roughly 60 technologies come from generated or written docs, not from a count I made.</li>
+    <li>I did not scan anything with SecScan to see the report render; the report features are read from the code and docs.</li>
+    <li>Email delivery, Stripe live mode and the MCP Registry listing were not exercised.</li>
+  </ul>
+</section>
+
+<section class="sources">
+  <h2>Sources in the repository</h2>
+  <ul>
+    <li><code>artifacts/api-server/src/lib/checkCatalog*.ts</code></li>
+    <li><code>artifacts/api-server/src/routes/scansCreate.ts</code></li>
+    <li><code>artifacts/api-server/src/lib/activeProbeGate.ts</code></li>
+    <li><code>scannerProbeStage.ts</code>, <code>scannerActiveStage.ts</code>, <code>probes.ts</code>, <code>workerSideChecks.ts</code></li>
+    <li><code>scannerGrade.ts</code></li>
+    <li><code>plans.ts</code>, <code>stripe.ts</code>, <code>freeTrial.ts</code></li>
+    <li><code>monitorScheduler*.ts</code>, <code>monitorPulse*.ts</code>, <code>notificationPrefs.ts</code>, <code>webhook.ts</code></li>
+    <li><code>routes/mcp*.ts</code>, <code>routes/v1.ts</code>, <code>routes/oauth*.ts</code></li>
+    <li><code>SCAN_COVERAGE.md</code>, <code>SCAN_TESTS.md</code>, <code>SCAN_CHECKS.md</code></li>
+    <li><code>deploy/BUILD-REPORT-2026-09-26.md</code>, <code>ROADMAP-STATUS.md</code>, <code>PAYMENTS-GO-LIVE.md</code>, <code>cli/README.md</code></li>
+  </ul>
+</section>
+</main>
+
+</body></html>

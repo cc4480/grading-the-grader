@@ -1,0 +1,564 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>Passive Scan Baseline</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/*
+ * SecScan's own tokens (secscan.info): dark-only by design, not omission, so
+ * the paper reads as part of the same property. Every colour is explicit.
+ * Chart hues are the pair validated against this surface for CVD separation.
+ */
+:root{
+  --bg:#09090b; --surface:#0c0c0e; --surface-2:#131316; --line:#27272a; --line-2:#3f3f46;
+  --text:#ffffff; --muted:#a1a1aa; --muted-2:#71717a; --faint:#52525b;
+  --accent:#22c55e; --accent-lift:#4ade80;
+  --critical:#f87171; --high:#fb923c; --medium:#fbbf24; --low:#60a5fa; --info:#a1a1aa;
+  --bar:#3b82f6; --bar-2:#16a34a;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--mono);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+h1,h2,h3,h4{margin:0;font-weight:700;letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(34,197,94,.3)}
+a:hover{border-bottom-color:var(--accent)}
+.eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+
+header.hero{padding:72px 0 44px;border-bottom:1px solid var(--line)}
+header.hero h1{font-size:clamp(28px,5vw,46px);line-height:1.1;margin:18px 0 20px;max-width:22ch}
+.abstract{color:var(--muted);font-size:15px;line-height:1.75;max-width:74ch}
+.abstract strong{color:var(--text);font-weight:500}
+.meta{display:flex;flex-wrap:wrap;gap:6px 20px;margin-top:24px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2)}
+
+.figures{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:36px}
+.fig{background:var(--surface);padding:18px 20px}
+.fig .n{font-size:30px;font-weight:700;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.fig .n.g{color:var(--accent)}
+.fig .k{color:var(--muted);font-size:11.5px;line-height:1.5;margin-top:8px}
+
+section{padding:56px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:none}
+.sh{margin-bottom:26px}
+.sh h2{font-size:22px;margin:10px 0 12px}
+.sh p{color:var(--muted);font-size:13.5px;max-width:76ch}
+.sh p+p{margin-top:10px}
+.kicker{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2)}
+h3.sub{font-size:15px;margin:30px 0 12px}
+p.body{color:var(--muted);font-size:13.5px;max-width:76ch}
+p.body+p.body{margin-top:10px}
+code{font-family:var(--mono);font-size:12px;color:var(--accent-lift);background:var(--surface-2);padding:1px 5px;border:1px solid var(--line);word-break:break-all}
+
+.tablewrap{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--surface-2);color:var(--muted-2);font-weight:400;font-size:10px;letter-spacing:.11em;text-transform:uppercase;white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+td.n{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;color:var(--text)}
+td.host{color:var(--text);white-space:nowrap}
+.sev{display:inline-block;font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;padding:2px 6px;color:#09090b;font-weight:700;white-space:nowrap}
+.sev.high{background:var(--high)} .sev.medium{background:var(--medium)}
+.sev.low{background:var(--low)} .sev.info{background:var(--info)}
+
+.chart{border:1px solid var(--line);background:var(--surface);padding:24px 26px 18px}
+.crow{display:grid;grid-template-columns:minmax(160px,240px) 1fr 54px;gap:12px;align-items:center;margin-bottom:9px}
+.crow .lab{font-size:11.5px;color:var(--muted);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.track{height:16px;background:var(--surface-2);border:1px solid var(--line)}
+.bar{height:100%;background:var(--bar);border-radius:0 3px 3px 0}
+.crow .v{font-size:11.5px;color:var(--text);font-variant-numeric:tabular-nums}
+.axis{display:grid;grid-template-columns:minmax(160px,240px) 1fr 54px;gap:12px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+.ticks{display:flex;justify-content:space-between;font-size:10px;color:var(--faint);font-variant-numeric:tabular-nums}
+.note{color:var(--muted-2);font-size:11.5px;margin-top:14px;max-width:76ch}
+
+.callout{border:1px solid var(--line-2);background:var(--surface-2);padding:22px 24px;margin:22px 0}
+.callout.warn{border-left:2px solid var(--high)}
+.callout.good{border-left:2px solid var(--accent)}
+.callout h4{font-size:14px;margin-bottom:9px}
+.callout p{color:var(--muted);font-size:13px;max-width:76ch}
+.callout p+p{margin-top:9px}
+
+ol.bugs{list-style:none;counter-reset:b;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+ol.bugs li{counter-increment:b;border:1px solid var(--line);border-left:2px solid var(--high);background:var(--surface);padding:16px 18px;position:relative}
+ol.bugs li::before{content:counter(b);position:absolute;top:16px;right:18px;font-size:11px;color:var(--faint)}
+ol.bugs h4{font-size:13.5px;margin-bottom:7px;padding-right:24px}
+ol.bugs p{color:var(--muted);font-size:12.8px;max-width:74ch}
+ol.bugs p+p{margin-top:7px}
+
+ul.plain{margin:0;padding-left:1.1rem;color:var(--muted);font-size:13.5px;max-width:76ch}
+ul.plain li{margin-bottom:9px}
+ul.plain li::marker{color:var(--faint)}
+
+footer{padding:34px 0 70px;color:var(--muted-2);font-size:12px;line-height:1.7}
+footer p{max-width:80ch}
+footer p+p{margin-top:10px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:640px){
+  .crow,.axis{grid-template-columns:1fr}
+  .crow .lab{text-align:left}
+  .axis .ticks:first-child{display:none}
+  header.hero{padding-top:48px}
+}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot"></span> SecScan · Research report</span>
+    <h1>What passive scanning actually finds on 30 well-run websites</h1>
+    <p class="abstract">
+      We ran SecScan's passive pipeline against a fixed sample of thirty
+      prominent websites across six sectors and recorded every finding.
+      <strong>Zero critical issues were found, and fifteen high-severity ones.</strong>
+      The most common results are not vulnerabilities at all but absent
+      hardening headers: cross-origin isolation is missing on
+      <strong>23 of 23</strong> fully observed sites, and DNSSEC on
+      <strong>15 of 23</strong>. Every finding below can be reproduced by a
+      reader with <code>curl</code> or <code>dig</code>, and the commands are
+      given. The run also found seven false positives in our own scanner, which
+      we fixed before publishing; those are documented here rather than
+      quietly removed, because a baseline is only worth as much as the
+      instrument that produced it.
+    </p>
+    <div class="meta">
+      <span>8 September 2026</span>
+      <span>Passive only · no active probing</span>
+      <span>29 sites scanned · 300 pages fetched</span>
+    </div>
+    <div class="figures">
+      <div class="fig"><div class="n g">0</div><div class="k">critical findings</div></div>
+      <div class="fig"><div class="n">15</div><div class="k">high-severity findings</div></div>
+      <div class="fig"><div class="n">286</div><div class="k">findings, 23 fully observed sites</div></div>
+      <div class="fig"><div class="n">5.0</div><div class="k">mean actionable findings per site</div></div>
+      <div class="fig"><div class="n">7</div><div class="k">scanner bugs found and fixed first</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <div class="sh">
+    <span class="kicker">1 · Method</span>
+    <h2>What was scanned, and how</h2>
+    <p>
+      The sample was fixed before any scanning began: thirty sites, six sectors,
+      five per sector. Stating the frame in advance is what makes a prevalence
+      claim meaningful rather than a collection of anecdotes.
+    </p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Sector</th><th>Sites</th></tr></thead>
+      <tbody>
+        <tr><td class="host">Developer platforms</td><td>github.com, gitlab.com, npmjs.com, stackoverflow.com, vercel.com</td></tr>
+        <tr><td class="host">Security &amp; infrastructure</td><td>cloudflare.com, mozilla.org, digitalocean.com, fastly.com, letsencrypt.org</td></tr>
+        <tr><td class="host">News &amp; media</td><td>bbc.co.uk, nytimes.com, theguardian.com, reuters.com, apnews.com</td></tr>
+        <tr><td class="host">Commerce &amp; payments</td><td>shopify.com, stripe.com, etsy.com, ebay.com, amazon.co.uk</td></tr>
+        <tr><td class="host">Public sector &amp; nonprofit</td><td>gov.uk, wikipedia.org, archive.org, european-union.europa.eu, nasa.gov</td></tr>
+        <tr><td class="host">SaaS &amp; productivity</td><td>notion.so, figma.com, slack.com, dropbox.com, zoom.us</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub">Passive only</h3>
+  <p class="body">
+    Every scan ran with active probing disabled. That means HTTP GETs of the
+    homepage and pages linked from it, plus DNS lookups — no payloads, no
+    parameter manipulation, no authentication attempts, nothing that alters
+    state. This is the only mode that is appropriate against sites you do not
+    own, and it has a second benefit for a paper: everything it observes is a
+    public fact that a reader can check independently.
+  </p>
+
+  <h3 class="sub">Three populations, reported separately</h3>
+  <p class="body">
+    Of the thirty sites in the frame, <strong>23 were fully observed</strong>,
+    <strong>6 returned a bot-protection interstitial</strong> instead of their
+    own page, and <strong>1 was unreachable</strong>. Prevalence statistics in
+    this paper are computed over the 23, and never over 29, because the six
+    intercepted sites cannot contribute a denominator for a header they were
+    never observed to send.
+  </p>
+
+  <div class="callout warn">
+    <h4>Why the intercepted sites look "clean" and are not</h4>
+    <p>
+      npmjs.com, stackoverflow.com, reuters.com, etsy.com, ebay.com and
+      amazon.co.uk each answered our request with a Cloudflare challenge page.
+      The scanner detects this and withholds every finding derived from the
+      response, so those six show only 2&ndash;4 findings each and zero
+      actionable ones.
+    </p>
+    <p>
+      <strong>That is suppressed coverage, not a clean bill of health.</strong>
+      Read naively, this data would rank Amazon the most secure site in the
+      corpus. It means only that we never saw Amazon's page. Which sites get
+      challenged also varies between runs — amazon.co.uk was fully observed on
+      one earlier run and intercepted on the final one.
+    </p>
+  </div>
+
+  <p class="body">
+    <strong>letsencrypt.org was unreachable</strong> from our test vantage point
+    on three attempts; plain <code>curl</code> also timed out, so the host was
+    not reachable rather than the scan failing. It is excluded, and the
+    Security &amp; infrastructure sector is therefore n=4.
+  </p>
+</section>
+
+<section>
+  <div class="sh">
+    <span class="kicker">2 · Results</span>
+    <h2>What was found</h2>
+    <p>
+      Across the 23 fully observed sites: <strong>286 findings, 116
+      actionable</strong> (severity above Info), a mean of 12.4 findings and
+      5.0 actionable per site. No critical findings on any site in the sample.
+    </p>
+  </div>
+
+  <div class="chart">
+    <div id="rows"></div>
+    <div class="axis"><span></span><div class="ticks"><span>0</span><span>6</span><span>12</span><span>18</span><span>23</span></div><span></span></div>
+    <p class="note">Number of the 23 fully observed sites carrying each finding. Bars share one scale, 0&ndash;23.</p>
+  </div>
+
+  <h3 class="sub">The headline is what is absent, not what is broken</h3>
+  <p class="body">
+    The three most common findings are the cross-origin isolation headers —
+    COEP on all 23 sites, CORP on 21, COOP on 18. These are Info severity and
+    contribute nothing to a grade, correctly: they are a modern hardening layer
+    that most of the web has not adopted, and their absence is not a
+    vulnerability. The same is true of DNSSEC, absent on 15 of 23 including
+    github.com, stripe.com and wikipedia.org.
+  </p>
+  <p class="body">
+    The findings that carry real weight are narrower. <strong>Eight of 23 sites
+    send no Content-Security-Policy at all</strong>, and a further 11 send one
+    weakened by <code>unsafe-inline</code> or <code>unsafe-eval</code> in
+    <code>script-src</code> — so only four sites in the sample ship a CSP that
+    meaningfully constrains script execution.
+  </p>
+</section>
+
+<section>
+  <div class="sh">
+    <span class="kicker">3 · High-severity findings</span>
+    <h2>Every high finding, and how to check it</h2>
+    <p>
+      Fifteen in total. Each was verified by hand against the live site before
+      publication; the reproduction command is given so you can do the same.
+      Where a scan followed a redirect, the finding describes the final URL,
+      which is not always the host we asked for.
+    </p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Finding</th><th>Sites</th><th>Reproduce</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="sev high">High</span> Missing Content-Security-Policy<br><span style="color:var(--faint)">CWE-79</span></td>
+          <td class="host">about.gitlab.com, fastly.com, shopify.com, wikipedia.org, european-union.europa.eu, nasa.gov, slack.com, zoom.us</td>
+          <td><code>curl -sI https://www.shopify.com | grep -i content-security-policy</code> — returns nothing.</td>
+        </tr>
+        <tr>
+          <td><span class="sev high">High</span> CSP missing on internal routes<br><span style="color:var(--faint)">CWE-79</span></td>
+          <td class="host">cloudflare.com (9 routes), vercel.com (8), bbc.co.uk (4), github.com (1), figma.com (1)</td>
+          <td><code>curl -sI https://www.cloudflare.com/es-es/ | grep -i content-security-policy</code> — the root sends CSP, the locale routes do not.</td>
+        </tr>
+        <tr>
+          <td><span class="sev high">High</span> JavaScript source map exposed<br><span style="color:var(--faint)">CWE-540</span></td>
+          <td class="host">about.gitlab.com, archive.org</td>
+          <td><code>curl -sI https://about.gitlab.com/_nuxt/Dtrxhrnz.js.map</code> — HTTP 200, 2.95 MB, 301 source files with original content.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub">Three worth commenting on</h3>
+  <p class="body">
+    <strong>The Cloudflare and Vercel findings are inconsistency, not absence.</strong>
+    Both send a Content-Security-Policy on their root document and omit it on
+    localised routes — <code>/es-es/</code>, <code>/fr-fr/</code>,
+    <code>/ja-jp/</code> and others. That is a more interesting result than a
+    site with no policy at all, because it is the kind of gap that appears when
+    a header is applied at one layer of a stack and not another.
+  </p>
+  <p class="body">
+    <strong>archive.org's exposed source map is real but arguably over-severe at
+    High.</strong> The map covers a vendored <code>lit</code> polyfill, so what
+    it exposes is a public library's source rather than the operator's own code.
+    We are reporting it at the severity the scanner assigned rather than
+    quietly downgrading it in the write-up, but a reader should weigh it
+    accordingly.
+  </p>
+  <p class="body">
+    <strong>gitlab.com redirects to a marketing site.</strong> Requesting
+    <code>https://gitlab.com</code> lands on <code>about.gitlab.com</code>, so
+    both GitLab findings describe that site and say nothing about the GitLab
+    application. Five other sites in the sample also redirected across hosts or
+    paths; the appendix lists the final URL for each.
+  </p>
+</section>
+
+<section>
+  <div class="sh">
+    <span class="kicker">4 · Instrument</span>
+    <h2>Seven false positives we found in our own scanner</h2>
+    <p>
+      This run was intended to produce a baseline. It also produced a
+      false-positive audit, because the first pass reported things that were
+      not true. All seven were fixed and covered by regression tests before the
+      data in this paper was captured. We are publishing them because a
+      measurement is only as good as the instrument, and a vendor who has never
+      found a fault in their own scanner has not looked.
+    </p>
+  </div>
+
+  <div class="callout warn">
+    <h4>The one that mattered most</h4>
+    <p>
+      Our first run reported <strong>GOV.UK as having neither an SPF nor a
+      DMARC record</strong>, both at High severity. GOV.UK publishes
+      <code>v=spf1 -all</code> at <code>gov.uk</code> and
+      <code>p=reject</code> at <code>_dmarc.gov.uk</code> — close to the
+      strongest email authentication posture a UK domain can have.
+    </p>
+    <p>
+      That single finding contained three separate bugs, and it is trivially
+      falsifiable: <code>dig +short TXT gov.uk</code>. Publishing it would have
+      destroyed the credibility of everything else on this page.
+    </p>
+  </div>
+
+  <ol class="bugs">
+    <li>
+      <h4>Email records were looked up on the wrong name</h4>
+      <p>The registrable domain was derived by counting label lengths. For <code>www.gov.uk</code>, "uk" is two characters and "gov" is three, so it took the <code>.co.uk</code> branch and then returned the hostname unchanged — querying <code>www.gov.uk</code> for SPF and <code>_dmarc.www.gov.uk</code> for DMARC. Neither exists. <code>www.bbc.co.uk</code> escaped only by having a fourth label.</p>
+    </li>
+    <li>
+      <h4>DNS answers were counted without checking their type</h4>
+      <p>A DNS answer section carries the whole resolution chain, not just the record type you asked for. An MX query for <code>www.gov.uk</code> returns two CNAMEs pointing at Fastly and no MX at all. Counting them as mail servers told the scanner the domain "actively sends email", which escalated the already-wrong finding from Medium to High.</p>
+    </li>
+    <li>
+      <h4>Evidence claimed a DNS status the resolver never returned</h4>
+      <p>The DMARC evidence string hardcoded <code>Status: NOERROR (domain exists)</code>. <code>_dmarc.www.gov.uk</code> is NXDOMAIN. The function's own documentation already said a missing-record finding required a NOERROR status; the code never checked.</p>
+    </li>
+    <li>
+      <h4>DNSSEC was checked at the wrong name, and the fix for bug 2 exposed it</h4>
+      <p>DNSKEY records live at the zone apex. Asking a CNAMEd <code>www</code> host returns the CNAME chain and no DNSKEY: <code>www.nasa.gov</code> answers with one CNAME while <code>nasa.gov</code> is properly signed. Before answers were filtered by type, that CNAME was counted as a DNSKEY and the check passed for entirely the wrong reason — a hidden false negative that fixing bug 2 turned into a visible false positive. Corpus-wide, DNSSEC findings went from 13/30 to 26/29 in one run, which is what made it obvious. The higher figure is the correct one: the old statistic was under-reporting.</p>
+    </li>
+    <li>
+      <h4>A check asserted something a passive scan cannot observe</h4>
+      <p>"No Rate Limiting Detected" fired on 15 of 30 sites including Stripe, Wikipedia and GOV.UK. Stripe sends no rate-limit headers at all and unquestionably rate-limits; the protection lives on login and API routes, not the homepage, and CDNs throttle silently. The check could see whether rate limiting was <em>advertised</em> and nothing more. Renamed to say exactly that, and dropped to Info with zero weight in the grade.</p>
+    </li>
+    <li>
+      <h4>A publishable vendor key was reported as a leaked credential</h4>
+      <p>nytimes.com was reported at High for a "hardcoded JWT" that is a survey widget's <code>apiKey</code> inside Google Tag Manager, with payload <code>{"company_id":"…","iat":…}</code>. Tokens now split on whether the payload carries a principal claim — <code>sub</code>, <code>user_id</code>, <code>email</code>, <code>role</code>, <code>scope</code>. With one it is a credential leak; with none it is an account identifier that vendor SDKs publish deliberately.</p>
+    </li>
+    <li>
+      <h4>Another company's error page was reported under the customer's name</h4>
+      <p>When a bot-protection interstitial answers instead of the origin, every check that reads the response describes that interstitial. Etsy's report said the site was missing CSP and serving a wildcard CORS policy; both were true only of Cloudflare's challenge page, and twelve of eighteen findings described a page Etsy never served. Findings are now withheld unless their source never read the intercepted response.</p>
+    </li>
+  </ol>
+
+  <div class="callout">
+    <h4>One error, five times</h4>
+    <p>
+      Bugs 1 through 4, and two earlier ones in this scanner's history, are all
+      the same mistake: <strong>treating the presence of a response as the
+      meaning of the response.</strong> Reachability read as an answer. A
+      vendor header's presence read as "blocked" when it is set on allowed
+      traffic. Evidence fixed regardless of what came back. A CNAME counted as
+      an MX record. NXDOMAIN read as "unknown" when it is the ordinary way of
+      saying "no record".
+    </p>
+    <p>
+      Twice during this work the same error was committed while fixing it — the
+      first attempt at bug 3's fix normalised NXDOMAIN to NOERROR so one status
+      check could serve two callers, which made the evidence assert that a
+      non-existent name existed. That is the class of defect worth naming
+      publicly, because recognising the shape is the only thing that catches
+      the next one.
+    </p>
+  </div>
+
+  <div class="callout good">
+    <h4>Measured effect of the fixes</h4>
+    <p>
+      Measured across the 29 sites common to both runs, actionable findings
+      fell from <strong>168 to 117</strong> and total findings from 361 to 303.
+      gov.uk went from 9 findings and 3 actionable to <strong>7 and 0</strong>;
+      etsy.com from 17 and 10 to <strong>4 and 1</strong>; stackoverflow.com
+      from 6 and 1 to <strong>3 and 0</strong>.
+    </p>
+    <p>
+      Those 51 are not all "false positives removed", and it would be
+      convenient to imply otherwise. The reduction is three different things:
+      findings deleted because they were wrong (GOV.UK's two, the NYT token),
+      findings withheld because they described a bot-protection page rather
+      than the customer, and one check reclassified from Low to Info because it
+      cannot observe what it was asserting — that last one still appears in
+      every report, it simply no longer counts as actionable.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="sh">
+    <span class="kicker">5 · Limitations</span>
+    <h2>What this data does not show</h2>
+  </div>
+  <ul class="plain">
+    <li><strong>One vantage point, one moment.</strong> All scans ran from a single network location on 8 September 2026. Sites serve different responses by geography and change configuration without notice; these numbers will drift.</li>
+    <li><strong>Homepages, not applications.</strong> A passive scan sees the public front door and pages linked from it. Nothing here describes authenticated areas, APIs, or the parts of these products where the interesting security work actually happens.</li>
+    <li><strong>Absence of a finding is not evidence of security.</strong> Active testing — injection, access control, SSRF — was disabled throughout, and those flaws were not looked for. A site with zero actionable findings here has not been shown to be safe.</li>
+    <li><strong>Six sites were only partially observed</strong> and are excluded from every prevalence denominator. Their low finding counts reflect suppressed coverage, not good configuration.</li>
+    <li><strong>Severity is our scanner's judgement.</strong> Where we think a severity is arguable — archive.org's vendored source map at High — we have said so rather than adjusting it silently.</li>
+    <li><strong>Headers are not the whole story.</strong> A missing header is cheap to detect and cheap to fix, which is exactly why it dominates this kind of result. It is a weak proxy for how secure an organisation actually is.</li>
+  </ul>
+</section>
+
+<section>
+  <div class="sh">
+    <span class="kicker">6 · Appendix</span>
+    <h2>Every site, every count</h2>
+    <p>
+      Findings and actionable findings per site, with the final URL where it
+      differs from the one requested. Intercepted sites are marked; their counts
+      are not comparable with the rest.
+    </p>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Site</th><th>Sector</th><th class="n">Findings</th><th class="n">Actionable</th><th>Note</th></tr></thead>
+      <tbody id="sites"></tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="sh">
+    <span class="kicker">7 · Reproduction</span>
+    <h2>Check any of this yourself</h2>
+    <p class="body">
+      Every finding class in this paper rests on a public response. These are
+      the exact checks:
+    </p>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Finding class</th><th>Command</th></tr></thead>
+      <tbody>
+        <tr><td class="host">Missing security header</td><td><code>curl -sI https://www.nasa.gov | grep -i 'content-security-policy\|x-frame-options\|referrer-policy'</code></td></tr>
+        <tr><td class="host">Cross-origin isolation</td><td><code>curl -sI https://github.com | grep -i 'cross-origin-'</code></td></tr>
+        <tr><td class="host">DNSSEC not enabled</td><td><code>dig +short DNSKEY stripe.com</code> — empty means unsigned</td></tr>
+        <tr><td class="host">DMARC policy absent</td><td><code>dig +short TXT _dmarc.europa.eu</code> — NXDOMAIN means no policy</td></tr>
+        <tr><td class="host">DMARC policy present (our own false positive)</td><td><code>dig +short TXT _dmarc.gov.uk</code> — returns <code>p=reject</code></td></tr>
+        <tr><td class="host">Source map exposed</td><td><code>curl -sI https://about.gitlab.com/_nuxt/Dtrxhrnz.js.map</code></td></tr>
+        <tr><td class="host">Permissive crossdomain.xml</td><td><code>curl -s https://www.nytimes.com/crossdomain.xml</code></td></tr>
+        <tr><td class="host">Bot-protection interception</td><td><code>curl -s https://www.etsy.com | head -c 400</code> — a challenge page, not the store</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>
+      Scans were passive: HTTP GETs and DNS lookups against publicly served
+      pages, with all active probing disabled. No authentication was attempted,
+      no parameters were manipulated, and no state was altered on any site.
+    </p>
+    <p>
+      Named organisations appear only as scan targets. Nothing here describes a
+      vulnerability, an exploit, or a breach in any of them. Absent hardening
+      headers are configuration choices these operators are entitled to make,
+      and several — notably GOV.UK, which our scanner initially defamed and
+      which turned out to have among the strongest email authentication in the
+      sample — are examples of good practice rather than poor.
+    </p>
+    <p>
+      Findings are a point-in-time observation from a single network vantage
+      point on 8 September 2026 and will not reproduce exactly as these sites
+      change.
+    </p>
+  </div>
+</footer>
+
+<script>
+// Prevalence among the 23 fully observed sites. One series, so no legend:
+// the section heading names what the bars measure.
+const N = 23;
+const PREV = [
+  ["Missing COEP", 23, "info"],
+  ["Missing CORP", 21, "info"],
+  ["Missing COOP", 18, "info"],
+  ["Missing Permissions-Policy", 17, "low"],
+  ["DNSSEC not enabled", 15, "info"],
+  ["Non-session cookie readable by JS", 13, "info"],
+  ["External resources missing SRI", 12, "medium"],
+  ["Weak CSP (unsafe-inline / eval)", 11, "medium"],
+  ["Missing Referrer-Policy", 11, "low"],
+  ["Rate limiting not advertised", 11, "info"],
+  ["Missing X-Content-Type-Options", 10, "medium"],
+  ["Missing Content-Security-Policy", 8, "high"],
+  ["Missing security.txt", 8, "info"],
+  ["Missing X-Frame-Options", 5, "medium"]
+];
+
+document.getElementById("rows").innerHTML = PREV.map(([name, n, sev]) =>
+  '<div class="crow">'
+  + '<span class="lab">' + name + '</span>'
+  + '<div class="track"><div class="bar" style="width:' + ((n / N) * 100).toFixed(1) + '%"></div></div>'
+  + '<span class="v">' + n + '/' + N + '</span>'
+  + '</div>'
+).join("");
+
+const SITES = [
+  ["vercel.com", "Developer platforms", 18, 9, ""],
+  ["nytimes.com", "News & media", 18, 7, ""],
+  ["zoom.us", "SaaS & productivity", 17, 8, "final URL www.zoom.com"],
+  ["apnews.com", "News & media", 16, 7, ""],
+  ["archive.org", "Public sector & nonprofit", 16, 7, ""],
+  ["wikipedia.org", "Public sector & nonprofit", 15, 5, ""],
+  ["theguardian.com", "News & media", 14, 4, "final URL /us"],
+  ["notion.so", "SaaS & productivity", 14, 6, "final URL www.notion.com"],
+  ["gitlab.com", "Developer platforms", 13, 7, "final URL about.gitlab.com"],
+  ["dropbox.com", "SaaS & productivity", 13, 5, ""],
+  ["digitalocean.com", "Security & infrastructure", 12, 4, ""],
+  ["nasa.gov", "Public sector & nonprofit", 12, 6, ""],
+  ["figma.com", "SaaS & productivity", 12, 6, ""],
+  ["github.com", "Developer platforms", 11, 5, ""],
+  ["shopify.com", "Commerce & payments", 11, 4, ""],
+  ["fastly.com", "Security & infrastructure", 11, 3, ""],
+  ["bbc.co.uk", "News & media", 10, 5, ""],
+  ["european-union.europa.eu", "Public sector & nonprofit", 10, 4, "final URL /select-language"],
+  ["slack.com", "SaaS & productivity", 10, 4, ""],
+  ["stripe.com", "Commerce & payments", 10, 3, ""],
+  ["cloudflare.com", "Security & infrastructure", 8, 4, ""],
+  ["mozilla.org", "Security & infrastructure", 8, 3, "final URL /en-US/"],
+  ["gov.uk", "Public sector & nonprofit", 7, 0, ""],
+  ["etsy.com", "Commerce & payments", 4, 1, "intercepted — partial"],
+  ["stackoverflow.com", "Developer platforms", 3, 0, "intercepted — partial"],
+  ["reuters.com", "News & media", 3, 0, "intercepted — partial"],
+  ["ebay.com", "Commerce & payments", 3, 0, "intercepted — partial"],
+  ["npmjs.com", "Developer platforms", 2, 0, "intercepted — partial"],
+  ["amazon.co.uk", "Commerce & payments", 2, 0, "intercepted — partial"],
+  ["letsencrypt.org", "Security & infrastructure", null, null, "unreachable — excluded"]
+];
+
+document.getElementById("sites").innerHTML = SITES.map(([host, sector, total, act, note]) =>
+  '<tr><td class="host">' + host + '</td><td>' + sector + '</td>'
+  + '<td class="n">' + (total === null ? "—" : total) + '</td>'
+  + '<td class="n">' + (act === null ? "—" : act) + '</td>'
+  + '<td>' + note + '</td></tr>'
+).join("");
+</script>
+
+</body></html>

@@ -1,0 +1,220 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>SEO Audit Corrections</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one column (~64rem): verdict counts, three evidence tables, fixes for the tool, appendix. Tables scroll inside their own box. */
+:root {
+  --bg:#f4f6f8; --surface:#fff; --fg:#14202a; --muted:#56656f; --rule:#d5dde3; --accent:#0a6b8a; --accent-soft:#dcedf4;
+  --fp:#b3261e; --fp-bg:#fbe3e1; --partial:#a15c00; --partial-bg:#fbeccd; --valid:#1d7a46; --valid-bg:#dcf1e3; --missed:#5b3fa0; --missed-bg:#e9e2f6;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif; --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg:#0e161c; --surface:#151f27; --fg:#e4ecf1; --muted:#95a7b3; --rule:#283943; --accent:#6cc4e2; --accent-soft:#12303c;
+  --fp:#f59a93; --fp-bg:#3c1a18; --partial:#e6b75a; --partial-bg:#372b0f; --valid:#5bc186; --valid-bg:#153322; --missed:#bda6ef; --missed-bg:#2a2140; color-scheme:dark; } }
+:root[data-theme="dark"] {
+  --bg:#0e161c; --surface:#151f27; --fg:#e4ecf1; --muted:#95a7b3; --rule:#283943; --accent:#6cc4e2; --accent-soft:#12303c;
+  --fp:#f59a93; --fp-bg:#3c1a18; --partial:#e6b75a; --partial-bg:#372b0f; --valid:#5bc186; --valid-bg:#153322; --missed:#bda6ef; --missed-bg:#2a2140; color-scheme:dark; }
+* { box-sizing:border-box; }
+body { background:var(--bg); color:var(--fg); font:400 1rem/1.6 var(--body); padding-inline:1rem; padding-block:2rem 4rem; }
+main { max-width:64rem; margin-inline:auto; display:flex; flex-direction:column; gap:2.75rem; }
+h1,h2,h3 { font-family:var(--display); line-height:1.15; text-wrap:balance; margin:0; }
+h1 { font-size:clamp(1.9rem,5vw,2.6rem); font-weight:700; letter-spacing:-.01em; } h2 { font-size:1.4rem; font-weight:700; } h3 { font-size:1.02rem; font-weight:600; }
+p { margin:0; max-width:68ch; } ul,ol { margin:0; padding-left:1.15rem; display:flex; flex-direction:column; gap:.45rem; max-width:74ch; }
+a { color:var(--accent); text-underline-offset:2px; overflow-wrap:anywhere; } a:focus-visible,button:focus-visible,summary:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+code { font:500 .85em var(--mono); background:var(--accent-soft); padding:.05em .3em; border-radius:.25rem; }
+.meta { font:500 .78rem/1.4 var(--mono); color:var(--muted); letter-spacing:.04em; text-transform:uppercase; }
+header,section { display:flex; flex-direction:column; gap:1rem; min-width:0; } .lede { font-size:1.1rem; }
+.bar { display:flex; flex-wrap:wrap; gap:.75rem; align-items:center; }
+button.copy { font:600 .9rem var(--body); background:var(--accent); color:var(--bg); border:0; border-radius:.45rem; padding:.65rem 1.1rem; cursor:pointer; }
+button.copy:hover { filter:brightness(1.08); } .status { font-size:.85rem; color:var(--muted); }
+.tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(10rem,1fr)); gap:.75rem; }
+.tile { background:var(--surface); border:1px solid var(--rule); border-radius:.5rem; padding:.85rem .95rem; display:flex; flex-direction:column; gap:.1rem; min-width:0; }
+.tile b { font:700 2rem/1.1 var(--display); font-variant-numeric:tabular-nums; } .tile span { font-size:.82rem; color:var(--muted); }
+.tile.fp b { color:var(--fp); } .tile.partial b { color:var(--partial); } .tile.valid b { color:var(--valid); } .tile.missed b { color:var(--missed); }
+.tablewrap { overflow-x:auto; border:1px solid var(--rule); border-radius:.5rem; background:var(--surface); }
+table { border-collapse:collapse; width:100%; min-width:46rem; font-size:.88rem; }
+th,td { text-align:left; vertical-align:top; padding:.65rem .75rem; border-bottom:1px solid var(--rule); }
+th { font:500 .72rem/1.3 var(--mono); letter-spacing:.05em; text-transform:uppercase; color:var(--muted); background:var(--bg); }
+tbody tr:last-child td { border-bottom:0; } td.num { font-family:var(--mono); white-space:nowrap; } td.ev { color:var(--muted); font-size:.83rem; }
+.pill { display:inline-block; font:500 .7rem/1 var(--mono); padding:.28rem .5rem; border-radius:99rem; white-space:nowrap; }
+.pill.fp { background:var(--fp-bg); color:var(--fp); } .pill.partial { background:var(--partial-bg); color:var(--partial); } .pill.valid { background:var(--valid-bg); color:var(--valid); } .pill.missed { background:var(--missed-bg); color:var(--missed); }
+.st { font:600 .8rem var(--mono); padding:.15rem .4rem; border-radius:.3rem; } .st.ok { background:var(--valid-bg); color:var(--valid); } .st.blocked { background:var(--fp-bg); color:var(--fp); }
+.note { font-size:.85rem; color:var(--muted); max-width:74ch; } .callout { border-left:3px solid var(--accent); padding:.4rem 0 .4rem 1rem; display:flex; flex-direction:column; gap:.5rem; }
+details { background:var(--surface); border:1px solid var(--rule); border-radius:.5rem; } summary { cursor:pointer; padding:.7rem .9rem; font-weight:600; }
+textarea { width:100%; min-height:16rem; font:400 .8rem/1.5 var(--mono); background:var(--bg); color:var(--fg); border:0; border-top:1px solid var(--rule); padding:.9rem; border-radius:0 0 .5rem .5rem; resize:vertical; }
+</style>
+<main>
+<header>
+  <div class="meta">Private brief · checked 2026-09-30 · for the agent working on SEO Scan Pro</div>
+  <h1>SEO Audit Corrections</h1>
+  <p class="lede">SEO Scan Pro audited https://seclayer.app/ and scored it Overall 86, Technical 92, Content 84, AEO/GEO 88, Performance 90. Each claim below was checked against the live site, the raw HTML, a headless-browser render and the tool’s own source. This page says what was wrong, what was missed, and what to change in the tool.</p>
+  <div class="bar"><button class="copy" id="copy-brief" type="button">Copy brief for the agent</button><span class="status" id="copy-status" role="status" aria-live="polite"></span></div>
+</header>
+
+<div class="tiles" aria-label="Verdict counts">
+  <div class="tile fp"><b>6</b><span>false positives</span></div>
+  <div class="tile partial"><b>5</b><span>partly wrong</span></div>
+  <div class="tile valid"><b>5</b><span>points that were valid</span></div>
+  <div class="tile missed"><b>4</b><span>real issues the audit missed</span></div>
+</div>
+<p class="note">11 claims or tasks were wrong in whole or part. "Verified" means I checked it directly in this session. "Sourced" means it rests on web search results. "Commonly reported" means general knowledge that I did not test.</p>
+
+<section id="wrong">
+  <h2>False positives and wrong claims</h2>
+  <div class="tablewrap" tabindex="0" role="region" aria-label="False positives, scrollable"><table>
+    <thead><tr><th>#</th><th>Verdict</th><th>What the audit said</th><th>What is true</th><th>Evidence and basis</th></tr></thead>
+    <tbody><tr><td class="num">a</td><td><span class="pill fp">False positive</span></td><td>Task 5: the SoftwareApplication schema lacks applicationCategory, operatingSystem and offers; HowTo lacks totalTime.</td><td>All present. Seclayer SoftwareApplication: applicationCategory SecurityApplication, operatingSystem Web, Offer 29.00 USD. A second SoftwareApplication (@seclayer/mcp): DeveloperApplication, Offer 0 USD. HowTo: totalTime PT5M, 4 steps.</td><td class="ev">Parsed the 4 JSON-LD blocks in the raw HTML of https://seclayer.app/ (curl). Verified.</td></tr><tr><td class="num">b</td><td><span class="pill fp">False positive</span></td><td>Use "offers": price "99" (adjust as needed).</td><td>A single scan costs $29. $99 is the 5-scan pack ($19.80 a scan); the 20-scan pack is $299. The existing Offer is already 29.00 USD.</td><td class="ev">Visible pricing section, JSON-LD, and server pack prices (2900, 9900, 29900 cents). Verified.</td></tr><tr><td class="num">c</td><td><span class="pill fp">False positive</span></td><td>Add aggregateRating if available.</td><td>No real ratings exist for Seclayer, so any rating would be invented. Google prohibits fake reviews and ratings in review markup; violating this can trigger a manual action that strips the structured data.</td><td class="ev">No aggregateRating in the markup (verified). Policy from web search results (secondary summaries of Google’s guidelines), not read on Google’s own page.</td></tr><tr><td class="num">d</td><td><span class="pill fp">False positive</span></td><td>Validate HowTo and FAQPage with Google’s Rich Results Test.</td><td>FAQ rich results stopped appearing in Google Search on 7 May 2026. FAQ support was removed from the Rich Results Test in June 2026 and from the Search Console API in August 2026. HowTo rich results were deprecated earlier. FAQPage markup is still valid but earns no rich result.</td><td class="ev">Web search results, including quattr.com/blog/faq-schema-in-2026 (secondary sources). Sourced, not tested.</td></tr><tr><td class="num">e</td><td><span class="pill partial">Partly wrong</span></td><td>Structured data includes FAQPage.</td><td>FAQPage exists only after JavaScript runs (a React component adds it). It is not in the raw HTML and not on /docs. There is no /faq page (404); the nav "FAQ" was an in-page anchor.</td><td class="ev">Raw HTML: 0 mentions of FAQPage. Headless Chromium render: present. /faq and /pricing returned 404, /docs 200. Verified.</td></tr><tr><td class="num">f</td><td><span class="pill partial">Partly wrong</span></td><td>Task 1: add a "Pricing and credits" section and an "MCP server integration" section.</td><td>Both already existed as visible sections: "Purchase Credits. Run Scans. Zero Lock-In." (single $29, 5-scan pack $99, 20-scan pack $299, free-beta notice) and "Pentest in your editor using [ sec ]layer MCP". What was missing: a visible "How it works" and "What we test".</td><td class="ev">Headless Chromium render: heading list and page text; searched for "how it works" and "what we test" (both absent). Verified.</td></tr><tr><td class="num">g</td><td><span class="pill fp">False positive</span></td><td>Task 2: add descriptive alt text to images.</td><td>The page has 0 images, in the raw HTML and in the rendered DOM. Nothing to fix; the task is a rule for future images.</td><td class="ev">grep of raw HTML for &lt;img&gt;: 0. Rendered image list: empty. Verified.</td></tr><tr><td class="num">h</td><td><span class="pill fp">False positive</span></td><td>Task 3: add hreflang tags.</td><td>Single-language site. The task is conditional ("if multi-language support is planned") and no such plan appears in the repo. Not a finding.</td><td class="ev">Raw head: html lang="en", one canonical, no alternates. Verified. "No plan" is absence of evidence in the repo.</td></tr><tr><td class="num">i</td><td><span class="pill partial">Partly wrong</span></td><td>Task 6: only 5 internal links on the main page; link the seven categories to a dedicated page.</td><td>The rendered DOM had 1 anchor (/docs): navigation and footer were click-handler buttons, which crawlers cannot follow. The raw HTML had 4 links (/, /docs, /privacy, /terms) inside a noscript block. The "dedicated page" already exists as a section, /docs#pillars ("The seven pillars"). The weakness was real; the count and the remedy were off.</td><td class="ev">Link lists from the headless render and from the raw HTML; section ids in the docs page source. Verified.</td></tr><tr><td class="num">j</td><td><span class="pill partial">Partly wrong</span></td><td>Scores: Overall 86, Technical 92, Content 84, AEO/GEO 88, Performance 90.</td><td>The scores are integers written by DeepSeek: lib/deepseek.ts asks the model for an "integer 0-100" per category. They are estimates, not measurements. AEO/GEO 88 is overstated given the crawler blocks and thin raw HTML below.</td><td class="ev">Read ~/SEO-scan-Pro/lib/deepseek.ts (score schema). Verified. That scores vary between runs is an inference about LLM output, not tested.</td></tr><tr><td class="num">k</td><td><span class="pill partial">Partly wrong</span></td><td>The main page has only 765 words.</td><td>Close for the JavaScript-rendered page (739 words in a headless render). But a crawler that does not run JavaScript receives about 182 words of text (a noscript block) and 4 JSON-LD blocks. The audit does not separate rendered from raw, so it cannot say what non-JS crawlers read. SEO Scan Pro crawls with Puppeteer (its README: captures JS-rendered content), which explains the gap.</td><td class="ev">Measured both: raw HTML with scripts and styles stripped (about 182 words) and the render (739). Verified. That many AI retrieval crawlers do not run JavaScript is commonly reported, not tested per bot.</td></tr></tbody>
+  </table></div>
+</section>
+
+<section id="missed">
+  <h2>What the audit missed</h2>
+  <div class="tablewrap" tabindex="0" role="region" aria-label="Missed issues, scrollable"><table>
+    <thead><tr><th>#</th><th>Verdict</th><th>Issue</th><th>Evidence and basis</th></tr></thead>
+    <tbody><tr><td class="num">1</td><td><span class="pill missed">Missed</span></td><td><b>Cloudflare blocks AI training crawlers on all three sites</b><br>GPTBot, ClaudeBot, CCBot and Bytespider get HTTP 403 with the body "Your request was blocked." (server: cloudflare, text/plain) on seclayer.app, secscan.us and secscan.info, including llms.txt and sitemap.xml. OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User, Googlebot, Bingbot and Applebot get 200. robots.txt allows everyone, so the site says "welcome" and then refuses. Probably Cloudflare’s default AI-training-bot blocking; I did not see the dashboard settings. Whether to keep it is the owner’s decision.</td><td class="ev">curl with each bot’s published user-agent string against all three sites (table in the appendix). Verified.</td></tr><tr><td class="num">2</td><td><span class="pill missed">Missed</span></td><td><b>HowTo markup describes steps the page did not show</b><br>The HowTo JSON-LD lists 4 steps, but the page had no visible "How it works" section. Markup should reflect visible content.</td><td class="ev">Headless render heading search (verified). The "markup should match visible content" rule is general knowledge of Google’s guidelines, not checked here.</td></tr><tr><td class="num">3</td><td><span class="pill missed">Missed</span></td><td><b>Stale version in structured data</b><br>The @seclayer/mcp SoftwareApplication said softwareVersion 0.1.0. npm lists 1.0.0 (the repo’s package.json says 1.0.1, unpublished).</td><td class="ev">Raw JSON-LD; npm view; package.json. Verified.</td></tr><tr><td class="num">4</td><td><span class="pill missed">Missed</span></td><td><b>llms.txt had no links to key content</b><br>It linked only /docs, the npm package and the sitemap. No pricing, FAQ or category links.</td><td class="ev">Fetched https://seclayer.app/llms.txt. Verified.</td></tr></tbody>
+  </table></div>
+  <div class="callout"><h3>Why the Cloudflare block matters</h3><p>Search and answer crawlers (OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot, Googlebot, Bingbot) are let through, so citation in ChatGPT search, Claude search and Perplexity is not blocked by this. The blocked bots are the training crawlers. The audit scored AEO/GEO without testing any of this.</p></div>
+</section>
+
+<section id="right">
+  <h2>What the audit got right (do not overcorrect)</h2>
+  <div class="tablewrap" tabindex="0" role="region" aria-label="Valid audit points, scrollable"><table style="min-width:34rem">
+    <thead><tr><th>Verdict</th><th>Audit said</th><th>Confirmed by</th></tr></thead>
+    <tbody><tr><td><span class="pill valid">Valid</span></td><td>Content depth: about 765 words.</td><td>Close. 739 words rendered.</td></tr><tr><td><span class="pill valid">Valid</span></td><td>No direct-answer block near the top.</td><td>Confirmed. The FAQ sat lower down; there was no Quick answers block.</td></tr><tr><td><span class="pill valid">Valid</span></td><td>Weak internal linking.</td><td>Confirmed: 1 real anchor in the rendered page.</td></tr><tr><td><span class="pill valid">Valid</span></td><td>llms.txt needs an attribution format and usage terms.</td><td>Confirmed: a search for attribution, cite, licence, restriction and permission terms found 0 matches.</td></tr><tr><td><span class="pill valid">Valid</span></td><td>"How it works" and "What we test" sections are missing.</td><td>Confirmed: neither heading existed in the render.</td></tr></tbody>
+  </table></div>
+</section>
+
+<section id="fixes">
+  <h2>How to fix SEO Scan Pro</h2>
+  <ol><li>Verify every suggestion against the crawled page before emitting it, and skip items that are already present (applicationCategory, operatingSystem, offers and totalTime were all there).</li><li>Never suggest aggregateRating or Review markup unless genuine, visible reviews exist on the page.</li><li>Never use an example price the site does not charge; read prices from the page (the audit suggested 99 for a $29 product).</li><li>Stop recommending Rich Results Test validation for FAQ and HowTo. Say FAQPage is still valid markup but earns no rich result.</li><li>Measure raw-HTML content and rendered content separately and report the gap. AI retrieval crawlers are commonly reported not to run JavaScript; say "commonly reported", not "tested per bot".</li><li>Test crawler access by user agent (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User, Googlebot, Bingbot, Applebot, CCBot, Bytespider) and report any 403 or block, and any conflict with robots.txt.</li><li>Flag structured data that describes content which is not visible on the page (HowTo steps, FAQ answers).</li><li>Do not present LLM-written scores as measurements. Label them model estimates, or compute deterministic scores.</li><li>Count real &lt;a href&gt; links in both the raw and the rendered HTML; button-based navigation is invisible to crawlers.</li></ol>
+</section>
+
+<section id="state">
+  <h2>State of seclayer.app</h2>
+  <p>A separate agent has implemented these fixes locally in <code>~/seclayer.io2026</code>. They were <b>not deployed</b> at the time of writing:</p>
+  <ul>
+    <li>A shared content module feeding both the visible page and a static fallback.</li>
+    <li>Visible Quick answers, How it works and What we test sections.</li>
+    <li>A build-time static fallback: about 1,915 words in the raw HTML, versus 208 before.</li>
+    <li>FAQPage moved into the static HTML, so it no longer depends on JavaScript.</li>
+    <li>Real <code>&lt;a href&gt;</code> navigation and footer links: 12 anchors, versus 1.</li>
+    <li><code>@seclayer/mcp</code> softwareVersion set to 1.0.0.</li>
+  </ul>
+  <p>Re-audit only after deployment, and compare raw HTML against the rendered page.</p>
+</section>
+
+<section id="appendix">
+  <h2>Evidence appendix</h2>
+  <h3>Crawler access: HTTP status by user agent</h3>
+  <div class="tablewrap" tabindex="0" role="region" aria-label="Crawler status table, scrollable"><table style="min-width:30rem">
+    <thead><tr><th>User agent</th><th>seclayer.app</th><th>secscan.us</th><th>secscan.info</th></tr></thead>
+    <tbody><tr><td>Applebot</td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td></tr><tr><td>Bingbot</td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td></tr><tr><td>Bytespider</td><td class="num"><span class="st blocked">403</span></td><td class="num"><span class="st blocked">403</span></td><td class="num"><span class="st blocked">403</span></td></tr><tr><td>CCBot</td><td class="num"><span class="st blocked">403</span></td><td class="num"><span class="st blocked">403</span></td><td class="num"><span class="st blocked">403</span></td></tr><tr><td>ChatGPT-User</td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td></tr><tr><td>Claude-SearchBot</td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td></tr><tr><td>Claude-User</td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td></tr><tr><td>ClaudeBot</td><td class="num"><span class="st blocked">403</span></td><td class="num"><span class="st blocked">403</span></td><td class="num"><span class="st blocked">403</span></td></tr><tr><td>GPTBot</td><td class="num"><span class="st blocked">403</span></td><td class="num"><span class="st blocked">403</span></td><td class="num"><span class="st blocked">403</span></td></tr><tr><td>Googlebot</td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td></tr><tr><td>OAI-SearchBot</td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td></tr><tr><td>Perplexity-User</td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td></tr><tr><td>PerplexityBot</td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td><td class="num"><span class="st ok">200</span></td></tr></tbody>
+  </table></div>
+  <p class="note">Method: <code>curl</code> with each bot’s published user-agent string against <code>/</code>. Blocked responses were HTTP 403, content-type text/plain, body "Your request was blocked.", server cloudflare. For GPTBot on seclayer.app: <code>/llms.txt</code> 403, <code>/sitemap.xml</code> 403, <code>/docs</code> 403, <code>/robots.txt</code> 200. Verified.</p>
+  <h3>Other measurements</h3>
+  <ul>
+    <li><b>Structured data in the raw HTML:</b> 4 JSON-LD blocks: SoftwareApplication (Seclayer), an Organization plus WebSite graph, SoftwareApplication (@seclayer/mcp), HowTo. After JavaScript runs there is also FAQPage.</li>
+    <li><b>Content:</b> raw HTML about 182 words of text (scripts and styles stripped); rendered page 739 words. Raw HTML was 10,207 bytes and contained <code>&lt;div id="root"&gt;&lt;/div&gt;</code> plus a noscript block.</li>
+    <li><b>Rendered headings before the fixes:</b> H1 "Security layer for every single deploy"; H2 pricing, MCP, sample report and FAQ sections. No "How it works" or "What we test".</li>
+    <li><b>Repository:</b> the Seclayer GitHub repository is private, so its source is not public.</li>
+    <li><b>Not checked:</b> Cloudflare’s dashboard settings, and how each individual AI crawler parses a noscript block.</li>
+  </ul>
+  <h3>Sources (secondary, from web search)</h3>
+  <ul>
+    <li><a href="https://www.quattr.com/blog/faq-schema-in-2026">quattr.com: FAQ schema in 2026</a></li>
+    <li><a href="https://magic-seo.com/articles/en/google-structured-data/guidelines">magic-seo.com: structured data guidelines and manual actions</a></li>
+    <li><a href="https://www.searchenginejournal.com/why-googles-rich-results-tool/539964/">Search Engine Journal: why the Rich Results Test can mislead</a></li>
+  </ul>
+  <details><summary>Plain-text brief (what the button copies)</summary><textarea id="brief" readonly>BRIEF: CORRECTIONS TO THE SEO SCAN PRO AUDIT OF https://seclayer.app/
+
+Audit scores under review: Overall 86, Technical 92, Content 84, AEO/GEO 88, Performance 90. Checked on 2026-09-30 against the live site, the raw HTML, a headless Chromium render, and the SEO Scan Pro source.
+
+SUMMARY: 11 audit claims or tasks were wrong (6 false positives, 5 partly wrong). 5 points were valid. 4 real issues were missed.
+
+FALSE POSITIVES AND WRONG CLAIMS
+(a) [False positive] Audit said: Task 5: the SoftwareApplication schema lacks applicationCategory, operatingSystem and offers; HowTo lacks totalTime.
+    True: All present. Seclayer SoftwareApplication: applicationCategory SecurityApplication, operatingSystem Web, Offer 29.00 USD. A second SoftwareApplication (@seclayer/mcp): DeveloperApplication, Offer 0 USD. HowTo: totalTime PT5M, 4 steps.
+    Evidence: Parsed the 4 JSON-LD blocks in the raw HTML of https://seclayer.app/ (curl). Verified.
+(b) [False positive] Audit said: Use "offers": price "99" (adjust as needed).
+    True: A single scan costs $29. $99 is the 5-scan pack ($19.80 a scan); the 20-scan pack is $299. The existing Offer is already 29.00 USD.
+    Evidence: Visible pricing section, JSON-LD, and server pack prices (2900, 9900, 29900 cents). Verified.
+(c) [False positive] Audit said: Add aggregateRating if available.
+    True: No real ratings exist for Seclayer, so any rating would be invented. Google prohibits fake reviews and ratings in review markup; violating this can trigger a manual action that strips the structured data.
+    Evidence: No aggregateRating in the markup (verified). Policy from web search results (secondary summaries of Google’s guidelines), not read on Google’s own page.
+(d) [False positive] Audit said: Validate HowTo and FAQPage with Google’s Rich Results Test.
+    True: FAQ rich results stopped appearing in Google Search on 7 May 2026. FAQ support was removed from the Rich Results Test in June 2026 and from the Search Console API in August 2026. HowTo rich results were deprecated earlier. FAQPage markup is still valid but earns no rich result.
+    Evidence: Web search results, including quattr.com/blog/faq-schema-in-2026 (secondary sources). Sourced, not tested.
+(e) [Partly wrong] Audit said: Structured data includes FAQPage.
+    True: FAQPage exists only after JavaScript runs (a React component adds it). It is not in the raw HTML and not on /docs. There is no /faq page (404); the nav "FAQ" was an in-page anchor.
+    Evidence: Raw HTML: 0 mentions of FAQPage. Headless Chromium render: present. /faq and /pricing returned 404, /docs 200. Verified.
+(f) [Partly wrong] Audit said: Task 1: add a "Pricing and credits" section and an "MCP server integration" section.
+    True: Both already existed as visible sections: "Purchase Credits. Run Scans. Zero Lock-In." (single $29, 5-scan pack $99, 20-scan pack $299, free-beta notice) and "Pentest in your editor using [ sec ]layer MCP". What was missing: a visible "How it works" and "What we test".
+    Evidence: Headless Chromium render: heading list and page text; searched for "how it works" and "what we test" (both absent). Verified.
+(g) [False positive] Audit said: Task 2: add descriptive alt text to images.
+    True: The page has 0 images, in the raw HTML and in the rendered DOM. Nothing to fix; the task is a rule for future images.
+    Evidence: grep of raw HTML for &lt;img&gt;: 0. Rendered image list: empty. Verified.
+(h) [False positive] Audit said: Task 3: add hreflang tags.
+    True: Single-language site. The task is conditional ("if multi-language support is planned") and no such plan appears in the repo. Not a finding.
+    Evidence: Raw head: html lang="en", one canonical, no alternates. Verified. "No plan" is absence of evidence in the repo.
+(i) [Partly wrong] Audit said: Task 6: only 5 internal links on the main page; link the seven categories to a dedicated page.
+    True: The rendered DOM had 1 anchor (/docs): navigation and footer were click-handler buttons, which crawlers cannot follow. The raw HTML had 4 links (/, /docs, /privacy, /terms) inside a noscript block. The "dedicated page" already exists as a section, /docs#pillars ("The seven pillars"). The weakness was real; the count and the remedy were off.
+    Evidence: Link lists from the headless render and from the raw HTML; section ids in the docs page source. Verified.
+(j) [Partly wrong] Audit said: Scores: Overall 86, Technical 92, Content 84, AEO/GEO 88, Performance 90.
+    True: The scores are integers written by DeepSeek: lib/deepseek.ts asks the model for an "integer 0-100" per category. They are estimates, not measurements. AEO/GEO 88 is overstated given the crawler blocks and thin raw HTML below.
+    Evidence: Read ~/SEO-scan-Pro/lib/deepseek.ts (score schema). Verified. That scores vary between runs is an inference about LLM output, not tested.
+(k) [Partly wrong] Audit said: The main page has only 765 words.
+    True: Close for the JavaScript-rendered page (739 words in a headless render). But a crawler that does not run JavaScript receives about 182 words of text (a noscript block) and 4 JSON-LD blocks. The audit does not separate rendered from raw, so it cannot say what non-JS crawlers read. SEO Scan Pro crawls with Puppeteer (its README: captures JS-rendered content), which explains the gap.
+    Evidence: Measured both: raw HTML with scripts and styles stripped (about 182 words) and the render (739). Verified. That many AI retrieval crawlers do not run JavaScript is commonly reported, not tested per bot.
+
+MISSED BY THE AUDIT (REAL ISSUES)
+1. Cloudflare blocks AI training crawlers on all three sites: GPTBot, ClaudeBot, CCBot and Bytespider get HTTP 403 with the body "Your request was blocked." (server: cloudflare, text/plain) on seclayer.app, secscan.us and secscan.info, including llms.txt and sitemap.xml. OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User, Googlebot, Bingbot and Applebot get 200. robots.txt allows everyone, so the site says "welcome" and then refuses. Probably Cloudflare’s default AI-training-bot blocking; I did not see the dashboard settings. Whether to keep it is the owner’s decision.
+    Evidence: curl with each bot’s published user-agent string against all three sites (table in the appendix). Verified.
+2. HowTo markup describes steps the page did not show: The HowTo JSON-LD lists 4 steps, but the page had no visible "How it works" section. Markup should reflect visible content.
+    Evidence: Headless render heading search (verified). The "markup should match visible content" rule is general knowledge of Google’s guidelines, not checked here.
+3. Stale version in structured data: The @seclayer/mcp SoftwareApplication said softwareVersion 0.1.0. npm lists 1.0.0 (the repo’s package.json says 1.0.1, unpublished).
+    Evidence: Raw JSON-LD; npm view; package.json. Verified.
+4. llms.txt had no links to key content: It linked only /docs, the npm package and the sitemap. No pricing, FAQ or category links.
+    Evidence: Fetched https://seclayer.app/llms.txt. Verified.
+
+WHAT THE AUDIT GOT RIGHT (DO NOT OVERCORRECT)
+- Content depth: about 765 words. Close. 739 words rendered.
+- No direct-answer block near the top. Confirmed. The FAQ sat lower down; there was no Quick answers block.
+- Weak internal linking. Confirmed: 1 real anchor in the rendered page.
+- llms.txt needs an attribution format and usage terms. Confirmed: a search for attribution, cite, licence, restriction and permission terms found 0 matches.
+- "How it works" and "What we test" sections are missing. Confirmed: neither heading existed in the render.
+
+HOW TO FIX SEO SCAN PRO
+1. Verify every suggestion against the crawled page before emitting it, and skip items that are already present (applicationCategory, operatingSystem, offers and totalTime were all there).
+2. Never suggest aggregateRating or Review markup unless genuine, visible reviews exist on the page.
+3. Never use an example price the site does not charge; read prices from the page (the audit suggested 99 for a $29 product).
+4. Stop recommending Rich Results Test validation for FAQ and HowTo. Say FAQPage is still valid markup but earns no rich result.
+5. Measure raw-HTML content and rendered content separately and report the gap. AI retrieval crawlers are commonly reported not to run JavaScript; say "commonly reported", not "tested per bot".
+6. Test crawler access by user agent (GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User, Googlebot, Bingbot, Applebot, CCBot, Bytespider) and report any 403 or block, and any conflict with robots.txt.
+7. Flag structured data that describes content which is not visible on the page (HowTo steps, FAQ answers).
+8. Do not present LLM-written scores as measurements. Label them model estimates, or compute deterministic scores.
+9. Count real &lt;a href&gt; links in both the raw and the rendered HTML; button-based navigation is invisible to crawlers.
+
+STATE OF SECLAYER.APP: a separate agent has implemented these fixes locally in ~/seclayer.io2026 (NOT deployed at the time of writing): a shared content module; visible Quick answers, How it works and What we test sections; a build-time static fallback (about 1,915 words in the raw HTML versus 208 before); FAQPage moved into the static HTML; real &lt;a href&gt; nav and footer links (12 anchors versus 1); @seclayer/mcp softwareVersion set to 1.0.0. Re-audit only after deployment, and compare raw versus rendered.
+
+CRAWLER ACCESS (HTTP status, identical on seclayer.app, secscan.us, secscan.info): Applebot 200; Bingbot 200; Bytespider 403; CCBot 403; ChatGPT-User 200; Claude-SearchBot 200; Claude-User 200; ClaudeBot 403; GPTBot 403; Googlebot 200; OAI-SearchBot 200; Perplexity-User 200; PerplexityBot 200.</textarea></details>
+</section>
+</main>
+<script>
+(function () {
+  var btn = document.getElementById('copy-brief'), status = document.getElementById('copy-status'), ta = document.getElementById('brief');
+  function fallback() {
+    ta.closest('details').open = true; ta.focus(); ta.select();
+    status.textContent = 'Copy blocked here. The brief is selected below: press Ctrl+C (or Cmd+C).';
+  }
+  btn.addEventListener('click', function () {
+    var text = ta.value;
+    try {
+      navigator.clipboard.writeText(text).then(function () { status.textContent = 'Copied. Paste it into the agent.'; }, fallback);
+    } catch (e) { fallback(); }
+  });
+})();
+</script>
+
+</body></html>

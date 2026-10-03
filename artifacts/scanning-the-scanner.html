@@ -1,0 +1,446 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>Scanning the Scanner</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/*
+ * Single-theme dark by design, not omission: these are the literal tokens from
+ * secscan.info so the report reads as part of the same property. Every colour
+ * is painted explicitly, so the page holds on any host ground.
+ */
+:root{
+  --bg:#09090b; --surface:#0c0c0e; --surface-2:#131316; --line:#27272a; --line-2:#3f3f46;
+  --text:#ffffff; --muted:#a1a1aa; --muted-2:#71717a; --faint:#52525b;
+  --accent:#22c55e; --accent-lift:#4ade80;
+  --late:#fb923c; --early:#22c55e; --hold:#60a5fa;
+  --ser-after:#3b82f6; --ser-removed:#16a34a;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--mono);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+.wrap{max-width:940px;margin:0 auto;padding:0 24px}
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+a{color:var(--accent)}
+
+.eyebrow{display:inline-flex;align-items:center;gap:.55rem;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.eyebrow .dot{width:5px;height:5px;border-radius:50%;background:var(--accent);display:block}
+
+/* hero */
+header.hero{padding:76px 0 0;border-bottom:1px solid var(--line)}
+header.hero h1{font-size:clamp(30px,5.4vw,52px);line-height:1.08;margin:20px 0 22px;max-width:17ch}
+.lede{color:var(--muted);font-size:16px;line-height:1.72;max-width:64ch}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin:26px 0 0;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2)}
+
+.figures{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-bottom:none;margin-top:46px}
+.fig{background:var(--surface);padding:20px 22px 22px}
+.fig .n{font-size:34px;font-weight:700;line-height:1;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.fig .n.g{color:var(--accent)}
+.fig .k{color:var(--muted);font-size:12px;line-height:1.5;margin-top:10px}
+
+section{padding:64px 0}
+section+section{border-top:1px solid var(--line)}
+.sh{margin-bottom:30px}
+.sh h2{font-size:23px;margin:11px 0 12px}
+.sh p{color:var(--muted);font-size:13.5px;max-width:70ch}
+.kicker{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2)}
+
+/* finding entries */
+.entries{display:flex;flex-direction:column;gap:14px}
+.entry{background:var(--surface);border:1px solid var(--line);border-left:2px solid var(--rule);padding:20px 22px}
+.entry.late{--rule:var(--late)}
+.entry.early{--rule:var(--early)}
+.entry.hold{--rule:var(--hold)}
+.entry .top{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-bottom:11px}
+.entry .name{font-weight:500;font-size:14px}
+.entry .tgt{font-size:11px;letter-spacing:.06em;color:var(--rule)}
+.entry p{color:var(--muted);font-size:13.5px;line-height:1.68;max-width:78ch}
+.entry p+p{margin-top:9px}
+.entry .beat{color:var(--text)}
+code{font-size:12.5px;color:var(--accent-lift);background:var(--surface-2);padding:1px 5px;border:1px solid var(--line)}
+
+/* recursion callout */
+.recursion{background:var(--surface-2);border:1px solid var(--line-2);padding:30px 32px;margin-top:26px}
+.recursion .kicker{color:var(--late)}
+.recursion h3{font-size:18px;margin:12px 0 14px;max-width:34ch}
+.recursion p{color:var(--muted);font-size:13.5px;max-width:76ch}
+.recursion p+p{margin-top:11px}
+.recursion .pull{color:var(--text);border-left:2px solid var(--late);padding-left:16px;margin-top:16px;font-size:14px}
+
+/* chart */
+.chart{background:var(--surface);border:1px solid var(--line);padding:26px 28px 20px;position:relative}
+.legend{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:22px;font-size:11.5px;color:var(--muted)}
+.legend span{display:flex;align-items:center;gap:7px}
+.legend i{width:11px;height:11px;display:block}
+.rows{display:flex;flex-direction:column;gap:14px}
+.row{display:grid;grid-template-columns:118px 1fr;gap:14px;align-items:center}
+.row .lab{font-size:12px;color:var(--muted);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.track{display:flex;align-items:center;gap:2px;height:22px}
+.seg{height:100%;min-width:2px}
+.seg.after{background:var(--ser-after);border-radius:0 1px 1px 0}
+.seg.removed{background:var(--ser-removed);border-radius:0 4px 4px 0}
+.seg:first-child{border-radius:1px 0 0 1px}
+.val{font-size:12px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums;padding-left:9px}
+.val b{color:var(--text);font-weight:500}
+.val .d{color:var(--accent)}
+.axis{display:grid;grid-template-columns:118px 1fr;gap:14px;margin-top:16px;padding-top:11px;border-top:1px solid var(--line)}
+.ticks{display:flex;justify-content:space-between;font-size:10.5px;color:var(--faint);font-variant-numeric:tabular-nums}
+.note{color:var(--muted-2);font-size:12px;margin-top:16px;max-width:72ch}
+#tip{position:fixed;pointer-events:none;opacity:0;transition:opacity .12s;background:var(--bg);border:1px solid var(--line-2);padding:8px 11px;font-size:11.5px;line-height:1.55;z-index:50;max-width:230px}
+#tip b{color:var(--text)}
+#tip .m{color:var(--muted)}
+details{margin-top:20px;border-top:1px solid var(--line);padding-top:14px}
+summary{cursor:pointer;font-size:12px;color:var(--muted)}
+summary:hover{color:var(--accent)}
+table{border-collapse:collapse;margin-top:14px;font-size:12.5px}
+th,td{padding:7px 16px 7px 0;text-align:left;border-bottom:1px solid var(--line);color:var(--muted)}
+th{color:var(--muted-2);font-weight:400;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase}
+td.n{font-variant-numeric:tabular-nums;text-align:right;padding-right:24px}
+
+/* verification */
+.verify{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{border:1px solid var(--line);background:var(--surface);padding:5px 11px;font-size:11.5px;color:var(--muted)}
+.result{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:26px}
+.result div{background:var(--surface);padding:17px 19px}
+.result .n{font-size:19px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+.result .k{color:var(--muted);font-size:12px;margin-top:6px;line-height:1.5}
+
+footer{border-top:1px solid var(--line);padding:34px 0 66px;color:var(--muted-2);font-size:12px;line-height:1.7}
+footer p{max-width:78ch}
+footer p+p{margin-top:10px}
+
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:620px){
+  .row{grid-template-columns:1fr;gap:5px}
+  .row .lab{text-align:left}
+  .axis{grid-template-columns:1fr}
+  .axis .ticks:first-child{display:none}
+  header.hero{padding-top:52px}
+}
+</style>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow"><span class="dot"></span> SecScan · Engineering report</span>
+    <h1>A finding you can't reproduce is worse than no finding</h1>
+    <p class="lede">
+      A missed vulnerability costs you one finding. A false positive costs you the
+      report — once a scanner has sent you chasing something that was never wrong,
+      you have no way to know which of the remaining findings to believe. So we
+      point the scanner at sites whose answers are already known, and read every
+      finding that survives by hand. This is what that turned up in a day.
+    </p>
+    <div class="hero-meta">
+      <span>7 September 2026</span>
+      <span>Reference targets · Google, GitHub, Cloudflare, Mozilla</span>
+    </div>
+    <div class="figures">
+      <div class="fig"><div class="n">8</div><div class="k">false positives closed in this audit</div></div>
+      <div class="fig"><div class="n g">3</div><div class="k">of them caught before release</div></div>
+      <div class="fig"><div class="n">5</div><div class="k">findings confirmed correct and left alone</div></div>
+      <div class="fig"><div class="n g">0</div><div class="k">still open</div></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <div class="sh">
+    <span class="kicker">The method</span>
+    <h2>Scan somewhere the answer is already known</h2>
+    <p>
+      Google, GitHub, Cloudflare and Mozilla run their security properly. On
+      targets like those, a correct scan returns few findings and zero false
+      ones — which makes every extra finding a lead worth pulling. Each one is
+      checked against the live response by hand before a line of scanner code
+      changes, including the findings that turn out to be right.
+    </p>
+  </div>
+  <div class="entries">
+    <article class="entry hold">
+      <div class="top"><span class="name">Why not just count findings?</span></div>
+      <p>
+        Because the number goes the wrong way. A scanner that reports more is
+        easy to build and impossible to trust. Every fix below <em>reduced</em>
+        what we report on four of the best-secured sites on the internet, and
+        that is the direction the number should move.
+      </p>
+    </article>
+  </div>
+</section>
+
+<section>
+  <div class="sh">
+    <span class="kicker">Found in the wild</span>
+    <h2>Shipped, then caught</h2>
+    <p>These were live and being shown to people. Each is fixed, each has a regression test, and each has its reasoning recorded so the fix is not quietly undone later.</p>
+  </div>
+  <div class="entries">
+    <article class="entry late">
+      <div class="top"><span class="name">Non-session cookie readable by JavaScript</span><span class="tgt">google.com</span></div>
+      <p>A flattened <code>Set-Cookie</code> header was re-split on commas. The comma inside <code>expires=Tue, 09-Mar-2027</code> matched, shearing the cookie in half so every attribute after the date became invisible — including the <code>HttpOnly</code> the cookie actually carried.</p>
+      <p class="beat">Reach: any cookie whose <code>expires=</code> precedes its flags. That is most cookies on the internet.</p>
+    </article>
+    <article class="entry late">
+      <div class="top"><span class="name">CSP script-src contains a wildcard</span><span class="tgt">cloudflare.com · mozilla.org</span></div>
+      <p>The check matched any <code>*</code> anywhere in the directive, so ordinary allowlist entries like <code>https://*.onetrust.com</code> tripped it. Nearly every policy that loads analytics has one.</p>
+      <p class="beat">Reach: reported at High. The more carefully a site had written its policy, the more likely we were to call it broken.</p>
+    </article>
+    <article class="entry late">
+      <div class="top"><span class="name">No rate limiting detected</span><span class="tgt">github.com</span></div>
+      <p>A header-absence check. GitHub enforces rate limits at the edge and exposes no rate-limit headers on HTML responses — so the absence of a header was being read as the absence of the control.</p>
+      <p class="beat">Reach: every site that rate-limits without advertising it, which is the normal configuration.</p>
+    </article>
+    <article class="entry late">
+      <div class="top"><span class="name">One cookie reported twice</span><span class="tgt">google.com</span></div>
+      <p>Root-page cookies were analysed in one place and inner-page cookies in another, and the crawl's deduplication set started empty instead of seeded from the root scan.</p>
+      <p class="beat">Reach: a doubled finding count on any site that sets the same cookie on more than one page.</p>
+    </article>
+    <article class="entry late">
+      <div class="top"><span class="name">Missing security.txt — the evidence, not the finding</span><span class="tgt">mozilla.org</span></div>
+      <p>The finding was correct: the file is not RFC 9116. The <em>evidence</em> was hardcoded to read "not found" regardless of what the probe saw, so anyone who checked found a file returning HTTP 200 and reasonably concluded the scanner was broken.</p>
+      <p class="beat">Reach: a correct finding made to look like a bug. Evidence now reports what each path actually returned.</p>
+    </article>
+  </div>
+</section>
+
+<section>
+  <div class="sh">
+    <span class="kicker">Found before release</span>
+    <h2>Caught before shipping</h2>
+    <p>Three never reached anyone, because a new detector is pointed at known-good targets before it is committed. The third is the one worth reading.</p>
+  </div>
+  <div class="entries">
+    <article class="entry early">
+      <div class="top"><span class="name">Mail server does not offer STARTTLS</span><span class="tgt">cloudflare.com</span></div>
+      <p>The probe gated its finding on whether a port was <em>reachable</em>. Cloudflare's mail exchanger completes the TCP handshake and then resets the connection before answering <code>EHLO</code> — so the probe learned nothing at all, and that silence was being scored as a failure. Its MX does advertise STARTTLS, on a certificate valid for another 162 days.</p>
+      <p class="beat">It fired on some runs and not others, depending on when the reset landed. That is worse than a consistent false positive: whoever disputes the report cannot reproduce it, and re-running the scan appears to fix it. Only a host that actually answered <code>EHLO</code> now counts as evidence.</p>
+    </article>
+    <article class="entry early">
+      <div class="top"><span class="name">No Open Graph tags, no structured data, excluded from search</span><span class="tgt">stackoverflow.com · npmjs.com</span></div>
+      <p>Every word of it true — of the Cloudflare "Just a moment…" interstitial those sites return to a scanner, which carries <code>noindex,nofollow</code> and no metadata at all. None of it true of the sites themselves.</p>
+      <p class="beat">And it is not one bad check. When an edge answers instead of the origin, <em>every</em> content-derived check describes the interstitial — headers, cookies, CSP, inline scripts, technology fingerprint — and the report reads as a scan of the customer's site while being a scan of a bot-protection page. A scan now says so once, plainly, and names which findings can no longer be trusted.</p>
+    </article>
+  </div>
+
+  <div class="recursion">
+    <span class="kicker">The third one</span>
+    <h3>Then the fix made the same mistake, one level up</h3>
+    <p>
+      The detector written to catch bot-protection pages flagged nytimes.com as
+      intercepted, on the strength of a <code>x-datadome: protected</code> response
+      header. DataDome sets that header on traffic it has <em>allowed</em>. The
+      real 1.3 MB homepage, both JSON-LD blocks and all, was sitting in the
+      response body the whole time.
+    </p>
+    <p>
+      It is the same error as the STARTTLS probe and the rate-limit check before
+      it: treating the presence of a signal as the meaning of the signal. Three
+      times in one day, in three unrelated parts of the scanner, by people who
+      had just finished fixing the previous one.
+    </p>
+    <p class="pull">
+      Header signals now match on the header's <em>value</em>, and the pattern is
+      mandatory on every one of them — so the shortcut is no longer available to
+      take.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="sh">
+    <span class="kicker">The other half of the work</span>
+    <h2>Findings that look wrong and are not</h2>
+    <p>
+      Half of a false-positive audit is deciding what to leave alone. Each of
+      these was investigated, confirmed correct, and then written down <em>as</em>
+      correct — because the obvious way to check them returns the wrong answer,
+      and without the note someone eventually "fixes" a working check.
+    </p>
+  </div>
+  <div class="entries">
+    <article class="entry hold">
+      <div class="top"><span class="name">Non-session cookie missing Secure flag — NID</span><span class="tgt">google.com</span></div>
+      <p>Google serves <code>NID</code> without <code>Secure</code> to a non-browser client, and with it to Chrome. Open developer tools to check and you see the opposite of what the scanner saw. The finding stands.</p>
+    </article>
+    <article class="entry hold">
+      <div class="top"><span class="name">Content-Security-Policy is report-only</span><span class="tgt">google.com</span></div>
+      <p>Only the <code>Content-Security-Policy-Report-Only</code> header is sent. A report-only policy enforces nothing — it is a measurement, not a control.</p>
+    </article>
+    <article class="entry hold">
+      <div class="top"><span class="name">X-Frame-Options missing on 2 internal routes</span><span class="tgt">google.com</span></div>
+      <p>Two policy pages return <code>200 text/html</code> with no framing protection. They are not redirects, and the routes were verified individually.</p>
+    </article>
+    <article class="entry hold">
+      <div class="top"><span class="name">Missing X-Content-Type-Options, Referrer-Policy, Permissions-Policy</span><span class="tgt">google.com</span></div>
+      <p>Genuinely absent from the response. A large, well-run site choosing not to send a header is still a site not sending the header.</p>
+    </article>
+    <article class="entry hold">
+      <div class="top"><span class="name">Header findings on a health-check route</span><span class="tgt">github.com</span></div>
+      <p>The route really does return <code>Content-Type: text/html</code> with an HTML body, so the "HTML documents only" rule correctly includes it. Arguably over-severe for a static health page — but over-severe is a different argument from wrong, and the two get fixed differently.</p>
+    </article>
+  </div>
+</section>
+
+<section>
+  <div class="sh">
+    <span class="kicker">Result</span>
+    <h2>Findings on the four reference targets</h2>
+    <p>
+      Fewer is the goal. Every finding that came off was something the site had
+      not done wrong.
+    </p>
+  </div>
+  <div class="chart">
+    <div class="legend">
+      <span><i style="background:#3b82f6"></i> Findings still reported</span>
+      <span><i style="background:#16a34a"></i> Removed as false positives</span>
+    </div>
+    <div class="rows" id="rows"></div>
+    <div class="axis">
+      <span></span>
+      <div class="ticks"><span>0</span><span>4</span><span>8</span><span>12</span><span>16</span></div>
+    </div>
+    <p class="note">Total findings per scan, at all severities. Bars share one scale, 0–16.</p>
+    <details>
+      <summary>View as a table</summary>
+      <table>
+        <thead><tr><th>Target</th><th>Before</th><th>After</th><th>Removed</th></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </details>
+  </div>
+</section>
+
+<section>
+  <div class="sh">
+    <span class="kicker">Verification</span>
+    <h2>Then run it against everything else</h2>
+    <p>
+      A fix that is only checked against the site that exposed it is not checked.
+      The newest detectors were re-run across fifteen sites spanning very
+      different stacks, edges and content types:
+    </p>
+  </div>
+  <div class="verify">
+    <span class="chip">google.com</span><span class="chip">github.com</span><span class="chip">cloudflare.com</span>
+    <span class="chip">mozilla.org</span><span class="chip">stackoverflow.com</span><span class="chip">npmjs.com</span>
+    <span class="chip">reddit.com</span><span class="chip">amazon.co.uk</span><span class="chip">bbc.co.uk</span>
+    <span class="chip">wikipedia.org</span><span class="chip">vercel.com</span><span class="chip">nytimes.com</span>
+    <span class="chip">gov.uk</span><span class="chip">shopify.com</span><span class="chip">developer.mozilla.org</span>
+  </div>
+  <div class="result">
+    <div><div class="n">0</div><div class="k">findings above Info from the new checks</div></div>
+    <div><div class="n">2 / 2</div><div class="k">bot-protection interstitials correctly identified</div></div>
+    <div><div class="n">15 / 15</div><div class="k">real pages correctly left alone</div></div>
+    <div><div class="n">6.1s → 0.3s</div><div class="k">mail probe cost, after dropping ports that measured nothing</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="sh">
+    <span class="kicker">For context</span>
+    <h2>What is being audited</h2>
+    <p>
+      SecScan runs <strong>127 distinct checks</strong> across <strong>26 engine
+      modules</strong>, which between them can produce <strong>279 differently
+      named findings</strong> — one path probe covers 78 paths, one secret
+      scanner covers 32 patterns. Every scan runs every check; there are no
+      tiers. The audit above covers the checks a passive scan performs against
+      any site on the internet, which is the surface where a false positive is
+      most likely to reach someone who did nothing to invite it.
+    </p>
+  </div>
+  <div class="entries">
+    <article class="entry hold">
+      <div class="top"><span class="name">Five more, from the same hunt</span></div>
+      <p>
+        The eight above are the ones recorded against the four reference targets.
+        Five further false positives were found the same day against other sites
+        and fixed alongside them: a single-page app's catch-all response read as
+        an exposed sensitive file, public infrastructure tokens treated as
+        session credentials, technology fingerprinting firing on generic CSS
+        class names and ordinary prose, a subdomain-takeover match on a live
+        service, and a publishable API key reported as a leaked secret.
+      </p>
+    </article>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>
+      Every entry on this page is a real row from the false-positive audit kept
+      in the SecScan engine repository, not an illustrative example. Findings
+      counts are from live scans on 7 September 2026 and will drift as the
+      targets change their own configuration — they are a record of a specific
+      day's work, not a running scoreboard.
+    </p>
+    <p>
+      Named third-party sites appear only as scan targets. Nothing here describes
+      a vulnerability in any of them; where a finding stands, it is a
+      configuration choice those operators are entitled to make, and it is
+      reported here to show what the scanner saw.
+    </p>
+  </div>
+</footer>
+
+<div id="tip" role="status" aria-live="polite"></div>
+
+<script>
+const DATA = [
+  { t: "google.com", before: 15, after: 13 },
+  { t: "github.com", before: 12, after: 11 },
+  { t: "cloudflare.com", before: 9, after: 8 },
+  { t: "mozilla.org", before: 8, after: 7 }
+];
+const MAX = 16;
+
+const rows = document.getElementById("rows");
+rows.innerHTML = DATA.map((d) => {
+  const removed = d.before - d.after;
+  return '<div class="row">'
+    + '<span class="lab">' + d.t + '</span>'
+    + '<div style="display:flex;align-items:center;min-width:0">'
+    +   '<div class="track" style="flex:1">'
+    +     '<span class="seg after" data-t="' + d.t + '" data-k="Still reported" data-v="' + d.after + '" style="flex:' + d.after + '"></span>'
+    +     '<span class="seg removed" data-t="' + d.t + '" data-k="Removed as false positives" data-v="' + removed + '" style="flex:' + removed + '"></span>'
+    +     '<span style="flex:' + (MAX - d.before) + '"></span>'
+    +   '</div>'
+    +   '<span class="val"><b>' + d.after + '</b> <span class="d">&minus;' + removed + '</span></span>'
+    + '</div>'
+    + '</div>';
+}).join("");
+
+document.getElementById("tbody").innerHTML = DATA.map((d) =>
+  '<tr><td>' + d.t + '</td><td class="n">' + d.before + '</td><td class="n">' + d.after
+  + '</td><td class="n">' + (d.before - d.after) + '</td></tr>'
+).join("");
+
+const tip = document.getElementById("tip");
+function show(e) {
+  const s = e.target.closest(".seg");
+  if (!s) return;
+  tip.innerHTML = '<b>' + s.dataset.t + '</b><br><span class="m">' + s.dataset.k + ':</span> ' + s.dataset.v;
+  tip.style.opacity = "1";
+  move(e);
+}
+function move(e) {
+  const pad = 14;
+  let x = e.clientX + pad, y = e.clientY + pad;
+  const r = tip.getBoundingClientRect();
+  if (x + r.width > innerWidth - 8) x = e.clientX - r.width - pad;
+  if (y + r.height > innerHeight - 8) y = e.clientY - r.height - pad;
+  tip.style.left = x + "px";
+  tip.style.top = y + "px";
+}
+rows.addEventListener("mouseover", show);
+rows.addEventListener("mousemove", (e) => { if (e.target.closest(".seg")) move(e); });
+rows.addEventListener("mouseout", (e) => { if (e.target.closest(".seg")) tip.style.opacity = "0"; });
+</script>
+
+</body></html>

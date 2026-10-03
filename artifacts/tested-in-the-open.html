@@ -1,0 +1,618 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Tested in the Open</title>
+<style>
+  :root {
+    color-scheme: light;
+    --paper:      #f4f5f7;
+    --surface:    #ffffff;
+    --surface-2:  #eaecef;
+    --ink:        #15181d;
+    --ink-soft:   #454c55;
+    --muted:      #6b737d;
+    --rule:       #d8dce1;
+    --rule-soft:  #e6e9ed;
+    --accent:     #0d5a78;
+    --accent-ink: #0a4a63;
+    --accent-bg:  #e2eef3;
+    --mono-bg:    #eef0f3;
+    --crit:       #a8241c;
+    --high:       #8f5000;
+    --med:        #7a6600;
+    --low:        #3f5f7d;
+    --info:       #646b74;
+    --good:       #14614a;
+    --good-bg:    #e1f0ea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper:      #0e1114;
+      --surface:    #161a1f;
+      --surface-2:  #1d232a;
+      --ink:        #e8ebee;
+      --ink-soft:   #bcc4cc;
+      --muted:      #8b959f;
+      --rule:       #2a323a;
+      --rule-soft:  #222930;
+      --accent:     #56b8d8;
+      --accent-ink: #7fcde8;
+      --accent-bg:  #12303c;
+      --mono-bg:    #11161b;
+      --crit:       #ff8f84;
+      --high:       #f0b062;
+      --med:        #ddc75f;
+      --low:        #8cb4d8;
+      --info:       #99a3ad;
+      --good:       #4fc79f;
+      --good-bg:    #12332a;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper:      #0e1114;
+    --surface:    #161a1f;
+    --surface-2:  #1d232a;
+    --ink:        #e8ebee;
+    --ink-soft:   #bcc4cc;
+    --muted:      #8b959f;
+    --rule:       #2a323a;
+    --rule-soft:  #222930;
+    --accent:     #56b8d8;
+    --accent-ink: #7fcde8;
+    --accent-bg:  #12303c;
+    --mono-bg:    #11161b;
+    --crit:       #ff8f84;
+    --high:       #f0b062;
+    --med:        #ddc75f;
+    --low:        #8cb4d8;
+    --info:       #99a3ad;
+    --good:       #4fc79f;
+    --good-bg:    #12332a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 16.5px;
+    line-height: 1.62;
+    margin: 0;
+    padding-inline: 16px;
+    padding-block: 0 56px;
+  }
+
+  main { max-width: 760px; margin-inline: auto; }
+
+  /* ── Masthead ───────────────────────────────────────────────────────── */
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding-block: 34px 18px;
+    margin-bottom: 34px;
+  }
+  .brand {
+    font-family: "Archivo", system-ui, sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 20px;
+    display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline;
+  }
+  .brand .sep { color: var(--rule); }
+  .brand .plain { color: var(--muted); letter-spacing: 0.1em; font-weight: 600; }
+  h1 {
+    font-family: "Archivo", system-ui, sans-serif;
+    font-size: clamp(34px, 7vw, 54px);
+    font-weight: 700; line-height: 1.04; letter-spacing: -0.025em;
+    margin: 0 0 18px; text-wrap: balance;
+  }
+  .standfirst {
+    font-size: clamp(17px, 2.4vw, 19.5px); line-height: 1.55;
+    color: var(--ink-soft); margin: 0; max-width: 58ch;
+  }
+  .standfirst b { color: var(--ink); font-weight: 600; }
+  .byline {
+    font-family: "Archivo", system-ui, sans-serif;
+    font-size: 12px; color: var(--muted); margin-top: 22px;
+    display: flex; flex-wrap: wrap; gap: 4px 16px;
+  }
+  .byline b { color: var(--ink-soft); font-weight: 600; }
+
+  /* ── Figure strip ───────────────────────────────────────────────────── */
+  .figures {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px; background: var(--rule);
+    border: 1px solid var(--rule); margin-bottom: 40px;
+  }
+  .fig { background: var(--surface); padding: 18px 16px 16px; }
+  .fig .n {
+    font-family: "Archivo", system-ui, sans-serif;
+    font-size: 32px; font-weight: 700; line-height: 1;
+    color: var(--accent); font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em; display: block;
+  }
+  .fig .l {
+    font-family: "Archivo", system-ui, sans-serif;
+    font-size: 11.5px; line-height: 1.35; color: var(--muted);
+    margin-top: 8px; display: block;
+  }
+
+  /* ── Sections ───────────────────────────────────────────────────────── */
+  section { margin-bottom: 44px; }
+  h2 {
+    font-family: "Archivo", system-ui, sans-serif;
+    font-size: clamp(22px, 3.4vw, 27px); font-weight: 700;
+    letter-spacing: -0.018em; line-height: 1.18;
+    margin: 0 0 6px; text-wrap: balance;
+  }
+  .kicker {
+    font-family: "Archivo", system-ui, sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--accent);
+    margin: 0 0 10px; padding-top: 22px; border-top: 1px solid var(--rule);
+  }
+  p { margin: 0 0 16px; }
+  p:last-child { margin-bottom: 0; }
+  .dek { color: var(--ink-soft); font-size: 17px; margin-bottom: 20px; }
+  strong { font-weight: 600; }
+
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px;
+      text-decoration-thickness: 1px; }
+  a:hover { text-decoration-thickness: 2px; }
+
+  code {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.86em; background: var(--mono-bg);
+    padding: 1.5px 5px; border-radius: 3px; color: var(--ink-soft);
+  }
+  pre {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    background: var(--mono-bg); border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    padding: 14px 16px; overflow-x: auto; font-size: 12.5px;
+    line-height: 1.65; margin: 0 0 16px; color: var(--ink-soft);
+  }
+  pre code { background: none; padding: 0; font-size: inherit; }
+
+  /* ── Pull statement ─────────────────────────────────────────────────── */
+  .pull {
+    border-left: 3px solid var(--accent);
+    padding: 4px 0 4px 20px; margin: 26px 0;
+    font-size: clamp(18px, 2.7vw, 21px); line-height: 1.45;
+    font-weight: 600; color: var(--ink); text-wrap: balance;
+  }
+
+  /* ── Panels ─────────────────────────────────────────────────────────── */
+  .panel {
+    background: var(--surface); border: 1px solid var(--rule);
+    padding: 20px 22px; margin: 0 0 20px;
+  }
+  .panel.good { border-left: 3px solid var(--good); }
+  .panel.flag { border-left: 3px solid var(--high); }
+  .panel-head {
+    font-family: "Archivo", system-ui, sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.09em;
+    text-transform: uppercase; margin: 0 0 10px; color: var(--muted);
+  }
+  .panel.good .panel-head { color: var(--good); }
+  .panel.flag .panel-head { color: var(--high); }
+  .panel p { font-size: 15.5px; }
+  .panel p:last-child { margin-bottom: 0; }
+
+  /* ── Tables ─────────────────────────────────────────────────────────── */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--rule); margin-bottom: 20px; }
+  table { border-collapse: collapse; width: 100%; min-width: 520px;
+          font-family: "Archivo", system-ui, sans-serif; font-size: 13.5px; }
+  thead th {
+    text-align: left; font-size: 10.5px; font-weight: 700; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--muted); background: var(--surface-2);
+    padding: 10px 14px; border-bottom: 1px solid var(--rule); white-space: nowrap;
+  }
+  tbody td {
+    padding: 11px 14px; border-bottom: 1px solid var(--rule-soft);
+    vertical-align: top; background: var(--surface); line-height: 1.5;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td b { font-weight: 700; }
+
+  /* ── Ledger rows (the false positives) ──────────────────────────────── */
+  .ledger { border-top: 1px solid var(--rule); margin-bottom: 20px; }
+  .entry {
+    display: grid; grid-template-columns: 74px 1fr; gap: 0 18px;
+    padding: 16px 0; border-bottom: 1px solid var(--rule-soft);
+  }
+  .entry .when {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 11.5px; color: var(--muted); padding-top: 3px;
+    font-variant-numeric: tabular-nums;
+  }
+  .entry h3 {
+    font-family: "Archivo", system-ui, sans-serif;
+    font-size: 15px; font-weight: 700; margin: 0 0 5px; line-height: 1.32;
+  }
+  .entry p { font-size: 14.5px; margin: 0; color: var(--ink-soft); line-height: 1.55; }
+  @media (max-width: 540px) {
+    .entry { grid-template-columns: 1fr; gap: 5px; }
+    .entry .when { padding-top: 0; }
+  }
+
+  /* ── Severity bar ───────────────────────────────────────────────────── */
+  .sevbar { display: flex; height: 26px; border: 1px solid var(--rule);
+            overflow: hidden; margin-bottom: 10px; }
+  .sevbar span { display: block; height: 100%; }
+  .sevkey { display: flex; flex-wrap: wrap; gap: 6px 18px;
+            font-family: "Archivo", system-ui, sans-serif; font-size: 12px;
+            color: var(--muted); margin-bottom: 18px; }
+  .sevkey i { display: inline-block; width: 9px; height: 9px; margin-right: 6px;
+              vertical-align: baseline; }
+  .sevkey b { color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  /* ── Checklist ──────────────────────────────────────────────────────── */
+  ul.marks { list-style: none; padding: 0; margin: 0 0 20px; }
+  ul.marks li {
+    position: relative; padding-left: 26px; margin-bottom: 12px;
+    font-size: 15.5px; color: var(--ink-soft); line-height: 1.55;
+  }
+  ul.marks li::before {
+    content: ""; position: absolute; left: 0; top: 9px;
+    width: 11px; height: 2px; background: var(--accent);
+  }
+  ul.marks li b { color: var(--ink); font-weight: 600; }
+
+  /* ── Closing ────────────────────────────────────────────────────────── */
+  .closing {
+    border: 2px solid var(--ink); padding: 26px 24px; margin-top: 8px;
+    background: var(--surface);
+  }
+  .closing h2 { margin-bottom: 12px; }
+  .closing p { font-size: 16.5px; }
+  .cta {
+    display: inline-block; margin-top: 8px;
+    font-family: "Archivo", system-ui, sans-serif; font-weight: 700;
+    font-size: 14px; letter-spacing: 0.02em;
+    background: var(--ink); color: var(--paper);
+    padding: 12px 22px; text-decoration: none;
+  }
+  .cta:hover { background: var(--accent-ink); color: #fff; text-decoration: none; }
+
+  footer {
+    margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--rule);
+    font-family: "Archivo", system-ui, sans-serif;
+    font-size: 12px; color: var(--muted); line-height: 1.7;
+  }
+  footer a { color: var(--muted); }
+
+  @media (max-width: 480px) {
+    .figures { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+
+<main>
+
+  <header class="masthead">
+    <p class="brand">
+      SecScan <span class="sep">/</span> <span class="plain">Verification record</span>
+    </p>
+    <h1>Every scanner claims accuracy.<br>Here is ours, measured.</h1>
+    <p class="standfirst">
+      Security scanners are graded by the customer on the one thing the customer can see:
+      whether a finding is real. Nobody can see what a scanner <b>missed</b>. So we built a
+      web application with faults planted on purpose, pointed the real scanner at it, and
+      counted. This is that number, and everything else we measured along the way &mdash;
+      including the mistakes.
+    </p>
+    <p class="byline">
+      <span><b>Published</b> 22 September 2026</span>
+      <span><b>Covers</b> 40 hosts, 111 scan runs, 1,171 findings</span>
+      <span><b>Subject</b> secscan.us</span>
+    </p>
+  </header>
+
+  <div class="figures">
+    <div class="fig"><span class="n">73/73</span><span class="l">planted faults detected on a target with known ground truth</span></div>
+    <div class="fig"><span class="n">0</span><span class="l">Critical findings invented across 1,171 real-world results</span></div>
+    <div class="fig"><span class="n">14</span><span class="l">false positives we found in our own scanner, and fixed</span></div>
+    <div class="fig"><span class="n">284</span><span class="l">distinct findings the scanner can report, in 36 categories</span></div>
+    <div class="fig"><span class="n">1,187</span><span class="l">automated tests across 85 files</span></div>
+  </div>
+
+  <section>
+    <p class="kicker">The problem with scanner accuracy</p>
+    <h2>A false negative never files a complaint</h2>
+    <p class="dek">
+      Which is why almost nobody measures them.
+    </p>
+    <p>
+      Run a scanner against a real website and you learn one thing: what it reported. You
+      do not learn what it walked past. The site's true fault list is unknown &mdash; that
+      is the entire reason you ran a scanner &mdash; so there is nothing to check the
+      output against.
+    </p>
+    <p>
+      This creates a quiet, comfortable failure mode for the whole industry. A scanner that
+      reports too much gets argued with. A scanner that reports too little gets thanked for
+      the clean bill of health. The incentives point one way, and there is no measurement
+      pushing back.
+    </p>
+    <p class="pull">
+      The only way to count what a scanner misses is to point it at something whose faults
+      you already know exactly.
+    </p>
+    <p>
+      So that is what we built: a deliberately vulnerable web application with every class
+      of fault the scanner checks for, planted on purpose and catalogued. Then the real
+      scanning engine &mdash; not a unit test, not a mock &mdash; runs against it, and every
+      result is checked against what was actually planted. The script exits non-zero on a
+      single miss.
+    </p>
+
+    <div class="panel good">
+      <p class="panel-head">Result &mdash; full active pass, credentialed, two accounts</p>
+      <p>
+        <strong>73 of 73 tracked findings detected.</strong> Including the credentialed API
+        surface &mdash; missing authentication, broken function-level authorisation, mass
+        assignment and IDOR &mdash; which needs two real logged-in sessions to be checkable
+        at all, and cross-account access control, which needs both sessions at once.
+      </p>
+    </div>
+
+    <p>
+      The fixture is not a set of strings shaped to satisfy our own regular expressions. The
+      deserialization markers, for instance, are real serialized objects &mdash; a Java
+      stream, a Ruby Marshal blob, a Python pickle and a URL-encoded PHP object &mdash; each
+      carrying a genuine payload that decodes to the real magic bytes. A fixture that matched
+      the marker without being the thing the marker stands for would verify our regex and
+      nothing else.
+    </p>
+  </section>
+
+  <section>
+    <p class="kicker">The other half</p>
+    <h2>What 111 runs against real sites actually produced</h2>
+    <p class="dek">
+      Ground truth proves the scanner finds things. Only the real world proves it does not
+      invent them.
+    </p>
+    <p>
+      Forty hosts across six sectors &mdash; developer tooling, news, retail, government,
+      productivity, communications &mdash; scanned across six rounds between 7 and 19
+      September 2026. Every third-party host was scanned <strong>passively only</strong>:
+      ordinary GET requests and the headers they returned, nothing a browser does not send.
+      The active probes ran against two domains we own.
+    </p>
+
+    <div class="sevbar" role="img" aria-label="Severity split of 1,171 findings: zero critical, 47 high, 210 medium, 189 low, 725 info">
+      <span style="width:4.0%;  background:var(--high)"></span>
+      <span style="width:17.9%; background:var(--med)"></span>
+      <span style="width:16.1%; background:var(--low)"></span>
+      <span style="width:62.0%; background:var(--info)"></span>
+    </div>
+    <p class="sevkey">
+      <span><i style="background:var(--crit)"></i><b>0</b> Critical</span>
+      <span><i style="background:var(--high)"></i><b>47</b> High</span>
+      <span><i style="background:var(--med)"></i><b>210</b> Medium</span>
+      <span><i style="background:var(--low)"></i><b>189</b> Low</span>
+      <span><i style="background:var(--info)"></i><b>725</b> Info</span>
+    </p>
+
+    <p>
+      <strong>Not one Critical, across all 1,171 findings.</strong> That is the expected
+      shape for passive scans of well-run sites, and it is the number we watch hardest: a
+      Critical appearing here, on a site that has not changed, is a scanner bug until proven
+      otherwise.
+    </p>
+    <p>
+      Nearly two thirds of everything returned is Informational and scores <strong>zero</strong>
+      toward the grade. That is deliberate. A check that can only observe whether something is
+      <em>advertised</em> &mdash; rate limiting, <code>security.txt</code>, DNSSEC &mdash;
+      must not move a grade, because its absence proves nothing. Scanners that let those
+      findings count are how a well-configured site ends up with a frightening score and a
+      customer stops trusting the tool.
+    </p>
+  </section>
+
+  <section>
+    <p class="kicker">The part most vendors delete</p>
+    <h2>Fourteen false positives, found in our own scanner</h2>
+    <p class="dek">
+      Each one produced a wrong report on a real site. Each was root-caused, fixed, and
+      pinned with a regression test. Here are four of them.
+    </p>
+
+    <div class="ledger">
+      <div class="entry">
+        <div class="when">07 Sep</div>
+        <div>
+          <h3>A bot-protection page, scanned as if it were the customer's site</h3>
+          <p>
+            Two sites returned a Cloudflare interstitial instead of their real page. Every
+            content-derived check &mdash; policy, cookies, headers, fingerprint &mdash; was
+            faithfully describing the challenge page. The report read as a scan of the
+            customer and was a scan of a WAF error page.
+          </p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="when">08 Sep</div>
+        <div>
+          <h3>The most email-secure domain we scanned, reported as having no email security</h3>
+          <p>
+            A helper derived the email domain by counting label lengths, so it looked up SPF
+            and DMARC at hostnames that do not exist. Separately, a DNS helper returned every
+            record in the answer regardless of type, so two CNAMEs answering an MX query read
+            as &ldquo;this domain actively sends email&rdquo; and escalated the finding. Three
+            bugs behind one High. The helper was deleted rather than patched.
+          </p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="when">08 Sep</div>
+        <div>
+          <h3>&ldquo;No rate limiting detected&rdquo; &mdash; on 15 of 30 sites</h3>
+          <p>
+            A passive GET to a homepage cannot observe rate limiting. It lives on login and
+            API routes, and CDNs throttle silently. We had already patched the exception list
+            twice, which is the shape of a check chasing an unobservable property one vendor
+            at a time. Renamed to what it can actually see, and dropped to zero weight.
+          </p>
+        </div>
+      </div>
+      <div class="entry">
+        <div class="when">08 Sep</div>
+        <div>
+          <h3>A fix that introduced the bug it was fixing</h3>
+          <p>
+            The interstitial detector matched a header by presence. That vendor sets the
+            header on traffic it lets <em>through</em>. The real 1.3&nbsp;MB homepage had been
+            in the response body the whole time. The same error &mdash; reading the presence
+            of a response as the meaning of the response &mdash; reappeared inside the fix for
+            a previous instance of itself.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <p class="pull">
+      A scanner with no published false-positive history has either never looked, or has
+      looked and not told you.
+    </p>
+    <p>
+      The full audit runs to five rounds and is kept as a working document, not a marketing
+      artefact. The fifth round &mdash; the first to sweep the active probes for false
+      positives at all &mdash; found none, and says so plainly rather than claiming a
+      milestone.
+    </p>
+  </section>
+
+  <section>
+    <p class="kicker">Restraint as a feature</p>
+    <h2>Four things this scanner deliberately will not do</h2>
+
+    <ul class="marks">
+      <li>
+        <b>It will not grade a site it could not actually read.</b> When a bot-protection
+        layer answers instead of the site, the scan is reported as withheld, with a coverage
+        note. The alternative is handing out clean A grades to sites nobody looked at &mdash;
+        indistinguishable, on the page, from genuinely well-configured ones.
+      </li>
+      <li>
+        <b>It will not score you down for what it cannot observe.</b> Informational findings
+        carry zero weight. If the only honest statement is &ldquo;this is not advertised in
+        the response headers&rdquo;, that is what the finding says.
+      </li>
+      <li>
+        <b>It will not run active probes without verified ownership.</b> Injection, traversal,
+        authorisation and SSRF testing require a verified domain. Everything else is passive.
+      </li>
+      <li>
+        <b>It will not tell you that you are compliant.</b> Findings map to SOC&nbsp;2,
+        PCI&nbsp;DSS, ISO&nbsp;27001 and OWASP ASVS controls, because that mapping is real,
+        checkable work. Only a licensed CPA firm issues a SOC&nbsp;2 report and only a QSA
+        signs off PCI. The mapping is evidence for an auditor, never a verdict.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="kicker">Coverage</p>
+    <h2>What it actually checks</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Measure</th><th class="num">Count</th><th>Notes</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Distinct findings the scanner can report</td><td class="num"><b>284</b></td><td>Across 28 modules, in 36 categories</td></tr>
+          <tr><td>Severity of those definitions</td><td class="num"><b>&mdash;</b></td><td>87 critical, 74 high, 61 medium, 21 low, 41 info</td></tr>
+          <tr><td>Sensitive paths probed</td><td class="num"><b>78</b></td><td>Each validated on content, not status code</td></tr>
+          <tr><td>Secret patterns matched</td><td class="num"><b>34</b></td><td>Inline and in external JavaScript</td></tr>
+          <tr><td>Ports checked</td><td class="num"><b>33</b></td><td>&mdash;</td></tr>
+          <tr><td>Compliance frameworks mapped</td><td class="num"><b>4</b></td><td>SOC 2, PCI DSS, ISO 27001, OWASP ASVS</td></tr>
+          <tr><td>Automated tests</td><td class="num"><b>1,187</b></td><td>Across 85 files</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      The findings index is a generated file, rebuilt from the source on every change, so the
+      published number cannot drift from what the code can actually emit. When we found that
+      a documented count was off by one, we corrected it and recorded the correction.
+    </p>
+  </section>
+
+  <section>
+    <p class="kicker">Check it yourself</p>
+    <h2>The evidence is reproducible</h2>
+    <p>
+      Every claim above comes from a script in the repository, and the raw output of every
+      run is committed beside the summary. Nothing here is a number recalled from memory.
+    </p>
+<pre><code># Detection: point the real engine at the fixture with known faults.
+# Exits non-zero on a single miss.
+npx tsx artifacts/api-server/scripts/verify-vuln-fixture.ts
+
+# False positives: sweep the guarded corpus and read the output.
+npx tsx artifacts/api-server/scripts/live-scan.ts --json sweep.json</code></pre>
+    <p>
+      The instruction we follow ourselves is to <em>read</em> that output rather than diff it.
+      The audit exists because six findings were once &ldquo;fixed&rdquo; on suspicion and all
+      six turned out to be real.
+    </p>
+  </section>
+
+  <section>
+    <p class="kicker">Where this stops</p>
+    <h2>What this evidence does not claim</h2>
+
+    <div class="panel flag">
+      <p class="panel-head">No head-to-head comparison has been run</p>
+      <p>
+        SecScan has not been benchmarked against Nessus, Burp Suite, ZAP, Nuclei, Detectify or
+        any other scanner. We are not going to tell you we beat tools we have never run. What
+        is on this page is our own evidence, measured against ground truth we control and
+        published in full.
+      </p>
+    </div>
+
+    <p>
+      It is also an <strong>outside view</strong>, taken repeatedly. SecScan does not read your
+      source repository, your CI pipeline or your dependency manifests. A vulnerable package
+      installed but never reachable from outside will not be seen by an external scanner, and
+      that includes this one. It is not a replacement for SAST, for dependency scanning, or for
+      a penetration test by a human being.
+    </p>
+    <p>
+      And the fixture measures what the fixture contains. Three findings in one module are not
+      planted in it yet, and that is recorded in the verification log rather than rounded away.
+    </p>
+
+    <p class="pull">
+      Ask any scanner you are considering for its detection rate against a target with known
+      ground truth, and for its false-positive history. Then compare the answers to this page.
+    </p>
+  </section>
+
+  <div class="closing">
+    <h2>Two free scans, no card</h2>
+    <p>
+      Point it at something you own and read the report. The methodology above is what produced
+      it &mdash; and if you find a false positive, the audit above is where it will end up,
+      with your name on the round if you want it.
+    </p>
+    <a class="cta" href="https://secscan.us">Run a scan at secscan.us</a>
+  </div>
+
+  <footer>
+    Figures on this page are read from generated files and committed scan output in the SecScan
+    repository, current as of 22 September 2026. Detection rate is measured against
+    <code>vuln-fixture</code>, an application built to contain the faults being counted.
+    Corpus figures cover 111 scan runs against 40 hosts; all third-party scanning was passive.
+    &copy; 2026 SecScan.
+  </footer>
+
+</main>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+</body></html>

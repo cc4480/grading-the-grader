@@ -1,0 +1,2130 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>SecScan Test Report</title>
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --surface-2: #eef1f4;
+    --text: #1a2128;
+    --muted: #5c6773;
+    --accent: #0d6d5c;
+    --accent-soft: #e3f1ed;
+    --border: #dde2e7;
+    --mono-bg: #f0f3f5;
+    --crit: #b3261e;
+    --high: #a15c00;
+    --med: #8a7300;
+    --low: #4a6b8a;
+    --info: #6b7280;
+    --ok: #0d6d5c;
+    --warn: #a15c00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #10151a; --surface: #161d24; --surface-2: #1c242c; --text: #e7ebef;
+      --muted: #93a1ac; --accent: #3fcfb0; --accent-soft: #16302b; --border: #2a333c;
+      --mono-bg: #131a20; --crit: #ff8a80; --high: #ffb865; --med: #f0d264;
+      --low: #8fb8e8; --info: #9aa5b1; --ok: #3fcfb0; --warn: #ffb865;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #10151a; --surface: #161d24; --surface-2: #1c242c; --text: #e7ebef;
+    --muted: #93a1ac; --accent: #3fcfb0; --accent-soft: #16302b; --border: #2a333c;
+    --mono-bg: #131a20; --crit: #ff8a80; --high: #ffb865; --med: #f0d264;
+    --low: #8fb8e8; --info: #9aa5b1; --ok: #3fcfb0; --warn: #ffb865;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: "Source Sans 3", -apple-system, "Segoe UI", sans-serif;
+    margin: 0; padding-inline: 16px; padding-block: 40px; line-height: 1.55;
+  }
+  main { max-width: 840px; margin-inline: auto; display: flex; flex-direction: column; gap: 38px; }
+
+  .doc-head { display: flex; flex-direction: column; gap: 10px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px; width: fit-content;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--accent); background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    padding: 5px 12px; border-radius: 999px;
+  }
+  h1 {
+    font-family: "Fraunces", Georgia, serif; font-size: clamp(26px, 5vw, 36px);
+    font-weight: 600; margin: 0; text-wrap: balance; letter-spacing: -0.01em;
+  }
+  .doc-sub { color: var(--muted); font-size: 14.5px; max-width: 64ch; margin: 0; }
+  .doc-meta {
+    display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12.5px; color: var(--muted);
+    border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px;
+  }
+  .doc-meta b { color: var(--text); font-weight: 600; }
+
+  .stat-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+    gap: 1px; background: var(--border); border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+  }
+  .stat { background: var(--surface); padding: 16px 14px; display: flex; flex-direction: column; gap: 4px; }
+  .stat .n {
+    font-family: "Fraunces", Georgia, serif; font-size: 25px; font-weight: 600;
+    color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1;
+  }
+  .stat .l { font-size: 11.5px; color: var(--muted); line-height: 1.3; }
+
+  section { display: flex; flex-direction: column; gap: 14px; }
+  .section-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+  .section-num { font-family: "Fraunces", Georgia, serif; font-size: 13px; color: var(--muted); font-weight: 600; }
+  h2 { font-family: "Fraunces", Georgia, serif; font-size: 20px; font-weight: 600; margin: 0; letter-spacing: -0.005em; }
+  h3 { font-size: 14.5px; font-weight: 700; margin: 0 0 2px; color: var(--text); }
+  h4 { font-size: 13px; font-weight: 700; margin: 10px 0 0; color: var(--text); text-transform: uppercase; letter-spacing: 0.05em; }
+  p { margin: 0; }
+  .lede { color: var(--muted); font-size: 14px; max-width: 68ch; }
+
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .verdict-row { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; }
+  .verdict-row svg { width: 18px; height: 18px; flex: none; color: var(--ok); }
+  .verdict-row.warn svg { color: var(--warn); }
+
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; min-width: 560px; }
+  thead th {
+    text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--muted); font-weight: 600; background: var(--surface-2); padding: 9px 12px;
+    border-bottom: 1px solid var(--border); white-space: nowrap;
+  }
+  tbody td { padding: 8px 12px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--surface-2) 45%, transparent); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .grade { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 6px; font-weight: 700; font-size: 12px; background: var(--accent-soft); color: var(--accent); }
+  .starred { color: var(--muted); font-style: italic; }
+  code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.92em; background: var(--mono-bg); padding: 1px 5px; border-radius: 4px; }
+  pre { background: var(--mono-bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; overflow-x: auto; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; line-height: 1.6; margin: 0; }
+  pre code { background: none; padding: 0; }
+
+  .sev-strip { display: flex; gap: 8px; flex-wrap: wrap; }
+  .sev-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 5px 11px; border-radius: 999px; background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+  .sev-dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+  .sev-dot.crit { background: var(--crit); } .sev-dot.high { background: var(--high); }
+  .sev-dot.med { background: var(--med); } .sev-dot.low { background: var(--low); } .sev-dot.info { background: var(--info); }
+  .sev-dot.ok { background: var(--ok); }
+
+  .cov-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+  .cov-item { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
+  .cov-item .mod { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 12px; color: var(--accent); }
+  .cov-item .desc { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+  .cov-item.gap { opacity: 0.9; } .cov-item.gap .mod { color: var(--muted); }
+  .cov-item.done { border-color: color-mix(in srgb, var(--ok) 40%, var(--border)); }
+
+  .callout { display: flex; gap: 12px; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 10px 10px 0; padding: 12px 16px; font-size: 13.5px; }
+  .callout svg { flex: none; width: 17px; height: 17px; color: var(--accent); margin-top: 2px; }
+  .callout.warn { border-left-color: var(--med); background: color-mix(in srgb, var(--med) 12%, var(--surface)); }
+  .callout.warn svg { color: var(--med); }
+  .callout b { color: var(--text); }
+
+  .bug-item { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+  .bug-item .tag { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); }
+  .bug-item .tag.warn { color: var(--warn); }
+  .bug-item p { font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+
+  .divider { height: 1px; background: var(--border); border: none; margin: 4px 0; }
+  footer { text-align: center; font-size: 12px; color: var(--muted); padding-top: 12px; border-top: 1px solid var(--border); line-height: 1.7; }
+
+  .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px 16px; }
+  .chart-card .chart-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); margin-bottom: 14px; }
+  .chart-row { display: flex; gap: 24px; flex-wrap: wrap; align-items: center; }
+  .chart-legend { display: flex; flex-direction: column; gap: 7px; font-size: 12.5px; min-width: 150px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+  .legend-n { font-weight: 700; font-variant-numeric: tabular-nums; min-width: 2.6em; }
+  .legend-l { color: var(--muted); }
+
+  .bars { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 220px; }
+  .bar-row { display: grid; grid-template-columns: 86px 1fr 40px; align-items: center; gap: 10px; }
+  .bar-label { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .bar-track { height: 16px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 4px; }
+  .bar-n { font-size: 12px; font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
+
+  .gap-note { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+  .kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 14px; font-size: 13px; }
+  .kv dt { color: var(--muted); }
+  .kv dd { margin: 0; font-variant-numeric: tabular-nums; }
+
+  @media (max-width: 480px) { .stat-strip { grid-template-columns: repeat(2, 1fr); } }
+</style>
+
+<main>
+
+  <div class="doc-head">
+    <span class="eyebrow">Internal verification record</span>
+    <h1>What's actually been tested</h1>
+    <p class="doc-sub">
+      Every rigorous test run against the SecScan scanner and its two production
+      surfaces to date — false-positive sweeps against real third-party sites, a
+      purpose-built vulnerable app checked finding-by-finding, real disposable
+      infrastructure for the checks a fixture cannot reach, a concurrency test
+      against the live pipeline, and the email delivery path. With the raw counts,
+      not a summary written to sound better than the data. Section 09 covers the
+      2026-09-21 monitoring work and the three production bugs that day exposed
+      — each of which had passing tests and did nothing.
+    </p>
+    <div class="doc-meta">
+      <span><b>Compiled</b> 2026-09-22</span>
+      <span><b>Sources</b> <code>FALSE-POSITIVE-AUDIT.md</code>, <code>SCAN-RESULTS.md</code>, <code>vuln-fixture/README.md</code>, production logs</span>
+      <span><b>Scope</b> secscan.us scanner + secscan.us/secscan.info deploys</span>
+    </div>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat"><span class="n">108</span><span class="l">passive site-runs, 40 distinct hosts</span></div>
+    <div class="stat"><span class="n">7</span><span class="l">active runs, owned domains only</span></div>
+    <div class="stat"><span class="n">73/73</span><span class="l">tracked findings detected, fixture app</span></div>
+    <div class="stat"><span class="n">14</span><span class="l">false positives found &amp; fixed, 5 rounds</span></div>
+    <div class="stat"><span class="n">6/6</span><span class="l">fixture-unreachable modules resolved</span></div>
+    <div class="stat"><span class="n">20</span><span class="l">concurrent scans, live pipeline</span></div>
+    <div class="stat"><span class="n">6</span><span class="l">live production bugs found &amp; fixed</span></div>
+    <div class="stat"><span class="n">1,187</span><span class="l">automated tests, 85 files</span></div>
+    <div class="stat"><span class="n">0</span><span class="l">gaps left needing infrastructure</span></div>
+  </div>
+
+
+  <div class="callout warn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+    <div>
+      <b>Correction, 2026-09-22 &mdash; this page undercounted its own evidence.</b>
+      The headline figures read &ldquo;50 passive runs, 537 findings&rdquo; until today.
+      Those are Rounds&nbsp;1 and&nbsp;2 alone (30&nbsp;+&nbsp;20 site-runs,
+      294&nbsp;+&nbsp;243 findings). They were written after Round&nbsp;2 and never moved
+      when the post-fix re-run and Round&nbsp;4 were added &mdash; both of which this page
+      goes on to describe. Read out of the committed JSON, the real totals are
+      <b>108 passive site-runs across 40 distinct hosts, and 1,163 passive findings</b>,
+      plus 3 active site-runs on owned domains. The aggregate donut in section&nbsp;02 is
+      still labelled for the 50-run subset it was computed from, and is correct for that
+      subset. This is the same silent drift the fixture count is warned about in
+      section&nbsp;03, in the document that issues the warning.
+    </div>
+  </div>
+
+  <div class="callout">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h8"/></svg>
+    <div>
+      <b>Every finding is now published per host.</b> The tables in sections 01 and 02
+      give counts and grades; they do not show what was actually found. The companion
+      appendix &mdash; <a href="https://claude.ai/artifact/GCy9HY8pHeH743nL26CH3t">Corpus Findings</a> &mdash; lists all 1,171 findings
+      for all 40 hosts, each with its severity, category, CWE, CVSS, WSTG reference,
+      confidence and the evidence string it was judged on, grouped by host and by run. It
+      is generated straight from <code>scan-results/</code>, so it cannot drift from the
+      data. Note what it is not: <code>live-scan.ts</code> never calls the AI layer, so
+      none of it carries the written analysis, remediation guidance or compliance mapping
+      a real customer report contains.
+    </div>
+  </div>
+
+  <section>
+    <div class="section-head"><h2>Where it stands, 2026-09-22</h2></div>
+    <p class="lede">
+      Added when the pre-launch review was run. Below is the honest split: what has
+      evidence behind it, and what is built and shipped but has never been observed
+      working. The second list is the one that matters, because 2026-09-21 produced three
+      separate bugs of exactly that shape.
+    </p>
+
+    <div class="callout warn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+      <div>
+        <b>The recurring failure has a shape, and it is not &ldquo;the tests were
+        missing&rdquo;.</b> Rate limiting had tests and was dead in production. The scan
+        cadence had eight tests and had never once worked. The monitor page was saving
+        data correctly and displayed none of it. In all three the unit tests passed, the
+        types checked, and the feature did nothing &mdash; because each test exercised one
+        half of a seam and nothing exercised the join. Read the second table below with
+        that in mind: <em>passing tests are not evidence that a feature works.</em>
+      </div>
+    </div>
+
+    <h4>Fixed, with evidence</h4>
+    <div class="table-wrap">
+      <table style="min-width:640px">
+        <thead><tr><th>What was wrong</th><th>Evidence it is fixed</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Rate limiting was entirely dead in production.</b> 25 failed logins
+              produced zero 429s: Cloudflare&rsquo;s rotating edge IP was the rate-limit
+              key, so every attempt looked like a new client.</td>
+            <td>429 observed on the 11th attempt after a Cloudflare Transform Rule plus
+              <code>CLOUDFLARE_ORIGIN_SECRET</code>. Brute-force, reset-flood,
+              registration and anonymous-scan throttling all restored.</td>
+          </tr>
+          <tr>
+            <td><b>The published scan cadence had never worked</b> since 2026-05-31. The
+              sweep wrote a 3-day placeholder, the worker preserved anything sooner than
+              the grade cadence, and 3 &lt; 14 &mdash; so every A and B/C site was
+              rescanned every 3 days. Roughly 5&times; the intended scanning and AI spend,
+              and a claim on secscan.info that had never been true.</td>
+            <td><code>resolveNextScanAt()</code> with a 48-hour follow-up window, 9 tests,
+              mutation-tested. The production sweep now reports <code>due=0</code> instead
+              of picking healthy sites.</td>
+          </tr>
+          <tr>
+            <td><b>The monitor page never refetched.</b> A baseline scan saved its grade
+              and report in 26 seconds; the card read <code>Last scan: Never</code>
+              indefinitely. The data was correct the whole time, which is
+              indistinguishable from broken.</td>
+            <td><code>scanInProgress</code>/<code>scanStatus</code> on the API,
+              conditional 5-second polling only while a scan runs, and a live stage
+              banner. Verified present in the deployed bundle.</td>
+          </tr>
+          <tr>
+            <td><b>Nothing happened between scans.</b> A healthy site is scanned every 14
+              days, so the dashboard had nothing to say for the other 13 &mdash; a site
+              could go down, lose HSTS, or start redirecting elsewhere unreported.</td>
+            <td>Hourly pulse live in production:
+              <code>checked=6 up=6 down=0 errored=0</code>. Section 09.</td>
+          </tr>
+          <tr>
+            <td><b>CVE matching ran daily</b>, so a match against a customer&rsquo;s stack
+              could sit unreported for most of a day.</td>
+            <td>Hourly, <code>lookbackHours=3</code>, with per-(subscription, CVE) dedupe
+              &mdash; which is what makes an overlapping window safe.</td>
+          </tr>
+          <tr>
+            <td><b>Certificate expiry read a stored value</b> that could be as old as the
+              scan cadence &mdash; up to a fortnight on an A-grade site.</td>
+            <td>Now read from the live TLS handshake the hourly check already makes, with
+              the daily job kept as a fallback for a site the pulse cannot reach.</td>
+          </tr>
+          <tr>
+            <td><b>Two logs claimed success unconditionally.</b> The worker logged
+              <code>Monitor subscription updated</code> whether or not the
+              <code>WHERE</code> matched a row, so when monitoring was reported as
+              &ldquo;not saving the scan&rdquo; the logs were no evidence either way.</td>
+            <td><code>.returning()</code> plus a warn branch. The same defect was then
+              reintroduced in the new pulse job &mdash; a successful run logged nothing at
+              all &mdash; and caught within the hour.</td>
+          </tr>
+          <tr>
+            <td><b>Alert preferences were one boolean.</b> The only way to silence a noisy
+              alert was to silence every alert, including the certificate expiring in
+              seven days.</td>
+            <td>Six alert kinds plus a severity floor, stored as opt-outs so a new kind
+              defaults to &ldquo;send it&rdquo;. Column names are checked against the real
+              schema by a deliberately unmocked test, after a typo was shown to be
+              invisible to both <code>tsc</code> and all 8 route tests.</td>
+          </tr>
+          <tr>
+            <td><b>Email deliverability.</b></td>
+            <td>DKIM at <code>resend._domainkey.secscan.us</code>, return-path
+              <code>send.secscan.us</code> &rarr; <code>include:amazonses.com</code>,
+              DMARC <code>p=quarantine; pct=25</code>, account mail separated from bulk
+              mail at the sender, RFC 8058 one-click unsubscribe.</td>
+          </tr>
+          <tr>
+            <td><b>Stale published figures.</b> Monitor priced at $49/mo and $129/yr for a
+              feature that is free; &ldquo;34 ports&rdquo; when the scanner checks 33;
+              hand-maintained CVE tables 139 days overdue.</td>
+            <td>All corrected. The port-count correction was itself off by one on the
+              first attempt, which is recorded rather than quietly fixed.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Shipped, but never observed working</h4>
+    <p class="gap-note">
+      Everything here typechecks, has unit tests, and is deployed. None of it has been
+      seen doing its job in production, which &mdash; on the evidence of 2026-09-21
+      &mdash; is not a strong position.
+    </p>
+    <div class="sev-strip">
+      <span class="sev-chip"><span class="sev-dot crit"></span> No monitoring alert has ever been confirmed delivered</span>
+      <span class="sev-chip"><span class="sev-dot high"></span> Availability alerts have never fired</span>
+      <span class="sev-chip"><span class="sev-dot high"></span> Drift alerts have never fired</span>
+      <span class="sev-chip"><span class="sev-dot med"></span> Certificate expiry alerts have never fired</span>
+      <span class="sev-chip"><span class="sev-dot med"></span> Stripe never tested against a real endpoint</span>
+      <span class="sev-chip"><span class="sev-dot low"></span> CVE dedupe unexercised &mdash; nothing has matched yet</span>
+    </div>
+    <p class="gap-note">
+      <b>The alert-delivery gap is the important one.</b> Six alert kinds, a severity
+      floor, suppression handling, and both the email and webhook paths are built and
+      unit-tested. Nobody has watched a single one arrive. All six monitored sites are up
+      and unchanged, so the <code>down</code>, <code>recovered</code> and
+      <code>security_drift</code> send paths have executed zero times; no monitored
+      certificate is inside 30 days, so the expiry path has not run either. This is the
+      last untested link in the chain, and it is the same shape as the three bugs above.
+    </p>
+    <p class="gap-note">
+      A note on what was <em>not</em> concluded: production logs were checked for email
+      activity and showed none, but both containers had restarted 90 minutes earlier and
+      no scan completed or alert fired in that window. An empty log window is not evidence
+      of a broken mailer and was not recorded as one.
+    </p>
+    <p class="gap-note">
+      <b>The cheapest real test</b> is to point a monitor at a URL under your own control,
+      remove a security header, and wait for the top of the hour. One run then exercises
+      drift detection, the severity floor, <code>bulkMailAllowed</code>, suppression and
+      Resend delivery together &mdash; precisely the seam that unit tests keep failing to
+      cover.
+    </p>
+
+    <h4>Waiting on a decision or an action</h4>
+    <div class="table-wrap">
+      <table style="min-width:560px">
+        <thead><tr><th>Item</th><th>Why it is waiting</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>secscan.info copy</b> &mdash; committed locally as
+              <code>3f70401</code>, not pushed</td>
+            <td>The live page still says &ldquo;three scheduled jobs&rdquo; and
+              &ldquo;daily CVE matching&rdquo;. Both are now wrong. Publishing to the
+              public site is the owner&rsquo;s call.</td>
+          </tr>
+          <tr>
+            <td><b><code>scripts/grandfather-monitor-users.ts</code> has never been
+              run</b></td>
+            <td>It must run <em>before</em> <code>MONITORING_REQUIRES_PLAN</code> is ever
+              set, or every existing user loses monitoring the moment enforcement is
+              switched on. Dry-run by default.</td>
+          </tr>
+          <tr>
+            <td><b>Stripe subscription billing (Phase 3)</b></td>
+            <td>Needs test-mode keys. Then <code>mode: "subscription"</code>, three
+              Prices, five new webhook events, and the Customer Portal.</td>
+          </tr>
+          <tr>
+            <td><b>Lapse handling and pricing surfaces (Phases 4&ndash;5)</b></td>
+            <td>Downstream of Phase 3.</td>
+          </tr>
+          <tr>
+            <td><b>DMARC ramp</b></td>
+            <td>Currently <code>p=quarantine; pct=25</code>. Raise to <code>pct=100</code>
+              after about a week, then <code>p=reject</code>.</td>
+          </tr>
+          <tr>
+            <td><b>A manual end-to-end walkthrough</b></td>
+            <td>Fresh address, signup &rarr; scan &rarr; report &rarr; trial wall &rarr;
+              delete. Nothing automated substitutes for it.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>Accepted risks, unchanged</h4>
+    <p class="gap-note">
+      An <code>"N/A"</code> grade &mdash; a scan a bot-protection layer answered &mdash;
+      falls through to the most aggressive 3-day cadence, and will keep spending a scan
+      every three days to learn nothing, indefinitely. Pinned by a test; still an open
+      product decision. <code>structuredData.ts</code> has no fixture coverage for its
+      three actionable findings. <code>http.test.ts</code> &rarr; &ldquo;signs in once
+      when several probes hit the expiry together&rdquo; is flaky: it failed once on
+      2026-09-21 and passed 27/27 across three isolated re-runs.
+      <code>MONITORING_REQUIRES_PLAN</code> ships dormant by design.
+    </p>
+  </section>
+
+  <hr class="divider">
+
+  <div class="callout">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+    <div>
+      <b>What changed on 2026-09-20.</b> Five things were closed.
+      <code>recon-data.ts</code>'s exposed-service detection was verified against a real
+      unauthenticated Redis instance — clean. A concurrency test against the live
+      pipeline surfaced a scan that kept running and paid for an AI call after its owner
+      deleted their account (<code>391857a</code>). An audit of continuous monitoring
+      found its daily CVE matching had been silently matching nothing for every
+      technology whose version the scanner detects — Apache, Nginx, PHP, IIS and three
+      more (<code>9f17de7</code>). <code>deserializationProbe.ts</code>, a HIGH
+      finding that had never been observed firing anywhere, is now planted and confirmed
+      (<code>c67f4b8</code>). And the gap between "a customer pays" and "a customer's
+      scan is ever debited" — checkout creation and credit-spending both did not exist —
+      is now built, tested, and deliberately left switched off (section 12). Every bug
+      found is fixed, tested and deployed.
+    </div>
+  </div>
+
+  <!-- 1 -->
+  <section>
+    <div class="section-head"><span class="section-num">01</span><h2>Passive corpus — 30 well-known sites</h2></div>
+    <p class="lede">
+      Round 1, 2026-09-08. Thirty real, currently-live sites across six sectors —
+      dev tooling, news, retail, government, productivity, communications — scanned
+      passively, to <em>measure</em> the scanner's baseline behaviour rather than to
+      hunt a specific bug. No site here was scanned expecting a particular result,
+      which is exactly why the GOV.UK failure in section 04 surfaced at all.
+    </p>
+
+    <div class="card">
+      <div class="verdict-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+        23 of 30 sites graded; 7 correctly withheld
+      </div>
+      <p style="font-size:13.5px;color:var(--muted)">
+        Seven sites (marked <span class="starred">*</span>) answered with a bot-protection
+        interstitial — Cloudflare challenge pages and similar — instead of their real page.
+        The scanner recognises the interception and reports it as a coverage note rather
+        than scoring the challenge page as if it were the site. The alternative would have
+        produced seven meaningless "A" grades, indistinguishable on the page from seven
+        well-configured sites. Their finding counts are not comparable with the graded rows.
+      </p>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">Grade distribution — 23 graded sites</div>
+      <div class="chart-row">
+        <div class="chart-legend">
+          <div class="legend-item"><span class="legend-dot" style="background:#2f9e6e"></span><span class="legend-n">3</span><span class="legend-l">A — score ≤ 10</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background:#7fb86b"></span><span class="legend-n">11</span><span class="legend-l">B — ≤ 25</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background:#d3a63e"></span><span class="legend-n">8</span><span class="legend-l">C — ≤ 45</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background:#c9793f"></span><span class="legend-n">1</span><span class="legend-l">D — ≤ 65</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background:#b3261e"></span><span class="legend-n">0</span><span class="legend-l">F — &gt; 65</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background:#9aa3ab"></span><span class="legend-n">7</span><span class="legend-l">Withheld*</span></div>
+        </div>
+        <div class="bars">
+          <div class="bar-row"><span class="bar-label">A</span><div class="bar-track"><div class="bar-fill" style="width:27%; background:#2f9e6e"></div></div><span class="bar-n">3</span></div>
+          <div class="bar-row"><span class="bar-label">B</span><div class="bar-track"><div class="bar-fill" style="width:100%; background:#7fb86b"></div></div><span class="bar-n">11</span></div>
+          <div class="bar-row"><span class="bar-label">C</span><div class="bar-track"><div class="bar-fill" style="width:73%; background:#d3a63e"></div></div><span class="bar-n">8</span></div>
+          <div class="bar-row"><span class="bar-label">D</span><div class="bar-track"><div class="bar-fill" style="width:9%; background:#c9793f"></div></div><span class="bar-n">1</span></div>
+          <div class="bar-row"><span class="bar-label">F</span><div class="bar-track"><div class="bar-fill" style="width:0%; background:#b3261e"></div></div><span class="bar-n">0</span></div>
+          <div class="bar-row"><span class="bar-label">Withheld</span><div class="bar-track"><div class="bar-fill" style="width:64%; background:#9aa3ab"></div></div><span class="bar-n">7</span></div>
+        </div>
+      </div>
+      <p class="gap-note" style="margin-top:12px">
+        No site in the corpus produced a single Critical, and none graded F. That is the
+        expected shape for a passive scan of a well-run site — and on its own it proves
+        nothing, which is what section 03 exists to address.
+      </p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Host</th><th class="num">Crit</th><th class="num">High</th><th class="num">Med</th><th class="num">Low</th><th class="num">Info</th><th class="num">Total</th><th class="num">Score</th><th>Grade</th></tr></thead>
+        <tbody>
+          <tr><td>github.com</td><td class="num">0</td><td class="num">1</td><td class="num">1</td><td class="num">3</td><td class="num">6</td><td class="num">11</td><td class="num">23</td><td><span class="grade">B</span></td></tr>
+          <tr><td>gitlab.com</td><td class="num">0</td><td class="num">2</td><td class="num">3</td><td class="num">2</td><td class="num">6</td><td class="num">13</td><td class="num">47</td><td><span class="grade">D</span></td></tr>
+          <tr><td>npmjs.com <span class="starred">*</span></td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">2</td><td class="num">2</td><td class="num">—</td><td>—</td></tr>
+          <tr><td>stackoverflow.com <span class="starred">*</span></td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">3</td><td class="num">3</td><td class="num">—</td><td>—</td></tr>
+          <tr><td>vercel.com</td><td class="num">0</td><td class="num">1</td><td class="num">5</td><td class="num">2</td><td class="num">9</td><td class="num">17</td><td class="num">42</td><td><span class="grade">C</span></td></tr>
+          <tr><td>cloudflare.com</td><td class="num">0</td><td class="num">1</td><td class="num">3</td><td class="num">0</td><td class="num">4</td><td class="num">8</td><td class="num">30</td><td><span class="grade">C</span></td></tr>
+          <tr><td>mozilla.org</td><td class="num">0</td><td class="num">0</td><td class="num">2</td><td class="num">1</td><td class="num">5</td><td class="num">8</td><td class="num">11</td><td><span class="grade">B</span></td></tr>
+          <tr><td>digitalocean.com</td><td class="num">0</td><td class="num">0</td><td class="num">2</td><td class="num">2</td><td class="num">8</td><td class="num">12</td><td class="num">12</td><td><span class="grade">B</span></td></tr>
+          <tr><td>fastly.com</td><td class="num">0</td><td class="num">1</td><td class="num">0</td><td class="num">2</td><td class="num">8</td><td class="num">11</td><td class="num">17</td><td><span class="grade">B</span></td></tr>
+          <tr><td>letsencrypt.org</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">1</td><td class="num">7</td><td class="num">9</td><td class="num">6</td><td><span class="grade">A</span></td></tr>
+          <tr><td>bbc.co.uk</td><td class="num">0</td><td class="num">1</td><td class="num">3</td><td class="num">1</td><td class="num">5</td><td class="num">10</td><td class="num">31</td><td><span class="grade">C</span></td></tr>
+          <tr><td>nytimes.com</td><td class="num">0</td><td class="num">0</td><td class="num">4</td><td class="num">3</td><td class="num">11</td><td class="num">18</td><td class="num">23</td><td><span class="grade">B</span></td></tr>
+          <tr><td>theguardian.com</td><td class="num">0</td><td class="num">0</td><td class="num">3</td><td class="num">1</td><td class="num">10</td><td class="num">14</td><td class="num">16</td><td><span class="grade">B</span></td></tr>
+          <tr><td>reuters.com <span class="starred">*</span></td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">3</td><td class="num">3</td><td class="num">—</td><td>—</td></tr>
+          <tr><td>apnews.com <span class="starred">*</span></td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">2</td><td class="num">2</td><td class="num">—</td><td>—</td></tr>
+          <tr><td>shopify.com</td><td class="num">0</td><td class="num">1</td><td class="num">1</td><td class="num">2</td><td class="num">7</td><td class="num">11</td><td class="num">22</td><td><span class="grade">B</span></td></tr>
+          <tr><td>stripe.com</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">2</td><td class="num">7</td><td class="num">10</td><td class="num">7</td><td><span class="grade">A</span></td></tr>
+          <tr><td>etsy.com <span class="starred">*</span></td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">3</td><td class="num">4</td><td class="num">—</td><td>—</td></tr>
+          <tr><td>ebay.com <span class="starred">*</span></td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">3</td><td class="num">3</td><td class="num">—</td><td>—</td></tr>
+          <tr><td>amazon.co.uk <span class="starred">*</span></td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td class="num">2</td><td class="num">2</td><td class="num">—</td><td>—</td></tr>
+          <tr><td>gov.uk</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">7</td><td class="num">7</td><td class="num">0</td><td><span class="grade">A</span></td></tr>
+          <tr><td>wikipedia.org</td><td class="num">0</td><td class="num">1</td><td class="num">2</td><td class="num">2</td><td class="num">11</td><td class="num">16</td><td class="num">27</td><td><span class="grade">C</span></td></tr>
+          <tr><td>archive.org</td><td class="num">0</td><td class="num">1</td><td class="num">5</td><td class="num">1</td><td class="num">9</td><td class="num">16</td><td class="num">41</td><td><span class="grade">C</span></td></tr>
+          <tr><td>european-union.europa.eu</td><td class="num">0</td><td class="num">1</td><td class="num">1</td><td class="num">2</td><td class="num">6</td><td class="num">10</td><td class="num">22</td><td><span class="grade">B</span></td></tr>
+          <tr><td>nasa.gov</td><td class="num">0</td><td class="num">1</td><td class="num">2</td><td class="num">3</td><td class="num">6</td><td class="num">12</td><td class="num">28</td><td><span class="grade">C</span></td></tr>
+          <tr><td>notion.so</td><td class="num">0</td><td class="num">0</td><td class="num">3</td><td class="num">3</td><td class="num">8</td><td class="num">14</td><td class="num">18</td><td><span class="grade">B</span></td></tr>
+          <tr><td>figma.com</td><td class="num">0</td><td class="num">0</td><td class="num">2</td><td class="num">2</td><td class="num">6</td><td class="num">10</td><td class="num">12</td><td><span class="grade">B</span></td></tr>
+          <tr><td>slack.com</td><td class="num">0</td><td class="num">1</td><td class="num">2</td><td class="num">1</td><td class="num">6</td><td class="num">10</td><td class="num">26</td><td><span class="grade">C</span></td></tr>
+          <tr><td>dropbox.com</td><td class="num">0</td><td class="num">0</td><td class="num">2</td><td class="num">2</td><td class="num">7</td><td class="num">11</td><td class="num">12</td><td><span class="grade">B</span></td></tr>
+          <tr><td>zoom.us</td><td class="num">0</td><td class="num">1</td><td class="num">4</td><td class="num">2</td><td class="num">10</td><td class="num">17</td><td class="num">37</td><td><span class="grade">C</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted)">
+      <span class="starred">*</span> withheld at a bot-protection interstitial — not scored,
+      not comparable to graded rows. Scanner state for this table: pre-<code>6c97837</code>,
+      before the DNS-record-type and email-domain fixes landed.
+    </p>
+
+    <h4>How to read the score</h4>
+    <p class="gap-note">
+      <code>computeRiskScore</code> sums severity weights and caps at 100 —
+      <strong>higher is worse</strong>. Critical 30, High 15, Medium 5, Low 1, Info
+      <strong>0</strong>. <code>computeGrade</code>: A ≤ 10, B ≤ 25, C ≤ 45, D ≤ 65,
+      F &gt; 65. Info findings score zero by design: a check that can only observe whether
+      something is <em>advertised</em> — rate limiting, <code>security.txt</code>, DNSSEC —
+      must not move a grade. That is why a 19-finding site can still grade C.
+    </p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 2 -->
+  <section>
+    <div class="section-head"><span class="section-num">02</span><h2>Repeat sweeps — hunting false positives specifically</h2></div>
+    <p class="lede">
+      Five further rounds, each built to answer one question rather than to sample
+      broadly, spanning 2026-09-07 to 2026-09-19. <strong>14 distinct false positives
+      were found and fixed across the first four.</strong> The fifth — the sweep run
+      immediately before the 2026-09-19 deploy, and the first to cover the active probes
+      at all — found zero. Everything else across 50 total passive runs against real
+      third-party sites was verified true by hand.
+    </p>
+
+    <div class="chart-card">
+      <div class="chart-title">False positives found &amp; fixed, by round</div>
+      <div class="bars">
+        <div class="bar-row"><span class="bar-label">09-07</span><div class="bar-track"><div class="bar-fill" style="width:100%; background:#c9793f"></div></div><span class="bar-n">5</span></div>
+        <div class="bar-row"><span class="bar-label">09-08</span><div class="bar-track"><div class="bar-fill" style="width:100%; background:#c9793f"></div></div><span class="bar-n">5</span></div>
+        <div class="bar-row"><span class="bar-label">09-10</span><div class="bar-track"><div class="bar-fill" style="width:40%; background:#c9793f"></div></div><span class="bar-n">2</span></div>
+        <div class="bar-row"><span class="bar-label">09-12</span><div class="bar-track"><div class="bar-fill" style="width:40%; background:#c9793f"></div></div><span class="bar-n">2</span></div>
+        <div class="bar-row"><span class="bar-label">09-19</span><div class="bar-track"><div class="bar-fill" style="width:1.5%; background:#2f9e6e"></div></div><span class="bar-n">0</span></div>
+      </div>
+      <p class="gap-note" style="margin-top:12px">
+        <b>09-07</b> — cookie-parsing split bug (google), github rate-limit allowlist,
+        CSP-wildcard over-match (cloudflare + mozilla), mail-TLS reachability-read-as-answer
+        (caught before shipping), WAF interstitial mistaken for the real site
+        (stackoverflow + npmjs). <b>09-08</b> — GOV.UK SPF/DMARC via
+        <code>toEmailDomain</code>, a DNSSEC check introduced and fixed inside the same
+        round, an unobservable rate-limit claim affecting 15 of 30 sites, a JWT
+        misclassification on nytimes, and interstitial content served as findings across
+        5 sites. <b>09-10</b> — nytimes GraphQL word-match, linkedin PHP-error word-match.
+        <b>09-12</b> — crossdomain.xml over-match, OpenAPI-spec severity miscalibration
+        across 3 sites. <b>09-19</b> — none; the three changes that round were hardening,
+        and the round says so explicitly.
+      </p>
+    </div>
+
+    <div class="table-wrap">
+      <table style="min-width:660px">
+        <thead><tr><th>Round</th><th>Date</th><th>Targets</th><th>Purpose</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>09-08</td><td>30 sites</td><td>Build a published baseline across six sectors. Measure, don't hunt.</td><td>23 graded, 7 withheld. The hunt happened anyway — GOV.UK's SPF/DMARC finding turned out to contain three separate bugs</td></tr>
+          <tr><td>2</td><td>09-10</td><td>20 sites</td><td>Each target annotated with the specific suppression rule it guards — a regression in any one shows up as a new finding.</td><td>2 false positives found (nytimes.com GraphQL match, linkedin.com PHP-error match) — fixed same day, both pinned by regression tests</td></tr>
+          <tr><td>3</td><td>09-10</td><td>seclayer.app (owned)</td><td>First active pass — injection, path traversal, port scan, manifest SCA.</td><td>0 → 2 findings after DMARC/SPF were added to the domain mid-session; A grade, 98s run</td></tr>
+          <tr><td>4</td><td>09-19</td><td>Same 20 as Round 2</td><td>Is anything here a false positive, after 9 days of scanner changes?</td><td>80 actionable findings, 8 HIGH, 0 CRITICAL — <b>every HIGH verified true by hand</b>, root vs. route compared with matching UA</td></tr>
+          <tr><td>5</td><td>09-19</td><td>seclayer.app + secscan.us (owned)</td><td>First round to sweep active probes for false positives at all — injection, traversal, IDOR and BFLA had never been checked against real targets.</td><td><b>Injection, path traversal, IDOR, BFLA and mass assignment returned nothing on either app.</b> 6 findings total, all 6 verified by hand</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">Aggregate severity — Rounds 1 and 2 only, 50 site-runs, 537 findings</div>
+      <div class="chart-row">
+        <svg width="150" height="150" viewBox="0 0 150 150" style="flex:none" role="img" aria-label="Severity distribution donut: 0 critical, 22 high, 99 medium, 84 low, 332 info">
+          <g transform="translate(75,75) rotate(-90)">
+            <circle r="56" fill="none" stroke="#a15c00" stroke-width="24" stroke-dasharray="14.4 337.4" stroke-dashoffset="0"/>
+            <circle r="56" fill="none" stroke="#8a7300" stroke-width="24" stroke-dasharray="64.9 286.9" stroke-dashoffset="-14.4"/>
+            <circle r="56" fill="none" stroke="#4a6b8a" stroke-width="24" stroke-dasharray="55.1 296.7" stroke-dashoffset="-79.3"/>
+            <circle r="56" fill="none" stroke="#8f97a1" stroke-width="24" stroke-dasharray="217.5 134.3" stroke-dashoffset="-134.4"/>
+          </g>
+          <text x="75" y="71" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="26" fill="currentColor">537</text>
+          <text x="75" y="89" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="9.5" fill="#8f97a1" letter-spacing="1">FINDINGS</text>
+        </svg>
+        <div class="chart-legend">
+          <div class="legend-item"><span class="legend-dot" style="background:#b3261e"></span><span class="legend-n">0</span><span class="legend-l">Critical — 0%</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background:#a15c00"></span><span class="legend-n">22</span><span class="legend-l">High — 4%</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background:#8a7300"></span><span class="legend-n">99</span><span class="legend-l">Medium — 18%</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background:#4a6b8a"></span><span class="legend-n">84</span><span class="legend-l">Low — 16%</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background:#8f97a1"></span><span class="legend-n">332</span><span class="legend-l">Info — 62%</span></div>
+        </div>
+      </div>
+      <p class="gap-note" style="margin-top:14px">
+        Mean scan 18.1 seconds. 41 of the 50 runs reached the site's own page; 9 were
+        correctly withheld at an interstitial.
+      </p>
+      <p class="gap-note" style="margin-top:10px">
+        <b>No criticals, ever.</b> Forty-one runs that actually reached a well-run site
+        produced not one Critical. That is the expected shape, and it is the number to
+        watch: a Critical appearing here without the target having changed is a scanner
+        bug until proven otherwise. It is also, on its own, <em>worth nothing</em> — a
+        scanner that reported nothing at all would produce exactly this page. What
+        separates the two is section 03.
+      </p>
+      <p class="gap-note" style="margin-top:10px">
+        <b>Info dominates, 332 of 537.</b> Nearly two thirds of everything the scanner
+        returns carries zero weight. That is deliberate: the alternative is a scanner that
+        grades sites down for headers whose absence proves nothing, which is precisely the
+        failure the audit keeps recording.
+      </p>
+    </div>
+
+    <h4>Reproducing any of it</h4>
+    <pre><code># passive, all 20 guarded targets
+DATABASE_URL=postgres://localhost/x \
+  npx tsx artifacts/api-server/scripts/live-scan.ts --json sweep.json
+
+# active, owned domains only — the flag carries its own allowlist
+DATABASE_URL=postgres://localhost/x \
+  npx tsx artifacts/api-server/scripts/live-scan.ts --active https://seclayer.app</code></pre>
+    <p class="gap-note">
+      <code>DATABASE_URL</code> only has to be <em>set</em> — the scanner module imports the
+      db layer at load time and a passive scan never reads it. Raw output for every run is
+      committed beside <code>SCAN-RESULTS.md</code>, so each row can be checked rather than
+      taken on trust &mdash; and every finding from every run is now published host by host
+      in the <a href="https://claude.ai/artifact/GCy9HY8pHeH743nL26CH3t">Corpus Findings</a> appendix. Run the sweep before releasing scanner changes, and <em>read</em> the
+      output rather than diffing it: the audit exists because six findings were "fixed" on
+      suspicion and all six turned out to be real.
+    </p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 3 -->
+  <section>
+    <div class="section-head"><span class="section-num">03</span><h2>vuln-fixture — a target with faults known exactly</h2></div>
+    <p class="lede">
+      Real sites can only prove the scanner doesn't cry wolf. They cannot prove it catches
+      everything, because nobody knows the ground truth of a stranger's server. So a second
+      app was built specifically to have every fault the scanner checks for, planted on
+      purpose — then the real scanner was pointed at it and every result checked against
+      what was actually planted.
+    </p>
+
+    <div class="card">
+      <div class="verdict-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+        73 of 73 tracked findings detected — full active pass, credentialed, two accounts
+      </div>
+      <p style="font-size:13.5px;color:var(--muted)">
+        Run via <code>verify-vuln-fixture.ts</code> against the real scanning engine — not
+        a mock, not a unit test of the detection logic in isolation. It includes the
+        credentialed API surface (missing-auth, BFLA, mass assignment, IDOR) and
+        cross-account access control, which need two real logged-in sessions to be
+        checkable at all. Exit code is non-zero on any miss.
+      </p>
+      <p style="font-size:13.5px;color:var(--muted)">
+        The tracked count has grown as checks were added — 69, then 70, 71, and 73 as of
+        2026-09-20. The figure above is what the script itself reported on its last run,
+        not a number carried over from an earlier version of this document, because that
+        count has silently drifted here before.
+      </p>
+    </div>
+
+    <div class="cov-grid">
+      <div class="cov-item done">
+        <span class="mod">deserializationProbe.ts — added 2026-09-20</span>
+        <span class="desc">Four Set-Cookie values on a crawled inner route, one per marker: Java, Ruby Marshal, Python pickle and a URL-encoded PHP object. Each is a real serialized object carrying {"user":"admin"} that decodes to the genuine magic bytes, not a string shaped to satisfy the regex — a fixture that matched the marker without being the thing the marker stands for would verify the regex and nothing else.</span>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">Module coverage — 21 modules with an HTTP-observable check</div>
+      <div class="chart-row">
+        <svg width="150" height="150" viewBox="0 0 150 150" style="flex:none" role="img" aria-label="Coverage donut: 15 of 21 modules planted in the fixture, 6 needing real infrastructure">
+          <g transform="translate(75,75) rotate(-90)">
+            <circle r="56" fill="none" stroke="#2f9e6e" stroke-width="24" stroke-dasharray="251.3 100.5" stroke-dashoffset="0"/>
+            <circle r="56" fill="none" stroke="#3f8fa8" stroke-width="24" stroke-dasharray="100.5 251.3" stroke-dashoffset="-251.3"/>
+          </g>
+          <text x="75" y="71" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="600" font-size="24" fill="currentColor">15/21</text>
+          <text x="75" y="89" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="8.5" fill="#8f97a1" letter-spacing="0.5">IN THE FIXTURE</text>
+        </svg>
+        <div class="chart-legend">
+          <div class="legend-item"><span class="legend-dot" style="background:#2f9e6e"></span><span class="legend-n">15</span><span class="legend-l">Planted in the fixture app</span></div>
+          <div class="legend-item"><span class="legend-dot" style="background:#3f8fa8"></span><span class="legend-n">6</span><span class="legend-l">Need real infrastructure</span></div>
+        </div>
+      </div>
+      <p class="gap-note" style="margin-top:12px">
+        All six of the infrastructure-dependent modules are now resolved — four closed
+        against real disposable infrastructure, one closed through the passive corpus
+        itself, and one attempted with a specific, understood, inconclusive result. Section
+        06 covers each.
+      </p>
+    </div>
+
+    <h4>What's planted, by module</h4>
+    <div class="cov-grid">
+      <div class="cov-item"><span class="mod">scanner.ts</span><span class="desc">Weak/wildcard CSP, missing-directive checks, every missing security header (HSTS, XCTO, Referrer-Policy, Permissions-Policy, COOP/COEP/CORP, Cache-Control), a session cookie missing every flag, wildcard CORS, EOL Server/X-Powered-By banners</span></div>
+      <div class="cov-item"><span class="mod">cveCheck.ts</span><span class="desc">nginx 1.14.0 (CVE-2021-23017), PHP 5.6.40 (EOL) — which incidentally verified CVE and EOL matching against known input for the first time</span></div>
+      <div class="cov-item"><span class="mod">probes.ts</span><span class="desc">Active-CORS credentials-from-arbitrary-origin, TRACE/CONNECT/write methods advertised, open redirect, sensitive robots.txt disclosure, missing SRI, the Werkzeug debugger fingerprint, directory listing, missing security.txt</span></div>
+      <div class="cov-item"><span class="mod">crawler.ts / crawler-data.ts</span><span class="desc">An inner route (/app/dashboard) missing a header the root has, plus .env, git, config, API-docs, debug-log and GraphQL exposure nested under it</span></div>
+      <div class="cov-item"><span class="mod">probes-data.ts</span><span class="desc">All 78 sensitive paths, each serving content shaped to pass that path's own validate() — the path list is diffed structurally against the source on every edit</span></div>
+      <div class="cov-item"><span class="mod">secret-pattern-data.ts</span><span class="desc">All 34 secret patterns, in an external JS file so the non-inline path is exercised too</span></div>
+      <div class="cov-item"><span class="mod">nextjsProbe.ts</span><span class="desc">All 9 __NEXT_DATA__ secret patterns</span></div>
+      <div class="cov-item"><span class="mod">jwtAnalysis.ts</span><span class="desc">alg:none, no-expiry, HS256-without-expiry, excessive lifetime (10 years), sensitive payload fields</span></div>
+      <div class="cov-item"><span class="mod">sourceMaps.ts</span><span class="desc">An exposed .js.map with sourcesContent containing a secret</span></div>
+      <div class="cov-item"><span class="mod">apiDocsProbe.ts</span><span class="desc">A root-level OpenAPI spec, which also feeds the API surface tests</span></div>
+      <div class="cov-item"><span class="mod">graphqlProbe.ts</span><span class="desc">Introspection enabled, field-suggestion leak (needs --active)</span></div>
+      <div class="cov-item"><span class="mod">injectionProbe.ts</span><span class="desc">Reflected XSS and error-based SQLi on /search (needs --active)</span></div>
+      <div class="cov-item"><span class="mod">pathTraversal.ts</span><span class="desc">/download?file=../../../etc/passwd (needs --active)</span></div>
+      <div class="cov-item"><span class="mod">apiProbe.ts</span><span class="desc">Missing auth, over-exposed sensitive fields, BFLA, mass assignment (a role field the spec declares and the handler applies), API-level IDOR, SQLi in a declared parameter — all via a real OpenAPI spec</span></div>
+      <div class="cov-item"><span class="mod">accessControlProbe.ts</span><span class="desc">Page-level IDOR and identifier-enumeration on /account/:id, which ignores both the caller's session and the :id in the URL</span></div>
+      <div class="cov-item"><span class="mod">ssrfProbe.ts</span><span class="desc">GET /api/webhook-preview?url= does a real server-side fetch with no allowlist — confirmed via an actual callback to the collector, not asserted from reading the code</span></div>
+    </div>
+
+    <h4>Known limits of what this proves</h4>
+    <p class="gap-note">
+      All 78 <code>probes-data.ts</code> paths are served correctly, but
+      <code>verify-vuln-fixture.ts</code> only asserts a sample of roughly ten by name —
+      checking all 78 individually would make the script itself the thing most likely to
+      contain a typo. The full list is cross-checked structurally instead, diffed against
+      the source path list on every edit. "Present" is not the same guarantee as "this
+      exact one was independently confirmed to fire", and this document does not pretend
+      otherwise. Rate limiting and BFLA also depend on endpoint and burst budgets: if those
+      change, the verify script must be re-run rather than assumed.
+    </p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 4 -->
+  <section>
+    <div class="section-head"><span class="section-num">04</span><h2>Real bugs this process actually found</h2></div>
+    <p class="lede">
+      Not hypothetical review comments. Each of these produced a wrong report on a real or
+      fixture target, was root-caused, fixed, and pinned with a regression test. They are
+      grouped by what kind of wrong they were, because the two kinds fail differently: a
+      false positive is disputed by the customer, a false negative is never noticed by
+      anyone.
+    </p>
+
+    <h4>False positives</h4>
+
+    <div class="bug-item">
+      <span class="tag">False positive · 2026-09-07</span>
+      <h3>Bot-protection page mistaken for the site itself</h3>
+      <p>
+        stackoverflow.com and npmjs.com returned a Cloudflare interstitial instead of their
+        real page. Every content-derived check — CSP, cookies, headers, SRI, inline scripts,
+        technology fingerprint, structured data — was describing the challenge page, not the
+        customer's site. The report read as a scan of the customer and was a scan of a WAF
+        error page. A recognizer now identifies the interception from vendor fingerprints
+        and reports it once as a coverage note. Detection is strict on purpose: calling a
+        real page a challenge page would suppress genuine findings, which is worse than the
+        bug being fixed. A large document that merely loads a bot-protection script is not
+        a challenge, a 403 returning a real access-denied page is not a challenge, and the
+        words "just a moment" in body copy are not a challenge.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">False positive · in the fix itself</span>
+      <h3>nytimes.com flagged as intercepted — on a header set for allowed traffic</h3>
+      <p>
+        The new interstitial detector matched <code>x-datadome: protected</code> by
+        presence. DataDome sets that header on traffic it lets <em>through</em>, not traffic
+        it blocks. The real 1.3&nbsp;MB homepage, two JSON-LD blocks and all, was sitting in
+        the response body the whole time. Fixed by matching the header's <em>value</em>
+        rather than its presence; a regex is now required on every header signal so the
+        shortcut cannot be taken again. This is the audit's recurring error — reading the
+        presence of a response as the meaning of the response — reappearing inside the fix
+        for a previous instance of itself.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">False positive · 2026-09-08</span>
+      <h3>GOV.UK's email domain resolved wrong — three bugs behind one HIGH finding</h3>
+      <p>
+        <code>toEmailDomain</code> derived the email domain by counting label lengths:
+        <code>uk</code> is two characters and <code>gov</code> is three, so it took the
+        <code>.co.uk</code> branch and, with only three labels, returned the hostname
+        unchanged. SPF was looked up at <code>www.gov.uk</code> and DMARC at
+        <code>_dmarc.www.gov.uk</code>, neither of which exists. Separately,
+        <code>dnsQuery</code> returned the whole DoH answer section without filtering on
+        record type, so an MX query answering with two CNAMEs was read as "this domain
+        actively sends email" and escalated the finding to HIGH. And the evidence string
+        hardcoded <code>Status: NOERROR (domain exists)</code> regardless of what the
+        resolver actually returned.
+      </p>
+      <p>
+        The target was <strong>the single most email-secure domain a UK scan is likely to
+        encounter</strong> — <code>v=spf1 -all</code> at <code>gov.uk</code> and
+        <code>p=reject</code> at <code>_dmarc.gov.uk</code> — and it was reported as having
+        neither. Fixed by walking the ancestor chain, filtering DNS answers to the type
+        actually queried, and suppressing the finding on NXDOMAIN.
+        <code>toEmailDomain</code> was deleted rather than patched: guessing a registrable
+        domain from label lengths is what produced the failure in the first place.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">False positive · introduced and fixed in one round</span>
+      <h3>DNSSEC "not enabled" on a properly signed zone</h3>
+      <p>
+        Introduced by the record-type filter above. DNSKEY records live at the zone apex,
+        and <code>checkDnssec</code> asked the scanned hostname:
+        <code>www.nasa.gov</code> answers with one CNAME and no DNSKEY, while
+        <code>nasa.gov</code> is properly signed. Before answers were filtered by type, that
+        CNAME had been counted as a DNSKEY and the check passed for entirely the wrong
+        reason — a hidden false negative that the filter converted into a visible false
+        positive. The corpus went from 13/30 to 26/29 in a single run, which is what made it
+        obvious. Now walks to the apex. This is the argument for re-running the corpus after
+        a fix rather than trusting a green suite.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">False positive · 15 of 30 sites</span>
+      <h3>"No rate limiting detected" asserted something a passive GET cannot observe</h3>
+      <p>
+        stripe.com sends no rate-limit headers at all and unquestionably rate-limits. Rate
+        limiting lives on login and API routes, not the homepage, and CDNs throttle
+        silently. The infrastructure allowlist had already been patched twice — Google
+        server tokens, then GitHub's edge — which is the shape of a check chasing an
+        unobservable property one vendor at a time. Renamed to <code>Rate Limiting Not
+        Advertised in Response Headers</code> and dropped to INFO at weight 0. Note the
+        contrast with the <em>active</em> rate-limit check in Round 5, which earns its
+        severity because it sends the requests and reports what came back.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">False positive · 2026-09-10</span>
+      <h3>GraphQL match on the literal word "graphql"</h3>
+      <p>
+        nytimes.com's SPA catch-all served 1.25&nbsp;MB of plain HTML at
+        <code>/ca/graphql</code>, and the probe matched the word in the URL. It now requires
+        GraphQL-shaped JSON or a playground fingerprint before reporting. Effect on that
+        run once fixed: 28 → 23, grade C → B.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">False positive · 2026-09-10</span>
+      <h3>"PHP error" match on a bare word and a colon</h3>
+      <p>
+        linkedin.com — a Java site — was reported as leaking PHP errors because the pattern
+        matched <code>JSESSIONID</code> loosely. Made structural rather than a bare
+        substring match. Effect once fixed: 20 → 15, grade unchanged at B.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">False positive · 2026-09-12</span>
+      <h3>Permissive crossdomain.xml on a site that permits nothing</h3>
+      <p>
+        Fired on <code>&lt;site-control permitted-cross-domain-policies="all"&gt;</code>
+        while the finding's own description claimed "access from all domains (*)".
+        nytimes.com has no bare <code>domain="*"</code> — every
+        <code>allow-access-from</code> is scoped to <code>*.nytimes.com</code>.
+        <code>permitted-cross-domain-policies="all"</code> is a meta-policy governing
+        whether sub-path policy files may exist, it is Flash's own default when the element
+        is absent, and with Flash EOL since 2020 it warrants no medium CORS finding. The
+        check now fires only on a genuine <code>domain="*"</code>.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">False positive · 2026-09-12</span>
+      <h3>An exposed OpenAPI spec reported as a mistake</h3>
+      <p>
+        The evidence ("spec structure validated") only confirmed the spec was real, never
+        that exposing it was an error. Publishing an OpenAPI spec is mainstream intentional
+        practice — Cloudflare's is literally titled "Cloudflare Public Site API" — and the
+        endpoints it documents still enforce their own auth, so the spec describes the
+        surface rather than opening it. Reclassified: a spec file is INFO ("confirm this is
+        intended"), an interactive "Try It Out" UI is LOW.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">False positive · caught before shipping</span>
+      <h3>Mail server "does not offer STARTTLS" — on one that does</h3>
+      <p>
+        The one false positive in this audit that was never released, because it was found
+        by pointing the new detector at known-good targets before committing it.
+        cloudflare.com's MX advertises STARTTLS on port 25 and presents a valid certificate.
+        The detector probed 25, 587 and 465 and gated its finding on whether a port was
+        <em>reachable</em>; Cloudflare's MX completes the TCP handshake on 587 then resets
+        before answering EHLO, so <code>starttlsAdvertised</code> stayed null — the probe
+        learned nothing, and silence scored as "no STARTTLS". Worse, it fired on some runs
+        and not others depending on when the reset landed, which is the kind nobody
+        disputing the report can reproduce. Fixed twice over: only ports that actually
+        answered EHLO count as evidence, and the probe now checks port 25 alone, since an
+        MX is an inbound relay and 25 is where every message from the world arrives. Scan
+        cost fell from a flat 6.1s to 0.3–2.0s.
+      </p>
+    </div>
+
+    <h4>False negatives</h4>
+
+    <div class="bug-item">
+      <span class="tag">False negative</span>
+      <h3>A crashed check looked identical to a clean pass</h3>
+      <p>
+        Every one of 17 probe families was wrapped in <code>.catch(() =&gt; [])</code>, so a
+        check that threw returned the same empty result as a check that ran cleanly and
+        found nothing. A transient network blip on archive.org silently erased a genuine
+        missing-HTTPS-redirect finding with zero trace in the report. Fixed by tracking
+        failures by name and emitting an explicit "N check groups could not be completed"
+        coverage finding — deliberately an INFO note about the <em>scan</em>, never a
+        vulnerability claim about the site.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">False negative</span>
+      <h3>The same swallowing bug, one stage later — found while validating SSRF coverage</h3>
+      <p>
+        The fix above covered the passive probes and stopped one stage short: API surface
+        discovery, API endpoint testing, SSRF and cross-account access control each still
+        had their own <code>.catch(() =&gt; [])</code>. SSRF is where this mattered most —
+        its entire method is a negative result ("no callback arrived"), so a failed
+        out-of-band registration or a mid-scan network fault looked exactly like a target
+        that genuinely is not vulnerable. Found not from a report but from reading the code
+        one page down from where the first fix ended, while working out how to validly test
+        SSRF at all. All four stages now report into the same coverage finding as the
+        passive probes.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">False negative · live in production</span>
+      <h3>Daily CVE matching silently matched nothing for the stack that matters</h3>
+      <p>
+        Covered in full in section 08. <code>scanner.ts</code> enriches detected
+        technologies with versions for display — its own comment reads
+        <code>"Nginx" → "Nginx 1.18.0"</code> — while the monitor's keyword table is
+        keyed on the bare name and the lookup was exact. Every technology whose version
+        the scanner successfully detected dropped out of CVE matching, with no error and
+        no log. The seven that get enriched are Angular, Apache, IIS, LiteSpeed, Nginx,
+        OpenResty and PHP: precisely the server-side stack a CVE feed exists for.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">False negative · live in production</span>
+      <h3>CVE-2025-48757 stopped being detectable, silently</h3>
+      <p>
+        Covered in full in section 06 — found by standing up a real Supabase project with
+        Row Level Security deliberately off. The check that the whole feature is named after
+        had stopped working for every current Supabase project, because Supabase changed the
+        endpoint it depended on. This is the single most consequential finding in this
+        document, and it was only reachable by using real infrastructure.
+      </p>
+    </div>
+
+    <h4>Caught by checking the deploy rather than the diff</h4>
+
+    <div class="bug-item">
+      <span class="tag">Broken in production for minutes · self-inflicted</span>
+      <h3>A new page that worked locally and 404'd once deployed</h3>
+      <p>
+        A <code>/feedback</code> page shipped on 2026-09-20 rendered correctly in
+        development and returned <strong>404 in production</strong>. The server only
+        serves the single-page-app shell for paths on an explicit allowlist, and the new
+        route was not on it — so the navigation link led to a dead page for every user.
+        Found by requesting the deployed URL rather than by reviewing the change, which
+        would not have shown it: nothing in the page's own code is wrong. The allowlist
+        carries a comment warning about exactly this drift, which is worth noting, because
+        a warning in the file did not prevent the person adding a route from missing it.
+      </p>
+      <p>
+        A second defect in the same change was found the same way: the page had no entry
+        in the per-route metadata table, so it was served with the homepage's canonical
+        URL and structured data — telling search engines it was a duplicate of the
+        homepage. Both were fixed within the hour
+        (<code>5e04da4</code>, <code>816197f</code>). They are recorded here because they
+        are the cheapest possible demonstration of this document's second rule: a change
+        that is correct in the diff can still be broken in the thing people actually use.
+      </p>
+    </div>
+
+    <h4>Not a detection error, but the more serious defect</h4>
+
+    <div class="bug-item">
+      <span class="tag">Data exposure in report evidence</span>
+      <h3>Inner-page cookie findings were quoting the cookie's value</h3>
+      <p>
+        <code>SCAN-RESULTS.md</code> stated that <code>Set-Cookie</code> values in committed
+        runs "are replaced with <code>&lt;redacted&gt;</code>; names and flags are
+        untouched, which is all the cookie findings are derived from." The committed file
+        did show that — but nothing in the repository performed the redaction, so it had
+        been done by hand, and a fresh run carried real <code>fid=</code>,
+        <code>loid=</code> and <code>session_tracker=</code> values in full.
+      </p>
+      <p>
+        That matters well beyond these artifacts, because report evidence is durable and
+        shareable: it is stored in the <code>reports</code> table, rendered into the emailed
+        PDF, and readable by anyone holding a share link. On a <strong>credentialed</strong>
+        scan the scanner is signed in, so the value being quoted is a live authenticated
+        session token. <code>crawler.ts</code> was the only path doing it —
+        <code>scanner.ts</code> already reported root-page cookie findings by name alone and
+        <code>deserializationProbe.ts</code> redacts explicitly — so this was an oversight in
+        one of three sibling paths rather than a decision. <code>redactCookieValue</code> now
+        replaces the value and keeps every attribute. The claim in the results file is now
+        true by construction rather than by hand.
+      </p>
+    </div>
+
+    <div class="callout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16v-4M12 8h.01"/><circle cx="12" cy="12" r="9"/></svg>
+      <div>
+        <b>The pattern across almost all of these:</b> reading the presence of a response as
+        the meaning of the response. STARTTLS read reachability as an answer; the WAF
+        detector read a header's presence as "blocked"; <code>security.txt</code> reported
+        "not found" regardless; the DNS checks read answers without checking what they were.
+        An evidence string is a claim that can be checked — and if it points somewhere the
+        scanner did not actually look, it does not merely fail to support the finding, it
+        argues against it.
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 5 -->
+  <section>
+    <div class="section-head"><span class="section-num">05</span><h2>Email delivery</h2></div>
+    <p class="lede">Verified against production logs and live DNS, not assumed from the code.</p>
+    <div class="table-wrap">
+      <table style="min-width:520px">
+        <thead><tr><th>Check</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>Two-factor sign-in code — API call</td><td>Confirmed 200 from Resend on every send; server logs <code>[mailer] sign-in code sent</code></td></tr>
+          <tr><td>SPF / DKIM alignment (secscan.us)</td><td>DKIM signs at the root domain; DMARC passes via DKIM alignment even where SPF alone would not</td></tr>
+          <tr><td>Deliverability to a fresh Outlook inbox</td><td>Accepted by Resend, landed in Junk — expected for a new sending domain with no reputation history, not a code defect</td></tr>
+          <tr><td>Resend delivery webhook</td><td>Fired and returned 200 for the observed send, confirming Resend's own delivery-event reporting is wired up</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+      <div>
+        <b>Not the same as "email is fully solved."</b> Landing in Junk on a brand-new
+        domain is a reputation problem that resolves with volume and time, not a bug — but
+        it means real users may miss their first sign-in code today, and the sign-in code
+        <em>is</em> the sign-in. Per-recipient "not junk" and warming up send volume are the
+        mitigations in progress; neither is a code fix.
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 6 -->
+  <section>
+    <div class="section-head"><span class="section-num">06</span><h2>Closing the gaps — verified against real infrastructure</h2></div>
+    <p class="lede">
+      Six modules check something outside an application server, so a fixture app cannot
+      plant them. Each was resolved to the same standard as everything above: run the real
+      detection code against a real, known condition, and report what actually came back —
+      never assert from reading the source. Every piece of infrastructure created for these
+      tests was disposable and was destroyed immediately afterwards.
+    </p>
+
+    <div class="table-wrap">
+      <table style="min-width:600px">
+        <thead><tr><th>Module</th><th>What it needed</th><th>Outcome</th></tr></thead>
+        <tbody>
+          <tr><td><code>dnsChecks.ts</code></td><td>Real domains with real SPF/DMARC/DNSSEC states</td><td>Closed via the passive corpus — gov.uk, europa.eu, nasa.gov and secscan.us exercised it without a purpose-built target</td></tr>
+          <tr><td><code>subdomain-service-data.ts</code></td><td>A dangling CNAME to an unclaimed cloud resource</td><td><b>Closed</b> — real dangling CNAME at cc4480.github.io</td></tr>
+          <tr><td><code>storageProbe.ts</code></td><td>A public cloud storage bucket</td><td><b>Closed</b> — disposable AWS S3 bucket with public listing</td></tr>
+          <tr><td><code>baasProbes / firebase / supabase</code></td><td>A deliberately misconfigured BaaS project</td><td><b>Closed</b> — disposable Supabase project; also surfaced a live production bug</td></tr>
+          <tr><td><code>recon-data.ts</code></td><td>A real listener on a watched port</td><td><b>Closed 2026-09-20</b> — disposable unauthenticated Redis on its own public endpoint</td></tr>
+          <tr><td><code>mailTls.ts</code></td><td>A real mail server reachable on port 25</td><td>Attempted — reached the server, correctly inconclusive</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">Closed — subdomain takeover</span>
+      <h3>A real dangling CNAME, on infrastructure already sitting unclaimed</h3>
+      <p>
+        <code>cc4480.github.io</code> was already dangling — no repository of that name
+        exists on the account, so GitHub already answers it with <code>404 There isn't a
+        GitHub Pages site here</code>, the exact fingerprint
+        <code>subdomain-service-data.ts</code> looks for. A randomised, short-lived CNAME on
+        secscan.info was pointed at it (<code>x7k4m9-verify.secscan.info</code>, DNS-only so
+        Cloudflare's proxy did not mask the real response),
+        <code>checkSubdomainTakeover()</code> was run directly against it, and it returned a
+        genuine CRITICAL with the CNAME chain and the confirmed fingerprint in the evidence.
+        The record was removed immediately afterwards to close the window — GitHub Pages
+        custom-domain claiming means a CNAME left pointing at an unclaimed target is a real
+        exposure for as long as it exists, not merely a test fixture.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">Closed — cloud storage</span>
+      <h3>A disposable, publicly-listable S3 bucket</h3>
+      <p>
+        A real, short-lived AWS S3 bucket was created with public listing enabled and
+        referenced the way a real application's bundle would reference it, then
+        <code>storageProbe.ts</code> was run directly against it. It returned a genuine
+        finding with the bucket name and object listing in the evidence. The bucket was
+        deleted immediately afterwards.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">Closed 2026-09-20 — exposed service detection</span>
+      <h3>A real, unauthenticated Redis instance on the public internet</h3>
+      <p>
+        This was the last module in this table with no real-infrastructure test at all, and
+        it had been implied as covered by omission rather than actually checked. Closing it
+        needed a genuine open port, because the alternative — scanning a host with nothing
+        listening — only ever proves the scanner can stay quiet.
+      </p>
+      <p>
+        A disposable <code>redis:7-alpine</code> service was deployed with no password (the
+        image's default) and given its own public TCP endpoint, then confirmed genuinely
+        reachable and genuinely unauthenticated from the outside before any scanning:
+      </p>
+      <pre><code>$ redis-cli -h hayabusa.proxy.rlwy.net -p 39569 PING
+PONG</code></pre>
+      <p>
+        The real, unmodified <code>runRecon()</code> was then pointed at it — the same entry
+        point a production scan uses, including the SSRF guard that resolves the hostname
+        and refuses private addresses. It returned the correct finding:
+      </p>
+      <pre><code>name:     "Exposed Redis Service (port 39569)"
+severity: critical
+category: "Network Exposure"
+evidence: "Port 39569/tcp is open (Redis)"
+cweId:    "CWE-284"
+cvssScore: 10
+confidence: 95</code></pre>
+      <p>
+        <b>What this does and does not prove.</b> The TCP connect, the banner handling
+        against a server that sends nothing unprompted, the SSRF guard on the resolved IP,
+        and the finding generation in <code>portVulns</code> all ran unmodified against a
+        real service. The one thing adjusted for the test was the port number in the
+        in-memory lookup table, because the hosting platform's TCP proxy assigns a random
+        public port and cannot be pinned to Redis's default 6379. That the table maps 6379
+        to Redis is two lines of data visible in the source; it is not something a live test
+        is needed to confirm, and pretending otherwise would be the same "verified by
+        reading the code" this document exists to avoid.
+      </p>
+      <p>
+        <b>An artifact worth recording.</b> The scan also reported MongoDB (27017) and
+        Memcached (11211) as open on the same address. Those are not ours and were not
+        investigated: the platform's TCP proxy is multi-tenant, so a single proxy IP fronts
+        many customers' endpoints on different ports. It is a consequence of testing against
+        shared infrastructure rather than a dedicated host, and it is noted here because it
+        is exactly the kind of result that would be misread as a bonus finding.
+      </p>
+      <p>
+        The service and its public endpoint were destroyed immediately after the run and
+        confirmed gone.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag warn">Attempted — mail-server STARTTLS</span>
+      <h3>Reached the server; the server's own defences made the read inconclusive</h3>
+      <p>
+        <code>inspectMailTls()</code> was run directly against secscan.us's and
+        secscan.info's real MX hosts (<code>mx00</code>/<code>mx01.ionos.com</code>). Port
+        25 was <strong>not</strong> blocked — the connection reached IONOS and a real SMTP
+        banner came back (<code>554-perfora.net ... Nemesis ESMTP Service not
+        available</code>) — but IONOS drip-feeds that banner byte by byte, a deliberate
+        anti-scanner defence, and the probe's own timeout for exactly that pattern fired:
+        <code>"overall probe timeout (server drip-feeding data)"</code>.
+      </p>
+      <p>
+        Zero findings, correctly. An inconclusive read must not be reported as a clean pass,
+        and it was not. This is not a code gap: a target actively resisting a scan, and the
+        scanner correctly staying silent about it, is the right outcome rather than a bug to
+        force closed. It is recorded as attempted-and-understood, which is a different thing
+        from untested.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">Closed — BaaS misconfiguration, and a live false negative found in the process</span>
+      <h3>The exact CVE this feature exists for stopped being detectable, silently</h3>
+      <p>
+        A real, free-tier Supabase project was created with a <code>notes</code> table, Row
+        Level Security deliberately left off, one real row, and the anon key plus a
+        <code>.from("notes")</code> call shipped the way a real application would ship them.
+        First run: nothing but the harmless "Supabase Backend Detected" note. A genuinely
+        exposed table, with real data one HTTP request away, reported clean.
+      </p>
+      <p>
+        Root cause traced live rather than assumed.
+        <code>enumerateSupabaseTables()</code> was the <em>only</em> way the check found
+        table names to test, and it depended on <code>GET /rest/v1/</code> returning an
+        OpenAPI-shaped schema for the anon key. That endpoint now answers:
+      </p>
+      <pre><code>{"message":"Invalid API key",
+ "hint":"Only the `service_role` API key can be used for this endpoint."}</code></pre>
+      <p>
+        Confirmed directly against the fresh project, not from documentation. Every current
+        Supabase project behaves this way. This was not a fixture quirk — it was
+        <code>CVE-2025-48757</code>, the exact vulnerability this feature is named after,
+        going undetected in production for every Supabase-backed application scanned since
+        Supabase made that change.
+      </p>
+      <p>
+        Fixed by reading table names out of the bundle's own <code>.from("table")</code>
+        calls — supabase-js cannot address a table without that literal name shipping in the
+        source, the same as the anon key and project URL sitting beside it — merged with
+        whatever the REST endpoint still returns rather than replacing it, so projects that
+        have not been locked down still work through the original path. Re-run against the
+        same live project: two CRITICAL findings, open read and open write, both confirmed
+        against real HTTP responses. Pinned by two new tests reproducing the exact
+        locked-endpoint response and the genuine both-empty case.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 7 -->
+  <section>
+    <div class="section-head"><span class="section-num">07</span><h2>Concurrency and load — against the live pipeline</h2></div>
+    <p class="lede">
+      The last item that had never been attempted, and the only one that was a decision
+      rather than a resource gap: it means deliberately pushing real traffic through
+      production. Run 2026-09-20 against the live scan pipeline on secscan.us.
+    </p>
+
+    <h4>How it was set up, and what it deliberately did not do</h4>
+    <p class="gap-note">
+      Target was <strong>seclayer.app</strong> — owned, and on separate infrastructure — so
+      the box being scanned was never the same box doing the scanning, which would have
+      confounded every number below. <strong>No production configuration was changed.</strong>
+      No environment variables, no rate limits, no database writes. The burst was built to
+      fit inside the limits that are already live rather than to lift them: ten accounts
+      registered through the ordinary public signup API, two scans each — the existing
+      default free-scan allowance — for twenty concurrent submissions, comfortably under the
+      40-per-hour per-network ceiling.
+    </p>
+    <p class="gap-note">
+      Twenty rather than the twenty-five to thirty originally intended, because the
+      registration endpoint carries its own anti-abuse limiter of ten per fifteen minutes
+      per address. Defeating an abuse control to make a test number look rounder is not a
+      trade this document is willing to record, so the burst was sized to the limiter
+      instead.
+    </p>
+
+    <div class="card">
+      <div class="verdict-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+        20 of 20 accepted · zero crashes, restarts or hangs
+      </div>
+      <dl class="kv">
+        <dt>Burst submission, wall time</dt><dd>507 ms for all 20</dd>
+        <dt>Submission latency</dt><dd>min 347 ms · p50 456 ms · p95 505 ms · max 505 ms</dd>
+        <dt>Accepted (HTTP 201)</dt><dd>20 / 20</dd>
+        <dt>Rejected or errored at submission</dt><dd>0</dd>
+        <dt>Worker concurrency observed</dt><dd>8 simultaneous, remainder queued</dd>
+        <dt>HTTP scan phase, per scan</dt><dd>2.7 – 3.3 s under full concurrency</dd>
+        <dt>Recon phase, per scan</dt><dd>5.6 s, tightly clustered (5611–5620 ms)</dd>
+        <dt>Worker process restarts</dt><dd>0</dd>
+      </dl>
+    </div>
+
+    <h4>What it confirmed</h4>
+
+    <div class="bug-item">
+      <span class="tag">Confirmed — backpressure</span>
+      <h3>The worker caps itself at 8 concurrent scans and queues the rest</h3>
+      <p>
+        <code>scanConcurrency=8</code> is logged explicitly at boot, and the burst made it
+        observable: exactly eight jobs moved to "scanning" immediately and the remaining
+        twelve waited for a slot. Accepting work quickly and then metering it is the right
+        shape — the submission path stayed sub-second under a burst two and a half times the
+        worker's capacity, and nothing queued was dropped.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">Confirmed — the verification gate holds under load</span>
+      <h3>Twenty unverified accounts could not aim active probes at a third party</h3>
+      <p>
+        Every one of the twenty scans logged <code>Domain not verified for this user —
+        running passive checks only</code>. This is the control that stops the platform
+        being used as an anonymous attack proxy, and the burst is the first thing to
+        exercise it at concurrency: ten freshly-created accounts, none of which had verified
+        anything, could not collectively turn the scanner on a target. Had it failed open,
+        the test itself would have hit seclayer.app with twenty simultaneous active probe
+        runs.
+      </p>
+    </div>
+
+    <div class="bug-item">
+      <span class="tag">Confirmed — graceful external degradation</span>
+      <h3>SSL Labs timed out on all twenty and cost nothing but the grade</h3>
+      <p>
+        Every scan logged <code>[ssllabs] Assessment timed out after 30000 ms — continuing
+        without TLS grade</code> and fell back to basic TLS detection. Twenty near-
+        simultaneous assessment requests against a free third-party API is exactly the
+        condition under which that dependency should be expected to refuse, and the pipeline
+        treated it as best-effort rather than as a scan failure. A slow external dependency
+        degrading a single field, instead of failing the whole job, is the behaviour worth
+        having.
+      </p>
+    </div>
+
+    <h4>What it found — a real production bug</h4>
+
+    <div class="bug-item">
+      <span class="tag warn">Bug found and fixed · deployed 391857a</span>
+      <h3>A scan whose owner deleted their account kept running, and kept spending</h3>
+      <p>
+        The test script deleted its ten disposable accounts immediately after submitting,
+        while the scans themselves take minutes. The result was unambiguous:
+        <strong>18 of the 20 scans ran to completion, made a billed DeepSeek AI call, and
+        then failed at the final report insert</strong> — a foreign key violation, because
+        <code>reports.scan_id</code> references <code>scans.id</code> and deleting an
+        account removes its scan rows first. The work and the money were spent on a report
+        that could never be stored and nobody could ever read.
+      </p>
+      <p>
+        The premature cleanup was a flaw in the test script, not a realistic user sequence.
+        But the path it exposed is entirely realistic: a user who starts a scan and then
+        deletes their account from Settings — which the product offers, and which takes
+        seconds — lands in exactly this code path. The twelve scans queued behind the
+        concurrency cap were the worst case, deleted long before a worker slot even freed
+        up, and scanned in full anyway.
+      </p>
+      <p>
+        <b>The fix.</b> Both status updates that already bracket the expensive work now
+        return their affected rows, which makes the existence check free — no additional
+        query. Step 1 abandons a job whose scan row vanished while it sat in the queue,
+        before any scanning happens at all. Step 3 abandons one that lost its row mid-scan,
+        immediately before the only step that costs money. The remaining window — an account
+        deleted during the AI call itself — is seconds wide instead of the whole scan, and
+        still lands in the pre-existing catch that fails the scan cleanly rather than
+        crashing.
+      </p>
+      <p>
+        <b>Why the guard is safe.</b> <code>routes/scans.ts</code> commits the scan row
+        before enqueueing the job, so a missing row always means a deletion and never a job
+        that overtook its own insert. This was checked rather than assumed, because a guard
+        that aborts healthy scans would be far worse than the bug it fixes.
+      </p>
+      <p>
+        <b>Pinned by three tests</b>, and — more to the point — the two guard tests were
+        confirmed to <em>fail</em> with the guards disabled, and the third test asserts the
+        healthy path still runs end to end. A regression test that passes with and without
+        the fix protects nothing, and this document has no way to tell the difference after
+        the fact unless someone checks at the time.
+      </p>
+    </div>
+
+    <div class="callout warn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+      <div>
+        <b>What this test did not measure.</b> Twenty concurrent submissions against an
+        eight-slot worker exercises queueing, backpressure and the failure paths; it does
+        not establish a throughput ceiling, and no attempt was made to find the point where
+        the pipeline actually degrades. Sustained load, multi-hour soak behaviour, memory
+        growth across hundreds of jobs and behaviour with the queue deeply backed up all
+        remain unmeasured. This is a correctness-under-concurrency result, not a capacity
+        number, and it should not be quoted as one.
+      </div>
+    </div>
+
+    <h4>Cleanup</h4>
+    <p class="gap-note">
+      All ten accounts were deleted through the product's own
+      <code>DELETE /account</code> endpoint, which cascades to scans, monitor subscriptions,
+      report shares, dismissed findings, domain verifications, credits, auth tokens, pending
+      logins and every session for that user — confirmed 10 of 10. No production
+      configuration was modified at any point, so there was nothing to revert. The
+      disposable Redis service from section 06 and its public endpoint were destroyed and
+      confirmed unreachable.
+    </p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 8 -->
+  <section>
+    <div class="section-head"><span class="section-num">08</span><h2>Continuous monitoring — audited, and it was not working</h2></div>
+    <p class="lede">
+      Monitoring had never been tested. Around 1,240 lines across
+      <code>monitorScheduler.ts</code>, <code>cveMonitor.ts</code> and
+      <code>routes/monitor.ts</code> carried no test file at all, and no round in this
+      document had ever exercised it. It is also a marketed feature: risk-adaptive
+      rescans, daily CVE matching, certificate-expiry alerts, regression detection and
+      webhooks are all described on secscan.info. Audited 2026-09-20.
+    </p>
+
+    <div class="card">
+      <div class="verdict-row warn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+        The daily CVE job was matching nothing for Apache, Nginx, PHP, IIS, Angular, LiteSpeed and OpenResty
+      </div>
+      <p style="font-size:13.5px;color:var(--muted)">
+        Not degraded, not noisy — silent. It ran every day, found nothing for those
+        technologies, created no alerts, and logged no error, while every monitored
+        customer running one of them believed they were covered.
+      </p>
+    </div>
+
+    <h4>The defect</h4>
+    <p class="gap-note">
+      <code>scanner.ts:561-571</code> enriches each detected technology with its version
+      for display. The comment on that block states the transformation outright:
+    </p>
+    <pre><code>// Detect technologies and enrich with version numbers where available
+// e.g. "jQuery" → "jQuery 1.11.3", "Nginx" → "Nginx 1.18.0"</code></pre>
+    <p class="gap-note">
+      <code>cveMonitor.ts</code> then looked those strings up in a keyword table keyed on
+      the <em>bare</em> name, with an exact lookup and a bare <code>continue</code> on
+      miss. There is no fallback and nothing is logged, so a miss is indistinguishable
+      from a technology with no CVEs:
+    </p>
+    <pre><code>const keywords = TECH_KEYWORDS[tech];   // "Nginx 1.18.0" → undefined
+if (!keywords || keywords.length === 0) continue;</code></pre>
+
+    <h4>Proven by running the real matcher, not by reading it</h4>
+    <pre><code>matchCvesToTechnologies(["Nginx"],        [nginx CVE])  → 1 match
+matchCvesToTechnologies(["Nginx 1.18.0"], [nginx CVE])  → 0 matches</code></pre>
+    <p class="gap-note">
+      Same CVE, same function, same keyword table. The only difference is the version
+      suffix the scanner itself adds.
+    </p>
+
+    <div class="callout warn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+      <div>
+        <b>The inversion is the part worth keeping in mind.</b> The seven technologies
+        that get version-enriched — Angular, Apache, IIS, LiteSpeed, Nginx, OpenResty,
+        PHP — are the server-side stack CVE monitoring is worth running for. The better
+        the scanner did its job, the more certainly monitoring stopped doing its own. And
+        version disclosure is <em>most</em> likely on old, unpatched servers that still
+        expose <code>Server:</code> and <code>X-Powered-By</code> by default, so the
+        feature failed hardest on exactly the targets that needed it. What kept matching
+        were platform entries like Cloudflare, Vercel and Netlify — where a keyword hit
+        on CVE prose means least.
+      </div>
+    </div>
+
+    <h4>Fixed — <code>9f17de7</code></h4>
+    <p class="gap-note">
+      The lookup now strips a trailing version-shaped token, and reports the technology
+      verbatim so the alert keeps the version it saw. Only a trailing version is removed:
+      splitting at the first space would turn "Ruby on Rails" into "Ruby" and
+      "AWS CloudFront" into "AWS", trading one silent miss for another. A second fix
+      re-keys <code>"Express"</code> to <code>"Express.js"</code>, which is the string
+      <code>techFingerprint.ts</code> actually emits — as <code>"Express"</code> that
+      entry could never have been hit either.
+    </p>
+    <p class="gap-note">
+      <b>14 tests, the first this module has ever had.</b> The five covering the defect
+      were confirmed to fail with the fix reverted, and the nine that do not depend on it
+      kept passing — which is what distinguishes a regression test from a test that
+      happens to be green.
+    </p>
+
+    <h4>Two limits pinned rather than fixed</h4>
+    <p class="gap-note">
+      Both are properties of keyword matching rather than bugs in it, so they are
+      asserted by tests that document them — if either is ever tightened, the change is
+      deliberate and those tests are what flag it.
+    </p>
+    <div class="cov-grid">
+      <div class="cov-item gap">
+        <span class="mod">No version awareness</span>
+        <span class="desc">Matching is on the CVE's prose, so a current, patched nginx still matches a CVE about an old one. cveCheck.ts does real version-range matching during a scan; the monitor does not use it. An alert must therefore never be worded as "your version is vulnerable".</span>
+      </div>
+      <div class="cov-item gap">
+        <span class="mod">Generic keywords</span>
+        <span class="desc">Entries like "php", "angular" and "railway" are matched with a bare substring test against the description. "railway" is an ordinary English word that appears in rail and ICS advisories — the same bug class as the linkedin "PHP error" and nytimes "graphql" false positives in section 04.</span>
+      </div>
+    </div>
+
+    <h4>Rescan cadence — tested, and it holds</h4>
+    <p class="gap-note">
+      The cadence is a published claim: secscan.info tells people an A is rechecked every
+      14 days and an F every 3. It decides how often monitoring spends a customer's scan
+      budget and sends traffic at their site, and it had no tests. It does now — eight,
+      covering the published numbers, the fall-through for grades outside A–F, and
+      <code>computeNextScanAt</code>'s arithmetic across a DST boundary. All pass against
+      current behaviour; nothing was broken here.
+    </p>
+    <p class="gap-note">
+      One of them asserts a <em>property</em> rather than the numbers: cadence must be
+      monotonic in risk, so a worse-graded site is never rescanned later than a better one.
+      That survives someone retuning the intervals, which the literal values would not.
+    </p>
+
+    <div class="callout warn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+      <div>
+        <b>One open question, pinned rather than changed.</b> A scan a bot-protection
+        layer answered is graded <code>"N/A"</code>, and
+        <code>nextScanDelayDays</code> falls through to the 3-day branch for it — the most
+        aggressive cadence there is. A target that blocks the scanner will keep blocking
+        it, so this spends a scan every three days, indefinitely, to learn nothing each
+        time. It is not obviously wrong in either direction — retrying sooner is
+        reasonable when a scan produced nothing — so it is a product decision, recorded in
+        a test that will catch any change rather than quietly re-tuned here.
+      </div>
+    </div>
+
+    <h4>Still untested in this feature</h4>
+    <p class="gap-note">
+      CVE matching is fixed and the cadence is tested. The rest of monitoring remains
+      unexercised: the 6-hourly sweep that acts on that cadence, certificate-expiry
+      alerting at the 30/14/7-day thresholds, regression detection, webhook delivery, and
+      the 600 lines of subscription routes. One correction found while reading the
+      cert-expiry job, and fixed: its comment claimed the loop fires "the lowest
+      applicable" threshold, while the array order <code>[30, 14, 7]</code> means the
+      <code>break</code> fires the widest unalerted band first. The behaviour is sound —
+      the email quotes the real days-remaining either way — but the comment described the
+      opposite of the code, which is how a later reader talks themselves into "fixing" a
+      working check.
+    </p>
+  </section>
+
+  <hr class="divider">
+
+
+  <!-- 9 -->
+  <section>
+    <div class="section-head"><span class="section-num">09</span><h2>Hourly checks &mdash; closing the gap between scans</h2></div>
+    <p class="lede">
+      Shipped 2026-09-21 (<code>3977c3d</code>, <code>218b9f4</code>) after a live test
+      surfaced two bugs at once. Monitoring had nothing to say between scans, and the
+      cadence governing those scans had never worked. The fix splits the two: deep scans
+      stay on the risk-adaptive cadence, and a new hourly pulse &mdash; one request and
+      one TLS handshake &mdash; answers the questions that do not need a scan.
+    </p>
+
+    <div class="card">
+      <div class="verdict-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+        Live in production &mdash; <code>checked=6 up=6 down=0 errored=0</code>
+      </div>
+      <p style="font-size:13.5px;color:var(--muted)">
+        Two consecutive runs observed. The second reported
+        <code>driftFindings=0</code>, which is the number that mattered most: the first run
+        wrote the baseline, and a mishandled baseline would have shown up as a spurious
+        &ldquo;everything changed&rdquo; and six drift emails on the very first comparison.
+        <code>errored=0</code> across six sites is also what confirmed the new table
+        existed &mdash; <code>bootMigrate</code> logs
+        <code>&ldquo;Migrations up to date&rdquo;</code> unconditionally after
+        <code>migrate()</code> returns, so that line cannot be used as evidence a
+        migration applied.
+      </p>
+    </div>
+
+    <h4>What the cadence actually was</h4>
+    <div class="table-wrap">
+      <table style="min-width:420px">
+        <thead><tr><th>Grade</th><th>Published cadence</th><th>Actual, 2026-05-31 to 2026-09-21</th></tr></thead>
+        <tbody>
+          <tr><td><span class="grade">A</span></td><td>every 14 days</td><td><b>every 3 days</b></td></tr>
+          <tr><td><span class="grade">B</span></td><td>every 7 days</td><td><b>every 3 days</b></td></tr>
+          <tr><td><span class="grade">C</span></td><td>every 7 days</td><td><b>every 3 days</b></td></tr>
+          <tr><td><span class="grade">D</span></td><td>every 3 days</td><td>every 3 days &mdash; right by accident</td></tr>
+          <tr><td><span class="grade">F</span></td><td>every 3 days</td><td>every 3 days &mdash; right by accident</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="gap-note">
+      The sweep wrote <code>nextScanAt = now + 3 days</code> as a placeholder before
+      enqueueing, so a second sweep tick could not double-pick a subscription whose scan
+      was still running. The worker then preserved any pending time sooner than the grade
+      cadence, to protect the CVE job&rsquo;s deliberate 24-hour follow-up. The two intents
+      were indistinguishable, and the placeholder won every time. Both halves shipped in
+      the same commit (<code>e0a9372</code>), and the eight existing cadence tests passed
+      throughout, because they test the interval function alone and nothing tested the
+      join.
+    </p>
+
+    <h4>The four scheduled jobs</h4>
+    <div class="table-wrap">
+      <table style="min-width:600px">
+        <thead><tr><th>Job</th><th>Was</th><th>Now</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr><td>Hourly pulse</td><td><em>did not exist</em></td><td><b>every hour</b>, :20</td><td>Reachability, response time, security-header presence and live certificate expiry</td></tr>
+          <tr><td>Rescan sweep</td><td>every 6 h</td><td>every 6 h</td><td>Unchanged &mdash; a deep scan is minutes of work, paid API calls and real traffic at a customer&rsquo;s site</td></tr>
+          <tr><td>CVE check</td><td>daily, 06:00 UTC</td><td><b>every hour</b>, :05</td><td>A match could otherwise sit unreported for most of a day</td></tr>
+          <tr><td>Certificate expiry</td><td>daily, from a stored value</td><td>hourly from the live handshake, daily fallback</td><td>The stored value could be a fortnight old</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>The two decisions that make it usable rather than unbearable</h4>
+    <div class="cov-grid">
+      <div class="cov-item done">
+        <span class="mod">Header presence is fingerprinted, never values</span>
+        <span class="desc">A Content-Security-Policy carrying a per-response nonce differs on every single request. Hashing values would report drift every hour on precisely the sites doing CSP properly &mdash; and an owner who gets a false alert hourly turns it off, including on the day it is true. HSTS max-age is the one tracked value, because a header still present with max-age=0 has been switched off while looking untouched.</span>
+      </div>
+      <div class="cov-item done">
+        <span class="mod">Alerts are deduplicated per (subscription, CVE)</span>
+        <span class="desc">The 3-hour lookback deliberately overlaps the hourly schedule, because NVD populates a CVE's published timestamp before it appears in the feed. Without dedupe that overlap sends the same email and fires the same rescan 24 times a day. It also collapses one CVE matching two technologies within a single run &mdash; which a database check cannot catch, since the already-alerted set is read before any of that run's rows are written.</span>
+      </div>
+      <div class="cov-item done">
+        <span class="mod">Outages are confirmed, not reported on sight</span>
+        <span class="desc">A down alert fires only on the pulse that makes the run of failures exactly two long, so a four-hour outage sends one email rather than four, and a single dropped request at 03:00 sends none. A recovery is only reported if the outage reached that threshold &mdash; otherwise it would announce the end of an event the reader never heard about.</span>
+      </div>
+      <div class="cov-item done">
+        <span class="mod">Redirects are followed by hand, guarded per hop</span>
+        <span class="desc">redirect: "follow" would have undone the SSRF check the URL passed when the subscription was created: a target validated as public last month can answer today with a 302 to 169.254.169.254, and fetch would follow it before any of our code saw the Location header. Refusing redirects outright was not an option &mdash; monitored URLs legitimately redirect to www and to HTTPS.</span>
+      </div>
+    </div>
+
+    <h4>Verification</h4>
+    <dl class="kv">
+      <dt>api-server tests</dt><dd>1,187 passing, 85 files (42 new for the pulse, 6 for CVE dedupe, 1 for the new toggles)</dd>
+      <dt>vibescan tests</dt><dd>34 passing</dd>
+      <dt>Typechecks</dt><dd>libs, api-server and vibescan all clean; frontend builds</dd>
+      <dt>Mutations tested</dt><dd>5, all caught</dd>
+    </dl>
+    <p class="gap-note">
+      The five mutations: re-alerting every hour while a site stays down; fingerprinting
+      header values instead of presence; mean instead of median response time; alerting on
+      headers that were <em>added</em>; and disabling the SSRF check on redirects. Each was
+      applied, grep-confirmed present in the file, run, and reverted.
+    </p>
+    <div class="callout warn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+      <div>
+        <b>The redirect tests had to switch the guard back on to mean anything.</b>
+        <code>vitest.config.ts</code> sets <code>ALLOW_PRIVATE_SCAN_TARGETS=true</code> for
+        the whole suite, because most probe tests drive the scanner at a loopback server.
+        That is the same switch a self-hosted operator sets, and with it on the guard
+        correctly permits private addresses &mdash; so the SSRF tests would have passed
+        whether or not the guard was ever called. They now clear it explicitly, as
+        <code>http.test.ts</code> already did for its own redirect case.
+      </div>
+    </div>
+
+    <h4>What the dashboard shows now</h4>
+    <p class="gap-note">
+      Uptime and median response over 24 hours, an hour-by-hour strip (because
+      &ldquo;99%&rdquo; and &ldquo;down at 04:00&rdquo; are the same number and different
+      facts), a grade trend drawn to a labelled scale rather than a 72-pixel sparkline
+      with no axis, a TLS countdown visible at all times rather than only inside 30 days,
+      the next scan explained rather than merely dated, and a portfolio summary above the
+      cards so eight monitored sites do not mean reading eight cards to find the one that
+      needs attention. A 48-hour response-time chart and the list of failed checks sit
+      behind a drawer.
+    </p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 10 -->
+  <section>
+    <div class="section-head"><span class="section-num">10</span><h2>What the published documentation claimed</h2></div>
+    <p class="lede">
+      The scanner's documentation makes checkable numerical claims, and those numbers are
+      read by people deciding whether to trust it. Audited on 2026-09-20 by diffing every
+      figure — on the public site and in the repository's own reference docs — back to
+      the code that produces it. Seven were wrong.
+    </p>
+
+    <div class="table-wrap">
+      <table style="min-width:560px">
+        <thead><tr><th>Claim on secscan.info</th><th class="num">Said</th><th class="num">Actual</th><th>Source of truth</th></tr></thead>
+        <tbody>
+          <tr><td>Credential patterns matched in JS bundles</td><td class="num">32</td><td class="num">34</td><td><code>secret-pattern-data.ts</code></td></tr>
+          <tr><td>DKIM selectors probed</td><td class="num">42</td><td class="num">38</td><td><code>dnsChecks.ts</code></td></tr>
+          <tr><td>Ports in the TCP sweep</td><td class="num">30</td><td class="num">34</td><td><code>recon-data.ts</code> <code>TOP_PORTS</code></td></tr>
+          <tr><td>Subdomain takeover fingerprints</td><td class="num">20</td><td class="num">19</td><td><code>subdomain-service-data.ts</code></td></tr>
+          <tr><td>Ports in the TCP sweep — <em>repo reference doc</em></td><td class="num">30</td><td class="num">34</td><td><code>recon-data.ts</code> <code>TOP_PORTS</code></td></tr>
+          <tr><td>Basic / Deep scan tiers — <em>repo reference doc</em></td><td colspan="2" class="num">documented as current; retired</td><td><code>routes/scans.ts</code></td></tr>
+          <tr><td>Supabase table discovery method</td><td colspan="2" class="num">described the pre-fix behaviour</td><td><code>supabase-probes.ts</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="gap-note">
+      None of these is a scanner defect — the scanner did the right number of things
+      throughout. They are accuracy defects in the claims made about it, which for a
+      product whose entire proposition is "we tell you the truth about your site" is not a
+      cosmetic category. The Supabase entry is the one that mattered most: it described
+      discovery through the PostgREST schema endpoint, which is exactly the path that had
+      silently stopped working (section 06), so the documentation was describing a method
+      the product no longer used.
+    </p>
+    <p class="gap-note">
+      <b>Fixed by removing the opportunity to drift rather than by correcting the
+      numbers.</b> The pattern and path counts on the homepage now derive from the same
+      data table the coverage page renders from, so they cannot disagree with it again.
+      The two that remain hand-written — DKIM selectors and ports — are the ones with no
+      shared source to bind to, and are called out here as the places to re-check after
+      any change to those lists.
+    </p>
+
+    <div class="callout warn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+      <div>
+        <b>The first pass at this audit made the same mistake it was auditing.</b> It
+        corrected three numbers on the public site and left a fourth — the takeover
+        fingerprint count — wrong on the same page, in two places. It was caught later
+        only because the repository's own reference doc had that number <em>right</em>,
+        and the two disagreed. A sweep that fixes what it went looking for and misses an
+        adjacent instance of the identical defect is the ordinary failure mode here, not
+        an unusual one.
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+      <div>
+        <b>This document is subject to the same failure.</b> Its own fixture count has
+        drifted twice — it read 70 when the script tracked 71, and 71 when the script
+        tracked 73. Both times the number was carried forward from an earlier version of
+        this page rather than read from the tool. Every count here now traces to a
+        command whose output is quoted, which is the only version of this that stays true.
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 11 -->
+  <section>
+    <div class="section-head"><span class="section-num">11</span><h2>What's still not tested</h2></div>
+    <p class="lede">
+      Nothing remains that is blocked on infrastructure. What is left divides into two
+      kinds: detection paths that exist but have never been seen to fire, and scope
+      deliberately out of frame. Both are listed so their absence is a decision on the
+      page rather than a silence.
+    </p>
+
+    <h4>Checks that have never fired end-to-end</h4>
+    <div class="sev-strip">
+      <span class="sev-chip"><span class="sev-dot ok"></span> deserializationProbe.ts — closed 2026-09-20</span>
+      <span class="sev-chip"><span class="sev-dot low"></span> structuredData.ts — three actionable findings never planted</span>
+    </div>
+    <p class="gap-note">
+      <b><code>deserializationProbe.ts</code> was the one that mattered, and it is now
+      closed.</b> It reports a HIGH finding at CWE-502, was not planted in the fixture,
+      and the audit recorded it firing <em>zero times</em> across all 50 corpus runs —
+      before and after its markers were re-anchored. It had only ever been exercised by
+      unit tests, which is the same shape as the production false negatives in section
+      04: a check nobody has observed producing a true positive is indistinguishable from
+      a broken one. Four real serialized objects are now planted on a crawled route and
+      all four are confirmed detected end-to-end by the real scanner (section 03).
+    </p>
+    <p class="gap-note">
+      <b><code>structuredData.ts</code> is half-covered.</b> Its three INFO findings do
+      fire against the fixture, but by <em>omission</em> — the page serves no Open Graph,
+      Twitter Card or JSON-LD — and none of them appear in
+      <code>verify-vuln-fixture.ts</code>'s tracked list, so a regression would be
+      silent. Its three actionable findings are not planted at all. Closing it needs a
+      decision rather than an edit: <code>structuredDataFindings()</code> runs only on the
+      root page, so planting JSON-LD to exercise the actionable findings would switch off
+      the INFO ones currently earned by absence. And "social preview asset over HTTP"
+      cannot fire at all, because the fixture runs on plain HTTP by design — the same
+      class as the HSTS and Cache-Control exclusions already documented there.
+    </p>
+
+    <h4>Code with no test coverage</h4>
+    <div class="sev-strip">
+      <span class="sev-chip"><span class="sev-dot med"></span> Monitoring internals — the 6-hourly sweep and cert-expiry thresholds</span>
+      <span class="sev-chip"><span class="sev-dot ok"></span> Outbound webhook SSRF guard — closed 2026-09-20</span>
+      <span class="sev-chip"><span class="sev-dot ok"></span> routes/feedback.ts — closed 2026-09-20</span>
+      <span class="sev-chip"><span class="sev-dot ok"></span> Monitor route ownership — closed 2026-09-20</span>
+    </div>
+    <p class="gap-note">
+      Section 08 fixed CVE matching and gave that module, the rescan cadence and the
+      subscription routes their first tests. Section 09 then covered the cadence
+      end-to-end and added 48 more tests around the hourly pulse and CVE dedupe. What
+      remains untested in monitoring is delivery: the 6-hourly sweep body, the 30/14/7-day
+      certificate thresholds, and every alert send path &mdash; email and webhook alike
+      &mdash; which have unit tests but have never been observed reaching a recipient. The
+      <code>"N/A"</code>-grade cadence question is pinned by a test but still unanswered
+      as a product decision.
+    </p>
+    <p class="gap-note">
+      <b>Monitor route ownership is closed.</b> Six endpoints under
+      <code>/monitor/subscriptions/:id</code> take an id straight from the URL — the exact
+      shape of the flaw this scanner exists to find in other people's applications, where
+      getting it wrong means one customer reading another's scan history and regression
+      list. All six already did it correctly and identically: a lookup scoped by id
+      <em>and</em> userId, then 404 rather than 403, so the response does not confirm that
+      someone else's subscription exists. Nothing was broken.
+    </p>
+    <p class="gap-note">
+      The tests are written structurally rather than one per endpoint, because the
+      realistic future bug is not someone breaking a handler that works — it is someone
+      adding the seventh endpoint and scoping the lookup by id alone. A test that
+      enumerates the router and holds every <code>:id</code> route to the rule catches
+      that on the day it is written; six per-endpoint tests would all pass, because the
+      new endpoint is in none of them. One further test asserts the enumeration actually
+      found at least six routes, since a structural test that silently matches nothing
+      passes while asserting nothing. Confirmed non-vacuous by removing the ownership
+      constraint from the DELETE handler, which fails the suite and names that endpoint.
+    </p>
+    <p class="gap-note">
+      <b>The outbound webhook SSRF guard is closed.</b> A monitor subscription takes a
+      webhook URL from the user and the server then makes requests to it — server-side
+      request forgery by construction, and the exact class this scanner sells itself on
+      finding in other people's applications. The control was already correct:
+      https-only so a token in the URL cannot leave in cleartext, host rules imported
+      from the same module the scan-target path uses so the two cannot drift, redirects
+      refused outright rather than re-checked per hop, and the check running before
+      anything is sent. Nothing was broken.
+    </p>
+    <p class="gap-note">
+      It is tested now because <b>an SSRF guard fails silently by definition</b> — a
+      successful bypass looks exactly like a delivered webhook, so there is no symptom to
+      notice and no error to read. One careless refactor is the whole distance between
+      this control and no control. Ten tests assert it by its effect rather than its
+      internals: whether a request was attempted at all. Loopback, RFC-1918, the cloud
+      metadata address at <code>169.254.169.254</code>, plain http on a public host and
+      unparseable input are all refused; a legitimate Slack endpoint is delivered, which
+      is what stops the refusals passing vacuously. Confirmed by replacing the guard with
+      <code>true</code>, which fails all five refusal tests.
+    </p>
+    <p class="gap-note">
+      <b>Regression detection is covered indirectly</b>, and deliberately left there. It
+      is a set-difference over finding fingerprints, and the property it depends on —
+      that a fingerprint stays stable across rescans when only volatile values change —
+      is already tested directly in <code>fingerprint.test.ts</code>, along with the
+      non-idempotency trap that previously resurrected every dismissal naming a version,
+      IP or port. Isolating the filter itself would restate that with more mocking and
+      less meaning.
+    </p>
+    <p class="gap-note">
+      <b><code>routes/feedback.ts</code> is closed.</b> It shipped on 2026-09-20 verified
+      by a single manual POST, and now has fourteen tests: that an unauthenticated
+      submission is accepted and stored with a null <code>userId</code> — the design
+      decision the table was built around — and the deliberate asymmetry between what it
+      refuses (empty, whitespace-only, missing body, over-long message) and what it
+      tolerates (a rating outside 1–5, a fractional or wrong-typed rating, an over-long
+      context, all clamped, nulled or truncated), because the message is the valuable part
+      and a bad optional field must never cost one. They found nothing, which is the
+      expected result for code that small; they were confirmed non-vacuous by removing the
+      <code>trim()</code> and watching the whitespace test fail.
+    </p>
+
+    <h4>A known flaky test, recorded rather than tolerated</h4>
+    <p class="gap-note">
+      <code>http.test.ts</code> &rsaquo; <em>"signs in once when several probes hit the
+      expiry together"</em> failed three separate times during this work and passed on
+      every re-run, including three consecutive clean runs immediately after each
+      failure. It is timing-sensitive — it asserts that concurrent probes hitting an
+      expired session trigger exactly one re-authentication — and it trips under the
+      parallel load of the full suite rather than on its own.
+    </p>
+    <p class="gap-note">
+      It is listed here because a flaky test is a real defect with a cost that is easy to
+      under-rate: <b>it teaches people to re-run a red suite instead of reading it.</b>
+      Every one of the genuine failures in this document was found by taking a red result
+      seriously. A suite that cries wolf three times in a day erodes exactly the reflex
+      that made the rest of this work possible. The check it performs is worth keeping —
+      single-flight re-authentication is a real property — so the fix is to make the
+      assertion deterministic rather than to delete it.
+    </p>
+
+    <h4>Deliberately out of scope</h4>
+    <div class="sev-strip">
+      <span class="sev-chip"><span class="sev-dot info"></span> Throughput ceiling and sustained-load behaviour</span>
+      <span class="sev-chip"><span class="sev-dot info"></span> Multi-hour soak / memory growth across hundreds of jobs</span>
+      <span class="sev-chip"><span class="sev-dot info"></span> Per-finding confirmation of all 78 sensitive paths</span>
+      <span class="sev-chip"><span class="sev-dot info"></span> Mail-server STARTTLS against a non-resisting MX</span>
+    </div>
+    <p class="gap-note">
+      <b>Throughput and soak.</b> Section 07 measured correctness under a burst, not
+      capacity. Finding the degradation point means sustained traffic against production
+      over hours, with real AI-call spend attached to every scan; it is a cost decision
+      before it is a testing one.
+    </p>
+    <p class="gap-note">
+      <b>The 78 paths.</b> All of them are served by the fixture and the list is diffed
+      structurally against the source on every edit, but only a sample is asserted
+      individually by name — see section 03. The remaining risk is a typo in the fixture,
+      not a gap in the scanner.
+    </p>
+    <p class="gap-note">
+      <b>STARTTLS.</b> Attempted and understood (section 06). Closing it properly needs an
+      MX that does not drip-feed its banner as an anti-scanner measure. That is a different
+      test with a different target, not a retry of the same one.
+    </p>
+    <p class="gap-note">
+      <b>Not listed, and why:</b> cloud storage, subdomain takeover, BaaS misconfiguration
+      and exposed-service detection were all closed against real infrastructure (section
+      06). <code>dnsChecks.ts</code> is not listed either — real domains in the passive
+      corpus, with genuine SPF, DMARC and DNSSEC states, exercised it without needing a
+      purpose-built broken zone.
+    </p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 12 -->
+  <section>
+    <div class="section-head"><span class="section-num">12</span><h2>Payments — built and tested, deliberately left off</h2></div>
+    <p class="lede">
+      The instruction for this work was explicit: prepare the ability to charge, do not
+      turn it on. What made that a real engineering task rather than a flag flip is that
+      "prepare to charge" turned out to be two separate missing systems, not one — and
+      finding the second one changed what "done" meant here.
+    </p>
+
+    <div class="card">
+      <div class="verdict-row warn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 9v4M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>
+        Two gaps, not one — and shipping only the first would have been worse than shipping neither
+      </div>
+      <p style="font-size:13.5px;color:var(--muted)">
+        <b>Gap one, already known:</b> nothing created a Stripe Checkout Session, so the
+        webhook that credits an account (<code>routes/stripe.ts</code>) could never be
+        reached by a real customer. <b>Gap two, found while building the fix for gap
+        one:</b> even a successfully purchased credit could never be spent.
+        <code>POST /scans</code> checked only the free-trial cap and returned
+        <code>creditUsed: false</code> unconditionally — hardcoded, not computed. A
+        customer who paid would have hit the same trial wall as one who hadn't, with
+        their credits sitting in the database untouched. Building checkout alone would
+        have taken real money and delivered a dead end; both were fixed together.
+      </p>
+    </div>
+
+    <h4>What was built</h4>
+    <div class="cov-grid">
+      <div class="cov-item done">
+        <span class="mod">lib/credits.ts</span>
+        <span class="desc">spendOneCredit, refundOneCredit, creditBalance. The spend is a single atomic UPDATE — balance - 1 WHERE userId AND balance &gt; 0 — not a read-then-write, because two scans submitted together both reading "1" and both writing "0" is a lost-update race that gives one of them a free scan.</span>
+      </div>
+      <div class="cov-item done">
+        <span class="mod">routes/scans.ts</span>
+        <span class="desc">Spends a credit after the trial-exhausted check, then refunds it on every one of the six rejection paths that can still occur after a spend — invalid target, unverified email, bad credentials, and three more. A credit taken before validation and never given back on a later rejection is the same class of defect as the account-deletion bug in section 07: money and state going out of sync at a rejection path nobody was watching.</span>
+      </div>
+      <div class="cov-item done">
+        <span class="mod">routes/checkout.ts</span>
+        <span class="desc">GET /checkout/packs lists what's buyable with an enabled flag; POST /checkout/credits creates the real Stripe Checkout Session. Validates the requested tier against CREDITS_MAP, not PRICE_MAP — the map the legacy per-scan tiers still appear in but grant nothing from — specifically so a priced-but-uncreditable tier can never be sold.</span>
+      </div>
+    </div>
+
+    <h4>Repricing, and why</h4>
+    <p class="gap-note">
+      The $2/scan pricing predated this work and was never re-examined against what it
+      actually costs to deliver: DeepSeek's per-scan AI analysis runs roughly
+      $0.002–$0.003 at current rates, so $2 sat near a psychological floor, not a cost
+      one. Worse, both packs — 5 for $10 and 20 for $40 — priced out to exactly $2 per
+      credit, while their own descriptions claimed savings ("save $85", "save $340")
+      against a single-scan price that <em>did not exist to sell</em>. That claim was
+      fiction from the day it was written.
+    </p>
+    <div class="table-wrap">
+      <table style="min-width:480px">
+        <thead><tr><th>Tier</th><th class="num">Price</th><th class="num">Per credit</th><th>Before</th></tr></thead>
+        <tbody>
+          <tr><td>single (new)</td><td class="num">$12</td><td class="num">$12.00</td><td>did not exist</td></tr>
+          <tr><td>pack_5</td><td class="num">$50</td><td class="num">$10.00 <span class="starred">(17% off)</span></td><td>$10 flat — $2.00/credit, no real discount</td></tr>
+          <tr><td>pack_20</td><td class="num">$160</td><td class="num">$8.00 <span class="starred">(33% off)</span></td><td>$40 flat — $2.00/credit, no real discount</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="gap-note">
+      <b>Adding <code>single</code> was a judgment call, flagged rather than made
+      quietly.</b> The route was designed to sell packs only. But a pack's "X% off"
+      description needs an actual single-unit price to be measured against, or it is the
+      identical unbacked claim being fixed — so a real one-credit SKU was added. It is a
+      two-line change (one map entry; the route already builds its sellable list
+      generically from that map) but it is a product decision, not a refactor, and the
+      user can veto it.
+    </p>
+
+    <h4>32 new tests, and one self-caught mistake</h4>
+    <p class="gap-note">
+      <code>credits.test.ts</code> (9) confirms the spend's <code>balance &gt; 0</code>
+      predicate lives in the SQL WHERE clause rather than a JS check after a read.
+      <code>checkout.test.ts</code> (17) confirms — among other things — that a tier
+      priced in <code>PRICE_MAP</code> but absent from <code>CREDITS_MAP</code> is
+      refused with 400, using the real retired <code>basic</code>/<code>deep</code> keys
+      as the case. <code>stripe.test.ts</code> (6) pins the two maps to each other and to
+      arithmetic — every sold tier is creditable, every pack beats buying that many
+      singles, the largest pack has the best per-credit rate — rather than to today's
+      specific dollar figures, so a future price change only fails a test if it
+      reintroduces the same class of lie.
+    </p>
+    <p class="gap-note">
+      <b>The first mutation-test run on <code>stripe.test.ts</code> was worthless, and it
+      was caught before being reported as good.</b> A <code>perl</code> regex meant to
+      revert <code>pack_5</code> to its old flat price silently failed to match — a
+      whitespace/em-dash encoding mismatch — and left the file unchanged. The test
+      "passing" after that was not a defense holding, it was a mutation that never
+      happened. Caught by checking the file with <code>grep</code> before trusting the
+      result, redone with the <code>Edit</code> tool, and confirmed for real: reverting
+      <code>pack_5</code> to $10 flat fails the per-credit-rate test and names the tier.
+      This is the same failure mode as an earlier mutation test in this session, on a
+      different file — worth recording twice, since it means the instinct to verify a
+      surprising "pass" has to be permanent, not a one-time lesson.
+    </p>
+
+    <h4>What is still off, and what that means concretely</h4>
+    <div class="card">
+      <div class="verdict-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+        No paywall exists today, by design — nothing above changes production behaviour
+      </div>
+      <p style="font-size:13.5px;color:var(--muted)">
+        <code>STRIPE_SECRET_KEY</code> is unset in production, so <code>stripe</code> is
+        <code>null</code>: <code>GET /checkout/packs</code> reports
+        <code>enabled: false</code> and <code>POST /checkout/credits</code> answers 503.
+        The free trial is unchanged. The one live customer-facing copy referencing the
+        old price — the email-capture panel a trial-exhausted user sees today — was
+        corrected from a flatly wrong "$10 for 5 scans" to the new "$12 each, or $50 for
+        5", since a real signed-up user could hit that panel at any time regardless of
+        whether checkout is wired to it yet. It is still the static fallback, not a
+        working buy button.
+      </p>
+    </div>
+    <p class="gap-note">
+      <b>Not yet tested against real Stripe, even in test mode.</b> Every test above
+      mocks <code>stripe.checkout.sessions.create</code>; nothing in this document has
+      exercised a real Stripe API call, a real webhook signature, or a real completed
+      checkout. That is the honest gap in this section — the code is correct by the same
+      standard as everything else here, but "correct against a mock of Stripe" is not
+      the same claim as "confirmed against Stripe," and this page does not have a
+      Stripe-API item in section 06's table because no live key exists yet to test
+      against. It belongs there the day one does.
+    </p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- 13 -->
+  <section>
+    <div class="section-head"><span class="section-num">13</span><h2>The standard applied throughout</h2></div>
+    <p class="lede">
+      Every closure in this document had to clear the same bar, and the bar is worth stating
+      plainly because it is the only thing that makes the rest of the page mean anything.
+    </p>
+
+    <div class="cov-grid">
+      <div class="cov-item done">
+        <span class="mod">Run the real code</span>
+        <span class="desc">The production detection path, not a mock and not a unit test of the logic in isolation. Where a test harness had to differ from production, section 06 says exactly how and why.</span>
+      </div>
+      <div class="cov-item done">
+        <span class="mod">Against a real condition</span>
+        <span class="desc">A genuinely open port, a genuinely exposed table, a genuinely dangling CNAME. A scan of a host with nothing wrong proves only that the scanner can stay quiet.</span>
+      </div>
+      <div class="cov-item done">
+        <span class="mod">Confirm the target first</span>
+        <span class="desc">The Redis instance answered PING before it was scanned; the Supabase table returned a real row before the probe ran. Otherwise a silent scanner and a silent target are indistinguishable.</span>
+      </div>
+      <div class="cov-item done">
+        <span class="mod">Prove the test can fail</span>
+        <span class="desc">The worker guards were confirmed to fail with the fix disabled. A regression test that passes either way defends nothing, and nobody can tell afterwards.</span>
+      </div>
+      <div class="cov-item done">
+        <span class="mod">Close the window</span>
+        <span class="desc">Every disposable resource — bucket, CNAME, Supabase project, Redis endpoint, test accounts — destroyed immediately after, and confirmed gone rather than assumed gone.</span>
+      </div>
+      <div class="cov-item done">
+        <span class="mod">Record the shortfall</span>
+        <span class="desc">Where a result is partial, inconclusive or narrower than intended, it says so on the page — the STARTTLS read, the port-number substitution, the burst sized to 20 instead of 30.</span>
+      </div>
+    </div>
+
+    <div class="callout">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+      <div>
+        <b>All three production bugs in this document exist only because of the second and
+        third rules.</b> The Supabase false negative, the account-deletion bug and the CVE
+        matching failure were each invisible to code review, to the unit suite, and to any
+        amount of scanning a healthy target. Each needed a real thing that was really
+        broken — a live RLS-off table, an account deleted mid-scan, a technology string in
+        the exact shape production produces — and each one was failing silently in
+        production at the moment it was found. None announced itself; all three looked
+        precisely like a system with nothing to report.
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Compiled from <code>FALSE-POSITIVE-AUDIT.md</code>, <code>SCAN-RESULTS.md</code>,
+    <code>vuln-fixture/README.md</code> and production logs, current as of 2026-09-22.<br>
+    Every count above traces to a committed file or a live query — nothing here is recalled
+    from memory.
+  </footer>
+
+</main>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+
+</body></html>

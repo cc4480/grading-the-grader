@@ -1,0 +1,517 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Proving Ground</title>
+<style>
+  :root {
+    color-scheme: light;
+    --bg:        #f2f3f5;
+    --panel:     #ffffff;
+    --panel-2:   #e8eaee;
+    --ink:       #16191d;
+    --ink-2:     #3d444c;
+    --muted:     #6c737c;
+    --rule:      #d5d9df;
+    --rule-2:    #e4e7eb;
+    --sig:       #9a4a06;
+    --sig-2:     #b9600f;
+    --sig-bg:    #fbeee1;
+    --ok:        #17603f;
+    --ok-bg:     #e3f2ea;
+    --stop:      #9e2420;
+    --stop-bg:   #fbe9e7;
+    --mono-bg:   #eceef1;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg:      #0d1013;
+      --panel:   #15191e;
+      --panel-2: #1c2128;
+      --ink:     #e9ecef;
+      --ink-2:   #bcc3cb;
+      --muted:   #8a939d;
+      --rule:    #282f37;
+      --rule-2:  #1f252c;
+      --sig:     #f0a868;
+      --sig-2:   #ffbe85;
+      --sig-bg:  #2e1d0d;
+      --ok:      #5ac795;
+      --ok-bg:   #10291f;
+      --stop:    #ff9086;
+      --stop-bg: #2e1512;
+      --mono-bg: #10141a;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg:      #0d1013; --panel: #15191e; --panel-2: #1c2128;
+    --ink:     #e9ecef; --ink-2: #bcc3cb; --muted: #8a939d;
+    --rule:    #282f37; --rule-2: #1f252c;
+    --sig:     #f0a868; --sig-2: #ffbe85; --sig-bg: #2e1d0d;
+    --ok:      #5ac795; --ok-bg: #10291f;
+    --stop:    #ff9086; --stop-bg: #2e1512; --mono-bg: #10141a;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: "Inter Tight", system-ui, -apple-system, sans-serif;
+    font-size: 15.5px; line-height: 1.6; margin: 0;
+    padding-inline: 16px; padding-block: 0 60px;
+  }
+  main { max-width: 800px; margin-inline: auto; }
+
+  /* Header */
+  .top { padding-block: 36px 24px; border-bottom: 3px solid var(--ink); margin-bottom: 30px; }
+  .tag {
+    display: inline-block; font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--sig); border: 1px solid var(--sig); padding: 4px 9px; margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(32px, 6.5vw, 50px); font-weight: 800; line-height: 1.03;
+    letter-spacing: -0.03em; margin: 0 0 16px; text-wrap: balance;
+  }
+  .sub { font-size: clamp(16px, 2.3vw, 18.5px); color: var(--ink-2); margin: 0; max-width: 60ch; }
+  .sub b { color: var(--ink); font-weight: 600; }
+  .meta {
+    font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11.5px;
+    color: var(--muted); margin-top: 20px; display: flex; flex-wrap: wrap; gap: 5px 20px;
+  }
+
+  h2 {
+    font-size: clamp(20px, 3.2vw, 25px); font-weight: 700; letter-spacing: -0.015em;
+    margin: 0 0 8px; text-wrap: balance;
+  }
+  h3 { font-size: 16px; font-weight: 700; margin: 0 0 6px; }
+  section { margin-bottom: 40px; }
+  .num {
+    font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11px;
+    font-weight: 600; letter-spacing: .12em; color: var(--sig);
+    text-transform: uppercase; display: block; margin-bottom: 8px;
+    padding-top: 20px; border-top: 1px solid var(--rule);
+  }
+  p { margin: 0 0 14px; }
+  p:last-child { margin-bottom: 0; }
+  .lede { color: var(--ink-2); margin-bottom: 18px; }
+  a { color: var(--sig); text-decoration: underline; text-underline-offset: 2px; }
+
+  code {
+    font-family: "JetBrains Mono", ui-monospace, monospace; font-size: .85em;
+    background: var(--mono-bg); padding: 1.5px 5px; border-radius: 3px; color: var(--ink-2);
+  }
+  pre {
+    font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; line-height: 1.6;
+    background: var(--mono-bg); border: 1px solid var(--rule); border-left: 3px solid var(--sig);
+    padding: 13px 15px; overflow-x: auto; margin: 0 0 16px; color: var(--ink-2);
+  }
+  pre code { background: none; padding: 0; }
+
+  /* Scoreboard */
+  .board { border: 1px solid var(--rule); background: var(--panel); margin-bottom: 20px; }
+  .board-h {
+    font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10.5px;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+    padding: 10px 16px; border-bottom: 1px solid var(--rule); background: var(--panel-2);
+  }
+  .rowx {
+    display: grid; grid-template-columns: 1fr 78px 1fr; align-items: center; gap: 14px;
+    padding: 13px 16px; border-bottom: 1px solid var(--rule-2);
+  }
+  .rowx:last-child { border-bottom: none; }
+  .rowx .nm { font-weight: 600; font-size: 14.5px; }
+  .rowx .sc {
+    font-family: "JetBrains Mono", ui-monospace, monospace; font-weight: 600;
+    font-size: 15px; text-align: right; font-variant-numeric: tabular-nums;
+  }
+  .meter { height: 9px; background: var(--panel-2); border: 1px solid var(--rule); }
+  .meter i { display: block; height: 100%; background: var(--sig); }
+  .rowx.lead .meter i { background: var(--ok); }
+  .rowx.lead .sc { color: var(--ok); }
+
+  /* Panels */
+  .card { border: 1px solid var(--rule); background: var(--panel); padding: 18px 20px; margin-bottom: 16px; }
+  .card.ok { border-left: 3px solid var(--ok); }
+  .card.stop { border-left: 3px solid var(--stop); }
+  .card.sig { border-left: 3px solid var(--sig); }
+  .card h3 { margin-bottom: 8px; }
+  .card.ok h3 { color: var(--ok); }
+  .card.stop h3 { color: var(--stop); }
+  .card p { font-size: 14.5px; color: var(--ink-2); }
+
+  /* Phases */
+  .phase { display: grid; grid-template-columns: 54px 1fr; gap: 0 18px; border-top: 1px solid var(--rule); padding: 18px 0; }
+  .phase:last-of-type { border-bottom: 1px solid var(--rule); }
+  .phase .pn {
+    font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 22px;
+    font-weight: 700; color: var(--sig); line-height: 1.1;
+  }
+  .phase h3 { margin-bottom: 5px; }
+  .phase p { font-size: 14.5px; color: var(--ink-2); margin-bottom: 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 10.5px;
+    border: 1px solid var(--rule); background: var(--panel-2); color: var(--muted);
+    padding: 2px 8px;
+  }
+  @media (max-width: 520px) { .phase { grid-template-columns: 1fr; gap: 6px; } }
+
+  /* Tables */
+  .tw { overflow-x: auto; border: 1px solid var(--rule); margin-bottom: 16px; }
+  table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 13.5px; }
+  th {
+    text-align: left; font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--muted); background: var(--panel-2); padding: 9px 13px;
+    border-bottom: 1px solid var(--rule); white-space: nowrap; font-weight: 600;
+  }
+  td { padding: 10px 13px; border-bottom: 1px solid var(--rule-2); background: var(--panel); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td.y { color: var(--ok); font-weight: 600; }
+  td.n { color: var(--stop); font-weight: 600; }
+
+  ul.t { list-style: none; padding: 0; margin: 0 0 16px; }
+  ul.t li { position: relative; padding-left: 24px; margin-bottom: 10px; font-size: 14.5px; color: var(--ink-2); }
+  ul.t li::before {
+    content: ""; position: absolute; left: 0; top: 8px; width: 12px; height: 2px; background: var(--sig);
+  }
+  ul.t li b { color: var(--ink); font-weight: 600; }
+
+  .kicker-quote {
+    border-left: 3px solid var(--ink); padding-left: 18px; margin: 22px 0;
+    font-size: clamp(17px, 2.6vw, 20px); font-weight: 600; line-height: 1.4; text-wrap: balance;
+  }
+
+  footer {
+    margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--rule);
+    font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 11.5px;
+    color: var(--muted); line-height: 1.7;
+  }
+</style>
+
+<main>
+
+  <header class="top">
+    <span class="tag">Build plan &middot; secscan.me</span>
+    <h1>Stop asking people to believe you.</h1>
+    <p class="sub">
+      Every scanner vendor publishes a number. None of them publishes a target you can
+      check it against. <b>secscan.me is that target</b> &mdash; a deliberately vulnerable
+      application, hosted publicly, with its complete fault list published. Anyone can point
+      any scanner at it and score the result themselves, including ours.
+    </p>
+    <div class="meta">
+      <span>STATUS &mdash; planned, not deployed</span>
+      <span>DEPENDS ON &mdash; SSRF hardening</span>
+      <span>DRAFTED 2026-09-22</span>
+    </div>
+  </header>
+
+  <section>
+    <span class="num">01 &mdash; The problem this solves</span>
+    <h2>Scanner accuracy claims are unfalsifiable, so nobody believes any of them</h2>
+    <p class="lede">
+      Including ours, and reasonably so.
+    </p>
+    <p>
+      A scanner vendor says it finds 95% of vulnerabilities. Against what? Measured how?
+      Nobody can check, because the measurement needs a target whose true fault list is
+      known, and no vendor hands one over. So every accuracy claim in this industry is a
+      number with no denominator, and experienced buyers have learned to discount all of
+      them equally.
+    </p>
+    <p>
+      That is the actual reason a new scanner is not taken seriously. Not the quality of
+      the work &mdash; the <em>uncheckability</em> of the claim. A better number does not
+      fix it. Only a checkable one does.
+    </p>
+    <div class="kicker-quote">
+      The claim that survives scrutiny is not &ldquo;we scored 92%&rdquo;.
+      It is &ldquo;here is the target, here is the fault list, score us yourself.&rdquo;
+    </div>
+  </section>
+
+  <section>
+    <span class="num">02 &mdash; What already exists</span>
+    <h2>The measurement has been run. It just cannot be independently reproduced yet.</h2>
+    <p class="lede">
+      A benchmark was built and executed on 2026-09-22 against a local instance. Three
+      scanners, one target, 74 planted faults, adjudicated blind.
+    </p>
+
+    <div class="board">
+      <div class="board-h">Detection against 74 planted faults &middot; blind adjudication, 3 judges</div>
+      <div class="rowx lead">
+        <span class="nm">SecScan</span>
+        <span class="sc">68/74</span>
+        <span class="meter"><i style="width:91.9%"></i></span>
+      </div>
+      <div class="rowx">
+        <span class="nm">OWASP ZAP</span>
+        <span class="sc">18/74</span>
+        <span class="meter"><i style="width:24.3%"></i></span>
+      </div>
+      <div class="rowx">
+        <span class="nm">Nuclei</span>
+        <span class="sc">9/74</span>
+        <span class="meter"><i style="width:12.2%"></i></span>
+      </div>
+    </div>
+
+    <p>
+      219 of 222 adjudication decisions were unanimous. The three disputes were all
+      &ldquo;unclear&rdquo; versus a call, never yes versus no.
+    </p>
+
+    <div class="card stop">
+      <h3>Why this is not yet publishable as-is</h3>
+      <p>
+        <b>The judges are not independent.</b> They are three instances of one model, sharing
+        weights and priors, so they fail the same way when they fail. High agreement between
+        them is close to what you would predict by construction, and is much weaker evidence
+        than it looks.
+      </p>
+      <p>
+        <b>The target is our own checklist.</b> The fixture was built to contain the faults
+        SecScan checks for. A tool scoring lower against it has been shown to overlap less
+        with our checklist &mdash; not to be worse. ZAP reported 11 findings our fault list
+        does not contain at all.
+      </p>
+      <p>
+        <b>Nobody was equipped equally.</b> Five faults need two authenticated sessions or an
+        OpenAPI spec; none of the three tools was given either. That is why SecScan scores 68
+        here and 73 in its own credentialed verification run.
+      </p>
+    </div>
+
+    <p>
+      Publishing the scoreboard alone would be a vendor benchmark, and would be dismissed as
+      one. Publishing the <em>target</em> is what converts it into evidence.
+    </p>
+  </section>
+
+  <section>
+    <span class="num">03 &mdash; The mechanism</span>
+    <h2>Why a public target makes the claim bulletproof</h2>
+    <p class="lede">
+      Not because it makes our number bigger. Because it removes us from the measurement.
+    </p>
+    <ul class="t">
+      <li><b>The mapping stops being ours.</b> Today, deciding whether ZAP's &ldquo;Cross-Domain JavaScript Source File Inclusion&rdquo; counts as detecting path traversal is a judgement we make about a competitor. Against a public target with a published manifest, every reader makes that judgement themselves.</li>
+      <li><b>Our mistakes become checkable rather than hidden.</b> An earlier pass of our own mapping scored ZAP at 59%, then 47%, then 31%, purely on regex choices. That history gets published too. A benchmark that shows its own corrections is far harder to dismiss than one that appears to have got it right first time.</li>
+      <li><b>Competitors can dispute it on the record.</b> A scanner vendor who thinks their score is unfair can re-run it and publish a rebuttal. That exchange is the strongest possible advertisement for the claim, whoever wins.</li>
+      <li><b>It compounds.</b> Public vulnerable targets get cited, linked and used in teaching for years. <code>testphp.vulnweb.com</code> and <code>scanme.nmap.org</code> have each done this for over a decade. That is durable authority no marketing spend buys.</li>
+    </ul>
+  </section>
+
+  <section>
+    <span class="num">04 &mdash; What gets published</span>
+    <h2>The four artefacts, in priority order</h2>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Artefact</th><th>Why it has to be public</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>The fault manifest</b><br><code>/manifest.json</code>, versioned</td>
+            <td>The denominator. Every planted fault, with an id, a plain-language description, its location and its category. Without this the site is just a scannable box.</td>
+          </tr>
+          <tr>
+            <td><b>The target itself</b><br><code>https://secscan.me</code></td>
+            <td>Reachable by any scanner, no signup, no key, no rate-limit that breaks a normal scan.</td>
+          </tr>
+          <tr>
+            <td><b>Our raw results</b><br>all three tools, unedited</td>
+            <td>So a reader can compare their own run against ours and see whether we reported honestly.</td>
+          </tr>
+          <tr>
+            <td><b>The adjudication, including its errors</b></td>
+            <td>The mapping, the judges' verdicts, and the record of our scores changing as the mapping was corrected. This is the credibility lever, not an embarrassment to bury.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      An explicit authorisation notice ships alongside them, on the <code>scanme.nmap.org</code>
+      model: this host exists to be scanned, and you may scan it.
+    </p>
+    <div class="card sig">
+      <h3>One wrinkle worth designing around now</h3>
+      <p>
+        Two of the planted faults are <em>&ldquo;security.txt is missing&rdquo;</em> and
+        <em>&ldquo;robots.txt discloses sensitive paths&rdquo;</em>. The two conventional
+        places to put a &ldquo;this is a deliberate test target&rdquo; notice would each break
+        a fault the manifest promises. The notice goes in the page banner, a dedicated
+        <code>/about</code> page, and a DNS TXT record instead.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">05 &mdash; Safety</span>
+    <h2>What has to be true before this is exposed</h2>
+    <p class="lede">
+      Most of the fixture is already safe to publish. One endpoint is not.
+    </p>
+
+    <div class="card ok">
+      <h3>Already safe &mdash; the faults are simulated</h3>
+      <p>
+        <b>SQL injection:</b> no database exists; the endpoint returns a believable
+        <code>SQLITE_ERROR</code> string. <b>Path traversal:</b> checks for <code>..</code> and
+        returns a hardcoded fake <code>/etc/passwd</code> &mdash; no file is ever read.
+        <b>Secrets:</b> provably fake literals (<code>sk_live_51JvFake</code>,
+        <code>sk_live_51Source</code>). <b>Exposed files:</b> static decoy content.
+      </p>
+    </div>
+
+    <div class="card stop">
+      <h3>Blocking &mdash; the SSRF endpoint is real</h3>
+      <p>
+        <code>/api/webhook-preview?url=</code> performs a live <code>fetch()</code> of any
+        URL a stranger supplies, with no allowlist and no scheme restriction. Public, that is
+        an open proxy into cloud metadata, internal networks and port scanning attributed to
+        our IP. It must be constrained to a single allowlisted collector domain, with egress
+        blocked at the container level to link-local and RFC1918 ranges, before deployment.
+      </p>
+    </div>
+
+    <ul class="t">
+      <li><b>Total isolation.</b> Its own project, its own container, zero cloud credentials, no shared network. Never the infrastructure secscan.us runs on.</li>
+      <li><b>Edge rate limiting</b> so it cannot be used as a DDoS reflector, tuned to permit a normal scan and refuse a flood.</li>
+      <li><b>Assume constant attack.</b> Public vulnerable apps are found within hours. That is acceptable given the above, but it is an ongoing commitment, not a deploy-and-forget.</li>
+      <li><b>Fixed, reproducible content.</b> If the app drifts, published results stop matching what a reader sees. Manifest and app version together, and the version appears in every scan report.</li>
+    </ul>
+  </section>
+
+  <section>
+    <span class="num">06 &mdash; Build order</span>
+    <h2>Five phases</h2>
+
+    <div class="phase">
+      <span class="pn">01</span>
+      <div>
+        <h3>Harden the SSRF endpoint</h3>
+        <p>Allowlist a single collector host, block link-local and private ranges at the egress layer, keep the fault detectable by the probe that is supposed to find it. Re-run <code>verify-vuln-fixture.ts</code> to confirm the planted fault still fires.</p>
+        <div class="chips"><span class="chip">blocking</span><span class="chip">code</span></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <span class="pn">02</span>
+      <div>
+        <h3>Generate the manifest from the fixture</h3>
+        <p>Derive <code>manifest.json</code> from the same source of truth the verify script uses, so the published fault list cannot drift from the app. Version it alongside the app.</p>
+        <div class="chips"><span class="chip">generated, never hand-written</span></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <span class="pn">03</span>
+      <div>
+        <h3>Deploy behind Cloudflare</h3>
+        <p>Isolated project, no credentials, rate limiting at the edge, authorisation banner, <code>/about</code> page, DNS TXT notice.</p>
+        <div class="chips"><span class="chip">infra</span><span class="chip">isolation</span></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <span class="pn">04</span>
+      <div>
+        <h3>Re-run the benchmark against the public host</h3>
+        <p>All three scanners against <code>secscan.me</code> rather than localhost, so the published figures describe the target a reader can actually reach. Expect the numbers to move; publish the movement.</p>
+        <div class="chips"><span class="chip">must precede publication</span></div>
+      </div>
+    </div>
+
+    <div class="phase">
+      <span class="pn">05</span>
+      <div>
+        <h3>Publish, and invite the rebuttal</h3>
+        <p>Results, raw data, mapping, adjudication and correction history. Explicitly invite other vendors to re-run and dispute. Submit the target to the places security people look for practice ranges.</p>
+        <div class="chips"><span class="chip">distribution</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="num">07 &mdash; Claims</span>
+    <h2>What we may say, and what we may not</h2>
+    <p class="lede">
+      The discipline that makes the rest of it credible. One overclaim discredits every
+      honest number on the page.
+    </p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Claim</th><th>Allowed</th><th>Why</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>&ldquo;Against a public target with 74 published faults, SecScan detected 68. Run it yourself.&rdquo;</td>
+            <td class="y">YES</td>
+            <td>Reproducible by anyone, denominator published</td>
+          </tr>
+          <tr>
+            <td>&ldquo;We publish our false-positive history and our benchmark corrections.&rdquo;</td>
+            <td class="y">YES</td>
+            <td>True, and checkable</td>
+          </tr>
+          <tr>
+            <td>&ldquo;Ask any scanner you are considering for its detection rate against known ground truth.&rdquo;</td>
+            <td class="y">YES</td>
+            <td>A challenge, not a comparative claim</td>
+          </tr>
+          <tr>
+            <td>&ldquo;SecScan is 3.8&times; better than ZAP.&rdquo;</td>
+            <td class="n">NO</td>
+            <td>The target is our own checklist; lower overlap is not lower quality</td>
+          </tr>
+          <tr>
+            <td>&ldquo;Superior to any scanner out there.&rdquo;</td>
+            <td class="n">NO</td>
+            <td>Most scanners have never been run; unfalsifiable and legally exposed</td>
+          </tr>
+          <tr>
+            <td>&ldquo;Independently verified.&rdquo;</td>
+            <td class="n">NO</td>
+            <td>The adjudicators were three instances of one model, not independent parties</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      The three refusals are what make the three permissions land. A reader who finds one
+      honest limitation stated up front extends credit to everything around it; a reader who
+      catches one overclaim discounts the lot.
+    </p>
+  </section>
+
+  <section>
+    <span class="num">08 &mdash; Risks</span>
+    <h2>What could go wrong</h2>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Risk</th><th>Mitigation</th></tr></thead>
+        <tbody>
+          <tr><td>Host abused as attack infrastructure</td><td>Phase 01 is blocking; egress locked; no credentials on the box</td></tr>
+          <tr><td>Domain blocklisted for hosting &ldquo;malicious&rdquo; content</td><td>Prominent authorisation notice, <code>/about</code>, DNS TXT; separate domain from secscan.us by design</td></tr>
+          <tr><td>Provider terms prohibit deliberately vulnerable hosting</td><td>Confirm with the host BEFORE phase 03, in writing</td></tr>
+          <tr><td>A competitor re-runs it and scores us lower</td><td>Good. Publish their result too. The exchange is worth more than the score.</td></tr>
+          <tr><td>App drifts; published results stop matching</td><td>Versioned manifest and app; version stamped in every published run</td></tr>
+          <tr><td>Bandwidth and abuse cost</td><td>Cloudflare in front; static-first where possible; budget alarm</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    Scoreboard figures from the 2026-09-22 local benchmark run: three scanners, 74 planted
+    faults, three blind adjudicators, 219/222 decisions unanimous. Raw output, harness,
+    blinded packet, verdicts and key are committed and reproducible.<br>
+    This document is a plan. Nothing in it is deployed.
+  </footer>
+
+</main>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+</body></html>

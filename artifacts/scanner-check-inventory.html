@@ -1,0 +1,420 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>Scanner Check Inventory</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{
+  --ground:#F6F8F8; --panel:#FFFFFF; --panel-2:#EDF1F2; --line:#D5DEE0; --line-soft:#E4EBEC;
+  --ink:#10161A; --ink-2:#42545C; --ink-3:#6C7E86;
+  --accent:#14606E; --accent-wash:#E2EFF1;
+  --crit:#A32638; --high:#CE5A22; --med:#B8880F; --low:#5A7FA6; --info:#77848F;
+  --ok:#2E6B4F;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1316; --panel:#141C20; --panel-2:#1B252A; --line:#2A383E; --line-soft:#222E33;
+    --ink:#E6EDEF; --ink-2:#A3B4BA; --ink-3:#7C8F96;
+    --accent:#4FA3B3; --accent-wash:#12333A;
+    --crit:#D95266; --high:#E07E42; --med:#C69A2E; --low:#7FA6CC; --info:#8B9AA3;
+    --ok:#4FA87C;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1316; --panel:#141C20; --panel-2:#1B252A; --line:#2A383E; --line-soft:#222E33;
+  --ink:#E6EDEF; --ink-2:#A3B4BA; --ink-3:#7C8F96;
+  --accent:#4FA3B3; --accent-wash:#12333A;
+  --crit:#D95266; --high:#E07E42; --med:#C69A2E; --low:#7FA6CC; --info:#8B9AA3;
+  --ok:#4FA87C;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:32px 24px 72px}
+h1,h2,h3{font-family:"IBM Plex Sans Condensed","IBM Plex Sans",system-ui,sans-serif;font-weight:600;text-wrap:balance;margin:0}
+code,.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+
+header.top{display:flex;flex-wrap:wrap;gap:20px 32px;align-items:flex-end;justify-content:space-between;padding-bottom:20px;border-bottom:2px solid var(--ink);margin-bottom:26px}
+header.top h1{font-size:34px;letter-spacing:-.015em;line-height:1.05;margin-top:4px}
+.sub{color:var(--ink-2);margin:8px 0 0;max-width:62ch}
+.provenance{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-3);display:flex;flex-direction:column;gap:3px;text-align:right}
+.provenance b{color:var(--ink-2);font-weight:500}
+
+.totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(116px,1fr));gap:1px;background:var(--line-soft);border:1px solid var(--line);margin-bottom:36px}
+.tot{background:var(--panel);padding:14px 16px}
+.tot .n{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:26px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.tot .l{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:6px}
+
+section{margin-bottom:42px}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.sec-head h2{font-size:19px;letter-spacing:-.01em}
+.sec-head .note{color:var(--ink-3);font-size:12.5px}
+
+.gaps{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:14px}
+.gap{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--flag);padding:15px 17px;display:flex;flex-direction:column;gap:8px}
+.gap.sev-open{--flag:var(--high)}
+.gap.sev-watch{--flag:var(--med)}
+.gap.sev-ok{--flag:var(--ok)}
+.gap h3{font-size:14.5px;letter-spacing:-.005em;font-weight:600}
+.gap .metric{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:23px;font-weight:700;color:var(--flag);line-height:1;font-variant-numeric:tabular-nums}
+.gap p{margin:0;font-size:12.8px;color:var(--ink-2);line-height:1.5}
+.gap .tag{align-self:flex-start;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--flag)}
+.gap em{font-style:normal;color:var(--ink);font-weight:500}
+
+.sevbar{display:flex;height:28px;border:1px solid var(--line);overflow:hidden}
+.sevbar div{display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;color:#fff;font-variant-numeric:tabular-nums;min-width:0;overflow:hidden}
+.sevkey{display:flex;flex-wrap:wrap;gap:16px;margin-top:10px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-2)}
+.sevkey span{display:flex;align-items:center;gap:6px}
+.dot{width:9px;height:9px;flex:none}
+
+.tablewrap{overflow-x:auto;border:1px solid var(--line);background:var(--panel)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--panel-2);white-space:nowrap;position:sticky;top:0;z-index:2}
+th.sortable{cursor:pointer;user-select:none}
+th.sortable:hover{color:var(--accent)}
+th.on{color:var(--accent)}
+th.num{text-align:right}
+td{padding:9px 12px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--panel-2)}
+td.num{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+td.mono{font-family:"IBM Plex Mono",monospace;font-size:12.2px;white-space:nowrap}
+.checkname{font-family:"IBM Plex Mono",monospace;font-size:12.4px;color:var(--ink)}
+.muted{color:var(--ink-3)}
+.modlink{background:none;border:none;padding:0;font:inherit;font-family:"IBM Plex Mono",monospace;font-size:12.2px;color:var(--accent);cursor:pointer;text-align:left;white-space:nowrap}
+.modlink:hover{text-decoration:underline}
+
+.pill{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;color:#fff;font-weight:500;white-space:nowrap}
+.pill.crit{background:var(--crit)} .pill.high{background:var(--high)} .pill.med{background:var(--med)}
+.pill.low{background:var(--low)} .pill.info{background:var(--info)}
+.splitnote{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--ink-3);margin-left:5px}
+
+.cov{display:flex;align-items:center;gap:8px;white-space:nowrap;font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-2)}
+.bulb{width:8px;height:8px;flex:none;border-radius:50%}
+.bulb.none{background:var(--high)} .bulb.indirect{background:var(--med)} .bulb.direct{background:var(--ok)}
+.fp{font-size:11.8px;color:var(--ink-2);line-height:1.45;max-width:44ch}
+.fp.clean{color:var(--ink-3)}
+
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:13px 14px;background:var(--panel-2);border:1px solid var(--line);border-bottom:none}
+.filters input[type=search],.filters select{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink);background:var(--panel);border:1px solid var(--line);padding:6px 9px}
+.filters input[type=search]{min-width:210px;flex:1 1 210px}
+.filters label.chk{display:flex;align-items:center;gap:6px;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-2);cursor:pointer;text-transform:uppercase;letter-spacing:.07em}
+.count{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--ink-3);margin-left:auto;font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.empty{padding:34px 14px;text-align:center;color:var(--ink-3);font-family:"IBM Plex Mono",monospace;font-size:12.5px}
+
+footer{border-top:1px solid var(--line);padding-top:16px;color:var(--ink-3);font-size:12.2px;line-height:1.65;max-width:88ch}
+footer code{font-size:11.6px;color:var(--ink-2)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:640px){
+  header.top h1{font-size:26px}
+  .provenance{text-align:left}
+  .wrap{padding:22px 14px 56px}
+}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">VibeScan Enterprise &middot; scan engine</div>
+    <h1>Scanner Check Inventory</h1>
+    <p class="sub">Every finding the scanner can emit, read out of <code>src/lib</code> at HEAD &mdash; with the test coverage and false-positive history sitting behind each one.</p>
+  </div>
+  <div class="provenance">
+    <span>source <b>api-server/src/lib</b></span>
+    <span>commit <b>32ab1a7</b> &middot; 2026-09-07</span>
+    <span>checks <b>279</b> in <b>26</b> modules</span>
+  </div>
+</header>
+
+<div class="totals" id="totals"></div>
+
+<section>
+  <div class="sec-head">
+    <h2>Where the gaps are</h2>
+    <span class="note">Ordered by what would hurt most if it broke without anyone noticing.</span>
+  </div>
+  <div class="gaps">
+    <div class="gap sev-open">
+      <span class="tag">No test file</span>
+      <span class="metric" id="g-untested">&mdash;</span>
+      <h3>checks sit in modules with no dedicated test</h3>
+      <p><code>scanner.ts</code> is the largest of them &mdash; 1,154 lines, 31 checks, and the module every other one imports its finding type from. Only <code>scoring.test.ts</code> and <code>firebase-probes.test.ts</code> reach into it at all.</p>
+    </div>
+    <div class="gap sev-open">
+      <span class="tag">Unreachable</span>
+      <span class="metric">6</span>
+      <h3>modules no test touches, directly or indirectly</h3>
+      <p><code>storageProbe</code>, <code>sourceMaps</code>, <code>graphqlProbe</code>, <code>baasProbes</code> and <code>apiDocsProbe</code> are imported only by <code>scanner.ts</code>, which has no test file &mdash; so nothing exercises them. <code>recon-data</code> is the same story through <code>recon.ts</code>.</p>
+    </div>
+    <div class="gap sev-watch">
+      <span class="tag">Deploy drift</span>
+      <span class="metric">2</span>
+      <h3>scanner commits are not recorded as shipped</h3>
+      <p>The audit's ship log ends at <code>c94fd75</code>. <code>41b8831</code> (mail transport) and <code>32ab1a7</code> (structured data, WAF interception) landed after it. Their false-positive fixes are in git; whether they are in production is written down nowhere.</p>
+    </div>
+    <div class="gap sev-watch">
+      <span class="tag">Taxonomy</span>
+      <span class="metric" id="g-cats">&mdash;</span>
+      <h3>categories, several of them near-duplicates</h3>
+      <p>Credential findings split three ways &mdash; <em>Credential Exposure</em>, <em>Exposed Secrets / Credentials</em>, <em>Secret Exposed in Page HTML</em> &mdash; and <em>Injection</em> sits beside <em>Injection Defense</em>. Report grouping fragments along those seams.</p>
+    </div>
+    <div class="gap sev-watch">
+      <span class="tag">Metadata</span>
+      <span class="metric" id="g-nocwe">&mdash;</span>
+      <h3>checks carry no CWE identifier</h3>
+      <p>Six are the deliberate INFO presentation findings in <code>structuredData</code>, which are not security defects. The rest &mdash; in <code>scanner</code>, <code>probes</code> and <code>supabase-probes</code> &mdash; read as omissions.</p>
+    </div>
+    <div class="gap sev-ok">
+      <span class="tag">False positives</span>
+      <span class="metric">0</span>
+      <h3>open entries in the audit, and it is current with HEAD</h3>
+      <p><code>FALSE-POSITIVE-AUDIT.md</code> was last written in the same commit as the newest scanner code, and nothing under <code>src/lib</code> has changed since. Eight FPs closed on 2026-09-07, three of them caught before shipping.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>Severity mix</h2>
+    <span class="note">A check that can emit two severities is counted at the higher one.</span>
+  </div>
+  <div class="sevbar" id="sevbar"></div>
+  <div class="sevkey" id="sevkey"></div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>Modules</h2>
+    <span class="note">Sort by any column. Pick a module name to filter the inventory below.</span>
+  </div>
+  <div class="tablewrap">
+    <table id="modtable">
+      <thead><tr>
+        <th class="sortable" data-k="m">Module</th>
+        <th class="sortable num" data-k="n">Checks</th>
+        <th class="sortable num" data-k="loc">Lines</th>
+        <th class="sortable num" data-k="tests">Tests</th>
+        <th class="sortable" data-k="covRank">Coverage</th>
+        <th>False-positive history</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <h2>Every check</h2>
+    <span class="note">Names exactly as the scanner emits them.</span>
+  </div>
+  <div class="filters">
+    <input type="search" id="q" placeholder="Search name, module, CWE&hellip;" aria-label="Search checks">
+    <select id="fsev" aria-label="Filter by severity"><option value="">All severities</option></select>
+    <select id="fcat" aria-label="Filter by category"><option value="">All categories</option></select>
+    <select id="fmod" aria-label="Filter by module"><option value="">All modules</option></select>
+    <label class="chk"><input type="checkbox" id="funtested"> No test coverage</label>
+    <span class="count" id="count"></span>
+  </div>
+  <div class="tablewrap">
+    <table id="checktable">
+      <thead><tr>
+        <th class="sortable" data-k="name">Check</th>
+        <th class="sortable" data-k="sevRank">Severity</th>
+        <th class="sortable" data-k="cat">Category</th>
+        <th class="sortable" data-k="m">Module</th>
+        <th class="sortable num" data-k="cvss">CVSS</th>
+        <th class="sortable" data-k="cwe">CWE</th>
+        <th class="sortable" data-k="wstg">WSTG</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  Built by parsing every <code>ScanVulnerability</code> literal under <code>artifacts/api-server/src/lib</code> at <code>32ab1a7</code>. Test counts are <code>it()</code> and <code>test()</code> declarations per file. Coverage reads <em>direct</em> when a module has its own test file, <em>indirect</em> when a tested module imports it, and <em>none</em> when neither holds. The data-table modules &mdash; <code>probes-data</code>, <code>secret-pattern-data</code>, <code>recon-data</code>, <code>subdomain-service-data</code> &mdash; define check templates that a sibling module emits, so their CWE and category are assigned centrally at the emit site rather than per row.
+</footer>
+</div>
+
+<script>
+const DATA = {"checks":[{"m":"accessControlProbe","name":"Broken Object-Level Authorisation (IDOR)","sev":"critical","cat":"Broken Access Control","cwe":"CWE-639","cvss":8.1,"wstg":"WSTG-ATHZ-04"},{"m":"accessControlProbe","name":"Records Enumerable by Editing the Identifier","sev":"critical","cat":"Broken Access Control","cwe":"CWE-639","cvss":8.6,"wstg":"WSTG-ATHZ-04"},{"m":"accessControlProbe","name":"Records Readable Without Signing In","sev":"high","cat":"Broken Access Control","cwe":"CWE-306","cvss":7.5,"wstg":"WSTG-ATHZ-02"},{"m":"apiDocsProbe","name":"Exposed API Documentation — ${label} at ${path}","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":"WSTG-CONF-02"},{"m":"apiProbe","name":"API Endpoints Served Without Authentication","sev":"high","cat":"Broken Access Control","cwe":"CWE-306","cvss":7.5,"wstg":"WSTG-ATHZ-01"},{"m":"apiProbe","name":"API Records Readable by Another Account","sev":"critical","cat":"Broken Access Control","cwe":"CWE-639","cvss":8.1,"wstg":"WSTG-ATHZ-04"},{"m":"apiProbe","name":"Write Endpoints Reachable Without Authentication","sev":"critical","cat":"Broken Access Control","cwe":"CWE-862","cvss":9.1,"wstg":"WSTG-ATHZ-02"},{"m":"apiProbe","name":"Sensitive Fields Returned by the API","sev":"high","cat":"Information Disclosure","cwe":"CWE-213","cvss":7.5,"wstg":"WSTG-ATHZ-04"},{"m":"apiProbe","name":"Privilege Fields Accepted in Request Bodies","sev":"medium","cat":"Broken Access Control","cwe":"CWE-915","cvss":6.5,"wstg":"WSTG-BUSL-01"},{"m":"apiProbe","name":"API Endpoints Without Rate Limiting","sev":"medium","cat":"Security Misconfiguration","cwe":"CWE-770","cvss":5.3,"wstg":"WSTG-ATHN-04"},{"m":"apiProbe","name":"SQL Injection in API Parameters","sev":"critical","cat":"Injection","cwe":"CWE-89","cvss":9.8,"wstg":"WSTG-INPV-05"},{"m":"baasProbes","name":"PocketBase — Unauthenticated Access to '${col}' Collection","sev":"critical/high","cat":"BaaS Misconfiguration","cwe":"CWE-284","cvss":9.1,"wstg":null},{"m":"baasProbes","name":"Appwrite — Unauthenticated Document Read on '${coll}'","sev":"critical/high","cat":"BaaS Misconfiguration","cwe":"CWE-284","cvss":9.1,"wstg":null},{"m":"crawler-data","name":"API Documentation Exposed on Inner Route (Swagger)","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":"WSTG-CONF-04"},{"m":"crawler-data","name":"API Documentation Exposed on Inner Route (OpenAPI)","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":"WSTG-CONF-04"},{"m":"crawler-data","name":"API Documentation Exposed on Inner Route","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":"WSTG-CONF-04"},{"m":"crawler-data","name":"Environment File Exposed on Inner Route","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.1,"wstg":"WSTG-CONF-04"},{"m":"crawler-data","name":"Git Repository Exposed on Inner Route","sev":"high","cat":"Source Code Exposure","cwe":"CWE-538","cvss":8.1,"wstg":"WSTG-CONF-04"},{"m":"crawler-data","name":"Configuration File Exposed on Inner Route","sev":"high","cat":"Information Disclosure","cwe":"CWE-200","cvss":6.5,"wstg":"WSTG-CONF-04"},{"m":"crawler-data","name":"GraphQL Endpoint Exposed on Inner Route","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":"WSTG-CONF-04"},{"m":"crawler-data","name":"Debug Log Exposed on Inner Route","sev":"medium","cat":"Information Disclosure","cwe":"CWE-532","cvss":5.3,"wstg":"WSTG-CONF-04"},{"m":"crawler","name":"Session Cookie Missing Secure Flag on Inner Page / Non-Session Cookie Missing Secure Flag on Inner Page","sev":"high/low","cat":"Session Management","cwe":"CWE-614","cvss":6.5,"wstg":"WSTG-SESS-02"},{"m":"crawler","name":"Session Cookie Missing HttpOnly Flag on Inner Page / Non-Session Cookie Readable by JavaScript on Inner Page","sev":"medium/info","cat":"Session Management","cwe":"CWE-1004","cvss":5.3,"wstg":"WSTG-SESS-02"},{"m":"crawler","name":"Strict-Transport-Security Missing on Internal Routes","sev":"high","cat":"Security Header Inconsistency","cwe":"CWE-523","cvss":7.4,"wstg":"WSTG-CONF-07"},{"m":"crawler","name":"Content-Security-Policy Missing on Internal Routes","sev":"high","cat":"Security Header Inconsistency","cwe":"CWE-79","cvss":7.2,"wstg":"WSTG-CONF-12"},{"m":"crawler","name":"X-Frame-Options / frame-ancestors Missing on Internal Routes","sev":"medium","cat":"Security Header Inconsistency","cwe":"CWE-1021","cvss":4.3,"wstg":"WSTG-CLNT-09"},{"m":"crawler","name":"X-Content-Type-Options Missing on Internal Routes","sev":"medium","cat":"Security Header Inconsistency","cwe":"CWE-16","cvss":4.3,"wstg":"WSTG-CONF-07"},{"m":"crawler","name":"Referrer-Policy Missing on Internal Routes","sev":"low","cat":"Security Header Inconsistency","cwe":"CWE-200","cvss":3.1,"wstg":"WSTG-CONF-07"},{"m":"cveCheck","name":"PHP ${d.version} is End-of-Life","sev":"high","cat":"Outdated Software","cwe":"CWE-1104","cvss":7.5,"wstg":null},{"m":"cveCheck","name":"Nginx ${d.version} — End-of-Life Release Cycle","sev":"medium","cat":"Outdated Software","cwe":"CWE-1104","cvss":6.5,"wstg":null},{"m":"cveCheck","name":"Apache HTTPD ${d.version} — End-of-Life Release Branch","sev":"medium","cat":"Outdated Software","cwe":"CWE-1104","cvss":6.5,"wstg":"WSTG-INFO-02"},{"m":"cveCheck","name":"Microsoft IIS ${d.version} — CVE-2017-7269 (End-of-Life)","sev":"critical","cat":"Outdated Software","cwe":"CWE-119","cvss":9.8,"wstg":null},{"m":"dnsChecks","name":"Missing SPF Record — Email Spoofing Possible","sev":"high/medium","cat":"Email Security","cwe":"CWE-290","cvss":7.5,"wstg":null},{"m":"dnsChecks","name":"SPF Record Uses +all (Allows Any Sender)","sev":"critical","cat":"Email Security","cwe":"CWE-290","cvss":9.1,"wstg":null},{"m":"dnsChecks","name":"SPF Record Uses ?all (Neutral — No Enforcement)","sev":"medium","cat":"Email Security","cwe":"CWE-290","cvss":5.3,"wstg":null},{"m":"dnsChecks","name":"SPF Record Exceeds DNS Lookup Limit","sev":"low","cat":"Email Security","cwe":"CWE-290","cvss":null,"wstg":null},{"m":"dnsChecks","name":"Missing DMARC Record — No Email Authentication Enforcement","sev":"high","cat":"Email Security","cwe":"CWE-290","cvss":7.5,"wstg":null},{"m":"dnsChecks","name":"DMARC Policy Set to None (Monitoring Only — No Enforcement)","sev":"medium","cat":"Email Security","cwe":"CWE-290","cvss":5.3,"wstg":null},{"m":"dnsChecks","name":"DMARC Record Missing Aggregate Report Address (rua=)","sev":"info","cat":"Email Security","cwe":"CWE-778","cvss":null,"wstg":null},{"m":"dnsChecks","name":"No DKIM Records Found","sev":"low","cat":"Email Security","cwe":"CWE-345","cvss":null,"wstg":null},{"m":"dnsChecks","name":"DNSSEC Not Enabled","sev":"info","cat":"DNS Security","cwe":"CWE-350","cvss":null,"wstg":null},{"m":"firebase-probes","name":"Firestore Security Rules Allow Unauthenticated Read Access","sev":"critical","cat":"Broken Access Control","cwe":"CWE-284","cvss":9.3,"wstg":"WSTG-ATHZ-01"},{"m":"firebase-probes","name":"Firebase Backend Detected — Firestore Rules Appear Restrictive","sev":"info","cat":"Technology Fingerprint","cwe":null,"cvss":0,"wstg":null},{"m":"firebase-probes","name":"Firebase Realtime Database Open to Unauthenticated Access","sev":"critical","cat":"Broken Access Control","cwe":"CWE-284","cvss":9.8,"wstg":"WSTG-ATHZ-01"},{"m":"graphqlProbe","name":"GraphQL Introspection Enabled in Production","sev":"high","cat":"API Security","cwe":"CWE-200","cvss":7.5,"wstg":"WSTG-INFO-01"},{"m":"graphqlProbe","name":"GraphQL Field Suggestions Enabled (\"Did you mean…\" Leaks)","sev":"low","cat":"API Security","cwe":"CWE-209","cvss":3.7,"wstg":null},{"m":"injectionProbe","name":"Reflected Cross-Site Scripting (XSS)","sev":"high","cat":"Injection","cwe":"CWE-79","cvss":6.1,"wstg":"WSTG-INPV-01"},{"m":"injectionProbe","name":"SQL Injection (Error-Based)","sev":"critical","cat":"Injection","cwe":"CWE-89","cvss":9.8,"wstg":"WSTG-INPV-05"},{"m":"jwtAnalysis","name":"JWT Using alg:none — Signature Verification Bypass","sev":"critical","cat":"Session Management","cwe":"CWE-347","cvss":9.8,"wstg":"WSTG-SESS-10"},{"m":"jwtAnalysis","name":"JWT Has Empty Signature — Possible Verification Bypass","sev":"critical","cat":"Session Management","cwe":"CWE-347","cvss":9.8,"wstg":"WSTG-SESS-10"},{"m":"jwtAnalysis","name":"JWT Token Has No Expiry (exp Claim Missing)","sev":"high","cat":"Session Management","cwe":"CWE-613","cvss":7.5,"wstg":"WSTG-SESS-10"},{"m":"jwtAnalysis","name":"JWT Token Lifetime Is ${days} Days — Excessive","sev":"medium","cat":"Session Management","cwe":"CWE-613","cvss":5.3,"wstg":"WSTG-SESS-10"},{"m":"jwtAnalysis","name":"JWT Uses HS256 Without Expiry — Offline Brute-Force Risk","sev":"high","cat":"Session Management","cwe":"CWE-327","cvss":7.5,"wstg":"WSTG-SESS-10"},{"m":"jwtAnalysis","name":"Sensitive Data Stored in JWT Payload","sev":"medium","cat":"Session Management","cwe":"CWE-312","cvss":5.3,"wstg":"WSTG-SESS-10"},{"m":"mailTls","name":"Mail Server Does Not Offer STARTTLS","sev":"medium","cat":"Mail Transport Security","cwe":"CWE-319","cvss":5.9,"wstg":"WSTG-CRYP-01"},{"m":"mailTls","name":"Mail Server TLS Certificate Expired","sev":"high","cat":"Mail Transport Security","cwe":"CWE-324","cvss":7.4,"wstg":"WSTG-CRYP-01"},{"m":"mailTls","name":"Mail Server TLS Certificate Expiring Soon","sev":"low","cat":"Mail Transport Security","cwe":"CWE-324","cvss":3.1,"wstg":"WSTG-CRYP-01"},{"m":"nextjsProbe","name":"Stripe Live Secret Key in __NEXT_DATA__","sev":"critical","cat":"Secret Exposed in Page HTML","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"nextjsProbe","name":"Supabase Service Role Key in __NEXT_DATA__","sev":"critical","cat":"Secret Exposed in Page HTML","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"nextjsProbe","name":"Private Key in __NEXT_DATA__","sev":"critical","cat":"Secret Exposed in Page HTML","cwe":"CWE-321","cvss":10,"wstg":null},{"m":"nextjsProbe","name":"AWS Access Key ID in __NEXT_DATA__","sev":"critical","cat":"Secret Exposed in Page HTML","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"nextjsProbe","name":"AWS Secret Access Key in __NEXT_DATA__","sev":"critical","cat":"Secret Exposed in Page HTML","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"nextjsProbe","name":"GitHub Token in __NEXT_DATA__","sev":"critical","cat":"Secret Exposed in Page HTML","cwe":"CWE-312","cvss":9.1,"wstg":null},{"m":"nextjsProbe","name":"SendGrid API Key in __NEXT_DATA__","sev":"high","cat":"Secret Exposed in Page HTML","cwe":"CWE-312","cvss":8.1,"wstg":null},{"m":"nextjsProbe","name":"Slack Token in __NEXT_DATA__","sev":"high","cat":"Secret Exposed in Page HTML","cwe":"CWE-312","cvss":8.1,"wstg":null},{"m":"nextjsProbe","name":"Hardcoded Database Connection String in __NEXT_DATA__","sev":"critical","cat":"Secret Exposed in Page HTML","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"pathTraversal","name":"Path Traversal / Local File Inclusion (LFI)","sev":"critical","cat":"Information Disclosure","cwe":"CWE-22","cvss":9.8,"wstg":"WSTG-AUTHZ-01"},{"m":"probes-data","name":"Git Repository Exposed","sev":"critical","cat":"Source Code Exposure","cwe":"CWE-538","cvss":9.8,"wstg":null},{"m":"probes-data","name":"Git Config Exposed","sev":"high","cat":"Source Code Exposure","cwe":"CWE-538","cvss":7.5,"wstg":null},{"m":"probes-data","name":"SVN Repository Exposed","sev":"high","cat":"Source Code Exposure","cwe":"CWE-538","cvss":7.5,"wstg":null},{"m":"probes-data","name":"Mercurial Repository Exposed","sev":"high","cat":"Source Code Exposure","cwe":"CWE-538","cvss":7.5,"wstg":null},{"m":"probes-data","name":"Environment File Exposed (.env)","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"probes-data","name":"Environment File Exposed (.env.local)","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"probes-data","name":"Production Environment File Exposed (.env.production)","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"probes-data","name":"Backup Environment File Exposed","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.1,"wstg":null},{"m":"probes-data","name":"Staging Environment File Exposed","sev":"high","cat":"Credential Exposure","cwe":"CWE-312","cvss":8.2,"wstg":null},{"m":"probes-data","name":"WordPress Config File Exposed (wp-config.php)","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"probes-data","name":"PHP Info Page Exposed","sev":"high","cat":"Information Disclosure","cwe":"CWE-200","cvss":7.5,"wstg":null},{"m":"probes-data","name":"PHP Info Page Exposed (info.php)","sev":"high","cat":"Information Disclosure","cwe":"CWE-200","cvss":7.5,"wstg":null},{"m":"probes-data","name":"PHP Config File Exposed","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.1,"wstg":null},{"m":"probes-data","name":"Joomla Configuration Exposed","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"probes-data","name":"Drupal Settings File Exposed","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"probes-data","name":"Database Backup Exposed","sev":"critical","cat":"Data Exposure","cwe":"CWE-552","cvss":9.8,"wstg":null},{"m":"probes-data","name":"Database Dump Exposed","sev":"critical","cat":"Data Exposure","cwe":"CWE-552","cvss":9.8,"wstg":null},{"m":"probes-data","name":"Database File Exposed","sev":"critical","cat":"Data Exposure","cwe":"CWE-552","cvss":9.8,"wstg":null},{"m":"probes-data","name":"Database Export Exposed","sev":"critical","cat":"Data Exposure","cwe":"CWE-552","cvss":9.8,"wstg":null},{"m":"probes-data","name":"Backup Archive Exposed","sev":"critical","cat":"Source Code Exposure","cwe":"CWE-552","cvss":9.1,"wstg":null},{"m":"probes-data","name":"Backup Archive Exposed (.tar.gz)","sev":"critical","cat":"Source Code Exposure","cwe":"CWE-552","cvss":9.1,"wstg":null},{"m":"probes-data","name":"Spring Boot Actuator /env Exposed","sev":"critical","cat":"Credential Exposure","cwe":"CWE-200","cvss":9.8,"wstg":null},{"m":"probes-data","name":"Spring Boot Config Properties Exposed","sev":"critical","cat":"Credential Exposure","cwe":"CWE-200","cvss":9.1,"wstg":null},{"m":"probes-data","name":"Spring Boot Beans Exposed","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":null},{"m":"probes-data","name":"Configuration File Exposed (config.json)","sev":"high","cat":"Information Disclosure","cwe":"CWE-200","cvss":7.5,"wstg":null},{"m":"probes-data","name":"Dockerfile Exposed","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":null},{"m":"probes-data","name":"Docker Compose Config Exposed","sev":"high","cat":"Information Disclosure","cwe":"CWE-200","cvss":7.5,"wstg":null},{"m":"probes-data","name":"Package Manifest Exposed (package.json)","sev":"info","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":null},{"m":"probes-data","name":"IIS Web Configuration Exposed","sev":"high","cat":"Information Disclosure","cwe":"CWE-200","cvss":7.5,"wstg":null},{"m":"probes-data","name":"Rails Database Config Exposed","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"probes-data","name":"Rails Secrets File Exposed","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"probes-data","name":"Django Local Settings Exposed","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.1,"wstg":null},{"m":"probes-data","name":"Laravel Log File Exposed","sev":"high","cat":"Information Disclosure","cwe":"CWE-532","cvss":7.5,"wstg":null},{"m":"probes-data","name":"Debug Log File Exposed","sev":"medium","cat":"Information Disclosure","cwe":"CWE-532","cvss":6.5,"wstg":null},{"m":"probes-data","name":".gitignore Exposes Sensitive Path Names","sev":"info","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":null},{"m":"probes-data","name":"Apache Server Status Page Exposed","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":null},{"m":"probes-data","name":"macOS .DS_Store File Exposed","sev":"low","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":null},{"m":"probes-data","name":"Permissive crossdomain.xml Policy","sev":"medium","cat":"CORS Misconfiguration","cwe":"CWE-942","cvss":6.5,"wstg":null},{"m":"probes-data","name":"Development Environment File Exposed (.env.development)","sev":"high","cat":"Credential Exposure","cwe":"CWE-312","cvss":7.5,"wstg":null},{"m":"probes-data","name":"Dev Environment File Exposed (.env.dev)","sev":"high","cat":"Credential Exposure","cwe":"CWE-312","cvss":7.5,"wstg":null},{"m":"probes-data","name":"Local Development Overrides Exposed (.env.development.local)","sev":"high","cat":"Credential Exposure","cwe":"CWE-312","cvss":7.5,"wstg":null},{"m":"probes-data","name":"Test Environment File Exposed (.env.test)","sev":"medium","cat":"Credential Exposure","cwe":"CWE-312","cvss":5.3,"wstg":null},{"m":"probes-data","name":"Travis CI Configuration Exposed","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":null},{"m":"probes-data","name":"CircleCI Configuration Exposed","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":null},{"m":"probes-data","name":"Jenkinsfile CI/CD Configuration Exposed","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":null},{"m":"probes-data","name":"GitLab CI/CD Configuration Exposed","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":null},{"m":"probes-data","name":"Drone CI Configuration Exposed","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":null},{"m":"probes-data","name":"yarn.lock Dependency Lockfile Exposed","sev":"info","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":null},{"m":"probes-data","name":"npm package-lock.json Exposed","sev":"info","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":null},{"m":"probes-data","name":"PHP composer.lock Exposed","sev":"info","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":null},{"m":"probes-data","name":"Ruby Gemfile.lock Exposed","sev":"info","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":null},{"m":"probes-data","name":"Python Pipfile.lock Exposed","sev":"info","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":null},{"m":"probes-data","name":"Python requirements.txt Exposed","sev":"info","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":null},{"m":"probes-data","name":"Terraform State File Exposed — Infrastructure Secrets","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"probes-data","name":"AWS Credentials File Exposed","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"probes-data","name":"Kubernetes Config File Exposed — Cluster Credentials","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"probes-data","name":"SSH Private Key Exposed (id_rsa)","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":10,"wstg":null},{"m":"probes-data","name":"SSH Private Key Exposed (.ssh/id_rsa)","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":10,"wstg":null},{"m":"probes-data","name":"Bash History File Exposed","sev":"high","cat":"Information Disclosure","cwe":"CWE-200","cvss":7.5,"wstg":null},{"m":"probes-data","name":"phpMyAdmin Database Admin Exposed","sev":"high","cat":"Information Disclosure","cwe":"CWE-200","cvss":8.1,"wstg":null},{"m":"probes-data","name":"Adminer Database Admin Tool Exposed","sev":"high","cat":"Information Disclosure","cwe":"CWE-200","cvss":8.1,"wstg":null},{"m":"probes-data","name":"WordPress XML-RPC Enabled — Brute Force Amplification Vector","sev":"medium","cat":"Brute Force Protection","cwe":"CWE-307","cvss":7.5,"wstg":null},{"m":"probes-data","name":"Spring Boot Heap Dump Endpoint Exposed — Full Memory Snapshot","sev":"critical","cat":"Credential Exposure","cwe":"CWE-200","cvss":9.8,"wstg":null},{"m":"probes-data","name":"Spring Boot Loggers Endpoint Exposed","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":null},{"m":"probes-data","name":"Spring Boot Metrics Endpoint Exposed","sev":"low","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":null},{"m":"probes-data","name":"Apache .htpasswd Password File Exposed","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.1,"wstg":null},{"m":"probes-data","name":"Apache Server Info Page Exposed","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":null},{"m":"probes-data","name":"Nginx Status Page Exposed","sev":"low","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":null},{"m":"probes-data","name":"Java Web Application Config (WEB-INF/web.xml) Exposed","sev":"high","cat":"Information Disclosure","cwe":"CWE-200","cvss":7.5,"wstg":null},{"m":"probes-data","name":"Spring Application Properties Exposed (WEB-INF/classes/application.properties)","sev":"critical","cat":"Credential Exposure","cwe":"CWE-312","cvss":9.8,"wstg":null},{"m":"probes-data","name":"VS Code Workspace Settings Exposed","sev":"low","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":null},{"m":"probes-data","name":"JetBrains IDE Workspace Config Exposed","sev":"low","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":null},{"m":"probes-data","name":"YAML Configuration File Exposed (config.yaml)","sev":"high","cat":"Information Disclosure","cwe":"CWE-200","cvss":7.5,"wstg":null},{"m":"probes-data","name":"YAML Configuration File Exposed (config.yml)","sev":"high","cat":"Information Disclosure","cwe":"CWE-200","cvss":7.5,"wstg":null},{"m":"probes-data","name":"Google App Engine Configuration Exposed (app.yaml)","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":null},{"m":"probes-data","name":"API Documentation Exposed (/api/swagger.json)","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":null},{"m":"probes-data","name":"API v1 Documentation Exposed","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":null},{"m":"probes-data","name":"API v2 Documentation Exposed","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":null},{"m":"probes","name":"HTTP TRACE Method Enabled (Cross-Site Tracing)","sev":"medium","cat":"HTTP Security","cwe":"CWE-16","cvss":5.8,"wstg":"WSTG-CONF-06"},{"m":"probes","name":"Dangerous HTTP Methods Advertised (${dangerousMethods.join(\", \")})","sev":"high","cat":"HTTP Security","cwe":"CWE-650","cvss":7.5,"wstg":"WSTG-CONF-06"},{"m":"probes","name":"HTTP CONNECT Method Enabled","sev":"medium","cat":"HTTP Security","cwe":"CWE-441","cvss":6.1,"wstg":"WSTG-CONF-06"},{"m":"probes","name":"CORS Misconfiguration — Credentials Allowed from Arbitrary Origin","sev":"critical","cat":"CORS Misconfiguration","cwe":"CWE-942","cvss":9.1,"wstg":"WSTG-CONF-07"},{"m":"probes","name":"CORS Misconfiguration — Origin Reflected Without Allowlist","sev":"medium","cat":"CORS Misconfiguration","cwe":"CWE-942","cvss":6.5,"wstg":"WSTG-CONF-07"},{"m":"probes","name":"Open Redirect Vulnerability","sev":"medium","cat":"Unvalidated Redirects","cwe":"CWE-601","cvss":6.1,"wstg":"WSTG-CLNT-04"},{"m":"probes","name":"robots.txt Discloses Sensitive Application Paths","sev":"info","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":"WSTG-INFO-01"},{"m":"probes","name":"External Resources Missing Subresource Integrity (SRI)","sev":"medium","cat":"Supply Chain Security","cwe":"CWE-353","cvss":6.1,"wstg":"WSTG-CONF-04"},{"m":"probes","name":"Flask/Werkzeug Interactive Debugger Exposed (Remote Code Execution) / Verbose Error Pages Expose Internal Application Details","sev":"critical/medium","cat":"Information Disclosure","cwe":null,"cvss":10,"wstg":"WSTG-CONF-02"},{"m":"probes","name":"HTTP Traffic Not Redirected to HTTPS","sev":"medium","cat":"Transport Security","cwe":"CWE-319","cvss":5.3,"wstg":"WSTG-CONF-07"},{"m":"probes","name":"No Rate Limiting Detected","sev":"low","cat":"Brute Force Protection","cwe":"CWE-307","cvss":5.3,"wstg":"WSTG-ATHN-03"},{"m":"probes","name":"X-Frame-Options Header Misconfigured","sev":"medium","cat":"UI Security","cwe":"CWE-1021","cvss":4.3,"wstg":"WSTG-CLNT-09"},{"m":"probes","name":"Directory Listing Enabled","sev":"medium","cat":"Information Disclosure","cwe":"CWE-548","cvss":5.3,"wstg":"WSTG-CONF-04"},{"m":"probes","name":"Missing security.txt (RFC 9116)","sev":"info","cat":"Information Disclosure","cwe":"CWE-205","cvss":0,"wstg":null},{"m":"probes","name":"Supabase Detected — Verify Row Level Security (RLS)","sev":"medium","cat":"Database Security","cwe":"CWE-862","cvss":6.5,"wstg":"WSTG-ATHZ-01"},{"m":"probes","name":"Supabase Tables Exposed — Row Level Security (RLS) Disabled","sev":"critical","cat":"Database Security","cwe":"CWE-862","cvss":9.8,"wstg":"WSTG-ATHZ-01"},{"m":"recon-data","name":"Telnet Exposed on Port 23","sev":"critical","cat":"Exposed Service","cwe":"CWE-319","cvss":9.8,"wstg":null},{"m":"recon-data","name":"SMB Exposed on Port 445","sev":"critical","cat":"Exposed Service","cwe":"CWE-284","cvss":10,"wstg":null},{"m":"recon-data","name":"MSSQL Exposed on Port 1433","sev":"high","cat":"Exposed Service","cwe":"CWE-284","cvss":8.1,"wstg":null},{"m":"recon-data","name":"Oracle DB Exposed on Port 1521","sev":"high","cat":"Exposed Service","cwe":"CWE-284","cvss":8.1,"wstg":null},{"m":"recon-data","name":"Docker API (unencrypted) Exposed on Port 2375","sev":"critical","cat":"Exposed Service","cwe":"CWE-284","cvss":10,"wstg":null},{"m":"recon-data","name":"Docker API (TLS) Exposed on Port 2376","sev":"medium","cat":"Exposed Service","cwe":"CWE-284","cvss":5.9,"wstg":null},{"m":"recon-data","name":"MySQL Exposed on Port 3306","sev":"high","cat":"Exposed Service","cwe":"CWE-284","cvss":8.1,"wstg":null},{"m":"recon-data","name":"RDP Exposed on Port 3389","sev":"high","cat":"Exposed Service","cwe":"CWE-284","cvss":8.1,"wstg":null},{"m":"recon-data","name":"PostgreSQL Exposed on Port 5432","sev":"high","cat":"Exposed Service","cwe":"CWE-284","cvss":8.1,"wstg":null},{"m":"recon-data","name":"CouchDB Exposed on Port 5984","sev":"high","cat":"Exposed Service","cwe":"CWE-284","cvss":7.5,"wstg":null},{"m":"recon-data","name":"Redis Exposed on Port 6379","sev":"critical","cat":"Exposed Service","cwe":"CWE-284","cvss":10,"wstg":null},{"m":"recon-data","name":"Elasticsearch Exposed on Port 9200","sev":"critical","cat":"Exposed Service","cwe":"CWE-284","cvss":9.8,"wstg":null},{"m":"recon-data","name":"Memcached Exposed on Port 11211","sev":"high","cat":"Exposed Service","cwe":"CWE-284","cvss":8.1,"wstg":null},{"m":"recon-data","name":"MongoDB Exposed on Port 27017","sev":"critical","cat":"Exposed Service","cwe":"CWE-284","cvss":10,"wstg":null},{"m":"scanner","name":"Session Cookie Missing Secure Flag","sev":"high","cat":"Session Management","cwe":"CWE-614","cvss":6.5,"wstg":"WSTG-SESS-02"},{"m":"scanner","name":"Non-Session Cookie Missing Secure Flag","sev":"low","cat":"Session Management","cwe":"CWE-614","cvss":3.1,"wstg":"WSTG-SESS-02"},{"m":"scanner","name":"Session Cookie Missing HttpOnly Flag","sev":"medium","cat":"Session Management","cwe":"CWE-1004","cvss":5.3,"wstg":"WSTG-SESS-02"},{"m":"scanner","name":"Non-Session Cookie Readable by JavaScript","sev":"info","cat":"Session Management","cwe":"CWE-1004","cvss":2.6,"wstg":"WSTG-SESS-02"},{"m":"scanner","name":"Session Cookie Missing SameSite Attribute","sev":"medium","cat":"CSRF Protection","cwe":"CWE-352","cvss":4.3,"wstg":"WSTG-SESS-02"},{"m":"scanner","name":"Non-Session Cookie Missing SameSite Attribute","sev":"info","cat":"CSRF Protection","cwe":"CWE-352","cvss":2.1,"wstg":"WSTG-SESS-02"},{"m":"scanner","name":"Scan session expired before the scan finished","sev":"info","cat":"Scan Coverage","cwe":null,"cvss":null,"wstg":null},{"m":"scanner","name":"Scan was intercepted by a bot-protection challenge","sev":"info","cat":"Scan Coverage","cwe":null,"cvss":null,"wstg":null},{"m":"scanner","name":"Active security testing was skipped for this scan","sev":"info","cat":"Scan Coverage","cwe":null,"cvss":null,"wstg":null},{"m":"scanner","name":"No HTTPS / Plaintext HTTP","sev":"critical","cat":"Transport Security","cwe":"CWE-319","cvss":9.1,"wstg":"WSTG-CRYP-01"},{"m":"scanner","name":"Missing HTTP Strict-Transport-Security (HSTS)","sev":"medium","cat":"Transport Security","cwe":"CWE-523","cvss":5.3,"wstg":"WSTG-CONF-07"},{"m":"scanner","name":"HSTS max-age Too Short","sev":"low","cat":"Transport Security","cwe":"CWE-523","cvss":3.1,"wstg":"WSTG-CONF-07"},{"m":"scanner","name":"Content-Security-Policy is report-only (not enforced)","sev":"medium","cat":"Injection Defense","cwe":"CWE-79","cvss":5.3,"wstg":"WSTG-CONF-12"},{"m":"scanner","name":"Missing Content-Security-Policy (CSP)","sev":"high","cat":"Injection Defense","cwe":"CWE-79","cvss":7.2,"wstg":"WSTG-CONF-12"},{"m":"scanner","name":"Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)","sev":"medium","cat":"Injection Defense","cwe":"CWE-79","cvss":5.4,"wstg":"WSTG-CONF-12"},{"m":"scanner","name":"Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)","sev":"low","cat":"Injection Defense","cwe":"CWE-79","cvss":3.1,"wstg":"WSTG-CONF-12"},{"m":"scanner","name":"CSP Missing object-src 'none' Directive","sev":"medium","cat":"Injection Defense","cwe":"CWE-79","cvss":4.3,"wstg":"WSTG-CONF-12"},{"m":"scanner","name":"CSP Missing base-uri Directive","sev":"low","cat":"Injection Defense","cwe":"CWE-79","cvss":3.5,"wstg":"WSTG-CONF-12"},{"m":"scanner","name":"CSP script-src Contains Wildcard — XSS Protection Bypassed","sev":"high","cat":"Injection Defense","cwe":"CWE-79","cvss":7.2,"wstg":"WSTG-CONF-12"},{"m":"scanner","name":"Missing Clickjacking Protection (X-Frame-Options)","sev":"medium","cat":"UI Security","cwe":"CWE-1021","cvss":4.3,"wstg":"WSTG-CLNT-09"},{"m":"scanner","name":"Missing X-Content-Type-Options: nosniff","sev":"medium","cat":"Content Sniffing","cwe":"CWE-16","cvss":4.3,"wstg":"WSTG-CONF-07"},{"m":"scanner","name":"Missing Referrer-Policy Header","sev":"low","cat":"Information Disclosure","cwe":"CWE-200","cvss":3.1,"wstg":"WSTG-CONF-07"},{"m":"scanner","name":"Missing Permissions-Policy Header","sev":"low","cat":"Browser Feature Control","cwe":"CWE-16","cvss":2.4,"wstg":"WSTG-CONF-07"},{"m":"scanner","name":"Missing Cross-Origin-Opener-Policy (COOP)","sev":"info","cat":"Browser Feature Control","cwe":"CWE-346","cvss":null,"wstg":"WSTG-CONF-07"},{"m":"scanner","name":"Missing Cross-Origin-Embedder-Policy (COEP)","sev":"info","cat":"Browser Feature Control","cwe":"CWE-346","cvss":null,"wstg":"WSTG-CONF-07"},{"m":"scanner","name":"Missing Cross-Origin-Resource-Policy (CORP)","sev":"info","cat":"Browser Feature Control","cwe":"CWE-346","cvss":null,"wstg":"WSTG-CONF-07"},{"m":"scanner","name":"Permissive CORS Policy (Wildcard Origin)","sev":"medium","cat":"CORS Misconfiguration","cwe":"CWE-942","cvss":6.5,"wstg":"WSTG-CONF-07"},{"m":"scanner","name":"Server Version Disclosure","sev":"info","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":"WSTG-INFO-02"},{"m":"scanner","name":"X-Powered-By Header Discloses Technology Stack","sev":"info","cat":"Information Disclosure","cwe":"CWE-200","cvss":null,"wstg":"WSTG-INFO-09"},{"m":"scanner","name":"Mixed Content (HTTP Resources on HTTPS Page)","sev":"medium","cat":"Transport Security","cwe":"CWE-311","cvss":5.9,"wstg":"WSTG-CRYP-01"},{"m":"scanner","name":"Missing Cache-Control Headers","sev":"info","cat":"Information Disclosure","cwe":"CWE-524","cvss":null,"wstg":"WSTG-CONF-07"},{"m":"secret-pattern-data","name":"AWS Access Key ID Exposed","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":9.8,"wstg":null},{"m":"secret-pattern-data","name":"AWS Secret Access Key Exposed","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":9.8,"wstg":null},{"m":"secret-pattern-data","name":"Google API Key in Client Code (verify referrer restrictions)","sev":"info","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":0,"wstg":null},{"m":"secret-pattern-data","name":"Google OAuth Client Secret Exposed","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":9.1,"wstg":null},{"m":"secret-pattern-data","name":"Stripe Live Secret Key Exposed","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":9.8,"wstg":null},{"m":"secret-pattern-data","name":"Stripe Test Secret Key in Production","sev":"medium","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":5.3,"wstg":null},{"m":"secret-pattern-data","name":"Stripe Webhook Secret Exposed","sev":"high","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":8.1,"wstg":null},{"m":"secret-pattern-data","name":"GitHub Personal Access Token Exposed","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":9.1,"wstg":null},{"m":"secret-pattern-data","name":"GitHub Fine-Grained Access Token Exposed","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":9.1,"wstg":null},{"m":"secret-pattern-data","name":"Slack Bot/OAuth Token Exposed","sev":"high","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":8.1,"wstg":null},{"m":"secret-pattern-data","name":"Slack Incoming Webhook URL Exposed","sev":"medium","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":5.3,"wstg":null},{"m":"secret-pattern-data","name":"Twilio API Key Exposed","sev":"high","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":8.1,"wstg":null},{"m":"secret-pattern-data","name":"Supabase Service Role Key Exposed (sb_secret_)","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":10,"wstg":null},{"m":"secret-pattern-data","name":"Supabase Service Role Key Exposed in JavaScript","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-522","cvss":10,"wstg":null},{"m":"secret-pattern-data","name":"Sentry Auth Token Exposed","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":8.5,"wstg":null},{"m":"secret-pattern-data","name":"Sentry Auth Token Exposed (legacy format)","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":8.5,"wstg":null},{"m":"secret-pattern-data","name":"SendGrid API Key Exposed","sev":"high","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":8.1,"wstg":null},{"m":"secret-pattern-data","name":"Mailchimp API Key Exposed","sev":"high","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":7.5,"wstg":null},{"m":"secret-pattern-data","name":"Private Key Exposed in JavaScript","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-321","cvss":10,"wstg":null},{"m":"secret-pattern-data","name":"Firebase API Key with Open Security Rules","sev":"info","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":3.1,"wstg":null},{"m":"secret-pattern-data","name":"Hardcoded JWT Token in Source","sev":"high","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":8.1,"wstg":null},{"m":"secret-pattern-data","name":"Hardcoded Password in Source Code","sev":"high","cat":"Exposed Secrets / Credentials","cwe":"CWE-259","cvss":7.5,"wstg":null},{"m":"secret-pattern-data","name":"Hardcoded Secret Key or Token in Source","sev":"medium","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":6.5,"wstg":null},{"m":"secret-pattern-data","name":"Internal IP Address Exposed","sev":"low","cat":"Exposed Secrets / Credentials","cwe":"CWE-200","cvss":3.1,"wstg":null},{"m":"secret-pattern-data","name":"OpenAI API Key Exposed","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":9.8,"wstg":null},{"m":"secret-pattern-data","name":"Anthropic (Claude) API Key Exposed","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":9.8,"wstg":null},{"m":"secret-pattern-data","name":"Resend API Key Exposed","sev":"high","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":8.1,"wstg":null},{"m":"secret-pattern-data","name":"Replicate API Token Exposed","sev":"high","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":8.1,"wstg":null},{"m":"secret-pattern-data","name":"ElevenLabs API Key Exposed","sev":"high","cat":"Exposed Secrets / Credentials","cwe":"CWE-798","cvss":8.1,"wstg":null},{"m":"secret-pattern-data","name":"Secret Environment Variable Leaked in Frontend Bundle","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-312","cvss":9.5,"wstg":null},{"m":"secret-pattern-data","name":"Database Connection URL with Credentials Exposed","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-312","cvss":10,"wstg":null},{"m":"secret-pattern-data","name":"Mapbox Public Token — Restrict to Your Domain","sev":"info","cat":"Exposed Secrets / Credentials","cwe":"CWE-200","cvss":2.6,"wstg":null},{"m":"sourceMaps","name":"JavaScript Source Map Exposed — Full Source Code Accessible","sev":"high","cat":"Source Code Exposure","cwe":"CWE-540","cvss":7.5,"wstg":"WSTG-CONF-04"},{"m":"sourceMaps","name":"JavaScript Source Map Exposed — Full Source Code Accessible","sev":"high","cat":"Source Code Exposure","cwe":"CWE-540","cvss":7.5,"wstg":"WSTG-CONF-04"},{"m":"ssrfProbe","name":"Server-Side Request Forgery (SSRF)","sev":"critical","cat":"Server-Side Request Forgery","cwe":"CWE-918","cvss":9.1,"wstg":"WSTG-INPV-19"},{"m":"storageProbe","name":"Public S3 Bucket Listing — '${bucket}'","sev":"high","cat":"Cloud Storage Misconfiguration","cwe":"CWE-552","cvss":7.5,"wstg":null},{"m":"storageProbe","name":"Public GCS Bucket Listing — '${bucket}'","sev":"high","cat":"Cloud Storage Misconfiguration","cwe":"CWE-552","cvss":7.5,"wstg":null},{"m":"storageProbe","name":"Public Azure Blob Container Listing — '${blob.account}/${blob.container}'","sev":"high","cat":"Cloud Storage Misconfiguration","cwe":"CWE-552","cvss":7.5,"wstg":null},{"m":"structuredData","name":"Internal Hostname Exposed in Structured Data","sev":"low","cat":"Information Disclosure","cwe":"CWE-200","cvss":3.7,"wstg":"WSTG-INFO-05"},{"m":"structuredData","name":"Social Preview Asset Referenced Over HTTP","sev":"low","cat":"Transport Security","cwe":"CWE-311","cvss":3.1,"wstg":"WSTG-CRYP-03"},{"m":"structuredData","name":"Canonical URL Points to an External Domain","sev":"low","cat":"Information Disclosure","cwe":"CWE-200","cvss":3.1,"wstg":"WSTG-CONF-04"},{"m":"structuredData","name":"Malformed JSON-LD Structured Data","sev":"info","cat":"Structured Data","cwe":null,"cvss":0,"wstg":null},{"m":"structuredData","name":"Structured Data Missing @context or @type","sev":"info","cat":"Structured Data","cwe":null,"cvss":0,"wstg":null},{"m":"structuredData","name":"No Structured Data Found","sev":"info","cat":"Structured Data","cwe":null,"cvss":0,"wstg":null},{"m":"structuredData","name":"Incomplete Open Graph Metadata","sev":"info","cat":"Structured Data","cwe":null,"cvss":0,"wstg":null},{"m":"structuredData","name":"Twitter Card Metadata Absent","sev":"info","cat":"Structured Data","cwe":null,"cvss":0,"wstg":null},{"m":"structuredData","name":"Page Excluded From Search Indexes","sev":"info","cat":"Structured Data","cwe":null,"cvss":0,"wstg":null},{"m":"subdomain-service-data","name":"AWS S3","sev":"critical","cat":"DNS Security","cwe":"CWE-350","cvss":9.1,"wstg":null},{"m":"subdomain-service-data","name":"Heroku","sev":"critical","cat":"DNS Security","cwe":"CWE-350","cvss":9.1,"wstg":null},{"m":"subdomain-service-data","name":"GitHub Pages","sev":"critical","cat":"DNS Security","cwe":"CWE-350","cvss":9.1,"wstg":null},{"m":"subdomain-service-data","name":"Netlify","sev":"critical","cat":"DNS Security","cwe":"CWE-350","cvss":9.1,"wstg":null},{"m":"subdomain-service-data","name":"Vercel","sev":"critical","cat":"DNS Security","cwe":"CWE-350","cvss":9.1,"wstg":null},{"m":"subdomain-service-data","name":"Azure App Service","sev":"critical","cat":"DNS Security","cwe":"CWE-350","cvss":9.1,"wstg":null},{"m":"subdomain-service-data","name":"Fastly","sev":"critical","cat":"DNS Security","cwe":"CWE-350","cvss":9.1,"wstg":null},{"m":"subdomain-service-data","name":"Shopify","sev":"high","cat":"DNS Security","cwe":"CWE-350","cvss":8.1,"wstg":null},{"m":"subdomain-service-data","name":"Ghost Pro","sev":"high","cat":"DNS Security","cwe":"CWE-350","cvss":8.1,"wstg":null},{"m":"subdomain-service-data","name":"Surge.sh","sev":"high","cat":"DNS Security","cwe":"CWE-350","cvss":8.1,"wstg":null},{"m":"subdomain-service-data","name":"Cargo","sev":"high","cat":"DNS Security","cwe":"CWE-350","cvss":8.1,"wstg":null},{"m":"subdomain-service-data","name":"Readme.io","sev":"high","cat":"DNS Security","cwe":"CWE-350","cvss":8.1,"wstg":null},{"m":"subdomain-service-data","name":"Pantheon","sev":"high","cat":"DNS Security","cwe":"CWE-350","cvss":8.1,"wstg":null},{"m":"subdomain-service-data","name":"Squarespace","sev":"high","cat":"DNS Security","cwe":"CWE-350","cvss":8.1,"wstg":null},{"m":"subdomain-service-data","name":"Tumblr","sev":"medium","cat":"DNS Security","cwe":"CWE-350","cvss":6.5,"wstg":null},{"m":"subdomain-service-data","name":"WP Engine","sev":"high","cat":"DNS Security","cwe":"CWE-350","cvss":8.1,"wstg":null},{"m":"subdomain-service-data","name":"Fly.io","sev":"high","cat":"DNS Security","cwe":"CWE-350","cvss":8.1,"wstg":null},{"m":"subdomain-service-data","name":"Render","sev":"high","cat":"DNS Security","cwe":"CWE-350","cvss":8.1,"wstg":null},{"m":"subdomain-service-data","name":"Railway","sev":"high","cat":"DNS Security","cwe":"CWE-350","cvss":8.1,"wstg":null},{"m":"supabase-probes","name":"Supabase Service Role Key Exposed in Client-Side Code","sev":"critical","cat":"Exposed Secrets / Credentials","cwe":"CWE-522","cvss":10,"wstg":"WSTG-CONF-04"},{"m":"supabase-probes","name":"Supabase Backend Detected","sev":"info","cat":"Technology Fingerprint","cwe":null,"cvss":0,"wstg":null},{"m":"supabase-probes","name":"Supabase Tables Readable Without Authentication (CVE-2025-48757)","sev":"critical","cat":"Broken Access Control","cwe":"CWE-284","cvss":9.3,"wstg":"WSTG-ATHZ-01"},{"m":"supabase-probes","name":"Supabase Tables Accessible Without Authentication (Currently Empty — CVE-2025-48757 Pattern)","sev":"high","cat":"Broken Access Control","cwe":"CWE-284","cvss":7.5,"wstg":"WSTG-ATHZ-01"},{"m":"supabase-probes","name":"Supabase Tables Accept Unauthenticated Writes","sev":"critical","cat":"Broken Access Control","cwe":"CWE-284","cvss":9.3,"wstg":"WSTG-ATHZ-01"},{"m":"supabase-probes","name":"Supabase Backend Detected — RLS Appears Configured","sev":"info","cat":"Technology Fingerprint","cwe":null,"cvss":0,"wstg":null},{"m":"supabase-probes","name":"Supabase Storage Bucket List Exposed Without Authentication","sev":"medium","cat":"Information Disclosure","cwe":"CWE-200","cvss":5.3,"wstg":"WSTG-CONF-04"}],"modules":[{"m":"accessControlProbe","loc":377,"n":3,"tests":18},{"m":"apiDocsProbe","loc":284,"n":1,"tests":0},{"m":"apiProbe","loc":644,"n":7,"tests":31},{"m":"baasProbes","loc":239,"n":2,"tests":0},{"m":"crawler-data","loc":122,"n":8,"tests":26},{"m":"crawler","loc":683,"n":7,"tests":26},{"m":"cveCheck","loc":594,"n":4,"tests":3},{"m":"dnsChecks","loc":401,"n":9,"tests":17},{"m":"firebase-probes","loc":261,"n":3,"tests":5},{"m":"graphqlProbe","loc":292,"n":2,"tests":0},{"m":"injectionProbe","loc":237,"n":2,"tests":7},{"m":"jwtAnalysis","loc":262,"n":6,"tests":9},{"m":"mailTls","loc":316,"n":3,"tests":12},{"m":"nextjsProbe","loc":245,"n":9,"tests":7},{"m":"pathTraversal","loc":168,"n":1,"tests":4},{"m":"probes-data","loc":811,"n":78,"tests":29},{"m":"probes","loc":896,"n":16,"tests":9},{"m":"recon-data","loc":178,"n":14,"tests":0},{"m":"scanner","loc":1154,"n":31,"tests":0},{"m":"secret-pattern-data","loc":429,"n":32,"tests":3},{"m":"sourceMaps","loc":172,"n":2,"tests":0},{"m":"ssrfProbe","loc":192,"n":1,"tests":6},{"m":"storageProbe","loc":262,"n":3,"tests":0},{"m":"structuredData","loc":415,"n":9,"tests":34},{"m":"subdomain-service-data","loc":152,"n":19,"tests":0},{"m":"supabase-probes","loc":520,"n":7,"tests":5}]};
+
+const SEV = {
+  critical:{label:"Critical",cls:"crit",color:"var(--crit)",rank:5},
+  high:{label:"High",cls:"high",color:"var(--high)",rank:4},
+  medium:{label:"Medium",cls:"med",color:"var(--med)",rank:3},
+  low:{label:"Low",cls:"low",color:"var(--low)",rank:2},
+  info:{label:"Info",cls:"info",color:"var(--info)",rank:1}
+};
+const ORDER = ["critical","high","medium","low","info"];
+
+// Coverage: a module has its own test file (direct), is imported by a tested
+// module (indirect), or neither (none). The import edges are read from source.
+const INDIRECT = {
+  "subdomain-service-data":"subdomainTakeover.test.ts",
+  "scanner":"scoring.test.ts, firebase-probes.test.ts"
+};
+const FP = {
+  scanner:"Cookie shearing on the comma in expires=, and a CSP wildcard check that matched allowlist entries like *.onetrust.com as a bare *. Both fixed, both had shipped.",
+  crawler:"One cookie reported twice, because the crawl's dedup set started empty instead of seeded from the root scan. Fixed.",
+  probes:"security.txt evidence hardcoded to “not found” while the finding itself was correct, so anyone verifying concluded the scanner was broken. Fixed.",
+  mailTls:"STARTTLS reported absent when an MX completed the TCP handshake then went silent — reachability read as an answer. Caught before shipping; fired only on some runs.",
+  structuredData:"Cloudflare interstitials attributed to the customer's own site, then the interception detector itself misread x-datadome: protected, a header set on allowed traffic. Both caught before shipping."
+};
+
+const modIndex = Object.fromEntries(DATA.modules.map(m => [m.m, m]));
+// No test file of its own — 8 modules.
+const noOwnTest = new Set(DATA.modules.filter(m => !m.tests).map(m => m.m));
+// Nothing reaches them at all: no own test, and no tested module imports them.
+const uncovered = new Set(DATA.modules.filter(m => !m.tests && !INDIRECT[m.m]).map(m => m.m));
+
+function primary(sev){ return sev.split("/")[0]; }
+
+const checks = DATA.checks.map(c => ({
+  ...c,
+  sevP: primary(c.sev),
+  sevRank: SEV[primary(c.sev)].rank,
+  tests: (modIndex[c.m] || {}).tests || 0
+}));
+
+const modules = DATA.modules.map(m => {
+  const cov = m.tests ? "direct" : (INDIRECT[m.m] ? "indirect" : "none");
+  return { ...m, cov, covRank: cov === "none" ? 0 : cov === "indirect" ? 1 : 2 };
+});
+
+/* ---- totals ---- */
+const nNoOwnTest = checks.filter(c => noOwnTest.has(c.m)).length;
+const cats = [...new Set(checks.map(c => c.cat))].filter(Boolean).sort();
+const noCwe = checks.filter(c => !c.cwe).length;
+
+const totals = [
+  ["279", "Checks"],
+  ["26", "Modules"],
+  [String(cats.length), "Categories"],
+  [String(checks.filter(c => c.sevP === "critical").length), "Critical"],
+  [String(modules.filter(m => m.cov === "none").length), "Uncovered modules"],
+  [String(DATA.modules.reduce((a, m) => a + m.tests, 0)), "Tests in those files"]
+];
+document.getElementById("totals").innerHTML = totals
+  .map(([n, l]) => '<div class="tot"><div class="n">' + n + '</div><div class="l">' + l + '</div></div>').join("");
+
+document.getElementById("g-untested").textContent = nNoOwnTest;
+document.getElementById("g-cats").textContent = cats.length;
+document.getElementById("g-nocwe").textContent = noCwe;
+
+/* ---- severity bar ---- */
+const sevCounts = ORDER.map(s => [s, checks.filter(c => c.sevP === s).length]);
+document.getElementById("sevbar").innerHTML = sevCounts
+  .map(([s, n]) => '<div style="flex:' + n + ';background:' + SEV[s].color + '" title="' + SEV[s].label + ': ' + n + '">' + (n / checks.length > .06 ? n : "") + '</div>').join("");
+document.getElementById("sevkey").innerHTML = sevCounts
+  .map(([s, n]) => '<span><i class="dot" style="background:' + SEV[s].color + '"></i>' + SEV[s].label + ' ' + n + '</span>').join("");
+
+/* ---- module table ---- */
+const modBody = document.querySelector("#modtable tbody");
+let modSort = { k: "n", dir: -1 };
+
+function esc(s){ return String(s).replace(/[&<>"]/g, ch => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[ch])); }
+
+function renderMods(){
+  const rows = [...modules].sort((a, b) => {
+    const x = a[modSort.k], y = b[modSort.k];
+    const cmp = typeof x === "number" ? x - y : String(x).localeCompare(String(y));
+    return cmp * modSort.dir || String(a.m).localeCompare(String(b.m));
+  });
+  modBody.innerHTML = rows.map(m => {
+    const covLabel = m.cov === "direct" ? m.m + ".test.ts"
+      : m.cov === "indirect" ? "via " + INDIRECT[m.m]
+      : "none";
+    const fp = FP[m.m]
+      ? '<span class="fp">' + esc(FP[m.m]) + '</span>'
+      : '<span class="fp clean">&mdash;</span>';
+    return '<tr>'
+      + '<td><button class="modlink" data-mod="' + esc(m.m) + '">' + esc(m.m) + '.ts</button></td>'
+      + '<td class="num">' + m.n + '</td>'
+      + '<td class="num">' + m.loc.toLocaleString() + '</td>'
+      + '<td class="num">' + (m.tests || '<span class="muted">0</span>') + '</td>'
+      + '<td><span class="cov"><i class="bulb ' + m.cov + '"></i>' + esc(covLabel) + '</span></td>'
+      + '<td>' + fp + '</td>'
+      + '</tr>';
+  }).join("");
+}
+
+/* ---- check table ---- */
+const q = document.getElementById("q"), fsev = document.getElementById("fsev"),
+      fcat = document.getElementById("fcat"), fmod = document.getElementById("fmod"),
+      funtested = document.getElementById("funtested"),
+      checkBody = document.querySelector("#checktable tbody"),
+      countEl = document.getElementById("count");
+
+ORDER.forEach(s => fsev.add(new Option(SEV[s].label, s)));
+cats.forEach(c => fcat.add(new Option(c, c)));
+[...modules].sort((a, b) => a.m.localeCompare(b.m)).forEach(m => fmod.add(new Option(m.m + ".ts (" + m.n + ")", m.m)));
+
+let checkSort = { k: "sevRank", dir: -1 };
+
+function renderChecks(){
+  const term = q.value.trim().toLowerCase();
+  const rows = checks.filter(c =>
+    (!term || (c.name + " " + c.m + " " + (c.cwe || "") + " " + (c.cat || "") + " " + (c.wstg || "")).toLowerCase().includes(term)) &&
+    (!fsev.value || c.sevP === fsev.value) &&
+    (!fcat.value || c.cat === fcat.value) &&
+    (!fmod.value || c.m === fmod.value) &&
+    (!funtested.checked || uncovered.has(c.m))
+  ).sort((a, b) => {
+    const x = a[checkSort.k] ?? "", y = b[checkSort.k] ?? "";
+    const cmp = typeof x === "number" && typeof y === "number" ? x - y : String(x).localeCompare(String(y));
+    return cmp * checkSort.dir || String(a.name).localeCompare(String(b.name));
+  });
+
+  countEl.textContent = rows.length + " of " + checks.length + " checks";
+  if (!rows.length){
+    checkBody.innerHTML = '<tr><td colspan="7" class="empty">No check matches those filters.</td></tr>';
+    return;
+  }
+  checkBody.innerHTML = rows.map(c => {
+    const alt = c.sev.includes("/") ? '<span class="splitnote">or ' + SEV[c.sev.split("/")[1]].label.toLowerCase() + '</span>' : "";
+    return '<tr>'
+      + '<td><span class="checkname">' + esc(c.name) + '</span></td>'
+      + '<td><span class="pill ' + SEV[c.sevP].cls + '">' + SEV[c.sevP].label + '</span>' + alt + '</td>'
+      + '<td>' + (c.cat ? esc(c.cat) : '<span class="muted">&mdash;</span>') + '</td>'
+      + '<td class="mono">' + esc(c.m) + '</td>'
+      + '<td class="num">' + (c.cvss != null ? c.cvss.toFixed(1) : '<span class="muted">&mdash;</span>') + '</td>'
+      + '<td class="mono">' + (c.cwe ? esc(c.cwe) : '<span class="muted">&mdash;</span>') + '</td>'
+      + '<td class="mono">' + (c.wstg ? esc(c.wstg) : '<span class="muted">&mdash;</span>') + '</td>'
+      + '</tr>';
+  }).join("");
+}
+
+function wireSort(tableId, state, render){
+  document.querySelectorAll("#" + tableId + " th.sortable").forEach(th => {
+    th.tabIndex = 0;
+    const go = () => {
+      const k = th.dataset.k;
+      state.dir = state.k === k ? -state.dir : (th.classList.contains("num") || k === "sevRank" ? -1 : 1);
+      state.k = k;
+      document.querySelectorAll("#" + tableId + " th").forEach(o => o.classList.remove("on"));
+      th.classList.add("on");
+      render();
+    };
+    th.addEventListener("click", go);
+    th.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  });
+}
+
+wireSort("modtable", modSort, renderMods);
+wireSort("checktable", checkSort, renderChecks);
+
+modBody.addEventListener("click", e => {
+  const btn = e.target.closest(".modlink");
+  if (!btn) return;
+  fmod.value = btn.dataset.mod;
+  renderChecks();
+  document.getElementById("checktable").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+[q, fsev, fcat, fmod, funtested].forEach(el => el.addEventListener("input", renderChecks));
+
+renderMods();
+renderChecks();
+</script>
+
+</body></html>

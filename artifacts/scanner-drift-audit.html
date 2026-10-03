@@ -1,0 +1,935 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}</style></head><body>
+<title>Scanner Drift Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --ground:   #f4f5f7;
+    --surface:  #ffffff;
+    --sunk:     #eceef2;
+    --ink:      #14161f;
+    --ink-2:    #565b6e;
+    --ink-3:    #868b9c;
+    --line:     #d9dce4;
+    --line-2:   #c3c7d2;
+    --accent:   #2f3d9e;
+
+    --sev-high: #b4232a;
+    --sev-med:  #a35a12;
+    --sev-low:  #3f6384;
+    --sev-dead: #6b6f7d;
+    --sev-shut: #1c6b47;
+
+    --high-wash: #f7e8e8;
+    --med-wash:  #f7eee1;
+    --low-wash:  #e8edf3;
+    --dead-wash: #eaebee;
+    --shut-wash: #e2efe7;
+
+    --display: "Newsreader", Georgia, "Times New Roman", serif;
+    --body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --page: 1120px;
+    --prose: 74ch;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:   #101219;
+      --surface:  #171a23;
+      --sunk:     #1d212c;
+      --ink:      #e8e9ee;
+      --ink-2:    #a0a6b6;
+      --ink-3:    #767d90;
+      --line:     #282c38;
+      --line-2:   #363b4a;
+      --accent:   #909dff;
+
+      --sev-high: #e8787c;
+      --sev-med:  #d99a4e;
+      --sev-low:  #7ba3c9;
+      --sev-dead: #8b90a0;
+      --sev-shut: #5fbf8c;
+
+      --high-wash: #2b1a1d;
+      --med-wash:  #2a2118;
+      --low-wash:  #1a2029;
+      --dead-wash: #212430;
+      --shut-wash: #16291f;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:   #101219;
+    --surface:  #171a23;
+    --sunk:     #1d212c;
+    --ink:      #e8e9ee;
+    --ink-2:    #a0a6b6;
+    --ink-3:    #767d90;
+    --line:     #282c38;
+    --line-2:   #363b4a;
+    --accent:   #909dff;
+
+    --sev-high: #e8787c;
+    --sev-med:  #d99a4e;
+    --sev-low:  #7ba3c9;
+    --sev-dead: #8b90a0;
+    --sev-shut: #5fbf8c;
+
+    --high-wash: #2b1a1d;
+    --med-wash:  #2a2118;
+    --low-wash:  #1a2029;
+    --dead-wash: #212430;
+    --shut-wash: #16291f;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: var(--page);
+    margin: 0 auto;
+    padding: 0 clamp(1.1rem, 4vw, 3rem);
+  }
+
+  h1, h2, h3 { font-family: var(--display); font-weight: 600; text-wrap: balance; margin: 0; }
+
+  .label {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+    color: var(--ink-3);
+  }
+
+  code, .mono { font-family: var(--mono); font-size: 0.88em; }
+
+  /* ── Masthead ───────────────────────────────────────────── */
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: clamp(2.5rem, 6vw, 4rem) 0 1.6rem;
+  }
+  .masthead h1 {
+    font-size: clamp(2.4rem, 6.5vw, 3.9rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: 0.7rem 0 0.9rem;
+  }
+  .standfirst {
+    font-family: var(--display);
+    font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 64ch;
+    margin: 0;
+  }
+
+  .amend {
+    margin-top: 1.6rem;
+    border-left: 3px solid var(--sev-med);
+    background: var(--med-wash);
+    padding: 1rem 1.2rem 1.05rem;
+    max-width: 78ch;
+  }
+  .amend p { margin: 0.4rem 0 0; font-size: 14px; color: var(--ink); }
+  .amend p:first-of-type { margin-top: 0.45rem; }
+
+  /* ── Repo strip ─────────────────────────────────────────── */
+  .repos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    border-bottom: 1px solid var(--line);
+  }
+  .repo { padding: 1.3rem 1.4rem 1.4rem 0; border-right: 1px solid var(--line); }
+  .repo:last-child { border-right: 0; }
+  .repo + .repo { padding-left: 1.4rem; }
+  .repo-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.35rem;
+    word-break: break-word;
+  }
+  .repo dl { margin: 0.5rem 0 0; display: grid; grid-template-columns: auto 1fr; gap: 0.15rem 0.7rem; }
+  .repo dt { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); }
+  .repo dd { margin: 0; font-family: var(--mono); font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+  /* ── Tally ──────────────────────────────────────────────── */
+  .tally { display: flex; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+  .tally-item { flex: 1 1 130px; padding: 1.25rem 1.2rem 1.3rem 0; border-right: 1px solid var(--line); }
+  .tally-item:last-child { border-right: 0; }
+  .tally-item + .tally-item { padding-left: 1.2rem; }
+  .tally-n {
+    font-family: var(--display);
+    font-size: 2.5rem;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .tally-item.high .tally-n { color: var(--sev-high); }
+  .tally-item.med  .tally-n { color: var(--sev-med); }
+  .tally-item.dead .tally-n { color: var(--sev-dead); }
+  .tally-item.shut .tally-n { color: var(--sev-shut); }
+
+  section { padding-top: clamp(2.6rem, 5vw, 3.8rem); }
+
+  .sec-head { margin-bottom: 1.6rem; }
+  .sec-head h2 { font-size: clamp(1.5rem, 3vw, 1.95rem); letter-spacing: -0.015em; margin-top: 0.45rem; }
+  .sec-head p { color: var(--ink-2); max-width: var(--prose); margin: 0.7rem 0 0; }
+
+  /* ── Ledger ─────────────────────────────────────────────── */
+  .ledger { border-top: 1px solid var(--ink); }
+
+  .row {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 0 1.5rem;
+    padding: 1.5rem 0 1.6rem;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+
+  .sev {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.11em;
+    padding: 0.28rem 0.45rem;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .sev.high { color: var(--sev-high); background: var(--high-wash); }
+  .sev.med  { color: var(--sev-med);  background: var(--med-wash); }
+  .sev.low  { color: var(--sev-low);  background: var(--low-wash); }
+  .sev.dead { color: var(--sev-dead); background: var(--dead-wash); }
+  .sev.shut { color: var(--sev-shut); background: var(--shut-wash); }
+
+  .row h3 {
+    font-family: var(--body);
+    font-size: 1.02rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    margin: 0 0 0.3rem;
+    line-height: 1.35;
+  }
+  .loc {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--accent);
+    margin: 0 0 0.65rem;
+    word-break: break-all;
+  }
+  .row p { margin: 0 0 0.6rem; color: var(--ink-2); max-width: var(--prose); font-size: 14.2px; }
+  .row p:last-child { margin-bottom: 0; }
+  .row p strong { color: var(--ink); font-weight: 600; }
+
+  .evidence {
+    font-family: var(--mono);
+    font-size: 12px;
+    line-height: 1.6;
+    background: var(--sunk);
+    border: 1px solid var(--line);
+    padding: 0.75rem 0.9rem;
+    margin: 0 0 0.7rem;
+    overflow-x: auto;
+    color: var(--ink);
+    white-space: pre;
+  }
+
+  .closed .row h3 { color: var(--ink-2); }
+
+  @media (max-width: 640px) {
+    .row { grid-template-columns: 1fr; gap: 0.6rem 0; }
+  }
+
+  /* ── Pattern ────────────────────────────────────────────── */
+  .pattern {
+    border: 1px solid var(--line-2);
+    border-left: 3px solid var(--accent);
+    background: var(--surface);
+    padding: 1.5rem 1.6rem 1.6rem;
+  }
+  .pattern h3 { font-family: var(--body); font-size: 1.05rem; margin: 0.4rem 0 0.7rem; }
+  .pattern p { color: var(--ink-2); max-width: var(--prose); margin: 0 0 0.8rem; }
+  .pattern ul { margin: 0.2rem 0 0; padding-left: 1.1rem; color: var(--ink-2); }
+  .pattern li { margin-bottom: 0.45rem; max-width: var(--prose); }
+  .pattern li:last-child { margin-bottom: 0; }
+
+  /* ── Coverage ───────────────────────────────────────────── */
+  .coverage {
+    border-top: 1px solid var(--line);
+    margin-top: clamp(2.8rem, 5vw, 4rem);
+    padding: 1.8rem 0 3.5rem;
+  }
+  .coverage p { color: var(--ink-2); max-width: var(--prose); margin: 0.7rem 0 0; font-size: 14px; }
+  .cov-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.3rem;
+    margin-top: 1.3rem;
+  }
+  .cov-grid h4 { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.11em; color: var(--ink-3); margin: 0 0 0.5rem; font-weight: 500; }
+  .cov-grid ul { margin: 0; padding-left: 1rem; color: var(--ink-2); font-size: 13.5px; }
+  .cov-grid li { margin-bottom: 0.3rem; }
+
+  a { color: var(--accent); }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <span class="label">Code review · revised 13 September 2026</span>
+    <h1>Scanner Drift Audit</h1>
+    <p class="standfirst">
+      Three security-scanning codebases, reviewed together. The recurring defect is not a
+      missing check — it is code that contradicts its own documentation, and sibling code
+      that already solves the same problem correctly.
+    </p>
+    <div class="amend">
+      <span class="label">Revision</span>
+      <p>
+        The first pass reviewed VibeScan at <code>origin/main</code>. That branch is not the
+        repository's default — <code>origin/master</code> is, and it was <strong>111 commits
+        ahead</strong>. Every finding below has been re-verified against
+        <code>a664c13</code>, the real head. Six closed.
+      </p>
+    </div>
+  </header>
+
+  <div class="repos">
+    <div class="repo">
+      <span class="repo-name">cc4480/secscan-info</span>
+      <dl>
+        <dt>Head</dt><dd>631d519 · 13 Sep</dd>
+        <dt>Branch</dt><dd>main</dd>
+        <dt>Source</dt><dd>3,177 lines</dd>
+      </dl>
+    </div>
+    <div class="repo">
+      <span class="repo-name">VibeScan-Enterprise-Build</span>
+      <dl>
+        <dt>Head</dt><dd>a664c13 · 13 Sep</dd>
+        <dt>Branch</dt><dd>master</dd>
+        <dt>Source</dt><dd>~60k lines</dd>
+      </dl>
+    </div>
+    <div class="repo">
+      <span class="repo-name">seclayer.io2026</span>
+      <dl>
+        <dt>Head</dt><dd>79a0678 · 13 Sep</dd>
+        <dt>Branch</dt><dd>main</dd>
+        <dt>Source</dt><dd>46,524 lines</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="tally">
+    <div class="tally-item shut">
+      <span class="tally-n">6</span>
+      <span class="label">Already fixed<br>on master</span>
+    </div>
+    <div class="tally-item high">
+      <span class="tally-n">5</span>
+      <span class="label">Exploitable<br>or monetary</span>
+    </div>
+    <div class="tally-item med">
+      <span class="tally-n">8</span>
+      <span class="label">Correctness</span>
+    </div>
+    <div class="tally-item dead">
+      <span class="tally-n">6</span>
+      <span class="label">Dead code,<br>duplication, CI</span>
+    </div>
+  </div>
+
+  <!-- ══ Closed ════════════════════════════════════════════ -->
+  <section>
+    <div class="sec-head">
+      <span class="label">Closed by the sync</span>
+      <h2>What the 111 commits already fixed</h2>
+      <p>
+        Listed because the first draft of this report claimed them, and because the fixes
+        validate the recommendation at the end: four of the six were closed by extracting a
+        shared module and deleting the local copies.
+      </p>
+    </div>
+
+    <div class="ledger closed">
+
+      <div class="row">
+        <span class="sev shut">Closed</span>
+        <div>
+          <h3>Domain verification now exists, and matches the published instructions</h3>
+          <p class="loc">lib/domainVerify.ts · lib/activeProbeGate.ts · routes/domainVerification.ts · pages/domains.tsx</p>
+          <p>
+            The ownership gate secscan.info advertises is implemented, fails closed, and uses
+            exactly the names the site publishes — <code>_secscan-challenge.&lt;domain&gt;</code>
+            and <code>/.well-known/secscan-verification.txt</code>. The <code>/domains</code>
+            page exists. My headline finding is void.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev shut">Closed</span>
+        <div>
+          <h3>The 12 advertised-but-absent checks were implemented</h3>
+          <p class="loc">lib/mailTls.ts · lib/structuredData.ts</p>
+          <p>
+            Both modules now exist, with the STARTTLS, JSON-LD, Open Graph and Twitter Card
+            detections the coverage page describes. <code>mailTls.ts</code> reports “Mail Server
+            Does Not Offer STARTTLS”, “…TLS Certificate Expired” and “…Expiring Soon”.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev shut">Closed</span>
+        <div>
+          <h3>Both open redirects, fixed by the right move</h3>
+          <p class="loc">lib/safeRedirect.ts — imported by routes/auth.ts and routes/googleAuth.ts</p>
+          <p>
+            A new shared helper resolves <code>returnTo</code> through the same URL parser the
+            browser uses and compares origins, instead of guessing at prefixes. Its docstring
+            names both bypasses I found — the bare <code>//evil.com</code>, and the
+            <code>/\evil.com</code> form the parser normalises into it.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev shut">Closed</span>
+        <div>
+          <h3>The doubled SSRF check, and the message it hid</h3>
+          <p class="loc">routes/scans.ts:167</p>
+          <p>
+            Now a single <code>checkScanTarget</code> call, with the plain-English error
+            restored. The commit comment states the diagnosis exactly: the first call returned
+            with the guard's terse internal reason, so the readable message below was
+            unreachable.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev shut">Closed</span>
+        <div>
+          <h3>Anonymous identities can no longer store an API key</h3>
+          <p class="loc">routes/settings.ts — deleted</p>
+          <p>
+            The per-user DeepSeek key endpoint is gone, which removes the inconsistency with
+            <code>POST /scans</code>'s refusal to store credentials for the same identities.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev shut">Closed</span>
+        <div>
+          <h3>Scan limits are now per-user, and authentication runs first</h3>
+          <p class="loc">lib/rateLimit.ts — <code>keyFrom</code>, <code>scanNetworkRateLimitRules</code></p>
+          <p>
+            Not something I flagged, but it fixes a real hole in the code I reviewed: the
+            limiter used to run before authentication, so an anonymous caller could spend a
+            signed-in user's scan allowance. Now bucketed per user with a per-network ceiling above it.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ VibeScan ══════════════════════════════════════════ -->
+  <section>
+    <div class="sec-head">
+      <span class="label">VibeScan-Enterprise-Build · a664c13</span>
+      <h2>Still open</h2>
+      <p>
+        Two services from one repo — <code>seclayer</code> (web tier) and <code>secscan</code>
+        (scanner), per <code>docker-compose.yml</code>. The shared libraries here are good; the
+        routes still keep reaching around them.
+      </p>
+    </div>
+
+    <div class="ledger">
+
+      <div class="row">
+        <span class="sev high">Billing</span>
+        <div>
+          <h3>Stripe credit grants still have no idempotency</h3>
+          <p class="loc">artifacts/api-server/src/routes/stripe.ts:123</p>
+          <div class="evidence">.set({ balance: existing.balance + creditsToAdd })</div>
+          <p>
+            Read-then-write, outside a transaction, with no event-id dedupe and no unique
+            constraint. Stripe redelivers on any non-2xx — and this handler returns 500 on a
+            processing error, guaranteeing the retry. A duplicate delivery double-credits; two
+            concurrent deliveries lose one grant entirely.
+          </p>
+          <p>
+            <strong>Sibling comparison:</strong> seclayer.io2026 guards the same handler with
+            <code>hasTransactionForSession()</code>. VibeScan has no equivalent.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev high">Evidence</span>
+        <div>
+          <h3>OOB callback source IPs are attacker-forgeable</h3>
+          <p class="loc">artifacts/api-server/src/routes/oob.ts:20</p>
+          <div class="evidence">function clientIp(req) {
+  return String(req.headers["x-forwarded-for"] ?? …).split(",")[0].trim();
+}</div>
+          <p>
+            A local helper that takes the <em>leftmost</em> X-Forwarded-For entry — precisely
+            the read that <code>lib/clientIp.ts</code> exists to prevent, and whose docstring
+            opens by naming it as the way to get this wrong. The value is stored as
+            <code>sourceIp</code>, the evidence that proves a blind-SSRF callback fired, so a
+            finding's proof can be forged by whoever triggers it.
+          </p>
+          <p>
+            <strong>Sibling comparison:</strong> seclayer.io2026's equivalent route uses
+            <code>req.ip</code>, which honours the configured proxy trust.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev high">SSRF</span>
+        <div>
+          <h3>The rebinding guard resolves a different address than it connects to</h3>
+          <p class="loc">artifacts/api-server/src/lib/http.ts:364 → :384</p>
+          <p>
+            The per-hop comment claims “the last word has to belong to the code that is about
+            to open the socket.” It does not: <code>checkUrlSafe()</code> resolves through
+            <code>dns.lookup</code> with a 30-second positive cache, and <code>fetch()</code>
+            twenty lines later resolves independently. There is no custom dispatcher, agent or
+            lookup — nothing pins the vetted address to the connection.
+          </p>
+          <p>
+            <strong>Sibling comparison:</strong> <code>seclayer.io2026/server/ssrf.ts</code>
+            installs a validating <code>lookup</code> inside the undici connect path, and
+            documents exactly why — “the validated lookup IS the connect lookup — there is no
+            second, unchecked resolution.” That is the fix; it is already written, in-house.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev med">Boot</span>
+        <div>
+          <h3>TRUST_PROXY=true crashes the server at startup</h3>
+          <p class="loc">artifacts/api-server/src/app.ts:104–107</p>
+          <div class="evidence">$ node -e "app.set('trust proxy', 'true')"   # express@5.2.1
+TypeError: invalid IP address: true</div>
+          <p>
+            <code>configureTrustProxy()</code> parses <code>true</code>/<code>false</code>/hop
+            counts/CIDR lists correctly — then a second block sixteen lines later re-reads the
+            same env var and overwrites the result with
+            <code>Number.isNaN(hops) ? trustProxy : hops</code>, handing Express the raw string.
+            Verified against the installed Express.
+          </p>
+          <p>
+            Shipped configs all use numeric values, so this is latent — but
+            <code>lib/clientIp.ts</code> documents <code>true</code>/<code>false</code> as
+            supported, and its <code>value === true</code> safety warning is now unreachable.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev med">Billing</span>
+        <div>
+          <h3>Late Stripe events can flip a finished scan to failed</h3>
+          <p class="loc">artifacts/api-server/src/routes/stripe.ts:146–166</p>
+          <p>
+            <code>checkout.session.expired</code> and
+            <code>payment_intent.payment_failed</code> both set
+            <code>status: "failed"</code> unconditionally, with no guard on the current state.
+            A delayed event overwrites <code>complete</code>, discarding a scan the user already has.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev med">Quota</span>
+        <div>
+          <h3>A malformed limit env var silently disables the daily cap</h3>
+          <p class="loc">artifacts/api-server/src/routes/scans.ts:29–30</p>
+          <div class="evidence">const DAILY_MAX_ANON = Number(process.env["SCAN_DAILY_LIMIT_ANON"] ?? 10);
+// "50/day" → NaN → (count >= NaN) is always false</div>
+          <p>
+            The comment above it calls this quota “what actually bounds cost.” The fix already
+            exists in the file it imports from: <code>lib/rateLimit.ts</code> has
+            <code>parsePositiveInt()</code>, written for this exact hazard, and the new
+            network-limit rules added on master use it.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev med">Email</span>
+        <div>
+          <h3>Reset and verification links break when APP_ORIGIN is unset</h3>
+          <p class="loc">artifacts/api-server/src/routes/account.ts:386</p>
+          <div class="evidence">// account.ts, local
+return (process.env["APP_ORIGIN"] ?? "").replace(/\/+$/, "");
+// lib/appOrigin.ts, shared
+(process.env.APP_ORIGIN ?? "https://secscan.us").replace(/\/$/, "");</div>
+          <p>
+            The local copy falls back to an empty string, so the mail body carries
+            <code>/reset-password?token=…</code> — a relative URL, dead in an inbox. Every
+            other email link in the codebase imports the shared constant and works.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev med">Enum</span>
+        <div>
+          <h3>Registration leaks which emails have accounts — twice</h3>
+          <p class="loc">artifacts/api-server/src/routes/account.ts:141, login handler</p>
+          <p>
+            Login is two-factor on master now, and its password step is still carefully uniform.
+            <code>POST /account/register</code> nonetheless answers
+            <code>409 "An account with that email already exists"</code>.
+          </p>
+          <p>
+            A second, quieter leak sits in the password step itself:
+            <code>!row?.passwordHash</code> returns before any hashing work, while a real
+            account runs a 64&nbsp;MB scrypt. The response-time gap distinguishes the two cases
+            regardless of the uniform message.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev med">Growth</span>
+        <div>
+          <h3>Nothing ever purges spent auth tokens</h3>
+          <p class="loc">artifacts/api-server/src/lib/authTokens.ts</p>
+          <p>
+            <code>purgeStaleTokens()</code> is written, documented as “Housekeeping”, and still
+            has zero callers — no scheduler, no worker, no route. The
+            <code>auth_tokens</code> table grows without bound.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev dead">Dead</span>
+        <div>
+          <h3>The payments subsystem is still wired at only one end</h3>
+          <p class="loc">artifacts/api-server/src/routes/credits.ts:20 · routes/stripe.ts:123</p>
+          <p>
+            <code>balance</code> is read in one place and incremented in one place. Nothing
+            decrements it — <code>POST /scans</code> never consults or debits credits. There is
+            no <code>checkout.sessions.create</code> anywhere, so no route can sell anything.
+            Scans are bounded by the daily quota instead, which makes the whole credit ledger
+            inert.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev dead">Dead</span>
+        <div>
+          <h3>Two unreferenced symbols on the auth path</h3>
+          <p class="loc">routes/auth.ts:134 · lib/authTokens.ts</p>
+          <p>
+            In the OIDC callback, <code>const callbackUrl = getCallbackUrl(req)</code> is
+            computed and never read — the grant uses <code>currentUrl</code> instead. (The
+            identical line at :84 is live; only the callback copy is dead.)
+            <code>tokensEqual()</code> is exported with a comment explaining it exists “so
+            callers are not tempted to use <code>===</code>”, and has no callers.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev dead">Dup</span>
+        <div>
+          <h3>Three hand-rolled rate limiters remain</h3>
+          <p class="loc">routes/account.ts · routes/auth.ts · routes/googleAuth.ts</p>
+          <p>
+            Each keeps its own <code>Map</code> that is never pruned — one entry per IP, forever
+            — and each pushes the timestamp <em>before</em> comparing, so a caller who keeps
+            hammering extends their own block. <code>lib/rateLimit.ts</code> sweeps idle buckets
+            and documents not counting blocked requests, and master just taught it a
+            <code>keyFrom</code> hook. These three never adopted it.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ secscan-info ══════════════════════════════════════ -->
+  <section>
+    <div class="sec-head">
+      <span class="label">secscan-info · 631d519</span>
+      <h2>The reference library</h2>
+      <p>
+        Small, careful, and unusually well reasoned about its own CSP — the <code>_headers</code>
+        policy genuinely ships no <code>unsafe-inline</code> anywhere. With the engine caught up,
+        the remaining drift is arithmetic.
+      </p>
+    </div>
+
+    <div class="ledger">
+
+      <div class="row">
+        <span class="sev med">Count</span>
+        <div>
+          <h3>The signature total is still off by one — now in the other direction</h3>
+          <p class="loc">src/data/coverage.ts — <code>TOTAL_SIGNATURES</code>, <code>signatures[]</code></p>
+          <div class="evidence">                     claimed   actual (a664c13)
+SENSITIVE_PATHS         78        78   ✓
+SECRET_PATTERNS         33        34   ✗
+SERVICES                19        19   ✓
+PATH_PROBES              8         8   ✓
+TOTAL_SIGNATURES       138       139   ✗</div>
+          <p>
+            At my first reading the table held 32 and the page claimed 33. Patterns were added
+            since; the page still claims 33. The number has now been wrong in both directions
+            without the page changing — which is the argument for deriving it at build time
+            rather than transcribing it.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev med">Contra</span>
+        <div>
+          <h3>The file contradicts itself, and the true half has swapped</h3>
+          <p class="loc">src/data/coverage.ts — <code>TOTAL_CHECKS</code> vs <code>gates[0]</code></p>
+          <p>
+            One line reads “Every scan runs every check. The tier was retired.” Forty lines
+            later, domain verification “unlocks all active probing” and “without it only passive
+            checks run.” When I first read this, the engine agreed with the first statement.
+            Now that <code>activeProbeGate.ts</code> ships and fails closed, the engine agrees
+            with the second — so the contradiction has not been resolved, it has inverted.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev low">Spec</span>
+        <div>
+          <h3>security.txt is missing the required Expires field</h3>
+          <p class="loc">public/.well-known/security.txt</p>
+          <p>
+            RFC 9116 §2.5.5 makes <code>Expires</code> mandatory; parsers treat a file without
+            it as invalid. The file carries only <code>Contact</code>,
+            <code>Preferred-Languages</code> and <code>Canonical</code>.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev dead">CI</span>
+        <div>
+          <h3>Both build assertions pass when they match no files</h3>
+          <p class="loc">.github/workflows/deploy.yml — “Assert no inline script or style”</p>
+          <div class="evidence">count=$(cat dist/*.html dist/**/*.html 2>/dev/null \
+  | grep -o 'style="\|&lt;script' | wc -l)</div>
+          <p>
+            If the glob matches nothing — output path renamed, build layout changed — the
+            pipeline yields an empty stream, <code>count</code> is 0, and the check reports
+            success. The canonical-URL assertion below it fails open the same way. Both guard a
+            CSP that has no <code>unsafe-inline</code> to fall back on.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ seclayer ══════════════════════════════════════════ -->
+  <section>
+    <div class="sec-head">
+      <span class="label">seclayer.io2026 · 79a0678</span>
+      <h2>The standalone app</h2>
+      <p>
+        Unchanged since the first pass, and the stronger of the two engines: near-total test
+        coverage and the correct connect-time SSRF pin. Both real findings are in one place —
+        the credit ledger, where the file's own careful locking is applied unevenly.
+      </p>
+    </div>
+
+    <div class="ledger">
+
+      <div class="row">
+        <span class="sev high">Money</span>
+        <div>
+          <h3>The shared credit helper is the one path that doesn't lock the row</h3>
+          <p class="loc">server/pg/pgDb.ts:117 — <code>_addCreditsWithin</code></p>
+          <div class="evidence">:117  SELECT * FROM users WHERE id = ?              ← no lock
+:285  SELECT * FROM users WHERE id = ? FOR UPDATE   ← deductCredits
+:587  SELECT * FROM users WHERE id = ? FOR UPDATE   ← api-key path</div>
+          <p>
+            <code>deductCredits</code> pre-locks before delegating, so it is safe. The callers
+            that don't — the Stripe grant via <code>addCredits()</code>, and the refund paths in
+            <code>recoverStuckScans</code> / <code>recoverStuckNmapScans</code> — read an
+            unlocked balance and write back a computed value. Under Postgres's default READ
+            COMMITTED that is a lost update: a refund racing a debit can hand back a credit the
+            user already spent.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev high">Money</span>
+        <div>
+          <h3>The duplicate-purchase guard has nothing behind it</h3>
+          <p class="loc">server.ts:113 · server/pg/schema.sql — <code>transactions</code></p>
+          <div class="evidence">if (completion &amp;&amp; !(await db.hasTransactionForSession(completion.sessionId)))
+
+CREATE TABLE transactions ( … stripeSessionId text … );
+CREATE INDEX idx_tx_user ON transactions(userId);   -- the only index</div>
+          <p>
+            <code>stripeSessionId</code> carries no unique constraint, and the check sits
+            outside the transaction that writes the row. Two concurrent deliveries of the same
+            <code>checkout.session.completed</code> both see no prior transaction and both
+            grant. A unique index on that column turns the race into a constraint violation the
+            handler can swallow.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <span class="sev dead">Dup</span>
+        <div>
+          <h3>The mailbox rate limiter re-implements the function it imports</h3>
+          <p class="loc">server/routes/auth.ts — <code>requestLinkEmailLimiter.keyFrom</code></p>
+          <p>
+            <code>normalizeLoginEmail</code> is imported at the top of the file; the limiter
+            inlines <code>raw.toLowerCase().trim()</code> instead. The two agree today, exactly.
+            They are also the two halves of the guarantee the comment above them makes — five
+            codes an hour against a million-value keyspace — so if the shared normaliser ever
+            canonicalises further, the per-mailbox cap stops matching the lookup key and the
+            bound quietly stops holding.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ Pattern ═══════════════════════════════════════════ -->
+  <section>
+    <div class="sec-head">
+      <span class="label">The through-line</span>
+      <h2>Every shared module has a worse copy pasted next to it</h2>
+    </div>
+
+    <div class="pattern">
+      <h3>Seven of the open findings are the same defect — and the fixes prove the remedy</h3>
+      <p>
+        These codebases are unusually well commented, and the shared libraries' reasoning is
+        right. The failures are almost all local re-implementations written without it. The
+        strongest evidence is what master already fixed: both open redirects closed the moment
+        someone extracted <code>lib/safeRedirect.ts</code> and deleted the two local copies.
+        The same move is available for each of these.
+      </p>
+      <ul>
+        <li>
+          <code>lib/rateLimit.ts</code> prunes idle buckets and documents not counting blocked
+          requests. <code>auth.ts</code>, <code>googleAuth.ts</code> and <code>account.ts</code>
+          each hand-roll a limiter that does neither.
+        </li>
+        <li>
+          <code>lib/clientIp.ts</code> opens by naming leftmost-XFF as the way to get this wrong.
+          <code>routes/oob.ts</code> does exactly that, on the path that records evidence.
+        </li>
+        <li>
+          <code>lib/appOrigin.ts</code> exists because origins used to be hardcoded.
+          <code>routes/account.ts</code> declares a local <code>appOrigin()</code> that drops the
+          fallback.
+        </li>
+        <li>
+          <code>lib/rateLimit.ts</code> has <code>parsePositiveInt()</code>, and master's new
+          network rules use it. <code>routes/scans.ts</code> still uses bare <code>Number()</code>
+          for the quota that bounds cost.
+        </li>
+        <li>
+          <code>configureTrustProxy()</code> handles every documented value.
+          <code>app.ts</code> re-parses the same variable sixteen lines later and overwrites it.
+        </li>
+        <li>
+          <code>seclayer.io2026/server/ssrf.ts</code> pins the connect-time lookup. VibeScan's
+          <code>http.ts</code> checks, then lets <code>fetch</code> re-resolve.
+        </li>
+        <li>
+          <code>seclayer</code>'s <code>_addCreditsWithin</code> is the one credit path that
+          skips the <code>FOR UPDATE</code> its siblings take.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ══ Coverage ══════════════════════════════════════════ -->
+  <div class="coverage">
+    <span class="label">Method, and what this review covered</span>
+    <p>
+      All three clones were stale at the start. secscan-info was cloned fresh; seclayer was 87
+      commits behind; VibeScan was 52 behind <code>origin/main</code> — and
+      <code>origin/main</code> was itself 111 commits behind <code>origin/master</code>, the
+      actual default branch, which the clone's stale <code>origin/HEAD</code> had been pointing
+      away from. All three are now level with their remotes, working trees clean, no local-only
+      commits anywhere.
+    </p>
+    <div class="cov-grid">
+      <div>
+        <h4>Read line by line</h4>
+        <ul>
+          <li>All of secscan-info</li>
+          <li>VibeScan: app, middleware, every route, auth/password/token/ratelimit/ssrf/http libs</li>
+          <li>seclayer: server.ts, ssrf, domainVerify, activeProbeGate, auth routes, credit paths</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Swept, not read in full</h4>
+        <ul>
+          <li>Scan engines — probes, scanner, crawler, detectors</li>
+          <li>Both React frontends</li>
+          <li>Worker and queue internals</li>
+          <li>The 111 new commits, beyond re-verifying each finding</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Verification method</h4>
+        <ul>
+          <li>Signature counts measured against the real tables, twice</li>
+          <li>Express trust-proxy crash reproduced against the installed express@5.2.1</li>
+          <li>Redirect bypasses resolved through a WHATWG URL parser</li>
+          <li>Absent code confirmed repo-wide over tracked files, both repos</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body></html>

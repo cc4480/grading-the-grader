@@ -16,6 +16,7 @@ This repo holds the evidence, not the code.
 | `docs/SCAN-RESULTS.md` | Scores and grades returned for each run |
 | `docs/CHANGELOG.md` | What shipped and why it mattered |
 | `docs/SCAN_TESTS.md`, `SCAN_COVERAGE.md`, `SCAN_CHECKS.md` | What the scanner tests, covers and checks |
+| `artifacts/` | Snapshots of the claude.ai artifacts (reports, audits, test and scan write-ups); see `artifacts/INDEX.md` |
 | `scan-results/` | Raw scan output, one file or folder per run, named `YYYY-MM-DD-<name>` |
 | `benchmark/` | Cross-scanner benchmark (ZAP, Nuclei, SecScan) against a known-faults target |
 

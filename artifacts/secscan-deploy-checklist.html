@@ -1,0 +1,504 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>SecScan Deploy Checklist</title>
+<style>
+  :root {
+    --bg: #f5f6f5;
+    --surface: #ffffff;
+    --surface-2: #edf1ef;
+    --text: #172420;
+    --muted: #5c6b67;
+    --accent: #0d7d63;
+    --accent-soft: #e3f3ee;
+    --border: #dde4e1;
+    --mono-bg: #eef2f0;
+    --crit: #b3261e;
+    --warn: #a15c00;
+    --ok: #0d7d63;
+    --info: #3f6f8a;
+    --shadow: 0 1px 2px rgba(20, 30, 27, 0.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1512; --surface: #161e1a; --surface-2: #1c2521; --text: #e7ede9;
+      --muted: #91a19b; --accent: #3fceac; --accent-soft: #17302a; --border: #293530;
+      --mono-bg: #131b17; --crit: #ff8a80; --warn: #ffb865; --ok: #3fceac; --info: #7db6d6;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1512; --surface: #161e1a; --surface-2: #1c2521; --text: #e7ede9;
+    --muted: #91a19b; --accent: #3fceac; --accent-soft: #17302a; --border: #293530;
+    --mono-bg: #131b17; --crit: #ff8a80; --warn: #ffb865; --ok: #3fceac; --info: #7db6d6;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: "Source Sans 3", -apple-system, "Segoe UI", sans-serif;
+    margin: 0; padding-inline: 16px; padding-block: 32px 80px; line-height: 1.5;
+  }
+  main { max-width: 780px; margin-inline: auto; display: flex; flex-direction: column; gap: 28px; }
+
+  .doc-head { display: flex; flex-direction: column; gap: 8px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 7px; width: fit-content;
+    font-size: 11.5px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--accent); background: var(--accent-soft);
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+    padding: 4px 11px; border-radius: 999px;
+  }
+  h1 {
+    font-family: "Fraunces", Georgia, serif; font-size: clamp(24px, 5vw, 33px);
+    font-weight: 600; margin: 0; text-wrap: balance; letter-spacing: -0.01em;
+  }
+  .doc-sub { color: var(--muted); font-size: 14px; max-width: 62ch; margin: 0; }
+
+  /* ── progress dashboard ─────────────────────────────────────────────── */
+  .dash {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; box-shadow: var(--shadow);
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  }
+  .dash-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .dash-count {
+    font-family: "Fraunces", Georgia, serif; font-size: 26px; font-weight: 600;
+    font-variant-numeric: tabular-nums; color: var(--text); line-height: 1;
+  }
+  .dash-count span { color: var(--muted); font-size: 15px; font-weight: 500; font-family: inherit; }
+  .dash-meta { font-size: 12px; color: var(--muted); text-align: right; }
+  .bar-track { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--accent); border-radius: 999px; transition: width 0.25s ease; width: 0%; }
+  .dash-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  button.reset-btn {
+    font: inherit; font-size: 12.5px; font-weight: 600; color: var(--muted);
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px;
+    padding: 7px 12px; cursor: pointer; transition: background 0.15s, color 0.15s;
+  }
+  button.reset-btn:hover { background: var(--border); color: var(--text); }
+  button.reset-btn.confirming { background: var(--crit); color: #fff; border-color: var(--crit); }
+  .started-note { font-size: 11.5px; color: var(--muted); }
+
+  /* ── sections ───────────────────────────────────────────────────────── */
+  section.block { display: flex; flex-direction: column; gap: 10px; }
+  .block-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    flex-wrap: wrap; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  }
+  .block-title-group { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; }
+  h2 { font-family: "Fraunces", Georgia, serif; font-size: 17.5px; font-weight: 600; margin: 0; }
+  .block-note { font-size: 12.5px; color: var(--muted); }
+  .block-badge {
+    font-size: 11.5px; font-weight: 700; font-variant-numeric: tabular-nums;
+    color: var(--muted); background: var(--surface-2); border: 1px solid var(--border);
+    padding: 2px 9px; border-radius: 999px; flex: none;
+  }
+  .block-badge.done { color: var(--ok); background: var(--accent-soft); border-color: color-mix(in srgb, var(--ok) 35%, var(--border)); }
+
+  .item-list { display: flex; flex-direction: column; }
+  .item {
+    display: flex; align-items: flex-start; gap: 11px; padding: 9px 4px;
+    border-bottom: 1px solid color-mix(in srgb, var(--border) 60%, transparent);
+    cursor: pointer; border-radius: 6px;
+  }
+  .item:last-child { border-bottom: none; }
+  .item:hover { background: var(--surface-2); }
+  .item input[type="checkbox"] {
+    appearance: none; -webkit-appearance: none; width: 18px; height: 18px; flex: none;
+    margin: 1px 0 0; border: 1.5px solid var(--muted); border-radius: 5px; background: var(--surface);
+    cursor: pointer; position: relative; transition: background 0.12s, border-color 0.12s;
+  }
+  .item input[type="checkbox"]:checked { background: var(--accent); border-color: var(--accent); }
+  .item input[type="checkbox"]:checked::after {
+    content: ""; position: absolute; left: 5px; top: 1px; width: 4px; height: 8px;
+    border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg);
+  }
+  .item input[type="checkbox"]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .item-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .item-label { font-size: 13.5px; color: var(--text); }
+  .item.checked .item-label { color: var(--muted); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--muted) 60%, transparent); }
+  .item-hint { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .item-hint code { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.94em; background: var(--mono-bg); padding: 1px 5px; border-radius: 4px; color: var(--text); }
+
+  /* ── risk section (informational, no checkboxes) ───────────────────── */
+  .risk-list { display: flex; flex-direction: column; gap: 9px; }
+  .risk-item {
+    display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  }
+  .risk-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--info); margin-top: 5px; flex: none; }
+  .risk-text { font-size: 13px; color: var(--muted); line-height: 1.55; }
+  .risk-text b { color: var(--text); font-weight: 600; }
+
+  hr.divider { border: none; height: 1px; background: var(--border); margin: 2px 0; }
+
+  footer { text-align: center; font-size: 11.5px; color: var(--muted); padding-top: 8px; line-height: 1.7; }
+
+  @media (max-width: 480px) {
+    .dash-row { flex-direction: column; align-items: flex-start; }
+    .dash-meta { text-align: left; }
+  }
+</style>
+
+<main>
+  <div class="doc-head">
+    <span class="eyebrow">Ops · secscan.us</span>
+    <h1>Pre-deployment checklist</h1>
+    <p class="doc-sub">
+      Every component, feature and known risk to check by hand before shipping a change to
+      secscan.us — automated gates first, then the scanner, accounts, monitoring, payments,
+      email, frontend, security posture and infrastructure. Checks persist in this browser
+      only; reset before each new deploy cycle.
+    </p>
+  </div>
+
+  <div class="dash">
+    <div class="dash-row">
+      <div class="dash-count"><span id="doneCount">0</span> / <span id="totalCount">0</span> <span>checked</span></div>
+      <div class="dash-meta" id="startedNote"></div>
+    </div>
+    <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+    <div class="dash-actions">
+      <button class="reset-btn" id="resetBtn" type="button">Reset for next deploy</button>
+    </div>
+  </div>
+
+  <div id="sections"></div>
+
+  <hr class="divider">
+
+  <section class="block">
+    <div class="block-head">
+      <div class="block-title-group">
+        <h2>Known accepted risks — not blockers</h2>
+      </div>
+      <span class="block-badge">informational</span>
+    </div>
+    <p class="block-note">Recorded and deliberate, not something to fix before this deploy. Nothing below needs a checkbox — it needs to still be true.</p>
+    <div class="risk-list">
+      <div class="risk-item"><span class="risk-dot"></span><span class="risk-text"><b>Bot-blocked monitor targets rescan every 3 days, indefinitely.</b> A scan graded "N/A" (bot interception) falls through to the most aggressive cadence with nothing to stop it. Pinned by a test, not a bug — a real product decision awaiting direction.</span></div>
+      <div class="risk-item"><span class="risk-dot"></span><span class="risk-text"><b><code>structuredData.ts</code> is half-covered.</b> Its 3 actionable findings (Open Graph/Twitter Card/JSON-LD issues) have never been planted in the vuln-fixture and have no regression test.</span></div>
+      <div class="risk-item"><span class="risk-dot"></span><span class="risk-text"><b>One flaky test:</b> <code>http.test.ts</code> › "signs in once when several probes hit the expiry together" fails intermittently under full-suite parallel load, passes alone. Timing-sensitive, not a real defect — re-run rather than treat as a gate failure.</span></div>
+      <div class="risk-item"><span class="risk-dot"></span><span class="risk-text"><b>Stripe has never been exercised against a real endpoint,</b> even in test mode — every checkout test mocks <code>stripe.checkout.sessions.create</code>. Fine while <code>STRIPE_SECRET_KEY</code> stays unset; revisit the day it's added.</span></div>
+      <div class="risk-item"><span class="risk-dot"></span><span class="risk-text"><b>Two CVEs are structurally undetectable by this scanner.</b> Mainline nginx 1.31.0–1.31.2 (CVE-2026-42533/42530) and Windows HTTP.sys (CVE-2026-47291) don't change the version banner the scanner reads — a patched and unpatched host look identical from outside.</span></div>
+    </div>
+  </section>
+
+  <footer>
+    State is stored only in this browser (localStorage) — it is never sent anywhere, never shared across devices, and survives a page reload but not a cleared browser.
+  </footer>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var STORAGE_KEY = "secscan-deploy-checklist:v1";
+  var STARTED_KEY = "secscan-deploy-checklist:started";
+
+  var DATA = [
+    {
+      title: "Automated gates",
+      note: "Run these first — nothing below is worth checking by hand if these are red.",
+      items: [
+        { l: "Typecheck clean in the API server", h: "<code>cd artifacts/api-server && npx tsc --noEmit -p .</code>" },
+        { l: "Typecheck clean in the frontend", h: "<code>cd artifacts/vibescan && npx tsc --noEmit -p .</code>" },
+        { l: "Full test suite passes in the API server", h: "<code>npx vitest run</code> — every file, not a filtered subset" },
+        { l: "Full test suite passes in the frontend", h: "<code>npx vitest run</code>" },
+        { l: "Coverage index is current", h: "<code>node artifacts/api-server/scripts/check-index.mjs --check</code> — regenerate and commit if it fails" },
+        { l: "Working tree is clean before pushing", h: "<code>git status</code> — nothing unintended staged or untracked" },
+        { l: "You know the last-known-good commit", h: "Note the current production commit hash before deploying, in case this needs a rollback" }
+      ]
+    },
+    {
+      title: "Core scanning engine",
+      items: [
+        { l: "Passive scan on a known-good site returns a sane grade with no crash" },
+        { l: "A bot-protected target (Cloudflare/DataDome challenge) is withheld and reported as a coverage note, not scored as if it were the real site" },
+        { l: "Active scan on an owned domain completes clean — injection, path traversal, IDOR and BFLA all run and return nothing false" },
+        { l: "The 20-site guarded false-positive corpus sweep finds zero new false positives", h: "<code>npx tsx artifacts/api-server/scripts/live-scan.ts --json sweep.json</code>, then read the output" },
+        { l: "The vuln-fixture verification passes end to end with exit code 0", h: "<code>npx tsx artifacts/api-server/scripts/verify-vuln-fixture.ts</code> — every tracked finding still detected" },
+        { l: "AI analysis (DeepSeek) completes on a real Deep scan and appears in the report" },
+        { l: "When DeepSeek is unavailable, the report shows the \"AI analysis could not be completed\" coverage note instead of silently omitting the section" },
+        { l: "Grade and risk score compute correctly for a known input (spot-check the A–F thresholds)" },
+        { l: "Compliance mapping renders on the report and still carries its disclaimer — never a pass/fail verdict" },
+        { l: "Per-agent fix prompts generate for Cursor, Claude Code, Lovable, Bolt and Replit AI" }
+      ]
+    },
+    {
+      title: "Authentication & accounts",
+      items: [
+        { l: "Sign-up sends a real one-time code and the code authenticates" },
+        { l: "A session survives a page reload" },
+        { l: "Domain verification succeeds for a real, owned domain" },
+        { l: "Account deletion cascades fully — scans, monitor subscriptions, credits, report shares, sessions all removed", h: "confirm via a fresh test account, not by reading the cascade rules" },
+        { l: "A second account can't be used to route around the primary-account credential requirement" }
+      ]
+    },
+    {
+      title: "Scan lifecycle, trial & credits",
+      items: [
+        { l: "A brand-new account is capped at its free-scan limit, not one more" },
+        { l: "The scan response's <code>creditUsed</code> field reflects what actually happened — not a hardcoded value" },
+        { l: "Two scans submitted back-to-back can't both spend the same last credit", h: "the spend is a single atomic UPDATE guarded by <code>balance &gt; 0</code> in the WHERE clause — confirm that guard is still there, not moved into application code" },
+        { l: "A spent credit is refunded on every rejection path that can occur after the spend (bad target, unverified email, bad credentials, quota exceeded, etc.)" },
+        { l: "Rate limiting is keyed per user, not per IP — a shared office network shouldn't share one account's budget" },
+        { l: "The scan queue holds up under a burst above its worker concurrency without dropping anything", h: "current concurrency: <code>SCAN_WORKER_CONCURRENCY=8</code>" },
+        { l: "Deleting an account mid-scan aborts that scan's job cleanly instead of finishing it and paying for an AI call nobody will ever see" }
+      ]
+    },
+    {
+      title: "Continuous monitoring",
+      items: [
+        { l: "A newly created subscription gets a real <code>nextScanAt</code> at creation, not null", h: "closes the race where the 6-hourly sweep could double-enqueue a subscription's baseline scan" },
+        { l: "After deploy, the next sweep tick logs a sane <code>due</code> count — not every active subscription at once", h: "check <code>secscan</code> logs for <code>Subscriptions due for rescan</code>" },
+        { l: "The daily CVE check actually matches version-enriched technology names (Nginx/Apache/PHP/IIS/Angular/LiteSpeed/OpenResty), not just the bare name" },
+        { l: "Certificate-expiry alerts fire at the 30/14/7-day thresholds, once per certificate cycle, not once per day inside the window" },
+        { l: "Regression detection fires on a genuinely new finding, not on a fingerprint destabilized by a volatile value (version string, IP, port)" },
+        { l: "The score-history / trend chart on the monitor page shows real grade-over-time data, not a flat or empty line" },
+        { l: "Scan history's finding count reflects the real number, not null", h: "reads <code>totalVulnerabilities</code> off the stored report — confirm the field name if this endpoint is ever touched again" },
+        { l: "Outbound webhooks reach a real endpoint and are refused for loopback, RFC-1918, the cloud metadata address, and plain http" },
+        { l: "Every <code>/monitor/subscriptions/:id/*</code> route returns 404 — not 403, not the data — for a subscription that isn't the caller's" },
+        { l: "The hand-maintained CVE tables were reviewed in the last 90 days", h: "check <code>LOCAL_VULN_DATA_UPDATED</code> in <code>cveCheck.ts</code>, and the worker's boot log for the staleness warning" }
+      ]
+    },
+    {
+      title: "Payments",
+      note: "Confirm the state you intend — dormant unless this deploy is specifically meant to activate checkout.",
+      items: [
+        { l: "If checkout should stay off: <code>STRIPE_SECRET_KEY</code> is unset, <code>/api/checkout/packs</code> reports <code>enabled:false</code>, and <code>/api/checkout/credits</code> answers 503" },
+        { l: "If activating: a real Stripe test-mode checkout completes end to end and credits land on the account" },
+        { l: "If activating: <code>STRIPE_WEBHOOK_SECRET</code> is set and signature verification is enforced, not skipped" },
+        { l: "Pricing shown on the landing page matches <code>PRICE_MAP</code>/<code>CREDITS_MAP</code> exactly" },
+        { l: "Every tier that's priced is also creditable — no tier can take money and grant nothing" }
+      ]
+    },
+    {
+      title: "Email delivery",
+      items: [
+        { l: "Sign-in code email sends and the code works" },
+        { l: "Report-ready email sends after a completed scan" },
+        { l: "Monitor alert emails send: scan-queued, CVE alert, cert-expiry, regression" },
+        { l: "SPF/DKIM/DMARC are still aligned for the sending domain" },
+        { l: "The delivery webhook still returns 200 for a real send" }
+      ]
+    },
+    {
+      title: "Frontend & UX",
+      items: [
+        { l: "Landing page loads with no console errors" },
+        { l: "Pricing section shows current numbers — not a stale figure from a prior price change" },
+        { l: "Monitor's \"free during early access\" framing is consistent across the FAQ schema, the report-viewer banner and the /monitor page itself" },
+        { l: "Scan form submits and lands on a live-updating report page" },
+        { l: "The trial-exhausted panel shows correct copy and never offers a buy button that goes nowhere" },
+        { l: "Report viewer renders every section: summary, findings, compliance, fix prompts, technologies" },
+        { l: "Dashboard lists past scans and monitor subscriptions correctly" },
+        { l: "Every route added since the last deploy is on the SPA-shell allowlist", h: "a route missing from it 404s in production while working fine locally" },
+        { l: "Every new route has its own SEO metadata entry, not an inherited homepage canonical/structured-data block" },
+        { l: "Scan form, report viewer and monitor page all still work at phone width (~400px)" }
+      ]
+    },
+    {
+      title: "Security posture of the app itself",
+      items: [
+        { l: "The SSRF guard blocks internal/private targets on scan submission" },
+        { l: "The SSRF guard blocks internal/private targets on monitor webhook URLs" },
+        { l: "Sensitive rate limits (scans, monitor subscriptions, sign-in) are keyed by user or by a justified IP scope, not silently IP-only" },
+        { l: "No secret or credential is staged in the commit about to ship", h: "check <code>git diff</code>/<code>git status</code>, not just the diff you meant to write" },
+        { l: "Session cookies carry Secure, HttpOnly and SameSite in production" },
+        { l: "Every required secret is set via the platform's env vars, never hardcoded in a committed file" }
+      ]
+    },
+    {
+      title: "Infrastructure & ops",
+      items: [
+        { l: "Migrations applied cleanly on boot with no error", h: "log line: <code>Migrations up to date</code>" },
+        { l: "The web service boots clean and <code>/api/healthz</code> returns 200" },
+        { l: "The worker boots clean: scan worker registered, monitor scheduler registered, heartbeat started" },
+        { l: "The Postgres connection budget still fits under <code>max_connections</code> at the current replica count" },
+        { l: "The web service is still at a single replica", h: "it holds an in-process rate limiter — replicating it silently breaks that limiter's accuracy" },
+        { l: "The worker's heartbeat file is being written (liveness signal)" }
+      ]
+    },
+    {
+      title: "Documentation accuracy",
+      items: [
+        { l: "Every numeric claim on secscan.info (pattern counts, port counts, selectors, fingerprints) still matches the data table it describes" },
+        { l: "SCAN_CHECKS.md was regenerated and committed if any scanner module changed" },
+        { l: "No retired pricing tier is described anywhere as currently on sale" },
+        { l: "Any doc naming a specific CVE ID, count or threshold still matches the current code" }
+      ]
+    },
+    {
+      title: "Post-deploy smoke test",
+      note: "Run within the first few minutes of going live.",
+      items: [
+        { l: "secscan.us loads at 200 and serves the new build, not a cached stale bundle", h: "check the served JS bundle hash, or a piece of copy that changed" },
+        { l: "One real scan runs end to end against a throwaway or owned target" },
+        { l: "Both services' logs show no errors in the first few minutes" },
+        { l: "The next scheduled sweep tick logs a sane <code>total</code>/<code>due</code> pair" },
+        { l: "Neither service is stuck in a restart loop" }
+      ]
+    }
+  ];
+
+  function safeGet(key) {
+    try { return localStorage.getItem(key); } catch (e) { return null; }
+  }
+  function safeSet(key, val) {
+    try { localStorage.setItem(key, val); } catch (e) { /* private mode / blocked storage — state just won't persist */ }
+  }
+
+  var checked = {};
+  try { checked = JSON.parse(safeGet(STORAGE_KEY) || "{}"); } catch (e) { checked = {}; }
+
+  var sectionsEl = document.getElementById("sections");
+  var totalItems = 0;
+
+  DATA.forEach(function (section, si) {
+    var block = document.createElement("section");
+    block.className = "block";
+
+    var head = document.createElement("div");
+    head.className = "block-head";
+    var titleGroup = document.createElement("div");
+    titleGroup.className = "block-title-group";
+    var h2 = document.createElement("h2");
+    h2.textContent = section.title;
+    titleGroup.appendChild(h2);
+    if (section.note) {
+      var note = document.createElement("span");
+      note.className = "block-note";
+      note.textContent = section.note;
+      titleGroup.appendChild(note);
+    }
+    var badge = document.createElement("span");
+    badge.className = "block-badge";
+    badge.id = "badge-" + si;
+    head.appendChild(titleGroup);
+    head.appendChild(badge);
+    block.appendChild(head);
+
+    var list = document.createElement("div");
+    list.className = "item-list";
+
+    section.items.forEach(function (item, ii) {
+      var id = si + "-" + ii;
+      totalItems++;
+
+      var row = document.createElement("label");
+      row.className = "item";
+      row.setAttribute("for", "chk-" + id);
+
+      var cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.id = "chk-" + id;
+      cb.checked = !!checked[id];
+      if (cb.checked) row.classList.add("checked");
+
+      var textWrap = document.createElement("span");
+      textWrap.className = "item-text";
+      var label = document.createElement("span");
+      label.className = "item-label";
+      label.innerHTML = item.l;
+      textWrap.appendChild(label);
+      if (item.h) {
+        var hint = document.createElement("span");
+        hint.className = "item-hint";
+        hint.innerHTML = item.h;
+        textWrap.appendChild(hint);
+      }
+
+      cb.addEventListener("change", function () {
+        checked[id] = cb.checked;
+        row.classList.toggle("checked", cb.checked);
+        safeSet(STORAGE_KEY, JSON.stringify(checked));
+        updateCounts();
+      });
+
+      row.appendChild(cb);
+      row.appendChild(textWrap);
+      list.appendChild(row);
+    });
+
+    block.appendChild(list);
+    sectionsEl.appendChild(block);
+  });
+
+  document.getElementById("totalCount").textContent = String(totalItems);
+
+  function updateCounts() {
+    var done = 0;
+    DATA.forEach(function (section, si) {
+      var sectionDone = 0;
+      section.items.forEach(function (item, ii) {
+        if (checked[si + "-" + ii]) { sectionDone++; done++; }
+      });
+      var badge = document.getElementById("badge-" + si);
+      badge.textContent = sectionDone + " / " + section.items.length;
+      badge.classList.toggle("done", sectionDone === section.items.length);
+    });
+    document.getElementById("doneCount").textContent = String(done);
+    var pct = totalItems === 0 ? 0 : Math.round((done / totalItems) * 100);
+    document.getElementById("barFill").style.width = pct + "%";
+  }
+
+  updateCounts();
+
+  // Started-on note, so re-opening this after a reset shows when the current
+  // pass began rather than an unexplained blank state.
+  var started = safeGet(STARTED_KEY);
+  if (!started) {
+    started = new Date().toISOString();
+    safeSet(STARTED_KEY, started);
+  }
+  function renderStarted() {
+    try {
+      var d = new Date(started);
+      document.getElementById("startedNote").textContent =
+        "Started " + d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+    } catch (e) { /* leave blank */ }
+  }
+  renderStarted();
+
+  // Two-step reset — no native confirm(), which can behave oddly inside a
+  // sandboxed viewer. First click arms it for 3 seconds; a second click
+  // inside that window actually clears everything.
+  var resetBtn = document.getElementById("resetBtn");
+  var armed = false;
+  var armTimer = null;
+  resetBtn.addEventListener("click", function () {
+    if (!armed) {
+      armed = true;
+      resetBtn.classList.add("confirming");
+      resetBtn.textContent = "Click again to confirm";
+      armTimer = setTimeout(function () {
+        armed = false;
+        resetBtn.classList.remove("confirming");
+        resetBtn.textContent = "Reset for next deploy";
+      }, 3000);
+      return;
+    }
+    clearTimeout(armTimer);
+    armed = false;
+    checked = {};
+    safeSet(STORAGE_KEY, JSON.stringify(checked));
+    started = new Date().toISOString();
+    safeSet(STARTED_KEY, started);
+    document.querySelectorAll('.item input[type="checkbox"]').forEach(function (cb) {
+      cb.checked = false;
+      cb.closest(".item").classList.remove("checked");
+    });
+    updateCounts();
+    renderStarted();
+    resetBtn.classList.remove("confirming");
+    resetBtn.textContent = "Reset for next deploy";
+  });
+})();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+
+</body></html>
