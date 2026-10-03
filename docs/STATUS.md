@@ -2,6 +2,13 @@
 
 Living log. Newest first. Update it with every piece of work: what changed, how you know, what is still open.
 
+## 2026-10-03: free scanners research
+
+Carlos asked to look at the free scanners and what they have. Done: `docs/FREE-SCANNERS.md` (Researched, search summaries only).
+Main finding: SecScan's free tier unlocks every finding and fix, which is rare, but 17 of 41 tests need a verified domain, so a
+first scan of an unverified URL skips about half the checks while rivals show Supabase and Firebase results at once. New
+pending decision 10 in `docs/DECISIONS.md`. Nothing built from it yet.
+
 ## 2026-10-03: first session
 
 ### Done

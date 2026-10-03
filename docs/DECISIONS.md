@@ -27,3 +27,4 @@ Do not act on a pending decision. Record a new one here with the date and the re
 | 6 | A GitHub repo and tag for the Action, an npm account, directory accounts (Smithery, cursor.directory). | Cheapest unblocked win. | Improvement 6 |
 | 8 | An AI-feature app Carlos owns, to prove the four September 29 probes. | | Improvement 8 |
 | 9 | Try importing Nuclei detections, or not. | Experiment only, each with a clean twin. | Improvement 9 |
+| 10 | **Free-tier shape against the free scanners** (`docs/FREE-SCANNERS.md`): (a) lead the report with what domain verification unlocks; (b) whether to show any passive Supabase hint that needs no test traffic; (c) whether to add a cheap unlimited "quick check" (headers, DNS, mail, TLS) as a front door; (d) single-purpose free pages for passive checks. | Recommend (a) and (d) now, (b) and (c) only after per-scan costs are measured. Keep the ownership gate. | Free-tier copy, report layout, any new scan mode |
