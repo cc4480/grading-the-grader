@@ -9,13 +9,17 @@ pull request. It contains the free-tier change (`b6d1e08`), the report verificat
 (PR 20). On the merged tree: typecheck clean, front-end suite 174 passed, API suite 2,669 passed and 4 failed (the
 `browserGuard` tests, which fail in the cloud sandbox on any checkout).
 
-- **Deploy.** Not done from here: the cloud session had no Railway CLI, token or network route. If Railway auto-deploys
-  `master`, it is deploying now. Otherwise run `railway up` for the `web` and `secscan` services from a PC.
+- **CI on the merge** ([run 272](https://github.com/cc4480/VibeScan-Enterprise-Build/actions/runs/37105169681)): all three jobs passed,
+  including typecheck, the full test step, the **database tests against real Postgres** (which could not be run in the cloud
+  sandbox), the check index, the fixture gate, the build, and both Docker images. Verified.
+- **Deploy.** Carlos redeployed from `master` on Railway and reported it successful (Reported). The cloud session had no
+  Railway access and could not reach secscan.us, so nothing after the deploy has been seen by an agent: the post-deploy checks
+  below are still open.
 - **Migration.** `0025` (table `report_badges`) applies itself on boot of both services.
 - **Dormant.** The free watched site only applies when `MONITORING_REQUIRES_PLAN=true`. Do not set it before running
   `scripts/grandfather-monitor-users.ts --apply`.
 - **Live on deploy.** The badge endpoints, the pricing and `llms.txt` copy, the verify banner on owners' reports.
-- **To check after deploy.** `GET /api/healthz`; a report for an unverified site shows the banner; a report for a verified
+- **To check after deploy (open).** `GET /api/healthz`; a report for an unverified site shows the banner; a report for a verified
   site does not; Report, Share, "Get badge" gives an image that loads from another origin; the pricing page lists the free perks.
 
 ## 2026-10-03: report layout change (first of the free-scanner follow-ups)
