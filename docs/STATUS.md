@@ -2,6 +2,30 @@
 
 Living log. Newest first. Update it with every piece of work: what changed, how you know, what is still open.
 
+## 2026-10-03: pricing changed to one unlimited plan (built, tested, NOT merged or deployed)
+
+Decision 3 in `docs/DECISIONS.md`, decided by Carlos ("go ahead with those numbers"): one paid plan, **SecScan Unlimited,
+$19 a month, unlimited scans, 5 watched sites**. Free tier unchanged. Starter, Pro and the credit packs are withdrawn.
+Scanner repo, branch `claude/optimistic-gates-k81eq6`, one commit after the merge (`git log` there). Master and Railway
+still run the previous pricing until this is merged and redeployed.
+
+- **What changed.** `plans.ts` has the plan, with Starter and Pro kept as known, unsold plans. A live unlimited plan pays for
+  every scan and never spends the free scans. A refund on it is a no-op. The subscription endpoint refuses a plan that is
+  not on sale. Packs leave sale through `PACKS_ON_SALE` (empty); `CREDITS_MAP` stays as the grant table so an old paid
+  checkout is still credited. No migration. Pricing page, settings, structured data, `llms.txt`, README, terms, the
+  payments-live email, MCP and API text and the go-live checklist were updated.
+- **How it was checked (Reran).** Typecheck; API suite against a real Postgres, 2,798 passed and 4 failed (the
+  `browserGuard` tests, which fail in the cloud sandbox on any checkout); front end 181 passed; both builds; the pricing page
+  rendered in a browser against a stubbed API, payments off and on, desktop and phone. Two deliberate breaks of the new
+  billing code were each caught by three database tests.
+- **Needs a human.** (1) **Terms of service**: the Payment and Subscriptions sections were edited to describe the one plan
+  and fair use. They need Carlos's read, and a lawyer's if one is used. The "last updated" date moved to Oct 3, 2026.
+  (2) **The public docs site `secscan.info`** is a separate repo (`~/secscan-info`) and still names Starter, Pro and credit
+  packs, e.g. `/monitoring`. (3) **Cost per scan** is still unmeasured; measure one real scan before turning payments on.
+- **Behavior to know.** The 5-site limit and the free-site limit apply when someone adds a monitor. Existing monitors keep
+  running after `MONITORING_REQUIRES_PLAN` is set (weekly floor for accounts with no plan). The go-live doc now says so.
+- **Not seen.** The live app after deploy; the Stripe checkout and webhook with the new plan (payments are off).
+
 ## 2026-10-03: merged to master
 
 At Carlos's instruction ("merge to master") the scanner repo work branch was fast-forwarded into `master` at `10bd9b7`, no

@@ -11,6 +11,7 @@ Do not act on a pending decision. Record a new one here with the date and the re
 | 2026-10-03 | Keep Seclayer artifacts out of this repo | Separate product | `AGENTS.md` |
 | 2026-10-03 | Free tier gets perks, not more scans: one watched site, a grade badge, free perks advertised | Cost and abuse; the aim is a reason to return and to share | `docs/STATUS.md` |
 | 2026-10-03 | The badge has its own token and shows grade and date only | A share token opens the full report | scanner repo `reportBadge.ts` |
+| 2026-10-03 | **One paid plan: SecScan Unlimited, $19/month, unlimited scans (fair use), 5 sites; drop Starter, Pro and the credit packs.** Free tier stays at 3 scans a month. | Rivals sell unlimited at $8 to $24; with unlimited scans two tiers differed by two sites | scanner repo `plans.ts`, `docs/STATUS.md` |
 | 2026-10-03 | A cancelled or paused account does not get the free site | It is for accounts that never had a plan | scanner repo `entitlements.ts` |
 | 2026-10-03 | Order of work and the sizes in the improvement plan | My judgement, not Carlos's | `docs/IMPROVEMENT-PLAN.md` |
 
@@ -18,7 +19,7 @@ Do not act on a pending decision. Record a new one here with the date and the re
 
 | # | Decision | Options and my recommendation | Blocks |
 |---|---|---|---|
-| 3 | **Pricing and allowance shape.** What counts against the allowance; whether Pro's 100 scans stays. Rivals: Vibe App Scanner Pro about $0.26 a scan, CheckVibe Pro about $0.32, VibeEval $19 unlimited. SecScan Pro is $0.49. | Suggested: Pro to about 150 scans at $49, Starter unchanged. Carlos said he wants to adjust the price tag and options and has not yet given numbers. Payments are off, so it is free to change. | Pricing copy, `plans.ts`, tests |
+| 3 | ~~Pricing and allowance shape~~ **Decided 2026-10-03**: see Made, above. Remaining: terms review, secscan.info update, one measured cost per scan. | | Payments go-live |
 | 5 | **Code-side positioning.** Stay the outside view, or add a defined code-side scope. | Recommend staying outside: builders now ship free code scans (Lovable, Bolt, Base44, Replit). | Product copy, items 1 and 4 |
 | 1a | **Build the vibe-stack target set** (Next.js plus Supabase apps with planted faults, ground truth from published incidents and written before scanning) or use only classic public apps. | Recommend both, vibe-stack second. It needs someone besides the scanner's authors to write the ground truth. | Runbook step 5 |
 | 1b | **Publish whatever the number is**, including a weak one on classic apps. | Recommend yes. | Runbook step 7 |
