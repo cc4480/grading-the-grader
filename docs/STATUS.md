@@ -2,6 +2,22 @@
 
 Living log. Newest first. Update it with every piece of work: what changed, how you know, what is still open.
 
+## 2026-10-03: report layout change (first of the free-scanner follow-ups)
+
+Decision 10(a) in `docs/DECISIONS.md`, built at Carlos's request. Scanner repo, same unmerged branch
+`claude/optimistic-gates-k81eq6`, second commit after `b6d1e08` (see `git log` there).
+
+- **What changed.** A banner directly under the report cover, owner's view only: "N of M tests are waiting on domain
+  verification", the first few test names it would unlock, and a "Verify <host>" button to `/domains?domain=<host>`.
+  Renders nothing when no test was skipped for that reason. The public share page does not show it. The `/domains` page
+  fills the domain in from `?domain=`.
+- **Why.** A scan of an unverified URL skips about half the tests. The report said so only in the coverage card, in the
+  sidebar, which on a phone sits below every finding, and it never said how to fix it.
+- **How it was checked.** Typecheck clean, front-end suite 173 passed, build passes, and the banner rendered with the real
+  stylesheet at desktop and phone width (Reran). A server test pins the ledger text the banner matches on.
+- **Not checked.** The live report page and the verify flow end to end; the banner's effect on conversion.
+- **Not changed.** The coverage card, the print and PDF report and the Markdown copy are untouched.
+
 ## 2026-10-03: free scanners research
 
 Carlos asked to look at the free scanners and what they have. Done: `docs/FREE-SCANNERS.md` (Researched, search summaries only).
