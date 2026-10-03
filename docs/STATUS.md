@@ -2,6 +2,20 @@
 
 Living log. Newest first. Update it with every piece of work: what changed, how you know, what is still open.
 
+## 2026-10-03: pricing and About pages are live (merged and redeployed by Carlos)
+
+Carlos merged-and-redeployed, and reported "redeploy successful" for each. Not checked on the live sites from the cloud
+sandbox (outbound to secscan.us is blocked there), so the live look is **Reported**, not Verified.
+
+- **Scanner repo `master` = `fd8d9a7`.** One plan, SecScan Unlimited, $19 a month, 5 watched sites, unlimited scans (fair use);
+  free tier unchanged; Starter, Pro and credit packs withdrawn (commit `47e0ff5`). App About page rewritten in the third
+  person, with a "What it does today" section, a "Depth is never for sale" promise and links to the test record (`fd8d9a7`).
+- **`secscan-info` `main` = `ecedb05`.** `/monitoring`, `/developers` and `/ai-editors` no longer name Starter, Pro or plan scans
+  (`27020f4`); the About page got the same third-person rewrite (`ecedb05`). No pronouns for Carlos on either page: none were given.
+- **Still open.** (1) The terms edits need a read. (2) Cost per scan is unmeasured. (3) Run `scripts/grandfather-monitor-users.ts
+  --apply` before setting `MONITORING_REQUIRES_PLAN`. (4) The two About pages carry the same text and will drift; consider
+  making one a short page that links to the other. (5) Payments are still off (no `STRIPE_SECRET_KEY`).
+
 ## 2026-10-03: pricing changed to one unlimited plan (built, tested, NOT merged or deployed)
 
 Decision 3 in `docs/DECISIONS.md`, decided by Carlos ("go ahead with those numbers"): one paid plan, **SecScan Unlimited,
