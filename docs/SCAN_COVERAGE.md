@@ -1,0 +1,502 @@
+# SecScan — Check Coverage
+
+Checks grouped by module, with the tier each runs in and the methodology behind
+it. For the exhaustive list of every finding name the scanner can emit — read
+out of the source rather than maintained here — see
+[SCAN_CHECKS.md](SCAN_CHECKS.md), which is generated and verified in CI.
+
+## Module 1 — HTTP Response Headers
+*Runs on every scan (Basic + Deep). Inspects the response from a single GET to the target URL.*
+
+| # | Check | Severity if failing |
+|---|---|---|
+| 1 | HTTPS enforcement (plain HTTP served) | Critical |
+| 2 | HTTP Strict Transport Security (HSTS) present | Medium |
+| 3 | HSTS preload status (via hstspreload.org API) | Low |
+| 4 | Content-Security-Policy present | High |
+| 5 | CSP contains `unsafe-inline` | Medium |
+| 6 | CSP contains `unsafe-eval` | Medium |
+| 7 | X-Frame-Options present (clickjacking) | Medium |
+| 8 | X-Content-Type-Options: nosniff | Low |
+| 9 | Referrer-Policy present | Low |
+| 10 | Permissions-Policy present | Low |
+| 11 | Cross-Origin-Opener-Policy (COOP) | Info |
+| 12 | Cross-Origin-Embedder-Policy (COEP) | Info |
+| 13 | Cross-Origin-Resource-Policy (CORP) | Info |
+| 14 | CORS wildcard `Access-Control-Allow-Origin: *` | Medium |
+| 15 | Server header version number disclosure | Info |
+| 16 | X-Powered-By header disclosure | Info |
+| 17 | X-XSS-Protection explicitly disabled | Info |
+| 18 | Cache-Control headers missing | Info |
+| 19 | Mixed content (HTTP resources on HTTPS page) | Medium |
+
+**Cookie analysis** — runs per cookie in Set-Cookie. Cookies are classified by
+name as likely session/auth cookies (`session`, `token`, `jwt`, `sid`,
+`PHPSESSID`, etc.) vs. everything else (UI-state flags, analytics/tracking
+IDs) — a missing flag means very different things for each, so they're scored
+separately:
+
+| # | Check | Session cookie | Non-session cookie |
+|---|---|---|---|
+| 20 | Cookie missing `Secure` flag | High | Low |
+| 21 | Cookie missing `HttpOnly` flag | Medium | Info |
+| 22 | Cookie missing `SameSite` attribute | Medium | Info |
+
+---
+
+## Module 2 — Technology Fingerprinting
+*Passive. Detects ~60 technologies from headers, cookies, and HTML.*
+
+Categories: web servers (Nginx, Apache, IIS, Caddy, Gunicorn…), CDNs (Cloudflare, Vercel, Netlify, AWS CloudFront, Fastly, Azure…), CMS platforms (WordPress, Drupal, Joomla, Ghost, Shopify, Wix, Squarespace, Webflow…), JS frameworks (React, Vue, Angular, Next.js, Nuxt, Svelte, Remix, Astro, Gatsby…), CSS frameworks (Tailwind, Bootstrap, Bulma), analytics (GA, GTM, Hotjar, Mixpanel, Segment), and more.
+
+---
+
+## Module 3 — DNS Security
+*Uses Cloudflare DNS-over-HTTPS — no account needed.*
+
+| # | Check | Severity if failing |
+|---|---|---|
+| 23 | SPF record present | High (or Medium if no MX) |
+| 24 | SPF uses `+all` (allows any sender) | Critical |
+| 25 | SPF uses `?all` (neutral, no enforcement) | Medium |
+| 26 | SPF exceeds 10 DNS lookup limit | Low |
+| 27 | DMARC record present | High |
+| 28 | DMARC policy is `p=none` (monitoring only) | Medium |
+| 29 | DMARC missing aggregate report address `rua=` | Info |
+| 30 | DKIM records present (probes 30 selectors) | Low |
+| 31 | DNSSEC enabled | Info |
+
+---
+
+## Module 4 — Active HTTP Probes
+*Makes individual HTTP requests to specific paths/endpoints.*
+
+### 4a. Sensitive File Exposure
+Probes ~75 paths for publicly accessible files.
+
+| Category | Examples |
+|---|---|
+| Source control | `.git/config`, `.gitignore` |
+| Environment files | `.env`, `.env.local`, `.env.production`, `.env.backup` |
+| Infrastructure | `docker-compose.yml`, `Dockerfile`, `docker-compose.override.yml` |
+| Credentials | `/.htpasswd` |
+| Admin panels | `/admin`, `/wp-admin`, `/phpmyadmin`, `/adminer` |
+| Spring Boot Actuators | `/actuator/env`, `/actuator/health`, `/actuator/beans`, `/actuator/mappings`, `/actuator/heapdump`, `/actuator/loggers`, `/actuator/metrics` |
+| API documentation (versioned paths) | `/api/swagger.json`, `/api/v1/swagger.json`, `/api/v2/swagger.json` |
+
+All path probes fingerprint the target's catch-all behavior first (fetch a
+random nonexistent path) and suppress any hit whose body matches that same
+shell — this stops multi-tenant platforms (GitHub, npm, PyPI — anywhere an
+arbitrary path segment renders a normal 200 page) and SPA client routers from
+false-positiving on every probed path. `/phpmyadmin`/`/adminer` additionally
+require an actual login-form marker (e.g. `pma_username` field), not just the
+tool's name appearing on the page.
+
+`/swagger.json`, `/openapi.json`, `/swagger-ui.html`, `/api-docs`, and
+`/graphql` (unversioned) moved out of this generic list — they're now covered
+by the dedicated `apiDocsProbe.ts` and `graphqlProbe.ts` modules (see
+SCAN_TESTS.md), which confirm real structure (an actual OpenAPI schema,
+Swagger UI bundle, or GraphQL introspection response) instead of matching on
+keyword presence.
+| IDE configs | `.vscode/settings.json`, `.idea/workspace.xml` |
+| YAML configs | `config.yaml`, `config.yml`, `app.yaml` |
+| Java internals | `/WEB-INF/web.xml`, `/WEB-INF/classes/application.properties` |
+| WordPress | `/xmlrpc.php` |
+| Server diagnostics | `/server-info`, `/nginx_status` |
+
+| # | Check | Severity |
+|---|---|---|
+| 32 | Each confirmed sensitive file hit | Critical → Info (varies per file type) |
+
+### 4b. HTTP Methods (OPTIONS probe)
+
+| # | Check | Severity |
+|---|---|---|
+| 33 | HTTP TRACE enabled (Cross-Site Tracing / XST) | Medium |
+| 34 | Dangerous methods advertised (PUT, DELETE, PATCH) | High |
+| 35 | HTTP CONNECT enabled | Medium |
+
+### 4c–4l. Individual Probes
+
+| # | Check | Severity |
+|---|---|---|
+| 36 | Active CORS — arbitrary origin reflection | High |
+| 37 | Active CORS — null origin accepted | Medium |
+| 38 | Open redirect via common parameters | Medium |
+| 39 | robots.txt exposes sensitive paths | Low |
+| 40 | Subresource Integrity (SRI) missing on CDN scripts | Medium |
+| 41 | Error/debug information disclosure | Medium |
+| 42 | HTTPS redirect not enforced (HTTP stays HTTP) | High |
+| 43 | Rate limiting absent on root endpoint | Low |
+| 44 | X-Frame-Options misconfigured (non-DENY/SAMEORIGIN value) | Medium |
+| 45–59 | Directory listing on 15 common dirs (`/uploads/`, `/logs/`, `/backup/`, etc.) | Medium |
+| 60 | `security.txt` missing (RFC 9116) | Info |
+
+---
+
+## Module 5 — Known CVE / Version Matching
+*Detects versioned software and queries OSV.dev.*
+
+| # | Check | Severity |
+|---|---|---|
+| 61 | Detected library version queried against OSV.dev CVE database | Critical → Low (per CVE CVSS) |
+| 62 | PHP end-of-life version check (5.x, 7.0–7.3) | Critical / High |
+| 63 | Apache end-of-life version check (1.x, 2.2) | Critical / High |
+| 64 | Nginx end-of-life version check | High |
+| 65 | IIS 6.0 — CVE-2017-7269 (RCE via WebDAV, CVSS 9.8) | Critical |
+
+---
+
+## Module 6 — JWT Analysis
+*Passive — extracts tokens from headers and HTML, no extra requests.*
+
+| # | Check | Severity |
+|---|---|---|
+| 66 | `alg:none` — signature verification bypass | Critical |
+| 67 | Empty signature segment (unsigned token accepted) | Critical |
+| 68 | Missing `exp` claim (never expires) | High |
+| 69 | Excessively long lifetime (>365 days) | Medium |
+| 70 | HS256 without expiry (offline brute-force risk) | High |
+| 71 | Sensitive data in JWT payload (passwords, tokens, etc.) | Medium |
+
+---
+
+## Module 7 — Subdomain Takeover
+*Follows CNAME chains and checks 19 cloud service fingerprints.*
+
+| # | Services Checked | Severity |
+|---|---|---|
+| 72 | AWS S3, Heroku, GitHub Pages, Netlify, Vercel, Azure, Fastly, Shopify, Ghost Pro, Surge.sh, Cargo, Readme.io, Pantheon, Squarespace, Tumblr, WP Engine, Fly.io, Render, Railway | Critical |
+
+---
+
+## Module 8 — Vibe-Stack Database Security
+*Detects Supabase and Firebase backends from the JS bundle, then actively tests their live API.*
+
+### 8a. Supabase
+
+| # | Check | Severity |
+|---|---|---|
+| 73 | Supabase **service_role key** in client-side JS (bypasses all RLS) | Critical |
+| 74 | Tables returning rows to unauthenticated anon-key requests — **CVE-2025-48757** | Critical |
+| 75 | Tables accessible unauthenticated but currently empty (RLS still missing) | High |
+| 76 | Tables accepting unauthenticated INSERT writes *(Deep only)* | Critical |
+| 77 | Storage bucket list exposed to anon key | Medium |
+| 78 | Supabase detected, RLS appears configured (informational) | Info |
+
+*Detection: extracts `supabaseUrl` + anon key from JS bundle, hits PostgREST OpenAPI spec to enumerate up to 12 tables, tests each with real API calls. Anon key is NOT flagged — it is public by design.*
+
+*Write probe safety: INSERT uses `{"__vibescan_probe__": true}` — a field that cannot exist in any real schema. A 400/422 response proves auth was bypassed without creating a row. A 201 (row created) triggers immediate cleanup by returned ID. No PATCH or DELETE is ever sent against existing rows.*
+
+### 8b. Firebase
+
+| # | Check | Severity |
+|---|---|---|
+| 79 | Firestore returns documents to unauthenticated requests | Critical |
+| 80 | Firebase Realtime Database returns data to unauthenticated requests | Critical |
+| 81 | Firebase detected, rules appear restrictive (informational) | Info |
+
+*Tests 20 common collection names against the Firestore REST API. Firebase API key is NOT flagged as a secret — it identifies the project and is public by design.*
+
+---
+
+## Module 9 — Source Map Exposure
+*Checks each JS bundle (up to 8 files) for accessible `.map` files.*
+
+| # | Check | Severity |
+|---|---|---|
+| 73 | `.map` file directly accessible alongside JS bundle | High |
+| 74 | `sourceMappingURL` comment points to accessible map file | High |
+
+---
+
+## Module 10 — JavaScript Secret Scanning ⚡ *Deep scans only*
+*Scans inline scripts + up to 8 external JS files (up to 512 KB each).*
+
+| # | Secret Pattern | Severity |
+|---|---|---|
+| 75 | AWS Access Key ID | Critical |
+| 76 | AWS Secret Access Key | Critical |
+| 77 | Google API Key | High |
+| 78 | Google OAuth Client Secret | Critical |
+| 79 | Stripe Live Secret Key | Critical |
+| 80 | Stripe Test Secret Key | Medium |
+| 81 | Stripe Webhook Secret | High |
+| 82 | GitHub Personal Access Token | Critical |
+| 83 | GitHub Fine-Grained Token | Critical |
+| 84 | Slack Bot/OAuth Token | High |
+| 85 | Slack Incoming Webhook URL | Medium |
+| 86 | Twilio API Key | High |
+| 87 | SendGrid API Key | High |
+| 88 | Mailchimp API Key | High |
+| 89 | RSA / EC / SSH Private Key | Critical |
+| 90 | Firebase API Key (open security rules risk) | Info |
+| 91 | Hardcoded JWT token | High |
+| 92 | Hardcoded password | High |
+| 93 | Hardcoded secret / API key (generic pattern) | Medium |
+| 94 | Internal IP address exposed | Low |
+| 95 | Mapbox access token | Medium |
+
+---
+
+## Module 11 — Path Traversal ⚡ *Deep scans only*
+*Active probing of URL query parameters with `../` traversal payloads.*
+
+| # | Check | Severity |
+|---|---|---|
+| 96 | Path traversal / Local File Inclusion (LFI) on URL parameters | Critical |
+
+---
+
+## Module 12 — Active Injection Probing (A03) ⚡ *Deep scans only*
+*Reflected XSS and error-based SQL injection on discovered parameters. Detection-only — no exploitation, no data extraction.*
+
+Collects candidate parameters from the target URL query string, in-page `<form>`
+input names, in-page link query params, and a small set of common search/lookup
+param names (`q`, `s`, `search`, `id`, `name`, …) — capped at 20 candidates.
+
+| # | Check | Severity | Method |
+|---|---|---|---|
+| 98 | Reflected Cross-Site Scripting (XSS) | High | Injects a random canary wrapped in HTML metacharacters; confirmed only when the literal `<canary>` reflects back with angle brackets **unencoded**. Encoded reflections (`&lt;canary&gt;`) are not flagged. |
+| 99 | SQL Injection (error-based) | Critical | Fetches a benign baseline, then the same parameter with a trailing single quote; confirmed only when a distinctive SQL error signature appears that was **absent from the baseline**. |
+
+*False-positive prevention: XSS uses a random per-request token and requires the
+metacharacters to survive unencoded (output encoding ⇒ no finding). SQLi requires
+a baseline diff, so a page that always contains SQL-error-looking text is not
+flagged. Both are behaviourally confirmed — confidence 90.*
+
+---
+
+## Module 13 — Site Crawler ⚡ *Deep scans only*
+*Crawls up to 20 internal pages and re-runs header + cookie checks on each.*
+
+| # | Check | Severity if failing |
+|---|---|---|
+| 97+ | All header and cookie checks (#1–22) repeated per crawled page | — |
+| 99a | Insecure deserialization exposure — a native serialized object (Java `rO0AB`, PHP `O:`/`a:`, Ruby Marshal, Python pickle) in a `Set-Cookie` value the server issues (CWE-502; JWTs excluded) | High |
+
+---
+
+## Module 14 — TLS Assessment
+*Delegated to Qualys SSL Labs; cached results reused where available.*
+
+| # | Check | Severity if failing |
+|---|---|---|
+| 100 | SSL Labs grade C or below (weak ciphers, outdated protocols, certificate problems) | Critical (F) → Medium (C) |
+
+---
+
+## Module 15 — Object Storage Exposure
+*Extracts bucket references from HTML/JS, then performs read-only list requests.*
+
+| # | Check | Severity |
+|---|---|---|
+| 101 | Public S3 bucket listing | High |
+| 102 | Public Google Cloud Storage bucket listing | High |
+| 103 | Public Azure Blob container listing | High |
+
+---
+
+## Module 16 — API Surface Discovery and Testing ⚡ *Deep scans only*
+
+Every other module discovers parameters the way a server-rendered site exposes
+them: query strings, `<form>` inputs, `<a href>` links. A single-page app ships
+an empty shell and none of those exist, so on the stack this product targets
+those sources yield nothing.
+
+Endpoints are recovered instead from where they actually live:
+
+- **An OpenAPI/Swagger document**, when one is exposed. Authoritative: declared
+  paths, methods, query/path parameters, and request-body fields resolved
+  through `$ref`. Swagger 2 `basePath` and OpenAPI `servers[]` are both honoured;
+  YAML specs fall back to pattern extraction.
+- **The JavaScript bundle** otherwise. Every endpoint the front end calls is a
+  string literal because it has to be. Template placeholders normalise to
+  `{id}`; other origins are dropped; assets are excluded.
+
+| # | Check | Severity |
+|---|---|---|
+| 104 | API endpoint returns data with no session at all | High |
+| 105 | SQL injection in an API query, path or JSON body parameter | Critical |
+| 106 | Record endpoint serves identical data to a second account (API-level IDOR) | Critical |
+| 107 | Write verb answers an unauthenticated caller with 404 rather than 401 (BFLA) | Critical |
+| 108 | Response carries password hashes, tokens, keys or card data | High |
+| 109 | Endpoint never throttles a burst of requests | Medium |
+| 110 | Request body declares privilege-bearing fields (mass assignment) | Medium |
+
+*Safety: no request is sent whose success would change customer data. Auth
+coverage uses GET and HEAD only — an unauthenticated POST sent to see whether it
+is rejected performs the write when the answer is "no". Body injection is
+limited to read-shaped endpoints (search, query, filter, report, graphql).
+Write-verb authorisation is probed against an identifier nothing can exist at,
+so a successful DELETE destroys nothing while the status code still reveals
+whether the check ran; PUT is never sent, because many APIs upsert. Mass
+assignment is read from the declared contract rather than probed, since sending
+a `role` field to learn whether it sticks means granting somebody a role.*
+
+---
+
+## Module 17 — Broken Access Control ⚡ *Deep scans only, two accounts required*
+
+OWASP **A01**, the highest-ranked risk category, and untestable without
+credentials: the question is not whether a page is reachable but whether the
+wrong person can reach it.
+
+For a URL naming a specific record, the same URL is requested three ways — as
+the primary account, as a second separate account, and as nobody — and the
+responses compared.
+
+| # | Check | Severity |
+|---|---|---|
+| 111 | Second account served the first account's record, anonymous refused | Critical |
+| 112 | Records reachable by altering the identifier, that nothing linked to | Critical |
+| 113 | Record served in full with no session at all | High |
+
+*Comparison uses token-overlap similarity over a normalised body rather than
+byte equality, because real pages carry CSRF tokens and timestamps that differ
+on every render. The anonymous leg is what keeps public pages out of the report:
+a product page returns the same bytes to everyone, which without that check is
+indistinguishable from a leak. Identifier mutation deliberately leaves UUIDs
+alone — guessing one is infeasible, which is precisely why they are half the
+recommended fix.*
+
+---
+
+## Authenticated Scanning
+
+Supplying credentials lets the scan reach the surface behind a login, which on
+most applications is nearly all of it. Two modes: replaying a session cookie or
+bearer token, or signing in through a login page with a headless browser.
+
+Credentials are encrypted at rest, decrypted only inside the worker for the life
+of one scan, discarded when it ends, attached only to requests aimed at the scan
+target, and dropped on any redirect leaving it. A destructive-action guard keeps
+the crawler and the injection probes away from anything whose URL reads as
+delete, cancel, revoke or log out.
+
+If the session expires mid-scan the scanner signs back in where it can — a form
+login renews itself, a pasted cookie cannot — and the report says so either way,
+because a scan that silently lost its session covers less than the user asked
+for.
+
+---
+
+## Module 18 — Out-of-Band SSRF Detection ⚡ *Deep scans only, collector required*
+
+OWASP **A10**. Server-Side Request Forgery produces nothing in the target's own
+response — a server tricked into fetching an attacker URL simply does so — so a
+scan reading only that response is blind to the entire class.
+
+Detection is out-of-band. A URL pointing back at this application, carrying a
+token unique to one injection point, is planted in parameters whose name says
+they carry a URL (`url`, `uri`, `callback`, `webhook`, `redirect`, `image`,
+`feed`, `proxy`, …). If the target's server fetches it, the callback lands on
+the collector and proves the vulnerability. The token is random and appears
+nowhere else, so a callback carrying it can only have come from a server that
+received the injected URL — there is effectively no false positive, which is
+why the finding carries confidence 95.
+
+| # | Check | Severity |
+|---|---|---|
+| 114 | Server fetches a URL supplied in a request parameter (SSRF) | Critical |
+
+*Requires `OOB_BASE_URL` (or a public `APP_ORIGIN`) — the collector has to be
+reachable from the internet, because the target's server is what calls it. With
+neither configured the check is skipped rather than planting URLs no target
+could reach. Every planted value points only at our own collector, never at an
+internal range or a cloud metadata address, so the probe asks "does this server
+fetch a URL I gave it" and cannot be used to reach anything sensitive inside a
+target's network.*
+
+---
+
+## Module 19 — Mail Transport Security
+*Runs on every scan. Probes port 25 on each MX host over a real SMTP conversation.*
+
+SPF and DMARC (Module 3) say who **may** send mail as the domain. They say
+nothing about whether mail is encrypted in transit, so a site can score
+perfectly on HTTPS while its password-reset mail is relayed in cleartext.
+
+| # | Check | Severity |
+|---|---|---|
+| 115 | MX does not advertise STARTTLS | Medium |
+| 116 | MX TLS certificate expired | High |
+| 117 | MX TLS certificate expires within 21 days | Low |
+
+Only port 25 is probed, and only a host that actually answered `EHLO` counts as
+evidence. Both restrictions are deliberate: 25 is where the world's mail
+arrives, and a host that completes the TCP handshake then goes silent has told
+us nothing — reading that silence as "no STARTTLS" produced a false positive on
+cloudflare.com that fired only on some runs.
+
+---
+
+## Module 20 — Structured Data and Social Metadata
+*Runs on every scan. Reads the document already fetched — no extra requests.*
+
+Split by severity on purpose. Structured data is generated by a CMS or a build
+step and routinely carries more than its author intended into a public
+document; that is real exposure. Missing social-preview tags are presentation
+quality, and are all INFO with weight 0 in the risk score — a site with no
+`og:image` must never grade as less secure than one with it.
+
+| # | Check | Severity |
+|---|---|---|
+| 118 | Internal hostname exposed in structured data | Low |
+| 119 | Social preview asset referenced over `http://` from an HTTPS page | Low |
+| 120 | Canonical URL points to a domain the operator does not own | Low |
+| 121 | Malformed JSON-LD | Info |
+| 122 | JSON-LD missing `@context` or `@type` | Info |
+| 123 | No structured data found | Info |
+| 124 | Incomplete Open Graph metadata | Info |
+| 125 | Twitter Card metadata absent | Info |
+| 126 | Page excluded from search indexes | Info |
+
+---
+
+## Module 21 — Scan Coverage
+*Runs on every scan. Reports on the scan itself rather than on the target.*
+
+These findings exist so a report never overstates what it looked at.
+
+| # | Check | Severity |
+|---|---|---|
+| 127 | Scan was intercepted by a bot-protection challenge | Info |
+| 128 | Active security testing was skipped (domain not verified) | Info |
+| 129 | Scan session expired before the scan finished | Info |
+
+#127 is the important one. When an edge answers instead of the origin, every
+content-derived check — CSP, cookies, headers, SRI, technology fingerprint,
+structured data — describes the interstitial, and the report reads as a scan of
+the customer's site. Detection matches vendor fingerprints on header *values*,
+not header presence, and is deliberately strict: calling a real page a
+challenge page would suppress genuine findings, which is worse than the problem
+it solves.
+
+---
+
+## Summary
+
+| Tier | Unique check types | Approximate HTTP requests |
+|---|---|---|
+| **Basic** | ~91 | ~100–150 |
+| **Deep** | ~129+ | ~350–650+ (crawl + JS fetches + path probes + API surface + OOB) |
+| **Deep, with credentials** | ~129+ across the authenticated surface | ~400–700+ |
+| **Deep, with two accounts** | + access-control comparison (#111–113) | ~450–800+ |
+
+A *check type* is one piece of detection logic, which is not the same as a
+finding name: one path probe covers 78 paths, one secret scanner covers 32
+patterns. [SCAN_CHECKS.md](SCAN_CHECKS.md) counts the other way and lists all
+279 finding names the scanner can emit.
+
+## Grading Formula
+
+Risk score accumulates per finding: **Critical = +30, High = +15, Medium = +5, Low = +1**.
+
+| Score | Grade |
+|---|---|
+| 0–10 | A |
+| 11–25 | B |
+| 26–45 | C |
+| 46–65 | D |
+| 66+ | F |
