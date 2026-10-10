@@ -1,0 +1,17 @@
+targets: 50
+engine: VibeScan-Enterprise-Build master e3d58753ecfe068de5f4cf290128092d330866ce (read-only git archive export, not the shared checkout)
+batch size: 10; min free memory to start a batch: 700000 KB
+mode: passive (live-scan.ts without --active)
+batch 1 start 2026-10-10T17:09:55Z urls 10 free_kb=1187572
+batch 1 exit 0 end 2026-10-10T17:11:21Z
+batch 2 start 2026-10-10T17:11:21Z urls 10 free_kb=1287940
+batch 2 exit 0 end 2026-10-10T17:12:57Z
+batch 3 start 2026-10-10T17:12:57Z urls 10 free_kb=1265712
+batch 3 exit 0 end 2026-10-10T17:15:40Z
+batch 4 start 2026-10-10T17:15:40Z urls 10 free_kb=1407952
+batch 4 exit 0 end 2026-10-10T17:18:14Z
+batch 5 start 2026-10-10T17:18:15Z urls 10 free_kb=1437284
+batch 5 exit 0 end 2026-10-10T17:20:03Z
+all-batches-done 2026-10-10T17:20:03Z
+retry start 2026-10-10T17:20:43Z urls 2 (https://www.gnu.org https://www.npr.org) free_kb=1266152
+retry exit 0 end 2026-10-10T17:21:17Z

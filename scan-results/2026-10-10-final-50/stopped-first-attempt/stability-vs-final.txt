@@ -1,0 +1,46 @@
+sites in both runs: 37; identical finding sets: 31; differing: 6
+
+findings seen in run 1 only (by family):
+  2 Missing X-Content-Type-Options: nosniff
+  2 Missing Referrer-Policy Header
+  2 Missing Permissions-Policy Header
+  2 Missing Cross-Origin-Opener-Policy (COOP)
+  2 Missing Cross-Origin-Embedder-Policy (COEP)
+  2 Missing Cross-Origin-Resource-Policy (CORP)
+  2 CSP Missing object-src 'none' Directive
+  2 CSP Missing base-uri Directive
+  2 JavaScript Source Map Exposed — Full Source Code Accessible
+  1 Strict-Transport-Security Missing on N Internal Route
+  1 Missing Content-Security-Policy (CSP)
+  1 Missing Clickjacking Protection (X-Frame-Options)
+  1 Rate Limiting Not Advertised in Response Headers
+  1 No Structured Data Found
+  1 Incomplete Open Graph Metadata
+  1 X-Powered-By Header Discloses Technology Stack
+  1 External Resources Missing Subresource Integrity (SRI)
+  1 Structured Data Missing @context or @type
+  1 robots.txt Discloses Sensitive Application Paths
+  1 HSTS max-age Too Short
+  1 Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)
+  1 JavaScript Source Map Exposed — Third-Party Library Code
+
+findings seen in run 3 only (by family):
+  2 Scan was intercepted by a bot-protection challenge
+  1 Missing Content-Security-Policy (CSP)
+  1 Missing Clickjacking Protection (X-Frame-Options)
+  1 Missing Cache-Control Headers
+  1 No Structured Data Found
+  1 Incomplete Open Graph Metadata
+  1 Scan started from an error response
+  1 Rate Limiting Not Advertised in Response Headers
+  1 Content-Security-Policy Missing on N Internal Route
+  1 X-Frame-Options / frame-ancestors Missing on N Internal Route
+  1 Referrer-Policy Missing on N Internal Route
+
+per-site differences:
+nodejs.org: -1 +0 | only run1: low Strict-Transport-Security Missing on N Internal Route
+www.sqlite.org: -11 +1 | only run1: high Missing Content-Security-Policy (CSP); medium Missing Clickjacking Protection (X-Frame-Options); medium Missing X-Content-Type-Options: nosniff; low Missing Referrer-Policy Header; low Missing Permissions-Policy Header; info Missing Cross-Origin-Opener-Policy (COOP); info Missing Cross-Origin-Embedder-Policy (COEP); info Missing Cross-Origin-Resource-Policy (CORP); info Rate Limiting Not Advertised in Response Headers; info No Structured Data Found; info Incomplete Open Graph Metadata | only run3: info Scan was intercepted by a bot-protection challenge
+www.elastic.co: -6 +6 | only run1: medium CSP Missing object-src 'none' Directive; low CSP Missing base-uri Directive; medium Missing X-Content-Type-Options: nosniff; info X-Powered-By Header Discloses Technology Stack; medium External Resources Missing Subresource Integrity (SRI; info Structured Data Missing @context or @type | only run3: high Missing Content-Security-Policy (CSP); medium Missing Clickjacking Protection (X-Frame-Options); info Missing Cache-Control Headers; info No Structured Data Found; info Incomplete Open Graph Metadata; info Scan started from an error response
+ubuntu.com: -2 +1 | only run1: info robots.txt Discloses Sensitive Application Paths; high JavaScript Source Map Exposed — Full Source Code Access | only run3: info Rate Limiting Not Advertised in Response Headers
+snyk.io: -0 +3 | only run3: high Content-Security-Policy Missing on N Internal Route; medium X-Frame-Options / frame-ancestors Missing on N Intern; low Referrer-Policy Missing on N Internal Route
+www.zendesk.com: -11 +1 | only run1: low HSTS max-age Too Short; medium Weak Content-Security-Policy (unsafe-inline / unsafe-; medium CSP Missing object-src 'none' Directive; low CSP Missing base-uri Directive; low Missing Referrer-Policy Header; low Missing Permissions-Policy Header; info Missing Cross-Origin-Opener-Policy (COOP); info Missing Cross-Origin-Embedder-Policy (COEP); info Missing Cross-Origin-Resource-Policy (CORP); low JavaScript Source Map Exposed — Third-Party Library Code; high JavaScript Source Map Exposed — Full Source Code Access | only run3: info Scan was intercepted by a bot-protection challenge

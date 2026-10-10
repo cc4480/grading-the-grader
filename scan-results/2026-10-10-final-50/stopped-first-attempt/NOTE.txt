@@ -1,0 +1,5 @@
+Console log of the first attempt (2026-10-10, 16:40 UTC, master e3d5875, shared working tree).
+It reached 38 of 50 sites before Claude Code's memory-pressure reaper ended the job. live-scan.ts writes its
+--json capture only when a run finishes, so there is no capture; this log (finding names, severities,
+evidence cut to 130 characters) is all that survives. Not a raw capture, kept because SCAN-RESULTS.md compares
+against it. stability-vs-final.txt is the output of scripts/stability.mjs.

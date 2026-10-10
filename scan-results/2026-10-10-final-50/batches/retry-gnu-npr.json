@@ -1,0 +1,13 @@
+{
+ "scannedAt": "2026-10-10T17:21:16.821Z",
+ "results": [
+  {
+   "url": "https://www.gnu.org",
+   "failed": "Failed to reach target URL: fetch failed"
+  },
+  {
+   "url": "https://www.npr.org",
+   "failed": "Failed to reach target URL: timed out after 20000ms"
+  }
+ ]
+}

@@ -1,0 +1,5371 @@
+{
+ "summary": {
+  "verifiedAt": "2026-10-10T17:23:12.220Z",
+  "userAgent": "Mozilla/5.0 (compatible; SecScan-Security-Bot/1.0; +https://secscan.us/bot)",
+  "sites": 48,
+  "claims": 621,
+  "byOutcome": {
+   "confirmed": 427,
+   "no-check": 122,
+   "not-reproduced": 22,
+   "refused": 44,
+   "disagrees": 6
+  }
+ },
+ "siteInfo": [
+  {
+   "site": "https://nodejs.org",
+   "finalUrl": "https://nodejs.org/en",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 11
+  },
+  {
+   "site": "https://www.rust-lang.org",
+   "finalUrl": "https://rust-lang.org/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 13
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "finalUrl": "https://www.typescriptlang.org/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 17
+  },
+  {
+   "site": "https://kubernetes.io",
+   "finalUrl": "https://kubernetes.io/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 12
+  },
+  {
+   "site": "https://go.dev",
+   "finalUrl": "https://go.dev/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 17
+  },
+  {
+   "site": "https://angular.dev",
+   "finalUrl": "https://angular.dev/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 11
+  },
+  {
+   "site": "https://laravel.com",
+   "finalUrl": "https://laravel.com/",
+   "status": 429,
+   "refused": "HTTP 429",
+   "error": null,
+   "findings": 13
+  },
+  {
+   "site": "https://astro.build",
+   "finalUrl": "https://astro.build/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 14
+  },
+  {
+   "site": "https://rubyonrails.org",
+   "finalUrl": "https://rubyonrails.org/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 13
+  },
+  {
+   "site": "https://playwright.dev",
+   "finalUrl": "https://playwright.dev/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 14
+  },
+  {
+   "site": "https://www.djangoproject.com",
+   "finalUrl": "https://www.djangoproject.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 11
+  },
+  {
+   "site": "https://vite.dev",
+   "finalUrl": "https://vite.dev/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 14
+  },
+  {
+   "site": "https://redis.io",
+   "finalUrl": "https://redis.io/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 13
+  },
+  {
+   "site": "https://www.sqlite.org",
+   "finalUrl": "https://www.sqlite.org/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 6
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "finalUrl": "https://www.postgresql.org/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 16
+  },
+  {
+   "site": "https://www.elastic.co",
+   "finalUrl": "https://www.elastic.co/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 17
+  },
+  {
+   "site": "https://www.docker.com",
+   "finalUrl": "https://www.docker.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 9
+  },
+  {
+   "site": "https://www.hashicorp.com",
+   "finalUrl": "https://www.hashicorp.com/",
+   "status": 429,
+   "refused": "HTTP 429",
+   "error": null,
+   "findings": 3
+  },
+  {
+   "site": "https://prometheus.io",
+   "finalUrl": "https://prometheus.io/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 14
+  },
+  {
+   "site": "https://www.kernel.org",
+   "finalUrl": "https://www.kernel.org/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 13
+  },
+  {
+   "site": "https://grafana.com",
+   "finalUrl": "https://grafana.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 13
+  },
+  {
+   "site": "https://owasp.org",
+   "finalUrl": "https://owasp.org/",
+   "status": 403,
+   "refused": "HTTP 403",
+   "error": null,
+   "findings": 8
+  },
+  {
+   "site": "https://ubuntu.com",
+   "finalUrl": "https://ubuntu.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 9
+  },
+  {
+   "site": "https://www.openstreetmap.org",
+   "finalUrl": "https://www.openstreetmap.org/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 13
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "finalUrl": "https://aws.amazon.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 18
+  },
+  {
+   "site": "https://www.crowdstrike.com",
+   "finalUrl": "https://www.crowdstrike.com/en-us/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 10
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "finalUrl": "https://www.linuxfoundation.org/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 16
+  },
+  {
+   "site": "https://cloud.google.com",
+   "finalUrl": "https://cloud.google.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 9
+  },
+  {
+   "site": "https://www.debian.org",
+   "finalUrl": "https://www.debian.org/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 9
+  },
+  {
+   "site": "https://www.zendesk.com",
+   "finalUrl": "https://www.zendesk.com/",
+   "status": 429,
+   "refused": "HTTP 429",
+   "error": null,
+   "findings": 4
+  },
+  {
+   "site": "https://www.intercom.com",
+   "finalUrl": "https://www.intercom.com/",
+   "status": 403,
+   "refused": "HTTP 403",
+   "error": null,
+   "findings": 10
+  },
+  {
+   "site": "https://www.mailchimp.com",
+   "finalUrl": "https://mailchimp.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 12
+  },
+  {
+   "site": "https://snyk.io",
+   "finalUrl": "https://snyk.io/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 11
+  },
+  {
+   "site": "https://posthog.com",
+   "finalUrl": "https://posthog.com/",
+   "status": 403,
+   "refused": "HTTP 403",
+   "error": null,
+   "findings": 14
+  },
+  {
+   "site": "https://www.airtable.com",
+   "finalUrl": "https://www.airtable.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 11
+  },
+  {
+   "site": "https://calendly.com",
+   "finalUrl": "https://calendly.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 8
+  },
+  {
+   "site": "https://arstechnica.com",
+   "finalUrl": "https://arstechnica.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 15
+  },
+  {
+   "site": "https://www.theverge.com",
+   "finalUrl": "https://www.theverge.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 19
+  },
+  {
+   "site": "https://webflow.com",
+   "finalUrl": "https://webflow.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 16
+  },
+  {
+   "site": "https://css-tricks.com",
+   "finalUrl": "https://css-tricks.com/",
+   "status": 429,
+   "refused": "HTTP 429",
+   "error": null,
+   "findings": 13
+  },
+  {
+   "site": "https://miro.com",
+   "finalUrl": "https://miro.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 19
+  },
+  {
+   "site": "https://dev.to",
+   "finalUrl": "https://dev.to/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 14
+  },
+  {
+   "site": "https://www.duolingo.com",
+   "finalUrl": "https://www.duolingo.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 14
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "finalUrl": "https://www.khanacademy.org/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 18
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "finalUrl": "https://www.squarespace.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 20
+  },
+  {
+   "site": "https://www.zalando.com",
+   "finalUrl": "https://www.zalando.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 14
+  },
+  {
+   "site": "https://www.coursera.org",
+   "finalUrl": "https://www.coursera.org/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 14
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "finalUrl": "https://news.ycombinator.com/",
+   "status": 200,
+   "refused": null,
+   "error": null,
+   "findings": 19
+  }
+ ],
+ "records": [
+  {
+   "site": "https://nodejs.org",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://nodejs.org",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "confirmed",
+   "detail": "no X-Frame-Options, no frame-ancestors"
+  },
+  {
+   "site": "https://nodejs.org",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://nodejs.org",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://nodejs.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://nodejs.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://nodejs.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://nodejs.org",
+   "severity": "info",
+   "name": "X-Powered-By Header Discloses Technology Stack",
+   "family": "X-Powered-By Header Discloses Technology Stack",
+   "outcome": "confirmed",
+   "detail": "X-Powered-By: Next.js"
+  },
+  {
+   "site": "https://nodejs.org",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://nodejs.org",
+   "severity": "info",
+   "name": "No Structured Data Found",
+   "family": "No Structured Data Found",
+   "outcome": "confirmed",
+   "detail": "no ld+json in HTML"
+  },
+  {
+   "site": "https://nodejs.org",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.rust-lang.org",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://www.rust-lang.org",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "confirmed",
+   "detail": "no X-Frame-Options, no frame-ancestors"
+  },
+  {
+   "site": "https://www.rust-lang.org",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://www.rust-lang.org",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.rust-lang.org",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.rust-lang.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.rust-lang.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.rust-lang.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.rust-lang.org",
+   "severity": "info",
+   "name": "Permissive CORS Policy (Wildcard Origin)",
+   "family": "Permissive CORS Policy (Wildcard Origin)",
+   "outcome": "confirmed",
+   "detail": "Access-Control-Allow-Origin: *"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "confirmed",
+   "detail": "no X-Frame-Options, no frame-ancestors"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "info",
+   "name": "Permissive CORS Policy (Wildcard Origin)",
+   "family": "Permissive CORS Policy (Wildcard Origin)",
+   "outcome": "confirmed",
+   "detail": "Access-Control-Allow-Origin: *"
+  },
+  {
+   "site": "https://www.rust-lang.org",
+   "severity": "medium",
+   "name": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "family": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "outcome": "confirmed",
+   "detail": "_dmarc.rust-lang.org: p=none"
+  },
+  {
+   "site": "https://www.rust-lang.org",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.rust-lang.org",
+   "severity": "info",
+   "name": "Incomplete Open Graph Metadata",
+   "family": "Incomplete Open Graph Metadata",
+   "outcome": "not-reproduced",
+   "detail": "no absent og: tags in evidence"
+  },
+  {
+   "site": "https://www.rust-lang.org",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "low",
+   "name": "Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)",
+   "family": "Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)",
+   "outcome": "confirmed",
+   "detail": "style-src has 'unsafe-inline'"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "low",
+   "name": "CSP Missing base-uri Directive",
+   "family": "CSP Missing base-uri Directive",
+   "outcome": "confirmed",
+   "detail": "no base-uri directive"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "info",
+   "name": "Missing Cache-Control Headers",
+   "family": "Missing Cache-Control Headers",
+   "outcome": "confirmed",
+   "detail": "Cache-Control and Pragma both absent"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://kubernetes.io",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://kubernetes.io",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "confirmed",
+   "detail": "no X-Frame-Options, no frame-ancestors"
+  },
+  {
+   "site": "https://kubernetes.io",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://kubernetes.io",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://kubernetes.io",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://kubernetes.io",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://kubernetes.io",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://kubernetes.io",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://kubernetes.io",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "medium",
+   "name": "Missing SPF Record — Email Spoofing Possible",
+   "family": "Missing SPF Record — Email Spoofing Possible",
+   "outcome": "confirmed",
+   "detail": "no v=spf1 TXT at {www.typescriptlang.org, typescriptlang.org}"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "info",
+   "name": "No Structured Data Found",
+   "family": "No Structured Data Found",
+   "outcome": "confirmed",
+   "detail": "no ld+json in HTML"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "info",
+   "name": "Incomplete Open Graph Metadata",
+   "family": "Incomplete Open Graph Metadata",
+   "outcome": "confirmed",
+   "detail": "absent on re-fetch: og:image"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "info",
+   "name": "Twitter Card Metadata Absent",
+   "family": "Twitter Card Metadata Absent",
+   "outcome": "confirmed",
+   "detail": "no twitter:card meta"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "high",
+   "name": "Missing SPF Record — Email Spoofing Possible",
+   "family": "Missing SPF Record — Email Spoofing Possible",
+   "outcome": "confirmed",
+   "detail": "no v=spf1 TXT at {go.dev}"
+  },
+  {
+   "site": "https://angular.dev",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://angular.dev",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "confirmed",
+   "detail": "no X-Frame-Options, no frame-ancestors"
+  },
+  {
+   "site": "https://angular.dev",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://angular.dev",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://angular.dev",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://angular.dev",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://angular.dev",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "high",
+   "name": "JavaScript Source Map Exposed — Full Source Code Accessible",
+   "family": "JavaScript Source Map Exposed — Full Source Code Accessible",
+   "outcome": "confirmed",
+   "detail": "valid map, 15 source(s), sourcesContent=true"
+  },
+  {
+   "site": "https://www.typescriptlang.org",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://angular.dev",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://kubernetes.io",
+   "severity": "high",
+   "name": "Missing DMARC Record — No Email Authentication Enforcement",
+   "family": "Missing DMARC Record — No Email Authentication Enforcement",
+   "outcome": "confirmed",
+   "detail": "no v=DMARC1 TXT at _dmarc.{kubernetes.io}"
+  },
+  {
+   "site": "https://kubernetes.io",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://kubernetes.io",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://angular.dev",
+   "severity": "high",
+   "name": "Missing SPF Record — Email Spoofing Possible",
+   "family": "Missing SPF Record — Email Spoofing Possible",
+   "outcome": "confirmed",
+   "detail": "no v=spf1 TXT at {angular.dev}"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "high",
+   "name": "Missing DMARC Record — No Email Authentication Enforcement",
+   "family": "Missing DMARC Record — No Email Authentication Enforcement",
+   "outcome": "confirmed",
+   "detail": "no v=DMARC1 TXT at _dmarc.{go.dev}"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "info",
+   "name": "No Structured Data Found",
+   "family": "No Structured Data Found",
+   "outcome": "confirmed",
+   "detail": "no ld+json in HTML"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "info",
+   "name": "Google API Key in Client Code (verify referrer restrictions)",
+   "family": "Google API Key in Client Code (verify referrer restrictions)",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "info",
+   "name": "API Key in Client Code (verify restrictions)",
+   "family": "API Key in Client Code (verify restrictions)",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://go.dev",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://astro.build",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://astro.build",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "confirmed",
+   "detail": "no X-Frame-Options, no frame-ancestors"
+  },
+  {
+   "site": "https://astro.build",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://astro.build",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://astro.build",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://astro.build",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://astro.build",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://astro.build",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://astro.build",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "confirmed",
+   "detail": "tag found, no integrity= attribute"
+  },
+  {
+   "site": "https://angular.dev",
+   "severity": "high",
+   "name": "Missing DMARC Record — No Email Authentication Enforcement",
+   "family": "Missing DMARC Record — No Email Authentication Enforcement",
+   "outcome": "confirmed",
+   "detail": "no v=DMARC1 TXT at _dmarc.{angular.dev}"
+  },
+  {
+   "site": "https://angular.dev",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://laravel.com",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://laravel.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://laravel.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://laravel.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://laravel.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://laravel.com",
+   "severity": "info",
+   "name": "X-Powered-By Header Discloses Technology Stack",
+   "family": "X-Powered-By Header Discloses Technology Stack",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://laravel.com",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://laravel.com",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://laravel.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://laravel.com",
+   "severity": "high",
+   "name": "JavaScript Source Map Exposed — Full Source Code Accessible",
+   "family": "JavaScript Source Map Exposed — Full Source Code Accessible",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://laravel.com",
+   "severity": "low",
+   "name": "JavaScript Source Map Exposed — Third-Party Library Code",
+   "family": "JavaScript Source Map Exposed — Third-Party Library Code",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://laravel.com",
+   "severity": "info",
+   "name": "Mapbox Public Token — Restrict to Your Domain",
+   "family": "Mapbox Public Token — Restrict to Your Domain",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://laravel.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://astro.build",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://astro.build",
+   "severity": "high",
+   "name": "Missing SPF Record — Email Spoofing Possible",
+   "family": "Missing SPF Record — Email Spoofing Possible",
+   "outcome": "confirmed",
+   "detail": "no v=spf1 TXT at {astro.build}"
+  },
+  {
+   "site": "https://www.djangoproject.com",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://www.djangoproject.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.djangoproject.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://playwright.dev",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://playwright.dev",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "confirmed",
+   "detail": "no X-Frame-Options, no frame-ancestors"
+  },
+  {
+   "site": "https://playwright.dev",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://playwright.dev",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://playwright.dev",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://playwright.dev",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://playwright.dev",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://playwright.dev",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://playwright.dev",
+   "severity": "info",
+   "name": "Permissive CORS Policy (Wildcard Origin)",
+   "family": "Permissive CORS Policy (Wildcard Origin)",
+   "outcome": "confirmed",
+   "detail": "Access-Control-Allow-Origin: *"
+  },
+  {
+   "site": "https://rubyonrails.org",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://rubyonrails.org",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "confirmed",
+   "detail": "no X-Frame-Options, no frame-ancestors"
+  },
+  {
+   "site": "https://rubyonrails.org",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://rubyonrails.org",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://rubyonrails.org",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://rubyonrails.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://rubyonrails.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://rubyonrails.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://rubyonrails.org",
+   "severity": "info",
+   "name": "Permissive CORS Policy (Wildcard Origin)",
+   "family": "Permissive CORS Policy (Wildcard Origin)",
+   "outcome": "confirmed",
+   "detail": "Access-Control-Allow-Origin: *"
+  },
+  {
+   "site": "https://rubyonrails.org",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "confirmed",
+   "detail": "tag found, no integrity= attribute"
+  },
+  {
+   "site": "https://astro.build",
+   "severity": "high",
+   "name": "Missing DMARC Record — No Email Authentication Enforcement",
+   "family": "Missing DMARC Record — No Email Authentication Enforcement",
+   "outcome": "confirmed",
+   "detail": "no v=DMARC1 TXT at _dmarc.{astro.build}"
+  },
+  {
+   "site": "https://astro.build",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://astro.build",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://playwright.dev",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://rubyonrails.org",
+   "severity": "info",
+   "name": "DMARC Record Missing Aggregate Report Address (rua=)",
+   "family": "DMARC Record Missing Aggregate Report Address (rua=)",
+   "outcome": "confirmed",
+   "detail": "_dmarc.rubyonrails.org: no rua= (v=DMARC1; p=quarantine;)"
+  },
+  {
+   "site": "https://rubyonrails.org",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://rubyonrails.org",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.djangoproject.com",
+   "severity": "info",
+   "name": "robots.txt Discloses Sensitive Application Paths",
+   "family": "robots.txt Discloses Sensitive Application Paths",
+   "outcome": "confirmed",
+   "detail": "1 Disallow line(s) present"
+  },
+  {
+   "site": "https://www.djangoproject.com",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "confirmed",
+   "detail": "tag found, no integrity= attribute"
+  },
+  {
+   "site": "https://www.djangoproject.com",
+   "severity": "medium",
+   "name": "HTTP Traffic Not Redirected to HTTPS",
+   "family": "HTTP Traffic Not Redirected to HTTPS",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.djangoproject.com",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://playwright.dev",
+   "severity": "medium",
+   "name": "Missing SPF Record — Email Spoofing Possible",
+   "family": "Missing SPF Record — Email Spoofing Possible",
+   "outcome": "confirmed",
+   "detail": "no v=spf1 TXT at {playwright.dev}"
+  },
+  {
+   "site": "https://playwright.dev",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://playwright.dev",
+   "severity": "info",
+   "name": "No Structured Data Found",
+   "family": "No Structured Data Found",
+   "outcome": "confirmed",
+   "detail": "no ld+json in HTML"
+  },
+  {
+   "site": "https://playwright.dev",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.djangoproject.com",
+   "severity": "medium",
+   "name": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "family": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "outcome": "confirmed",
+   "detail": "_dmarc.djangoproject.com: p=none"
+  },
+  {
+   "site": "https://www.djangoproject.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.djangoproject.com",
+   "severity": "info",
+   "name": "No Structured Data Found",
+   "family": "No Structured Data Found",
+   "outcome": "confirmed",
+   "detail": "no ld+json in HTML"
+  },
+  {
+   "site": "https://www.djangoproject.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://vite.dev",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://vite.dev",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "confirmed",
+   "detail": "no X-Frame-Options, no frame-ancestors"
+  },
+  {
+   "site": "https://vite.dev",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://vite.dev",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://vite.dev",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://vite.dev",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://vite.dev",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://vite.dev",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://vite.dev",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "medium",
+   "name": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+   "family": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+   "outcome": "confirmed",
+   "detail": "script-src has 'unsafe-eval'"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "medium",
+   "name": "CSP Missing object-src 'none' Directive",
+   "family": "CSP Missing object-src 'none' Directive",
+   "outcome": "confirmed",
+   "detail": "effective object-src: 'self'"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "low",
+   "name": "CSP Missing base-uri Directive",
+   "family": "CSP Missing base-uri Directive",
+   "outcome": "confirmed",
+   "detail": "no base-uri directive"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "info",
+   "name": "Missing Cache-Control Headers",
+   "family": "Missing Cache-Control Headers",
+   "outcome": "confirmed",
+   "detail": "Cache-Control and Pragma both absent"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "info",
+   "name": "robots.txt Discloses Sensitive Application Paths",
+   "family": "robots.txt Discloses Sensitive Application Paths",
+   "outcome": "confirmed",
+   "detail": "1 Disallow line(s) present"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://vite.dev",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://vite.dev",
+   "severity": "medium",
+   "name": "Missing SPF Record — Email Spoofing Possible",
+   "family": "Missing SPF Record — Email Spoofing Possible",
+   "outcome": "confirmed",
+   "detail": "no v=spf1 TXT at {vite.dev}"
+  },
+  {
+   "site": "https://vite.dev",
+   "severity": "high",
+   "name": "Missing DMARC Record — No Email Authentication Enforcement",
+   "family": "Missing DMARC Record — No Email Authentication Enforcement",
+   "outcome": "confirmed",
+   "detail": "no v=DMARC1 TXT at _dmarc.{vite.dev}"
+  },
+  {
+   "site": "https://vite.dev",
+   "severity": "low",
+   "name": "No DKIM Records Found Under Common Selectors",
+   "family": "No DKIM Records Found Under Common Selectors",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://vite.dev",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://redis.io",
+   "severity": "low",
+   "name": "HSTS max-age Too Short",
+   "family": "HSTS max-age Too Short",
+   "outcome": "confirmed",
+   "detail": "max-age=10368000 < 15552000"
+  },
+  {
+   "site": "https://redis.io",
+   "severity": "medium",
+   "name": "CSP Missing object-src 'none' Directive",
+   "family": "CSP Missing object-src 'none' Directive",
+   "outcome": "confirmed",
+   "detail": "effective object-src: (absent)"
+  },
+  {
+   "site": "https://redis.io",
+   "severity": "low",
+   "name": "CSP Missing base-uri Directive",
+   "family": "CSP Missing base-uri Directive",
+   "outcome": "confirmed",
+   "detail": "no base-uri directive"
+  },
+  {
+   "site": "https://redis.io",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://redis.io",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://redis.io",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://redis.io",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://redis.io",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://redis.io",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://redis.io",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript",
+   "family": "Non-Session Cookie Readable by JavaScript",
+   "outcome": "confirmed",
+   "detail": "cookie gb_assignments lacks httponly (attrs: path,expires,max-age,secure,samesite)"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://www.sqlite.org",
+   "severity": "medium",
+   "name": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "family": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "outcome": "confirmed",
+   "detail": "_dmarc.sqlite.org: p=none"
+  },
+  {
+   "site": "https://redis.io",
+   "severity": "info",
+   "name": "robots.txt Discloses Sensitive Application Paths",
+   "family": "robots.txt Discloses Sensitive Application Paths",
+   "outcome": "confirmed",
+   "detail": "1 Disallow line(s) present"
+  },
+  {
+   "site": "https://redis.io",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://redis.io",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.sqlite.org",
+   "severity": "info",
+   "name": "DMARC Record Missing Aggregate Report Address (rua=)",
+   "family": "DMARC Record Missing Aggregate Report Address (rua=)",
+   "outcome": "confirmed",
+   "detail": "_dmarc.sqlite.org: no rua= (v=DMARC1; p=none;)"
+  },
+  {
+   "site": "https://www.sqlite.org",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.sqlite.org",
+   "severity": "low",
+   "name": "Mail Server TLS Certificate Expiring Soon",
+   "family": "Mail Server TLS Certificate Expiring Soon",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.sqlite.org",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.sqlite.org",
+   "severity": "info",
+   "name": "Scan was intercepted by a bot-protection challenge",
+   "family": "Scan was intercepted by a bot-protection challenge",
+   "outcome": "not-reproduced",
+   "detail": "re-fetch served HTTP 200 with no challenge markers"
+  },
+  {
+   "site": "https://grafana.com",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://grafana.com",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://grafana.com",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://grafana.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://grafana.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://grafana.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://grafana.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://grafana.com",
+   "severity": "info",
+   "name": "X-Powered-By Header Discloses Technology Stack",
+   "family": "X-Powered-By Header Discloses Technology Stack",
+   "outcome": "confirmed",
+   "detail": "X-Powered-By: Next.js"
+  },
+  {
+   "site": "https://grafana.com",
+   "severity": "low",
+   "name": "Non-Session Cookie Missing Secure Flag",
+   "family": "Non-Session Cookie Missing Secure Flag",
+   "outcome": "confirmed",
+   "detail": "cookie NEXT_LOCALE lacks secure (attrs: path,samesite)"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "medium",
+   "name": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "family": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "outcome": "confirmed",
+   "detail": "_dmarc.postgresql.org: p=none"
+  },
+  {
+   "site": "https://prometheus.io",
+   "severity": "low",
+   "name": "HSTS max-age Too Short",
+   "family": "HSTS max-age Too Short",
+   "outcome": "confirmed",
+   "detail": "max-age=2592000 < 15552000"
+  },
+  {
+   "site": "https://prometheus.io",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://prometheus.io",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "confirmed",
+   "detail": "no X-Frame-Options, no frame-ancestors"
+  },
+  {
+   "site": "https://prometheus.io",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://prometheus.io",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://prometheus.io",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://prometheus.io",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://prometheus.io",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "disagrees",
+   "detail": "CSP present on re-fetch (header=true, meta=true)"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "disagrees",
+   "detail": "XFO=\"\", frame-ancestors=true"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript",
+   "family": "Non-Session Cookie Readable by JavaScript",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "info",
+   "name": "Non-Session Cookie Missing SameSite Attribute",
+   "family": "Non-Session Cookie Missing SameSite Attribute",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "info",
+   "name": "Missing Cache-Control Headers",
+   "family": "Missing Cache-Control Headers",
+   "outcome": "disagrees",
+   "detail": "Cache-Control=\"public, max-age=3600\" Pragma=\"\""
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "info",
+   "name": "DMARC Record Missing Aggregate Report Address (rua=)",
+   "family": "DMARC Record Missing Aggregate Report Address (rua=)",
+   "outcome": "confirmed",
+   "detail": "_dmarc.postgresql.org: no rua= (v=DMARC1; p=none; ruf=mailto:dmarc@postgresql.org; fo=1; adkim=r; aspf)"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "info",
+   "name": "Twitter Card Metadata Absent",
+   "family": "Twitter Card Metadata Absent",
+   "outcome": "confirmed",
+   "detail": "no twitter:card meta"
+  },
+  {
+   "site": "https://www.postgresql.org",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://grafana.com",
+   "severity": "medium",
+   "name": "X-Frame-Options / frame-ancestors Missing on 4 Internal Routes",
+   "family": "X-Frame-Options / frame-ancestors Missing on N Internal Routes",
+   "outcome": "confirmed",
+   "detail": "4 route(s) re-fetched, header absent on each: /auth/sign-in/ /auth/sign-up/create-user/ /login /auth"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "info",
+   "name": "No Structured Data Found",
+   "family": "No Structured Data Found",
+   "outcome": "disagrees",
+   "detail": "ld+json present in HTML"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "info",
+   "name": "Incomplete Open Graph Metadata",
+   "family": "Incomplete Open Graph Metadata",
+   "outcome": "disagrees",
+   "detail": "now present: og:title og:description og:image"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.elastic.co",
+   "severity": "info",
+   "name": "Scan started from an error response",
+   "family": "Scan started from an error response",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.docker.com",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://www.docker.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.docker.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.docker.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://prometheus.io",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://www.docker.com",
+   "severity": "info",
+   "name": "robots.txt Discloses Sensitive Application Paths",
+   "family": "robots.txt Discloses Sensitive Application Paths",
+   "outcome": "confirmed",
+   "detail": "2 Disallow line(s) present"
+  },
+  {
+   "site": "https://www.docker.com",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "confirmed",
+   "detail": "tag found, no integrity= attribute"
+  },
+  {
+   "site": "https://www.docker.com",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.docker.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.docker.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.hashicorp.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.hashicorp.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.hashicorp.com",
+   "severity": "info",
+   "name": "Scan was intercepted by a bot-protection challenge",
+   "family": "Scan was intercepted by a bot-protection challenge",
+   "outcome": "confirmed",
+   "detail": "re-fetch also refused/challenged: HTTP 429"
+  },
+  {
+   "site": "https://prometheus.io",
+   "severity": "high",
+   "name": "Missing SPF Record — Email Spoofing Possible",
+   "family": "Missing SPF Record — Email Spoofing Possible",
+   "outcome": "confirmed",
+   "detail": "no v=spf1 TXT at {prometheus.io}"
+  },
+  {
+   "site": "https://prometheus.io",
+   "severity": "high",
+   "name": "Missing DMARC Record — No Email Authentication Enforcement",
+   "family": "Missing DMARC Record — No Email Authentication Enforcement",
+   "outcome": "confirmed",
+   "detail": "no v=DMARC1 TXT at _dmarc.{prometheus.io}"
+  },
+  {
+   "site": "https://prometheus.io",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://prometheus.io",
+   "severity": "info",
+   "name": "No Structured Data Found",
+   "family": "No Structured Data Found",
+   "outcome": "confirmed",
+   "detail": "no ld+json in HTML"
+  },
+  {
+   "site": "https://prometheus.io",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.kernel.org",
+   "severity": "medium",
+   "name": "CSP Missing object-src 'none' Directive",
+   "family": "CSP Missing object-src 'none' Directive",
+   "outcome": "confirmed",
+   "detail": "effective object-src: 'self' *.kernel.org"
+  },
+  {
+   "site": "https://www.kernel.org",
+   "severity": "low",
+   "name": "CSP Missing base-uri Directive",
+   "family": "CSP Missing base-uri Directive",
+   "outcome": "confirmed",
+   "detail": "no base-uri directive"
+  },
+  {
+   "site": "https://www.kernel.org",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.kernel.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.kernel.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.kernel.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.kernel.org",
+   "severity": "info",
+   "name": "Missing Cache-Control Headers",
+   "family": "Missing Cache-Control Headers",
+   "outcome": "confirmed",
+   "detail": "Cache-Control and Pragma both absent"
+  },
+  {
+   "site": "https://www.kernel.org",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "confirmed",
+   "detail": "tag found, no integrity= attribute"
+  },
+  {
+   "site": "https://www.kernel.org",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.kernel.org",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.kernel.org",
+   "severity": "info",
+   "name": "No Structured Data Found",
+   "family": "No Structured Data Found",
+   "outcome": "confirmed",
+   "detail": "no ld+json in HTML"
+  },
+  {
+   "site": "https://www.kernel.org",
+   "severity": "info",
+   "name": "Incomplete Open Graph Metadata",
+   "family": "Incomplete Open Graph Metadata",
+   "outcome": "confirmed",
+   "detail": "absent on re-fetch: og:title og:description og:image"
+  },
+  {
+   "site": "https://www.kernel.org",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://grafana.com",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://grafana.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://grafana.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://ubuntu.com",
+   "severity": "medium",
+   "name": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+   "family": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+   "outcome": "confirmed",
+   "detail": "script-src has 'unsafe-eval'"
+  },
+  {
+   "site": "https://ubuntu.com",
+   "severity": "medium",
+   "name": "CSP Missing object-src 'none' Directive",
+   "family": "CSP Missing object-src 'none' Directive",
+   "outcome": "confirmed",
+   "detail": "effective object-src: 'self' *.livechatinc.com *.youtube.com *.google.com"
+  },
+  {
+   "site": "https://ubuntu.com",
+   "severity": "low",
+   "name": "CSP Missing base-uri Directive",
+   "family": "CSP Missing base-uri Directive",
+   "outcome": "confirmed",
+   "detail": "no base-uri directive"
+  },
+  {
+   "site": "https://ubuntu.com",
+   "severity": "info",
+   "name": "Server Version Disclosure",
+   "family": "Server Version Disclosure",
+   "outcome": "confirmed",
+   "detail": "Server: nginx/1.14.0 (Ubuntu)"
+  },
+  {
+   "site": "https://ubuntu.com",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://owasp.org",
+   "severity": "medium",
+   "name": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+   "family": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://owasp.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://owasp.org",
+   "severity": "info",
+   "name": "X-Powered-By Header Discloses Technology Stack",
+   "family": "X-Powered-By Header Discloses Technology Stack",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://owasp.org",
+   "severity": "low",
+   "name": "Non-Session Cookie Missing Secure Flag",
+   "family": "Non-Session Cookie Missing Secure Flag",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://owasp.org",
+   "severity": "info",
+   "name": "robots.txt Discloses Sensitive Application Paths",
+   "family": "robots.txt Discloses Sensitive Application Paths",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://owasp.org",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://owasp.org",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://owasp.org",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://ubuntu.com",
+   "severity": "medium",
+   "name": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "family": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "outcome": "confirmed",
+   "detail": "_dmarc.ubuntu.com: p=none"
+  },
+  {
+   "site": "https://ubuntu.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://ubuntu.com",
+   "severity": "low",
+   "name": "Nginx 1.14.0 — Verify Distro Package Against CVE-2026-42533",
+   "family": "Nginx N.N.N — Verify Distro Package Against CVE-N-N",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://ubuntu.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.openstreetmap.org",
+   "severity": "low",
+   "name": "CSP Missing base-uri Directive",
+   "family": "CSP Missing base-uri Directive",
+   "outcome": "confirmed",
+   "detail": "no base-uri directive"
+  },
+  {
+   "site": "https://www.openstreetmap.org",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.openstreetmap.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.openstreetmap.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.openstreetmap.org",
+   "severity": "info",
+   "name": "X-Powered-By Header Discloses Technology Stack",
+   "family": "X-Powered-By Header Discloses Technology Stack",
+   "outcome": "confirmed",
+   "detail": "X-Powered-By: Phusion Passenger(R) 6.2.0"
+  },
+  {
+   "site": "https://www.openstreetmap.org",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript",
+   "family": "Non-Session Cookie Readable by JavaScript",
+   "outcome": "confirmed",
+   "detail": "cookie _osm_banner_31day_2026 lacks httponly (attrs: path,samesite,secure)"
+  },
+  {
+   "site": "https://www.openstreetmap.org",
+   "severity": "medium",
+   "name": "Apache Server Status Page Exposed",
+   "family": "Apache Server Status Page Exposed",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.openstreetmap.org",
+   "severity": "medium",
+   "name": "Apache Server Info Page Exposed",
+   "family": "Apache Server Info Page Exposed",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.openstreetmap.org",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "medium",
+   "name": "CSP Missing object-src 'none' Directive",
+   "family": "CSP Missing object-src 'none' Directive",
+   "outcome": "confirmed",
+   "detail": "effective object-src: (absent)"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "low",
+   "name": "CSP Missing base-uri Directive",
+   "family": "CSP Missing base-uri Directive",
+   "outcome": "confirmed",
+   "detail": "no base-uri directive"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "confirmed",
+   "detail": "tag found, no integrity= attribute"
+  },
+  {
+   "site": "https://www.openstreetmap.org",
+   "severity": "medium",
+   "name": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "family": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "outcome": "confirmed",
+   "detail": "_dmarc.openstreetmap.org: p=none"
+  },
+  {
+   "site": "https://www.openstreetmap.org",
+   "severity": "low",
+   "name": "No DKIM Records Found Under Common Selectors",
+   "family": "No DKIM Records Found Under Common Selectors",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.openstreetmap.org",
+   "severity": "info",
+   "name": "Twitter Card Metadata Absent",
+   "family": "Twitter Card Metadata Absent",
+   "outcome": "confirmed",
+   "detail": "no twitter:card meta"
+  },
+  {
+   "site": "https://www.openstreetmap.org",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "low",
+   "name": "Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)",
+   "family": "Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)",
+   "outcome": "confirmed",
+   "detail": "style-src has 'unsafe-inline'"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "low",
+   "name": "Non-Session Cookie Missing Secure Flag",
+   "family": "Non-Session Cookie Missing Secure Flag",
+   "outcome": "confirmed",
+   "detail": "cookie aws_lang lacks secure (attrs: domain,path)"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript",
+   "family": "Non-Session Cookie Readable by JavaScript",
+   "outcome": "confirmed",
+   "detail": "cookie aws-priv lacks httponly (attrs: version,comment,domain,max-age,expires,path,secure)"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Missing SameSite Attribute",
+   "family": "Non-Session Cookie Missing SameSite Attribute",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "info",
+   "name": "Missing Cache-Control Headers",
+   "family": "Missing Cache-Control Headers",
+   "outcome": "confirmed",
+   "detail": "Cache-Control and Pragma both absent"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "medium",
+   "name": "Session Cookie Missing HttpOnly Flag on Inner Page",
+   "family": "Session Cookie Missing HttpOnly Flag on Inner Page",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "high",
+   "name": "Session Cookie Missing Secure Flag on Inner Page",
+   "family": "Session Cookie Missing Secure Flag on Inner Page",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "medium",
+   "name": "Session Cookie Missing HttpOnly Flag on Inner Page",
+   "family": "Session Cookie Missing HttpOnly Flag on Inner Page",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "info",
+   "name": "robots.txt Discloses Sensitive Application Paths",
+   "family": "robots.txt Discloses Sensitive Application Paths",
+   "outcome": "confirmed",
+   "detail": "1 Disallow line(s) present"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "confirmed",
+   "detail": "tag found, no integrity= attribute"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "info",
+   "name": "Incomplete Open Graph Metadata",
+   "family": "Incomplete Open Graph Metadata",
+   "outcome": "confirmed",
+   "detail": "absent on re-fetch: og:image"
+  },
+  {
+   "site": "https://aws.amazon.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.debian.org",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://www.debian.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.debian.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.debian.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.debian.org",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "medium",
+   "name": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "family": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "outcome": "confirmed",
+   "detail": "_dmarc.linuxfoundation.org: p=none"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "info",
+   "name": "No Structured Data Found",
+   "family": "No Structured Data Found",
+   "outcome": "confirmed",
+   "detail": "no ld+json in HTML"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "info",
+   "name": "Incomplete Open Graph Metadata",
+   "family": "Incomplete Open Graph Metadata",
+   "outcome": "confirmed",
+   "detail": "absent on re-fetch: og:image"
+  },
+  {
+   "site": "https://www.crowdstrike.com",
+   "severity": "medium",
+   "name": "CSP Missing object-src 'none' Directive",
+   "family": "CSP Missing object-src 'none' Directive",
+   "outcome": "confirmed",
+   "detail": "effective object-src: (absent)"
+  },
+  {
+   "site": "https://www.crowdstrike.com",
+   "severity": "low",
+   "name": "CSP Missing base-uri Directive",
+   "family": "CSP Missing base-uri Directive",
+   "outcome": "confirmed",
+   "detail": "no base-uri directive"
+  },
+  {
+   "site": "https://www.crowdstrike.com",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.crowdstrike.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.crowdstrike.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.crowdstrike.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.crowdstrike.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.crowdstrike.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Missing SameSite Attribute",
+   "family": "Non-Session Cookie Missing SameSite Attribute",
+   "outcome": "not-reproduced",
+   "detail": "cookie AKA_A2 not in this re-fetch's Set-Cookie (varies per visit)"
+  },
+  {
+   "site": "https://www.crowdstrike.com",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "confirmed",
+   "detail": "tag found, no integrity= attribute"
+  },
+  {
+   "site": "https://www.crowdstrike.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "high",
+   "name": "JavaScript Source Map Exposed — Full Source Code Accessible",
+   "family": "JavaScript Source Map Exposed — Full Source Code Accessible",
+   "outcome": "confirmed",
+   "detail": "valid map, 12 source(s), sourcesContent=true"
+  },
+  {
+   "site": "https://cloud.google.com",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://cloud.google.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://cloud.google.com",
+   "severity": "low",
+   "name": "Non-Session Cookie Missing Secure Flag",
+   "family": "Non-Session Cookie Missing Secure Flag",
+   "outcome": "confirmed",
+   "detail": "cookie NID lacks secure (attrs: expires,path,domain,httponly)"
+  },
+  {
+   "site": "https://cloud.google.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Missing SameSite Attribute",
+   "family": "Non-Session Cookie Missing SameSite Attribute",
+   "outcome": "confirmed",
+   "detail": "cookie NID lacks samesite (attrs: expires,path,domain,httponly)"
+  },
+  {
+   "site": "https://cloud.google.com",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "confirmed",
+   "detail": "tag found, no integrity= attribute"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "low",
+   "name": "JavaScript Source Map Exposed — Third-Party Library Code",
+   "family": "JavaScript Source Map Exposed — Third-Party Library Code",
+   "outcome": "confirmed",
+   "detail": "valid map, 1 source(s), sourcesContent=true"
+  },
+  {
+   "site": "https://www.linuxfoundation.org",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://cloud.google.com",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://cloud.google.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://cloud.google.com",
+   "severity": "info",
+   "name": "Google API Key in Client Code (verify referrer restrictions)",
+   "family": "Google API Key in Client Code (verify referrer restrictions)",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://cloud.google.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.debian.org",
+   "severity": "medium",
+   "name": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "family": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "outcome": "confirmed",
+   "detail": "_dmarc.debian.org: p=none"
+  },
+  {
+   "site": "https://www.debian.org",
+   "severity": "info",
+   "name": "No Structured Data Found",
+   "family": "No Structured Data Found",
+   "outcome": "confirmed",
+   "detail": "no ld+json in HTML"
+  },
+  {
+   "site": "https://www.debian.org",
+   "severity": "info",
+   "name": "Incomplete Open Graph Metadata",
+   "family": "Incomplete Open Graph Metadata",
+   "outcome": "confirmed",
+   "detail": "absent on re-fetch: og:title og:description og:image"
+  },
+  {
+   "site": "https://www.debian.org",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://snyk.io",
+   "severity": "low",
+   "name": "Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)",
+   "family": "Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)",
+   "outcome": "confirmed",
+   "detail": "style-src has 'unsafe-inline'"
+  },
+  {
+   "site": "https://snyk.io",
+   "severity": "medium",
+   "name": "CSP Missing object-src 'none' Directive",
+   "family": "CSP Missing object-src 'none' Directive",
+   "outcome": "confirmed",
+   "detail": "effective object-src: https://res.cloudinary.com"
+  },
+  {
+   "site": "https://snyk.io",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://snyk.io",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://snyk.io",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://snyk.io",
+   "severity": "info",
+   "name": "X-Powered-By Header Discloses Technology Stack",
+   "family": "X-Powered-By Header Discloses Technology Stack",
+   "outcome": "confirmed",
+   "detail": "X-Powered-By: Next.js"
+  },
+  {
+   "site": "https://www.zendesk.com",
+   "severity": "info",
+   "name": "DMARC Record Missing Aggregate Report Address (rua=)",
+   "family": "DMARC Record Missing Aggregate Report Address (rua=)",
+   "outcome": "confirmed",
+   "detail": "_dmarc.zendesk.com: no rua= (v=DMARC1; p=reject)"
+  },
+  {
+   "site": "https://www.zendesk.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.zendesk.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.zendesk.com",
+   "severity": "info",
+   "name": "Scan was intercepted by a bot-protection challenge",
+   "family": "Scan was intercepted by a bot-protection challenge",
+   "outcome": "confirmed",
+   "detail": "re-fetch also refused/challenged: HTTP 429"
+  },
+  {
+   "site": "https://snyk.io",
+   "severity": "high",
+   "name": "Content-Security-Policy Missing on 1 Internal Route",
+   "family": "Content-Security-Policy Missing on N Internal Route",
+   "outcome": "confirmed",
+   "detail": "1 route(s) re-fetched, header absent on each: /api"
+  },
+  {
+   "site": "https://snyk.io",
+   "severity": "medium",
+   "name": "X-Frame-Options / frame-ancestors Missing on 1 Internal Route",
+   "family": "X-Frame-Options / frame-ancestors Missing on N Internal Route",
+   "outcome": "confirmed",
+   "detail": "1 route(s) re-fetched, header absent on each: /api"
+  },
+  {
+   "site": "https://www.intercom.com",
+   "severity": "medium",
+   "name": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+   "family": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://www.intercom.com",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://www.intercom.com",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://www.intercom.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://www.intercom.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://www.intercom.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://www.intercom.com",
+   "severity": "info",
+   "name": "X-Powered-By Header Discloses Technology Stack",
+   "family": "X-Powered-By Header Discloses Technology Stack",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://www.intercom.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript",
+   "family": "Non-Session Cookie Readable by JavaScript",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://www.intercom.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.intercom.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.mailchimp.com",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://www.mailchimp.com",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://www.mailchimp.com",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.mailchimp.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.mailchimp.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.mailchimp.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.mailchimp.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.mailchimp.com",
+   "severity": "info",
+   "name": "Missing Cache-Control Headers",
+   "family": "Missing Cache-Control Headers",
+   "outcome": "confirmed",
+   "detail": "Cache-Control and Pragma both absent"
+  },
+  {
+   "site": "https://www.mailchimp.com",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "confirmed",
+   "detail": "tag found, no integrity= attribute"
+  },
+  {
+   "site": "https://www.mailchimp.com",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.mailchimp.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.mailchimp.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://snyk.io",
+   "severity": "low",
+   "name": "Referrer-Policy Missing on 1 Internal Route",
+   "family": "Referrer-Policy Missing on N Internal Route",
+   "outcome": "confirmed",
+   "detail": "1 route(s) re-fetched, header absent on each: /api"
+  },
+  {
+   "site": "https://snyk.io",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://snyk.io",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.airtable.com",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://www.airtable.com",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "confirmed",
+   "detail": "no X-Frame-Options, no frame-ancestors"
+  },
+  {
+   "site": "https://www.airtable.com",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://www.airtable.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.airtable.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.airtable.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.airtable.com",
+   "severity": "info",
+   "name": "X-Powered-By Header Discloses Technology Stack",
+   "family": "X-Powered-By Header Discloses Technology Stack",
+   "outcome": "confirmed",
+   "detail": "X-Powered-By: Next.js"
+  },
+  {
+   "site": "https://www.airtable.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript",
+   "family": "Non-Session Cookie Readable by JavaScript",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "confirmed",
+   "detail": "no X-Frame-Options, no frame-ancestors"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "low",
+   "name": "Non-Session Cookie Missing Secure Flag",
+   "family": "Non-Session Cookie Missing Secure Flag",
+   "outcome": "confirmed",
+   "detail": "cookie SS_MID lacks secure (attrs: path,domain,expires)"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript",
+   "family": "Non-Session Cookie Readable by JavaScript",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Missing SameSite Attribute",
+   "family": "Non-Session Cookie Missing SameSite Attribute",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "info",
+   "name": "Missing Cache-Control Headers",
+   "family": "Missing Cache-Control Headers",
+   "outcome": "confirmed",
+   "detail": "Cache-Control and Pragma both absent"
+  },
+  {
+   "site": "https://posthog.com",
+   "severity": "medium",
+   "name": "Content-Security-Policy is report-only (not enforced)",
+   "family": "Content-Security-Policy is report-only (not enforced)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://posthog.com",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://posthog.com",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://posthog.com",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://posthog.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://posthog.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://posthog.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://posthog.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://posthog.com",
+   "severity": "info",
+   "name": "Permissive CORS Policy (Wildcard Origin)",
+   "family": "Permissive CORS Policy (Wildcard Origin)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://posthog.com",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://posthog.com",
+   "severity": "low",
+   "name": "JavaScript Source Map Exposed — Third-Party Library Code",
+   "family": "JavaScript Source Map Exposed — Third-Party Library Code",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://posthog.com",
+   "severity": "high",
+   "name": "JavaScript Source Map Exposed — Full Source Code Accessible",
+   "family": "JavaScript Source Map Exposed — Full Source Code Accessible",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://posthog.com",
+   "severity": "info",
+   "name": "Exposed API Documentation — OpenAPI JSON spec at /openapi.json",
+   "family": "Exposed API Documentation — OpenAPI JSON spec at /openapi.json",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 403); not re-derived"
+  },
+  {
+   "site": "https://posthog.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "low",
+   "name": "Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)",
+   "family": "Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)",
+   "outcome": "confirmed",
+   "detail": "style-src has 'unsafe-inline'"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "medium",
+   "name": "CSP Missing object-src 'none' Directive",
+   "family": "CSP Missing object-src 'none' Directive",
+   "outcome": "confirmed",
+   "detail": "effective object-src: (absent)"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "low",
+   "name": "CSP Missing base-uri Directive",
+   "family": "CSP Missing base-uri Directive",
+   "outcome": "confirmed",
+   "detail": "no base-uri directive"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "info",
+   "name": "Missing Cache-Control Headers",
+   "family": "Missing Cache-Control Headers",
+   "outcome": "confirmed",
+   "detail": "Cache-Control and Pragma both absent"
+  },
+  {
+   "site": "https://www.airtable.com",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://www.airtable.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.airtable.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "medium",
+   "name": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+   "family": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+   "outcome": "confirmed",
+   "detail": "script-src has 'unsafe-eval'"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "medium",
+   "name": "CSP Missing object-src 'none' Directive",
+   "family": "CSP Missing object-src 'none' Directive",
+   "outcome": "confirmed",
+   "detail": "effective object-src: 'unsafe-inline' 'unsafe-eval' data: blob: filesystem: about: miroapp: wss: ws: *"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "low",
+   "name": "Non-Session Cookie Missing Secure Flag",
+   "family": "Non-Session Cookie Missing Secure Flag",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript",
+   "family": "Non-Session Cookie Readable by JavaScript",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Missing SameSite Attribute",
+   "family": "Non-Session Cookie Missing SameSite Attribute",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://calendly.com",
+   "severity": "medium",
+   "name": "Content-Security-Policy is report-only (not enforced)",
+   "family": "Content-Security-Policy is report-only (not enforced)",
+   "outcome": "confirmed",
+   "detail": "report-only header present, no enforcing policy"
+  },
+  {
+   "site": "https://calendly.com",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "confirmed",
+   "detail": "no X-Frame-Options, no frame-ancestors"
+  },
+  {
+   "site": "https://calendly.com",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://calendly.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://calendly.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://calendly.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://calendly.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript",
+   "family": "Non-Session Cookie Readable by JavaScript",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://calendly.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "low",
+   "name": "Strict-Transport-Security Missing on 1 Internal Route",
+   "family": "Strict-Transport-Security Missing on N Internal Route",
+   "outcome": "confirmed",
+   "detail": "1 route(s) re-fetched, header absent on each: /apps"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "high",
+   "name": "Content-Security-Policy Missing on 1 Internal Route",
+   "family": "Content-Security-Policy Missing on N Internal Route",
+   "outcome": "confirmed",
+   "detail": "1 route(s) re-fetched, header absent on each: /login"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "low",
+   "name": "Non-Session Cookie Missing Secure Flag on Inner Page",
+   "family": "Non-Session Cookie Missing Secure Flag on Inner Page",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "low",
+   "name": "Strict-Transport-Security Missing on 2 Internal Routes",
+   "family": "Strict-Transport-Security Missing on N Internal Routes",
+   "outcome": "confirmed",
+   "detail": "2 route(s) re-fetched, header absent on each: /preise /healthz"
+  },
+  {
+   "site": "https://arstechnica.com",
+   "severity": "low",
+   "name": "HSTS max-age Too Short",
+   "family": "HSTS max-age Too Short",
+   "outcome": "confirmed",
+   "detail": "max-age=2592000 < 15552000"
+  },
+  {
+   "site": "https://arstechnica.com",
+   "severity": "medium",
+   "name": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+   "family": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+   "outcome": "confirmed",
+   "detail": "script-src has 'unsafe-eval'"
+  },
+  {
+   "site": "https://arstechnica.com",
+   "severity": "medium",
+   "name": "CSP Missing object-src 'none' Directive",
+   "family": "CSP Missing object-src 'none' Directive",
+   "outcome": "confirmed",
+   "detail": "effective object-src: https:"
+  },
+  {
+   "site": "https://arstechnica.com",
+   "severity": "low",
+   "name": "CSP Missing base-uri Directive",
+   "family": "CSP Missing base-uri Directive",
+   "outcome": "confirmed",
+   "detail": "no base-uri directive"
+  },
+  {
+   "site": "https://arstechnica.com",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://arstechnica.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://arstechnica.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://arstechnica.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://arstechnica.com",
+   "severity": "info",
+   "name": "Missing Cache-Control Headers",
+   "family": "Missing Cache-Control Headers",
+   "outcome": "confirmed",
+   "detail": "Cache-Control and Pragma both absent"
+  },
+  {
+   "site": "https://arstechnica.com",
+   "severity": "info",
+   "name": "robots.txt Discloses Sensitive Application Paths",
+   "family": "robots.txt Discloses Sensitive Application Paths",
+   "outcome": "confirmed",
+   "detail": "2 Disallow line(s) present"
+  },
+  {
+   "site": "https://arstechnica.com",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "confirmed",
+   "detail": "tag found, no integrity= attribute"
+  },
+  {
+   "site": "https://arstechnica.com",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript on Inner Page",
+   "family": "Non-Session Cookie Readable by JavaScript on Inner Page",
+   "outcome": "confirmed",
+   "detail": "cookie userLocale lacks HttpOnly"
+  },
+  {
+   "site": "https://arstechnica.com",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://arstechnica.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://arstechnica.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "low",
+   "name": "Referrer-Policy Missing on 1 Internal Route",
+   "family": "Referrer-Policy Missing on N Internal Route",
+   "outcome": "confirmed",
+   "detail": "1 route(s) re-fetched, header absent on each: /apps"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "medium",
+   "name": "CSP Missing object-src 'none' Directive",
+   "family": "CSP Missing object-src 'none' Directive",
+   "outcome": "confirmed",
+   "detail": "effective object-src: (absent)"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "low",
+   "name": "CSP Missing base-uri Directive",
+   "family": "CSP Missing base-uri Directive",
+   "outcome": "confirmed",
+   "detail": "no base-uri directive"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "info",
+   "name": "X-Powered-By Header Discloses Technology Stack",
+   "family": "X-Powered-By Header Discloses Technology Stack",
+   "outcome": "confirmed",
+   "detail": "X-Powered-By: Next.js"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "low",
+   "name": "Non-Session Cookie Missing Secure Flag",
+   "family": "Non-Session Cookie Missing Secure Flag",
+   "outcome": "confirmed",
+   "detail": "cookie _vm_consent_type lacks secure (attrs: expires,path,)"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript",
+   "family": "Non-Session Cookie Readable by JavaScript",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Missing SameSite Attribute",
+   "family": "Non-Session Cookie Missing SameSite Attribute",
+   "outcome": "confirmed",
+   "detail": "cookie _vm_consent_type lacks samesite (attrs: expires,path,)"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "info",
+   "name": "robots.txt Discloses Sensitive Application Paths",
+   "family": "robots.txt Discloses Sensitive Application Paths",
+   "outcome": "confirmed",
+   "detail": "2 Disallow line(s) present"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "confirmed",
+   "detail": "tag found, no integrity= attribute"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript on Inner Page",
+   "family": "Non-Session Cookie Readable by JavaScript on Inner Page",
+   "outcome": "confirmed",
+   "detail": "cookie shouldRemember lacks HttpOnly"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript on Inner Page",
+   "family": "Non-Session Cookie Readable by JavaScript on Inner Page",
+   "outcome": "confirmed",
+   "detail": "cookie _pxhd lacks HttpOnly"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "confirmed",
+   "detail": "tag found, no integrity= attribute"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "info",
+   "name": "robots.txt Discloses Sensitive Application Paths",
+   "family": "robots.txt Discloses Sensitive Application Paths",
+   "outcome": "confirmed",
+   "detail": "2 Disallow line(s) present"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "confirmed",
+   "detail": "tag found, no integrity= attribute"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "info",
+   "name": "Exposed API Documentation — Swagger 2.0 JSON spec at /swagger.json",
+   "family": "Exposed API Documentation — Swagger N.N JSON spec at /swagger.json",
+   "outcome": "confirmed",
+   "detail": "HTTP 200, valid openapi 3.0.0 JSON"
+  },
+  {
+   "site": "https://www.theverge.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://css-tricks.com",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://css-tricks.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://css-tricks.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://css-tricks.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://css-tricks.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://css-tricks.com",
+   "severity": "info",
+   "name": "robots.txt Discloses Sensitive Application Paths",
+   "family": "robots.txt Discloses Sensitive Application Paths",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://css-tricks.com",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://css-tricks.com",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "medium",
+   "name": "X-Content-Type-Options Missing on 2 Internal Routes",
+   "family": "X-Content-Type-Options Missing on N Internal Routes",
+   "outcome": "confirmed",
+   "detail": "2 route(s) re-fetched, header absent on each: /preise /healthz"
+  },
+  {
+   "site": "https://css-tricks.com",
+   "severity": "high",
+   "name": "Missing SPF Record — Email Spoofing Possible",
+   "family": "Missing SPF Record — Email Spoofing Possible",
+   "outcome": "confirmed",
+   "detail": "no v=spf1 TXT at {css-tricks.com}"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "medium",
+   "name": "SPF Record Uses ?all (Neutral — No Enforcement)",
+   "family": "SPF Record Uses ?all (Neutral — No Enforcement)",
+   "outcome": "confirmed",
+   "detail": "webflow.com: ...?all"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://webflow.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://css-tricks.com",
+   "severity": "high",
+   "name": "Missing DMARC Record — No Email Authentication Enforcement",
+   "family": "Missing DMARC Record — No Email Authentication Enforcement",
+   "outcome": "confirmed",
+   "detail": "no v=DMARC1 TXT at _dmarc.{css-tricks.com}"
+  },
+  {
+   "site": "https://css-tricks.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://css-tricks.com",
+   "severity": "high",
+   "name": "JavaScript Source Map Exposed — Full Source Code Accessible",
+   "family": "JavaScript Source Map Exposed — Full Source Code Accessible",
+   "outcome": "refused",
+   "detail": "re-fetch refused (HTTP 429); not re-derived"
+  },
+  {
+   "site": "https://css-tricks.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://miro.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://dev.to",
+   "severity": "medium",
+   "name": "CSP Missing object-src 'none' Directive",
+   "family": "CSP Missing object-src 'none' Directive",
+   "outcome": "confirmed",
+   "detail": "effective object-src: (absent)"
+  },
+  {
+   "site": "https://dev.to",
+   "severity": "low",
+   "name": "CSP Missing base-uri Directive",
+   "family": "CSP Missing base-uri Directive",
+   "outcome": "confirmed",
+   "detail": "no base-uri directive"
+  },
+  {
+   "site": "https://dev.to",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://dev.to",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://dev.to",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://dev.to",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://dev.to",
+   "severity": "info",
+   "name": "Permissive CORS Policy (Wildcard Origin)",
+   "family": "Permissive CORS Policy (Wildcard Origin)",
+   "outcome": "confirmed",
+   "detail": "Access-Control-Allow-Origin: *"
+  },
+  {
+   "site": "https://dev.to",
+   "severity": "info",
+   "name": "robots.txt Discloses Sensitive Application Paths",
+   "family": "robots.txt Discloses Sensitive Application Paths",
+   "outcome": "confirmed",
+   "detail": "1 Disallow line(s) present"
+  },
+  {
+   "site": "https://dev.to",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.duolingo.com",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://www.duolingo.com",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://www.duolingo.com",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.duolingo.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.duolingo.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.duolingo.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.duolingo.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.duolingo.com",
+   "severity": "low",
+   "name": "Non-Session Cookie Missing Secure Flag",
+   "family": "Non-Session Cookie Missing Secure Flag",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://www.duolingo.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript",
+   "family": "Non-Session Cookie Readable by JavaScript",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://www.duolingo.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Missing SameSite Attribute",
+   "family": "Non-Session Cookie Missing SameSite Attribute",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://www.duolingo.com",
+   "severity": "medium",
+   "name": "External Resources Missing Subresource Integrity (SRI)",
+   "family": "External Resources Missing Subresource Integrity (SRI)",
+   "outcome": "confirmed",
+   "detail": "tag found, no integrity= attribute"
+  },
+  {
+   "site": "https://dev.to",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://dev.to",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "medium",
+   "name": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+   "family": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+   "outcome": "confirmed",
+   "detail": "script-src has 'unsafe-inline' with no nonce/hash/strict-dynamic"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "medium",
+   "name": "CSP Missing object-src 'none' Directive",
+   "family": "CSP Missing object-src 'none' Directive",
+   "outcome": "confirmed",
+   "detail": "effective object-src: 'self'"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "low",
+   "name": "CSP Missing base-uri Directive",
+   "family": "CSP Missing base-uri Directive",
+   "outcome": "confirmed",
+   "detail": "no base-uri directive"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://dev.to",
+   "severity": "info",
+   "name": "Exposed API Documentation — OpenAPI JSON spec at /openapi.json",
+   "family": "Exposed API Documentation — OpenAPI JSON spec at /openapi.json",
+   "outcome": "confirmed",
+   "detail": "HTTP 200, valid openapi 3.0.3 JSON"
+  },
+  {
+   "site": "https://dev.to",
+   "severity": "info",
+   "name": "Exposed API Documentation — Versioned API docs at /api/v1/docs",
+   "family": "Exposed API Documentation — Versioned API docs at /api/vN/docs",
+   "outcome": "confirmed",
+   "detail": "HTTP 200, valid openapi 3.0.3 JSON"
+  },
+  {
+   "site": "https://dev.to",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.duolingo.com",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://www.duolingo.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.duolingo.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "low",
+   "name": "Strict-Transport-Security Missing on 2 Internal Routes",
+   "family": "Strict-Transport-Security Missing on N Internal Routes",
+   "outcome": "confirmed",
+   "detail": "2 route(s) re-fetched, header absent on each: /newsguidelines.html /newsfaq.html"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "low",
+   "name": "CSP Missing base-uri Directive",
+   "family": "CSP Missing base-uri Directive",
+   "outcome": "confirmed",
+   "detail": "no base-uri directive"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "confirmed",
+   "detail": "no X-Frame-Options, no frame-ancestors"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "low",
+   "name": "Non-Session Cookie Missing Secure Flag",
+   "family": "Non-Session Cookie Missing Secure Flag",
+   "outcome": "confirmed",
+   "detail": "cookie _fs_ch_st_FSBmUei20MqUiJb9 lacks secure (attrs: max-age,httponly,path)"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "info",
+   "name": "Non-Session Cookie Missing SameSite Attribute",
+   "family": "Non-Session Cookie Missing SameSite Attribute",
+   "outcome": "confirmed",
+   "detail": "cookie _fs_ch_st_FSBmUei20MqUiJb9 lacks samesite (attrs: max-age,httponly,path)"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "medium",
+   "name": "Session Cookie Missing HttpOnly Flag on Inner Page",
+   "family": "Session Cookie Missing HttpOnly Flag on Inner Page",
+   "outcome": "not-reproduced",
+   "detail": "no cookie name in evidence"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "medium",
+   "name": "HTTP Traffic Not Redirected to HTTPS",
+   "family": "HTTP Traffic Not Redirected to HTTPS",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "high",
+   "name": "Content-Security-Policy Missing on 2 Internal Routes",
+   "family": "Content-Security-Policy Missing on N Internal Routes",
+   "outcome": "confirmed",
+   "detail": "2 route(s) re-fetched, header absent on each: /newsguidelines.html /newsfaq.html"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "info",
+   "name": "No Structured Data Found",
+   "family": "No Structured Data Found",
+   "outcome": "confirmed",
+   "detail": "no ld+json in HTML"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "info",
+   "name": "Incomplete Open Graph Metadata",
+   "family": "Incomplete Open Graph Metadata",
+   "outcome": "confirmed",
+   "detail": "absent on re-fetch: og:title og:description og:image"
+  },
+  {
+   "site": "https://www.khanacademy.org",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "medium",
+   "name": "X-Frame-Options / frame-ancestors Missing on 2 Internal Routes",
+   "family": "X-Frame-Options / frame-ancestors Missing on N Internal Routes",
+   "outcome": "confirmed",
+   "detail": "2 route(s) re-fetched, header absent on each: /newsguidelines.html /newsfaq.html"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript on Inner Page",
+   "family": "Non-Session Cookie Readable by JavaScript on Inner Page",
+   "outcome": "confirmed",
+   "detail": "cookie SS_ANALYTICS_ID lacks HttpOnly"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "info",
+   "name": "robots.txt Discloses Sensitive Application Paths",
+   "family": "robots.txt Discloses Sensitive Application Paths",
+   "outcome": "confirmed",
+   "detail": "1 Disallow line(s) present"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "low",
+   "name": "Social Preview Asset Referenced Over HTTP",
+   "family": "Social Preview Asset Referenced Over HTTP",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "info",
+   "name": "Incomplete Open Graph Metadata",
+   "family": "Incomplete Open Graph Metadata",
+   "outcome": "confirmed",
+   "detail": "absent on re-fetch: og:description"
+  },
+  {
+   "site": "https://www.squarespace.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "medium",
+   "name": "X-Content-Type-Options Missing on 2 Internal Routes",
+   "family": "X-Content-Type-Options Missing on N Internal Routes",
+   "outcome": "confirmed",
+   "detail": "2 route(s) re-fetched, header absent on each: /newsguidelines.html /newsfaq.html"
+  },
+  {
+   "site": "https://www.coursera.org",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://www.coursera.org",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.coursera.org",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.coursera.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.coursera.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.coursera.org",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.coursera.org",
+   "severity": "info",
+   "name": "X-Powered-By Header Discloses Technology Stack",
+   "family": "X-Powered-By Header Discloses Technology Stack",
+   "outcome": "confirmed",
+   "detail": "X-Powered-By: Express"
+  },
+  {
+   "site": "https://www.coursera.org",
+   "severity": "low",
+   "name": "Non-Session Cookie Missing Secure Flag",
+   "family": "Non-Session Cookie Missing Secure Flag",
+   "outcome": "confirmed",
+   "detail": "cookie __204u lacks secure (attrs: max-age,expires,path,domain)"
+  },
+  {
+   "site": "https://www.coursera.org",
+   "severity": "info",
+   "name": "Non-Session Cookie Readable by JavaScript",
+   "family": "Non-Session Cookie Readable by JavaScript",
+   "outcome": "confirmed",
+   "detail": "cookie __204u lacks httponly (attrs: max-age,expires,path,domain)"
+  },
+  {
+   "site": "https://www.coursera.org",
+   "severity": "info",
+   "name": "Non-Session Cookie Missing SameSite Attribute",
+   "family": "Non-Session Cookie Missing SameSite Attribute",
+   "outcome": "confirmed",
+   "detail": "cookie __204u lacks samesite (attrs: max-age,expires,path,domain)"
+  },
+  {
+   "site": "https://www.zalando.com",
+   "severity": "high",
+   "name": "Missing Content-Security-Policy (CSP)",
+   "family": "Missing Content-Security-Policy (CSP)",
+   "outcome": "confirmed",
+   "detail": "no CSP header and no meta CSP on re-fetch"
+  },
+  {
+   "site": "https://www.zalando.com",
+   "severity": "medium",
+   "name": "Missing Clickjacking Protection (X-Frame-Options)",
+   "family": "Missing Clickjacking Protection (X-Frame-Options)",
+   "outcome": "confirmed",
+   "detail": "no X-Frame-Options, no frame-ancestors"
+  },
+  {
+   "site": "https://www.zalando.com",
+   "severity": "medium",
+   "name": "Missing X-Content-Type-Options: nosniff",
+   "family": "Missing X-Content-Type-Options: nosniff",
+   "outcome": "confirmed",
+   "detail": "header=\"\" (not nosniff)"
+  },
+  {
+   "site": "https://www.zalando.com",
+   "severity": "low",
+   "name": "Missing Referrer-Policy Header",
+   "family": "Missing Referrer-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Referrer-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.zalando.com",
+   "severity": "low",
+   "name": "Missing Permissions-Policy Header",
+   "family": "Missing Permissions-Policy Header",
+   "outcome": "confirmed",
+   "detail": "Permissions-Policy absent on re-fetch"
+  },
+  {
+   "site": "https://www.zalando.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "family": "Missing Cross-Origin-Opener-Policy (COOP)",
+   "outcome": "confirmed",
+   "detail": "COOP absent on re-fetch"
+  },
+  {
+   "site": "https://www.zalando.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "family": "Missing Cross-Origin-Embedder-Policy (COEP)",
+   "outcome": "confirmed",
+   "detail": "COEP absent on re-fetch"
+  },
+  {
+   "site": "https://www.zalando.com",
+   "severity": "info",
+   "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "family": "Missing Cross-Origin-Resource-Policy (CORP)",
+   "outcome": "confirmed",
+   "detail": "CORP absent on re-fetch"
+  },
+  {
+   "site": "https://www.zalando.com",
+   "severity": "info",
+   "name": "Missing Cache-Control Headers",
+   "family": "Missing Cache-Control Headers",
+   "outcome": "confirmed",
+   "detail": "Cache-Control and Pragma both absent"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "low",
+   "name": "Referrer-Policy Missing on 2 Internal Routes",
+   "family": "Referrer-Policy Missing on N Internal Routes",
+   "outcome": "confirmed",
+   "detail": "2 route(s) re-fetched, header absent on each: /newsguidelines.html /newsfaq.html"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "info",
+   "name": "Rate Limiting Not Advertised in Response Headers",
+   "family": "Rate Limiting Not Advertised in Response Headers",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.coursera.org",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://www.coursera.org",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.zalando.com",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://www.zalando.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.zalando.com",
+   "severity": "info",
+   "name": "No Structured Data Found",
+   "family": "No Structured Data Found",
+   "outcome": "confirmed",
+   "detail": "no ld+json in HTML"
+  },
+  {
+   "site": "https://www.zalando.com",
+   "severity": "info",
+   "name": "Incomplete Open Graph Metadata",
+   "family": "Incomplete Open Graph Metadata",
+   "outcome": "confirmed",
+   "detail": "absent on re-fetch: og:title og:description og:image"
+  },
+  {
+   "site": "https://www.zalando.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://www.coursera.org",
+   "severity": "info",
+   "name": "Exposed API Documentation — OpenAPI YAML spec at /openapi.yaml",
+   "family": "Exposed API Documentation — OpenAPI YAML spec at /openapi.yaml",
+   "outcome": "disagrees",
+   "detail": "HTTP 200, body is not JSON"
+  },
+  {
+   "site": "https://www.coursera.org",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "info",
+   "name": "Missing security.txt (RFC 9116)",
+   "family": "Missing security.txt (RFC N)",
+   "outcome": "confirmed",
+   "detail": "no real security.txt at /.well-known/ or /"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "medium",
+   "name": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "family": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+   "outcome": "confirmed",
+   "detail": "_dmarc.ycombinator.com: p=none"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "info",
+   "name": "DNSSEC Not Enabled",
+   "family": "DNSSEC Not Enabled",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "info",
+   "name": "No Structured Data Found",
+   "family": "No Structured Data Found",
+   "outcome": "confirmed",
+   "detail": "no ld+json in HTML"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "info",
+   "name": "Incomplete Open Graph Metadata",
+   "family": "Incomplete Open Graph Metadata",
+   "outcome": "confirmed",
+   "detail": "absent on re-fetch: og:title og:description og:image"
+  },
+  {
+   "site": "https://news.ycombinator.com",
+   "severity": "info",
+   "name": "Active security testing was skipped for this scan",
+   "family": "Active security testing was skipped for this scan",
+   "outcome": "no-check",
+   "detail": "no independent check coded"
+  }
+ ]
+}

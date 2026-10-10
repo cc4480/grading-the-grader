@@ -1,0 +1,1054 @@
+[live-scan] Passive scan of 50 target(s). Scrutinise every actionable finding.
+
+(node:15028) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+=== https://nodejs.org === 12 findings, 5 actionable
+  [HIGH    ] conf= 89  Missing Content-Security-Policy (CSP)
+      GET https://nodejs.org/en Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [MEDIUM  ] conf= 77  Missing Clickjacking Protection (X-Frame-Options)
+      GET https://nodejs.org/en X-Frame-Options: (header absent) CSP frame-ancestors: (not present in Content-Security-Policy)
+  [LOW     ] conf= 82  Missing Referrer-Policy Header
+      GET https://nodejs.org/en Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 82  Missing Permissions-Policy Header
+      GET https://nodejs.org/en Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://nodejs.org/en Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://nodejs.org/en Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://nodejs.org/en Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 56  X-Powered-By Header Discloses Technology Stack
+      GET https://nodejs.org/en X-Powered-By: Next.js
+  [LOW     ] conf= 82  Strict-Transport-Security Missing on 1 Internal Route
+      Routes missing Strict-Transport-Security: • /api (probed)
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for nodejs.org (NOERROR (name exists)).
+  [INFO    ] conf= 95  No Structured Data Found
+      No <script type="application/ld+json"> blocks in https://nodejs.org/en
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://go.dev === 17 findings, 7 actionable
+  [LOW     ] conf= 74  Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)
+      GET https://go.dev/ Content-Security-Policy: connect-src 'self' www.google-analytics.com stats.g.doubleclick.net ; default-src 'se
+  [LOW     ] conf= 77  CSP Missing base-uri Directive
+      GET https://go.dev/ Content-Security-Policy: connect-src 'self' www.google-analytics.com stats.g.doubleclick.net ; default-src 'se
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://go.dev/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 77  Missing Referrer-Policy Header
+      GET https://go.dev/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://go.dev/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://go.dev/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://go.dev/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://go.dev/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cache-Control Headers
+      GET https://go.dev/ Cache-Control: (header absent) Pragma: (header absent)
+  [INFO    ] conf= 75  Missing security.txt (RFC 9116)
+      GET https://go.dev/.well-known/security.txt → HTTP 404 GET https://go.dev/security.txt → HTTP 404
+  [HIGH    ] conf= 90  Missing SPF Record — Email Spoofing Possible
+      DNS TXT queries: go.dev Status: NOERROR (name exists) No v=spf1 record found at the host or any parent domain MX records present (
+  [HIGH    ] conf= 87  Missing DMARC Record — No Email Authentication Enforcement
+      DNS TXT queries: _dmarc.go.dev Status: NXDOMAIN (name does not exist) No v=DMARC1 record found at the host or any parent domain
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for go.dev (NOERROR (name exists)).
+  [INFO    ] conf= 95  No Structured Data Found
+      No <script type="application/ld+json"> blocks in https://go.dev/
+  [INFO    ] conf= 97  Google API Key in Client Code (verify referrer restrictions)
+      Source: external script /js/hats.js Match (redacted): AIzaSy...7MMc Context: ...nload = function () { var helpApi = window.help.se
+  [INFO    ] conf= 97  API Key in Client Code (verify restrictions)
+      Source: external script /js/hats.js Match (redacted): apiKey...MMc' Context: ...tag.onload = function () { var helpApi = window.he
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.rust-lang.org === 13 findings, 6 actionable
+  [HIGH    ] conf= 77  Missing Content-Security-Policy (CSP)
+      GET https://rust-lang.org/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [MEDIUM  ] conf= 77  Missing Clickjacking Protection (X-Frame-Options)
+      GET https://rust-lang.org/ X-Frame-Options: (header absent) CSP frame-ancestors: (not present in Content-Security-Policy)
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://rust-lang.org/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 77  Missing Referrer-Policy Header
+      GET https://rust-lang.org/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://rust-lang.org/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://rust-lang.org/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://rust-lang.org/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://rust-lang.org/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 87  Permissive CORS Policy (Wildcard Origin)
+      GET https://rust-lang.org/ Access-Control-Allow-Origin: *
+  [MEDIUM  ] conf= 83  DMARC Policy Set to None (Monitoring Only — No Enforcement)
+      TXT record: v=DMARC1;p=none;pct=100;rua=mailto:dmarc-rua@rust-lang.org;ruf=mailto:dmarc-rua@rust-lang.org
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for rust-lang.org (NOERROR (name exists)).
+  [INFO    ] conf= 95  Incomplete Open Graph Metadata
+      og:title: og:description: A language empowering everyone to build reliable and efficient software. og:image: https://www.rust-lang
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.typescriptlang.org === 17 findings, 7 actionable
+  [HIGH    ] conf= 89  Missing Content-Security-Policy (CSP)
+      GET https://www.typescriptlang.org/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the 
+  [MEDIUM  ] conf= 77  Missing Clickjacking Protection (X-Frame-Options)
+      GET https://www.typescriptlang.org/ X-Frame-Options: (header absent) CSP frame-ancestors: (not present in Content-Security-Policy)
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://www.typescriptlang.org/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 82  Missing Referrer-Policy Header
+      GET https://www.typescriptlang.org/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 82  Missing Permissions-Policy Header
+      GET https://www.typescriptlang.org/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://www.typescriptlang.org/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.typescriptlang.org/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://www.typescriptlang.org/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 97  Permissive CORS Policy (Wildcard Origin)
+      GET https://www.typescriptlang.org/ Access-Control-Allow-Origin: *
+  [INFO    ] conf= 75  Missing security.txt (RFC 9116)
+      GET https://www.typescriptlang.org/.well-known/security.txt → HTTP 404 GET https://www.typescriptlang.org/security.txt → HTTP 404
+  [MEDIUM  ] conf= 87  Missing SPF Record — Email Spoofing Possible
+      DNS TXT queries: www.typescriptlang.org, typescriptlang.org Status: NOERROR (name exists) No v=spf1 record found at the host or an
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for www.typescriptlang.org or typescriptlang.org (NOERROR (name exists)).
+  [INFO    ] conf= 95  No Structured Data Found
+      No <script type="application/ld+json"> blocks in https://www.typescriptlang.org/
+  [INFO    ] conf= 95  Incomplete Open Graph Metadata
+      og:title: JavaScript With Syntax For Types. og:description: TypeScript extends JavaScript by adding types to the language. TypeScr
+  [INFO    ] conf= 90  Twitter Card Metadata Absent
+      twitter:card: (absent)
+  [HIGH    ] conf= 97  JavaScript Source Map Exposed — Full Source Code Accessible
+      Source map URL: https://www.typescriptlang.org/webpack-runtime-390038cab046f21b4242.js.map Source files mapped: 15 Full sourcesCon
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://kubernetes.io === 12 findings, 6 actionable
+  [HIGH    ] conf= 89  Missing Content-Security-Policy (CSP)
+      GET https://kubernetes.io/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [MEDIUM  ] conf= 77  Missing Clickjacking Protection (X-Frame-Options)
+      GET https://kubernetes.io/ X-Frame-Options: (header absent) CSP frame-ancestors: (not present in Content-Security-Policy)
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://kubernetes.io/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 82  Missing Referrer-Policy Header
+      GET https://kubernetes.io/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 82  Missing Permissions-Policy Header
+      GET https://kubernetes.io/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://kubernetes.io/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://kubernetes.io/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://kubernetes.io/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 92  Rate Limiting Not Advertised in Response Headers
+      GET https://kubernetes.io/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and c
+  [HIGH    ] conf= 95  Missing DMARC Record — No Email Authentication Enforcement
+      DNS TXT queries: _dmarc.kubernetes.io Status: NXDOMAIN (name does not exist) No v=DMARC1 record found at the host or any parent do
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for kubernetes.io (NOERROR (name exists)).
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://angular.dev === 11 findings, 7 actionable
+  [HIGH    ] conf= 89  Missing Content-Security-Policy (CSP)
+      GET https://angular.dev/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [MEDIUM  ] conf= 77  Missing Clickjacking Protection (X-Frame-Options)
+      GET https://angular.dev/ X-Frame-Options: (header absent) CSP frame-ancestors: (not present in Content-Security-Policy)
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://angular.dev/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 82  Missing Referrer-Policy Header
+      GET https://angular.dev/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 82  Missing Permissions-Policy Header
+      GET https://angular.dev/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://angular.dev/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 92  Rate Limiting Not Advertised in Response Headers
+      GET https://angular.dev/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and com
+  [INFO    ] conf= 75  Missing security.txt (RFC 9116)
+      GET https://angular.dev/.well-known/security.txt → HTTP 200 with an HTML page (the site's catch-all answer for unknown paths), not
+  [HIGH    ] conf= 90  Missing SPF Record — Email Spoofing Possible
+      DNS TXT queries: angular.dev Status: NOERROR (name exists) No v=spf1 record found at the host or any parent domain MX records pres
+  [HIGH    ] conf= 95  Missing DMARC Record — No Email Authentication Enforcement
+      DNS TXT queries: _dmarc.angular.dev Status: NXDOMAIN (name does not exist) No v=DMARC1 record found at the host or any parent doma
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://astro.build === 14 findings, 8 actionable
+  [HIGH    ] conf= 89  Missing Content-Security-Policy (CSP)
+      GET https://astro.build/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [MEDIUM  ] conf= 77  Missing Clickjacking Protection (X-Frame-Options)
+      GET https://astro.build/ X-Frame-Options: (header absent) CSP frame-ancestors: (not present in Content-Security-Policy)
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://astro.build/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 82  Missing Referrer-Policy Header
+      GET https://astro.build/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 82  Missing Permissions-Policy Header
+      GET https://astro.build/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://astro.build/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://astro.build/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://astro.build/ Cross-Origin-Resource-Policy: (header absent from response)
+  [MEDIUM  ] conf= 73  External Resources Missing Subresource Integrity (SRI)
+      <script/link src="https://cdn.usefathom.com/script.js" (no integrity= attribute)> [vendor-updated tag]
+  [INFO    ] conf= 75  Missing security.txt (RFC 9116)
+      GET https://astro.build/.well-known/security.txt → HTTP 404 GET https://astro.build/security.txt → HTTP 404
+  [HIGH    ] conf= 90  Missing SPF Record — Email Spoofing Possible
+      DNS TXT queries: astro.build Status: NOERROR (name exists) No v=spf1 record found at the host or any parent domain MX records pres
+  [HIGH    ] conf= 95  Missing DMARC Record — No Email Authentication Enforcement
+      DNS TXT queries: _dmarc.astro.build Status: NXDOMAIN (name does not exist) No v=DMARC1 record found at the host or any parent doma
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for astro.build (NOERROR (name exists)).
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://laravel.com === 13 findings, 5 actionable
+  [HIGH    ] conf= 77  Missing Content-Security-Policy (CSP)
+      GET https://laravel.com/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://laravel.com/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://laravel.com/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://laravel.com/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://laravel.com/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 51  X-Powered-By Header Discloses Technology Stack
+      GET https://laravel.com/ X-Powered-By: Statamic
+  [MEDIUM  ] conf= 80  External Resources Missing Subresource Integrity (SRI)
+      <script/link src="https://analytics.ahrefs.com/analytics.js" (no integrity= attribute)> <script/link src="https://bzrcdn.openai.co
+  [INFO    ] conf= 75  Missing security.txt (RFC 9116)
+      GET https://laravel.com/.well-known/security.txt → HTTP 404 GET https://laravel.com/security.txt → HTTP 404
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for laravel.com (NOERROR (name exists)).
+  [HIGH    ] conf= 97  JavaScript Source Map Exposed — Full Source Code Accessible
+      Source map URL: https://laravel.com/build/assets/app-CBkgIW3L.js.map Source files mapped: 2 Full sourcesContent included.
+  [LOW     ] conf= 80  JavaScript Source Map Exposed — Third-Party Library Code
+      Source map URL: https://laravel.com/build/assets/inertia-BL8G41xO.js.map Source files mapped: 182, of which the site's own: 2 • ..
+  [INFO    ] conf= 97  Mapbox Public Token — Restrict to Your Domain
+      Source: inline <script> block Match (redacted): pk.eyJ...T-Aw Context: ...09-8a58-505bb3450577","founders_summit":"04c360...ad1a"}
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.djangoproject.com === 11 findings, 4 actionable
+  [HIGH    ] conf= 77  Missing Content-Security-Policy (CSP)
+      GET https://www.djangoproject.com/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the p
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.djangoproject.com/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://www.djangoproject.com/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 51  robots.txt Discloses Sensitive Application Paths
+      GET https://www.djangoproject.com/robots.txt → HTTP 200 Disallow: /admin
+  [MEDIUM  ] conf= 73  External Resources Missing Subresource Integrity (SRI)
+      <script/link src="https://analytics.python.org/js/pa-vpHLG0R-txTE4LicNIQU7.js" (no integrity= attribute)>
+  [MEDIUM  ] conf= 81  HTTP Traffic Not Redirected to HTTPS
+      GET http://www.djangoproject.com/ (followed up to 5 redirect hops) Result: request chain never reached https://www.djangoproject.c
+  [INFO    ] conf= 87  Rate Limiting Not Advertised in Response Headers
+      GET https://www.djangoproject.com/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-Afte
+  [MEDIUM  ] conf= 83  DMARC Policy Set to None (Monitoring Only — No Enforcement)
+      TXT record: v=DMARC1;p=none;np=reject;rua=mailto:re+hltq0oknct8@dmarc.postmarkapp.com
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for www.djangoproject.com or djangoproject.com (NOERROR (name exists)).
+  [INFO    ] conf= 95  No Structured Data Found
+      No <script type="application/ld+json"> blocks in https://www.djangoproject.com/
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://rubyonrails.org === 13 findings, 6 actionable
+  [HIGH    ] conf= 77  Missing Content-Security-Policy (CSP)
+      GET https://rubyonrails.org/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [MEDIUM  ] conf= 77  Missing Clickjacking Protection (X-Frame-Options)
+      GET https://rubyonrails.org/ X-Frame-Options: (header absent) CSP frame-ancestors: (not present in Content-Security-Policy)
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://rubyonrails.org/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 77  Missing Referrer-Policy Header
+      GET https://rubyonrails.org/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://rubyonrails.org/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://rubyonrails.org/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://rubyonrails.org/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://rubyonrails.org/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 87  Permissive CORS Policy (Wildcard Origin)
+      GET https://rubyonrails.org/ Access-Control-Allow-Origin: *
+  [MEDIUM  ] conf= 73  External Resources Missing Subresource Integrity (SRI)
+      <script/link src="https://plausible.io/js/script.js" (no integrity= attribute)>
+  [INFO    ] conf= 83  DMARC Record Missing Aggregate Report Address (rua=)
+      TXT record: v=DMARC1; p=quarantine;
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for rubyonrails.org (NOERROR (name exists)).
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://playwright.dev === 14 findings, 6 actionable
+  [HIGH    ] conf= 77  Missing Content-Security-Policy (CSP)
+      GET https://playwright.dev/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [MEDIUM  ] conf= 77  Missing Clickjacking Protection (X-Frame-Options)
+      GET https://playwright.dev/ X-Frame-Options: (header absent) CSP frame-ancestors: (not present in Content-Security-Policy)
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://playwright.dev/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 77  Missing Referrer-Policy Header
+      GET https://playwright.dev/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://playwright.dev/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://playwright.dev/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://playwright.dev/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://playwright.dev/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 87  Permissive CORS Policy (Wildcard Origin)
+      GET https://playwright.dev/ Access-Control-Allow-Origin: *
+  [INFO    ] conf= 75  Missing security.txt (RFC 9116)
+      GET https://playwright.dev/.well-known/security.txt → HTTP 404 GET https://playwright.dev/security.txt → HTTP 404
+  [MEDIUM  ] conf= 87  Missing SPF Record — Email Spoofing Possible
+      DNS TXT queries: playwright.dev Status: NOERROR (name exists) No v=spf1 record found at the host or any parent domain
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for playwright.dev (NOERROR (name exists)).
+  [INFO    ] conf= 95  No Structured Data Found
+      No <script type="application/ld+json"> blocks in https://playwright.dev/
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://vite.dev === 14 findings, 8 actionable
+  [HIGH    ] conf= 89  Missing Content-Security-Policy (CSP)
+      GET https://vite.dev/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [MEDIUM  ] conf= 77  Missing Clickjacking Protection (X-Frame-Options)
+      GET https://vite.dev/ X-Frame-Options: (header absent) CSP frame-ancestors: (not present in Content-Security-Policy)
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://vite.dev/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 82  Missing Referrer-Policy Header
+      GET https://vite.dev/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 82  Missing Permissions-Policy Header
+      GET https://vite.dev/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://vite.dev/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://vite.dev/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://vite.dev/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 92  Rate Limiting Not Advertised in Response Headers
+      GET https://vite.dev/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and common
+  [INFO    ] conf= 75  Missing security.txt (RFC 9116)
+      GET https://vite.dev/.well-known/security.txt → HTTP 404 GET https://vite.dev/security.txt → HTTP 404
+  [MEDIUM  ] conf= 87  Missing SPF Record — Email Spoofing Possible
+      DNS TXT queries: vite.dev Status: NOERROR (name exists) No v=spf1 record found at the host or any parent domain
+  [HIGH    ] conf= 95  Missing DMARC Record — No Email Authentication Enforcement
+      DNS TXT queries: _dmarc.vite.dev Status: NOERROR (name exists) No v=DMARC1 record found at the host or any parent domain
+  [LOW     ] conf= 40  No DKIM Records Found Under Common Selectors
+      Checked selectors: default, google, mail, smtp, k1, k2, selector1, selector2, and 34 more — none returned a valid DKIM record.
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.postgresql.org === 16 findings, 7 actionable
+  [MEDIUM  ] conf= 74  Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)
+      GET https://www.postgresql.org/ Content-Security-Policy: default-src 'self' ; img-src * data: ; script-src 'unsafe-eval' 'self' ww
+  [MEDIUM  ] conf= 77  CSP Missing object-src 'none' Directive
+      GET https://www.postgresql.org/ Content-Security-Policy: default-src 'self' ; img-src * data: ; script-src 'unsafe-eval' 'self' ww
+  [LOW     ] conf= 77  CSP Missing base-uri Directive
+      GET https://www.postgresql.org/ Content-Security-Policy: default-src 'self' ; img-src * data: ; script-src 'unsafe-eval' 'self' ww
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://www.postgresql.org/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 77  Missing Referrer-Policy Header
+      GET https://www.postgresql.org/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://www.postgresql.org/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.postgresql.org/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://www.postgresql.org/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cache-Control Headers
+      GET https://www.postgresql.org/ Cache-Control: (header absent) Pragma: (header absent)
+  [INFO    ] conf= 51  robots.txt Discloses Sensitive Application Paths
+      GET https://www.postgresql.org/robots.txt → HTTP 200 Disallow: /admin/
+  [INFO    ] conf= 87  Rate Limiting Not Advertised in Response Headers
+      GET https://www.postgresql.org/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, 
+  [INFO    ] conf= 75  Missing security.txt (RFC 9116)
+      GET https://www.postgresql.org/.well-known/security.txt → HTTP 404 GET https://www.postgresql.org/security.txt → HTTP 404
+  [MEDIUM  ] conf= 83  DMARC Policy Set to None (Monitoring Only — No Enforcement)
+      TXT record: v=DMARC1; p=none; ruf=mailto:dmarc@postgresql.org; fo=1; adkim=r; aspf=r; rf=afrf; ri=86400
+  [INFO    ] conf= 83  DMARC Record Missing Aggregate Report Address (rua=)
+      TXT record: v=DMARC1; p=none; ruf=mailto:dmarc@postgresql.org; fo=1; adkim=r; aspf=r; rf=afrf; ri=86400
+  [INFO    ] conf= 90  Twitter Card Metadata Absent
+      twitter:card: (absent)
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://redis.io === 13 findings, 6 actionable
+  [LOW     ] conf= 81  HSTS max-age Too Short
+      GET https://redis.io/ Strict-Transport-Security: max-age=10368000; includeSubDomains; preload (max-age=10368000 — minimum recommen
+  [MEDIUM  ] conf= 89  CSP Missing object-src 'none' Directive
+      GET https://redis.io/ Content-Security-Policy: frame-ancestors 'self' https://redis.io (object-src directive absent — plugin conte
+  [LOW     ] conf= 89  CSP Missing base-uri Directive
+      GET https://redis.io/ Content-Security-Policy: frame-ancestors 'self' https://redis.io (base-uri directive absent)
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://redis.io/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 82  Missing Referrer-Policy Header
+      GET https://redis.io/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 82  Missing Permissions-Policy Header
+      GET https://redis.io/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://redis.io/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://redis.io/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://redis.io/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 68  Non-Session Cookie Readable by JavaScript
+      Affected cookie: gb_assignments
+  [INFO    ] conf= 51  robots.txt Discloses Sensitive Application Paths
+      GET https://redis.io/robots.txt → HTTP 200 Disallow: /docs/staging/
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for redis.io (NOERROR (name exists)).
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.sqlite.org === 16 findings, 7 actionable
+  [HIGH    ] conf= 77  Missing Content-Security-Policy (CSP)
+      GET https://www.sqlite.org/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [MEDIUM  ] conf= 77  Missing Clickjacking Protection (X-Frame-Options)
+      GET https://www.sqlite.org/ X-Frame-Options: (header absent) CSP frame-ancestors: (not present in Content-Security-Policy)
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://www.sqlite.org/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 77  Missing Referrer-Policy Header
+      GET https://www.sqlite.org/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://www.sqlite.org/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://www.sqlite.org/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.sqlite.org/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://www.sqlite.org/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 87  Rate Limiting Not Advertised in Response Headers
+      GET https://www.sqlite.org/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and 
+  [MEDIUM  ] conf= 83  DMARC Policy Set to None (Monitoring Only — No Enforcement)
+      TXT record: v=DMARC1; p=none;
+  [INFO    ] conf= 83  DMARC Record Missing Aggregate Report Address (rua=)
+      TXT record: v=DMARC1; p=none;
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for www.sqlite.org or sqlite.org (NOERROR (name exists)).
+  [LOW     ] conf= 95  Mail Server TLS Certificate Expiring Soon
+      mx.sqlite.org:25 (starttls) Issuer: YE1 Valid to: Oct 11 12:25:06 2026 GMT
+  [INFO    ] conf= 95  No Structured Data Found
+      No <script type="application/ld+json"> blocks in https://www.sqlite.org/
+  [INFO    ] conf= 95  Incomplete Open Graph Metadata
+      og:title: (absent) og:description: (absent) og:image: (absent)
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://grafana.com === 13 findings, 6 actionable
+  [HIGH    ] conf= 89  Missing Content-Security-Policy (CSP)
+      GET https://grafana.com/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://grafana.com/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 82  Missing Referrer-Policy Header
+      GET https://grafana.com/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 82  Missing Permissions-Policy Header
+      GET https://grafana.com/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://grafana.com/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://grafana.com/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://grafana.com/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 56  X-Powered-By Header Discloses Technology Stack
+      GET https://grafana.com/ X-Powered-By: Next.js
+  [LOW     ] conf= 78  Non-Session Cookie Missing Secure Flag
+      Affected cookie: NEXT_LOCALE
+  [MEDIUM  ] conf= 85  X-Frame-Options / frame-ancestors Missing on 4 Internal Routes
+      Routes missing X-Frame-Options / frame-ancestors: • /auth/sign-in/ (crawled) • /auth/sign-up/create-user/ (crawled) • /login (prob
+  [INFO    ] conf= 75  Missing security.txt (RFC 9116)
+      GET https://grafana.com/.well-known/security.txt → HTTP 404 GET https://grafana.com/security.txt → HTTP 404
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for grafana.com (NOERROR (name exists)).
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://prometheus.io === 14 findings, 7 actionable
+  [LOW     ] conf= 81  HSTS max-age Too Short
+      GET https://prometheus.io/ Strict-Transport-Security: max-age=2592000; preload (max-age=2592000 — minimum recommended: 15552000)
+  [HIGH    ] conf= 89  Missing Content-Security-Policy (CSP)
+      GET https://prometheus.io/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [MEDIUM  ] conf= 77  Missing Clickjacking Protection (X-Frame-Options)
+      GET https://prometheus.io/ X-Frame-Options: (header absent) CSP frame-ancestors: (not present in Content-Security-Policy)
+  [LOW     ] conf= 82  Missing Referrer-Policy Header
+      GET https://prometheus.io/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 82  Missing Permissions-Policy Header
+      GET https://prometheus.io/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://prometheus.io/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://prometheus.io/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://prometheus.io/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 75  Missing security.txt (RFC 9116)
+      GET https://prometheus.io/.well-known/security.txt → HTTP 404 GET https://prometheus.io/security.txt → HTTP 404
+  [HIGH    ] conf= 90  Missing SPF Record — Email Spoofing Possible
+      DNS TXT queries: prometheus.io Status: NOERROR (name exists) No v=spf1 record found at the host or any parent domain MX records pr
+  [HIGH    ] conf= 95  Missing DMARC Record — No Email Authentication Enforcement
+      DNS TXT queries: _dmarc.prometheus.io Status: NXDOMAIN (name does not exist) No v=DMARC1 record found at the host or any parent do
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for prometheus.io (NOERROR (name exists)).
+  [INFO    ] conf= 95  No Structured Data Found
+      No <script type="application/ld+json"> blocks in https://prometheus.io/
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.elastic.co === 17 findings, 6 actionable
+  [MEDIUM  ] conf= 89  CSP Missing object-src 'none' Directive
+      GET https://www.elastic.co/ Content-Security-Policy: frame-ancestors 'self' https://*.elastic.co https://elasticsandbox.docebosaas
+  [LOW     ] conf= 89  CSP Missing base-uri Directive
+      GET https://www.elastic.co/ Content-Security-Policy: frame-ancestors 'self' https://*.elastic.co https://elasticsandbox.docebosaas
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://www.elastic.co/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 82  Missing Referrer-Policy Header
+      GET https://www.elastic.co/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 82  Missing Permissions-Policy Header
+      GET https://www.elastic.co/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://www.elastic.co/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.elastic.co/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://www.elastic.co/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 56  X-Powered-By Header Discloses Technology Stack
+      GET https://www.elastic.co/ X-Powered-By: Next.js
+  [INFO    ] conf= 68  Non-Session Cookie Readable by JavaScript
+      Affected cookies: euid, euid
+  [INFO    ] conf= 60  Non-Session Cookie Missing SameSite Attribute
+      Affected cookies: euid, euid
+  [MEDIUM  ] conf= 73  External Resources Missing Subresource Integrity (SRI)
+      <script/link src="https://cdn.optimizely.com/js/18132920325.js" (no integrity= attribute)> [vendor-updated tag]
+  [INFO    ] conf= 92  Rate Limiting Not Advertised in Response Headers
+      GET https://www.elastic.co/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and 
+  [INFO    ] conf= 75  Missing security.txt (RFC 9116)
+      GET https://www.elastic.co/.well-known/security.txt → HTTP 404 GET https://www.elastic.co/security.txt → HTTP 404
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for www.elastic.co or elastic.co (NOERROR (name exists)).
+  [INFO    ] conf= 92  Structured Data Missing @context or @type
+      {"@context":"http://schema.org","type":"WebPage","headline":"Elastic.co homepage","url":"/"}
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.docker.com === 9 findings, 2 actionable
+  [HIGH    ] conf= 77  Missing Content-Security-Policy (CSP)
+      GET https://www.docker.com/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://www.docker.com/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.docker.com/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://www.docker.com/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 51  robots.txt Discloses Sensitive Application Paths
+      GET https://www.docker.com/robots.txt → HTTP 200 Disallow: /wp-admin/ Disallow: /ja-jp/wp-admin/
+  [MEDIUM  ] conf= 73  External Resources Missing Subresource Integrity (SRI)
+      <script/link src="https://assets.adobedtm.com/ba6d3e7c167e/6bf3c6b5f665/launch-55e2612a4c37.min.js" (no integrity= attribute)>
+  [INFO    ] conf= 87  Rate Limiting Not Advertised in Response Headers
+      GET https://www.docker.com/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and 
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for www.docker.com or docker.com (NOERROR (name exists)).
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.hashicorp.com === 3 findings, 0 actionable
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for www.hashicorp.com or hashicorp.com (NOERROR (name exists)).
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+  [INFO    ] conf= 95  Scan was intercepted by a bot-protection challenge
+      x-vercel-mitigated response header: challenge
+
+=== https://www.debian.org === 9 findings, 2 actionable
+  [HIGH    ] conf= 77  Missing Content-Security-Policy (CSP)
+      GET https://www.debian.org/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://www.debian.org/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.debian.org/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://www.debian.org/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 87  Rate Limiting Not Advertised in Response Headers
+      GET https://www.debian.org/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and 
+  [MEDIUM  ] conf= 83  DMARC Policy Set to None (Monitoring Only — No Enforcement)
+      TXT record: v=DMARC1; p=none; rua=mailto:dmarc-reports@debian.org
+  [INFO    ] conf= 95  No Structured Data Found
+      No <script type="application/ld+json"> blocks in https://www.debian.org/
+  [INFO    ] conf= 95  Incomplete Open Graph Metadata
+      og:title: (absent) og:description: (absent) og:image: (absent)
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://ubuntu.com === 10 findings, 6 actionable
+  [MEDIUM  ] conf= 74  Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)
+      GET https://ubuntu.com/ Content-Security-Policy: default-src 'self'; img-src data: blob: *; script-src-elem 'self' 'strict-dynamic
+  [MEDIUM  ] conf= 77  CSP Missing object-src 'none' Directive
+      GET https://ubuntu.com/ Content-Security-Policy: default-src 'self'; img-src data: blob: *; script-src-elem 'self' 'strict-dynamic
+  [LOW     ] conf= 77  CSP Missing base-uri Directive
+      GET https://ubuntu.com/ Content-Security-Policy: default-src 'self'; img-src data: blob: *; script-src-elem 'self' 'strict-dynamic
+  [INFO    ] conf= 51  Server Version Disclosure
+      GET https://ubuntu.com/ Server: nginx/1.14.0 (Ubuntu)
+  [INFO    ] conf= 54  robots.txt Discloses Sensitive Application Paths
+      GET https://ubuntu.com/robots.txt → HTTP 200 Disallow: /sentry-debug Disallow: /credentials/exam* Disallow: /sentry-debug Disallow
+  [MEDIUM  ] conf= 83  DMARC Policy Set to None (Monitoring Only — No Enforcement)
+      TXT record: v=DMARC1; p=none; pct=100; rua=mailto:dmarc-rua+ubuntu@admin.canonical.com
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for ubuntu.com (NOERROR (name exists)).
+  [LOW     ] conf= 25  Nginx 1.14.0 — Verify Distro Package Against CVE-2026-42533
+      Server: Nginx/1.14.0 (distro-packaged)
+  [HIGH    ] conf=100  JavaScript Source Map Exposed — Full Source Code Accessible
+      Linked from: /static/js/dist/main.js Source map URL: https://ubuntu.com/static/js/dist/main.js.map Source files mapped: 31 Full so
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.gnu.org === 14 findings, 5 actionable
+  [HIGH    ] conf= 77  Missing Content-Security-Policy (CSP)
+      GET https://www.gnu.org/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [LOW     ] conf= 77  Missing Referrer-Policy Header
+      GET https://www.gnu.org/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://www.gnu.org/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://www.gnu.org/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.gnu.org/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://www.gnu.org/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 54  robots.txt Discloses Sensitive Application Paths
+      GET https://www.gnu.org/robots.txt → HTTP 200 Disallow: /private/ Disallow: /server/staging/ Disallow: /software/gnun/test/
+  [MEDIUM  ] conf= 81  HTTP Traffic Not Redirected to HTTPS
+      GET http://www.gnu.org/ (followed up to 5 redirect hops) Result: request chain never reached https://www.gnu.org/ HSTS preload lis
+  [INFO    ] conf= 87  Rate Limiting Not Advertised in Response Headers
+      GET https://www.gnu.org/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and com
+  [MEDIUM  ] conf= 83  DMARC Policy Set to None (Monitoring Only — No Enforcement)
+      TXT record: v=DMARC1; p=none; rua=mailto:dmarc-rua@fsf.org
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for www.gnu.org or gnu.org (NOERROR (name exists)).
+  [INFO    ] conf= 95  No Structured Data Found
+      No <script type="application/ld+json"> blocks in https://www.gnu.org/
+  [INFO    ] conf= 95  Incomplete Open Graph Metadata
+      og:title: (absent) og:description: (absent) og:image: (absent)
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.kernel.org === 13 findings, 4 actionable
+  [MEDIUM  ] conf= 77  CSP Missing object-src 'none' Directive
+      GET https://www.kernel.org/ Content-Security-Policy: default-src 'self' *.kernel.org; img-src https: data: (object-src directive a
+  [LOW     ] conf= 77  CSP Missing base-uri Directive
+      GET https://www.kernel.org/ Content-Security-Policy: default-src 'self' *.kernel.org; img-src https: data: (base-uri directive abs
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://www.kernel.org/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://www.kernel.org/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.kernel.org/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://www.kernel.org/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cache-Control Headers
+      GET https://www.kernel.org/ Cache-Control: (header absent) Pragma: (header absent)
+  [MEDIUM  ] conf= 73  External Resources Missing Subresource Integrity (SRI)
+      <script/link src="https://html5shiv.googlecode.com/svn/trunk/html5.js" (no integrity= attribute)>
+  [INFO    ] conf= 87  Rate Limiting Not Advertised in Response Headers
+      GET https://www.kernel.org/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and 
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for www.kernel.org or kernel.org (NOERROR (name exists)).
+  [INFO    ] conf= 95  No Structured Data Found
+      No <script type="application/ld+json"> blocks in https://www.kernel.org/
+  [INFO    ] conf= 95  Incomplete Open Graph Metadata
+      og:title: (absent) og:description: (absent) og:image: (absent)
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://owasp.org === 8 findings, 2 actionable
+  [MEDIUM  ] conf= 86  Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)
+      GET https://owasp.org/ Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-in
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://owasp.org/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 56  X-Powered-By Header Discloses Technology Stack
+      GET https://owasp.org/ X-Powered-By: Next.js
+  [LOW     ] conf= 78  Non-Session Cookie Missing Secure Flag
+      Affected cookie: owasp-locale
+  [INFO    ] conf= 51  robots.txt Discloses Sensitive Application Paths
+      GET https://owasp.org/robots.txt → HTTP 200 Disallow: /admin
+  [INFO    ] conf= 92  Rate Limiting Not Advertised in Response Headers
+      GET https://owasp.org/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and commo
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for owasp.org (NOERROR (name exists)).
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.openstreetmap.org === 13 findings, 6 actionable
+  [LOW     ] conf= 77  CSP Missing base-uri Directive
+      GET https://www.openstreetmap.org/ Content-Security-Policy: default-src 'self'; child-src 'self'; font-src 'self'; frame-ancestors
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://www.openstreetmap.org/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.openstreetmap.org/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://www.openstreetmap.org/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 51  X-Powered-By Header Discloses Technology Stack
+      GET https://www.openstreetmap.org/ X-Powered-By: Phusion Passenger(R) 6.2.0
+  [INFO    ] conf= 60  Non-Session Cookie Readable by JavaScript
+      Affected cookie: _osm_banner_31day_2026
+  [MEDIUM  ] conf= 81  Apache Server Status Page Exposed
+      GET https://www.openstreetmap.org/server-status → HTTP 200 (314,025 bytes) Content-Type: text/html; charset=ISO-8859-1
+  [MEDIUM  ] conf= 81  Apache Server Info Page Exposed
+      GET https://www.openstreetmap.org/server-info → HTTP 200 (189,524 bytes) Content-Type: text/html; charset=ISO-8859-1
+  [INFO    ] conf= 87  Rate Limiting Not Advertised in Response Headers
+      GET https://www.openstreetmap.org/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-Afte
+  [MEDIUM  ] conf= 83  DMARC Policy Set to None (Monitoring Only — No Enforcement)
+      TXT record: v=DMARC1; p=none; rua=mailto:openstreetmap-d@dmarc.report-uri.com
+  [LOW     ] conf= 40  No DKIM Records Found Under Common Selectors
+      Checked selectors: default, google, mail, smtp, k1, k2, selector1, selector2, and 34 more — none returned a valid DKIM record.
+  [INFO    ] conf= 90  Twitter Card Metadata Absent
+      twitter:card: (absent)
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.linuxfoundation.org === 16 findings, 8 actionable
+  [MEDIUM  ] conf= 77  CSP Missing object-src 'none' Directive
+      GET https://www.linuxfoundation.org/ Content-Security-Policy: upgrade-insecure-requests (object-src directive absent — plugin cont
+  [LOW     ] conf= 77  CSP Missing base-uri Directive
+      GET https://www.linuxfoundation.org/ Content-Security-Policy: upgrade-insecure-requests (base-uri directive absent)
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://www.linuxfoundation.org/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://www.linuxfoundation.org/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://www.linuxfoundation.org/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.linuxfoundation.org/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://www.linuxfoundation.org/ Cross-Origin-Resource-Policy: (header absent from response)
+  [MEDIUM  ] conf= 77  External Resources Missing Subresource Integrity (SRI)
+      <script/link src="//d2c7xlmseob604.cloudfront.net/tracker.min.js" (no integrity= attribute)> <script/link src="https://cdnjs.cloud
+  [INFO    ] conf= 75  Missing security.txt (RFC 9116)
+      GET https://www.linuxfoundation.org/.well-known/security.txt → HTTP 404 GET https://www.linuxfoundation.org/security.txt → HTTP 40
+  [MEDIUM  ] conf= 83  DMARC Policy Set to None (Monitoring Only — No Enforcement)
+      TXT record: v=DMARC1; p=none; rua=mailto:2916a81a47f3417fb1ddf8487b20b2a5@dmarc-reports.cloudflare.net
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for www.linuxfoundation.org or linuxfoundation.org (NOERROR (name exists)).
+  [INFO    ] conf= 95  No Structured Data Found
+      No <script type="application/ld+json"> blocks in https://www.linuxfoundation.org/
+  [INFO    ] conf= 95  Incomplete Open Graph Metadata
+      og:title: Linux Foundation - Decentralized innovation, built with trust og:description: Helping open technology projects build wor
+  [HIGH    ] conf= 97  JavaScript Source Map Exposed — Full Source Code Accessible
+      Source map URL: https://www.linuxfoundation.org/hs/hsstatic/content-cwv-embed/static-1.1293/embed.js.map Source files mapped: 12 F
+  [LOW     ] conf= 80  JavaScript Source Map Exposed — Third-Party Library Code
+      Source map URL: https://www.linuxfoundation.org/hs/hsstatic/cos-i18n/static-1.53/bundles/project.js.map Source files mapped: 1, of
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://aws.amazon.com === 18 findings, 8 actionable
+  [LOW     ] conf= 74  Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)
+      GET https://aws.amazon.com/ <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://a0.awsstatic.com 
+  [LOW     ] conf= 77  Missing Referrer-Policy Header
+      GET https://aws.amazon.com/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://aws.amazon.com/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://aws.amazon.com/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://aws.amazon.com/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://aws.amazon.com/ Cross-Origin-Resource-Policy: (header absent from response)
+  [LOW     ] conf= 70  Non-Session Cookie Missing Secure Flag
+      Affected cookie: aws_lang
+  [INFO    ] conf= 60  Non-Session Cookie Readable by JavaScript
+      Affected cookie: aws-priv
+  [INFO    ] conf= 60  Non-Session Cookie Missing SameSite Attribute
+      Affected cookies: aws-priv, aws_lang
+  [INFO    ] conf= 77  Missing Cache-Control Headers
+      GET https://aws.amazon.com/ Cache-Control: (header absent) Pragma: (header absent)
+  [MEDIUM  ] conf= 77  Session Cookie Missing HttpOnly Flag on Inner Page
+      GET https://aws.amazon.com/marketplace Set-Cookie: aws-session-id=<redacted>; Domain=.amazon.com; Expires=Sun, 10 Oct 2027 16:46:1
+  [HIGH    ] conf= 77  Session Cookie Missing Secure Flag on Inner Page
+      GET https://aws.amazon.com/marketplace Set-Cookie: JSESSIONID=<redacted>; Path=/; HttpOnly
+  [MEDIUM  ] conf= 77  Session Cookie Missing HttpOnly Flag on Inner Page
+      GET https://aws.amazon.com/marketplace Set-Cookie: aws-session-id-time=<redacted>; domain=.amazon.com; path=/; max-age=31536000; S
+  [INFO    ] conf= 51  robots.txt Discloses Sensitive Application Paths
+      GET https://aws.amazon.com/robots.txt → HTTP 200 Disallow: /careers/database-hiring/
+  [MEDIUM  ] conf= 80  External Resources Missing Subresource Integrity (SRI)
+      <script/link src="https://a0.awsstatic.com/eb-csr/2.0.19/polyfills/es-module-shims/es-module-shims.js" (no integrity= attribute)> 
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for aws.amazon.com or amazon.com (NOERROR (name exists)).
+  [INFO    ] conf= 95  Incomplete Open Graph Metadata
+      og:title: Cloud Computing Services - Amazon Web Services (AWS) og:description: Amazon Web Services offers reliable, scalable, and 
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://cloud.google.com === 9 findings, 3 actionable
+  [LOW     ] conf= 77  Missing Referrer-Policy Header
+      GET https://cloud.google.com/ Referrer-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://cloud.google.com/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [LOW     ] conf= 70  Non-Session Cookie Missing Secure Flag
+      Affected cookie: NID
+  [INFO    ] conf= 60  Non-Session Cookie Missing SameSite Attribute
+      Affected cookie: NID
+  [MEDIUM  ] conf= 73  External Resources Missing Subresource Integrity (SRI)
+      <script/link src="https://www.gstatic.com/_/mss/boq-cloudx-web-cgc/_/js/k=boq-cloudx-web-cgc.GoogleCloudUxWebAppCgcUi.en_US.7my3TG
+  [INFO    ] conf= 75  Missing security.txt (RFC 9116)
+      GET https://cloud.google.com/.well-known/security.txt → HTTP 200 with an HTML page (the site's catch-all answer for unknown paths)
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for cloud.google.com or google.com (NOERROR (name exists)).
+  [INFO    ] conf= 97  Google API Key in Client Code (verify referrer restrictions)
+      Source: inline <script> block Match (redacted): AIzaSy...EUeg Context: ...[\"ja\",\"\\u202a日本語\\u202c\",true,\"ja\"],[\"ko\",\"\\u
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.crowdstrike.com === 10 findings, 5 actionable
+  [MEDIUM  ] conf= 77  CSP Missing object-src 'none' Directive
+      GET https://www.crowdstrike.com/en-us/ Content-Security-Policy: upgrade-insecure-requests;report-uri /csp-violation-report-endpoin
+  [LOW     ] conf= 77  CSP Missing base-uri Directive
+      GET https://www.crowdstrike.com/en-us/ Content-Security-Policy: upgrade-insecure-requests;report-uri /csp-violation-report-endpoin
+  [LOW     ] conf= 77  Missing Referrer-Policy Header
+      GET https://www.crowdstrike.com/en-us/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://www.crowdstrike.com/en-us/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://www.crowdstrike.com/en-us/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.crowdstrike.com/en-us/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://www.crowdstrike.com/en-us/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 60  Non-Session Cookie Missing SameSite Attribute
+      Affected cookies: affinity, AKA_A2
+  [MEDIUM  ] conf= 77  External Resources Missing Subresource Integrity (SRI)
+      <script/link src="//assets.adobedtm.com/d72cd986aea0/6c9104833b6e/launch-bacc530d480b.min.js" (no integrity= attribute)> <script/l
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://snyk.io === 8 findings, 2 actionable
+  [LOW     ] conf= 86  Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)
+      GET https://snyk.io/ Content-Security-Policy: default-src 'self';base-uri 'none';child-src https://*.qualified.com;script-src 'sel
+  [MEDIUM  ] conf= 89  CSP Missing object-src 'none' Directive
+      GET https://snyk.io/ Content-Security-Policy: default-src 'self';base-uri 'none';child-src https://*.qualified.com;script-src 'sel
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://snyk.io/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://snyk.io/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://snyk.io/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 56  X-Powered-By Header Discloses Technology Stack
+      GET https://snyk.io/ X-Powered-By: Next.js
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for snyk.io (NOERROR (name exists)).
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.zendesk.com === 14 findings, 8 actionable
+  [LOW     ] conf= 81  HSTS max-age Too Short
+      GET https://www.zendesk.com/ Strict-Transport-Security: max-age=0; preload (max-age=0 — minimum recommended: 15552000)
+  [MEDIUM  ] conf= 86  Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)
+      GET https://www.zendesk.com/ Content-Security-Policy: default-src * wss://*.zopim.com 'unsafe-inline' 'unsafe-eval'; frame-ancesto
+  [MEDIUM  ] conf= 89  CSP Missing object-src 'none' Directive
+      GET https://www.zendesk.com/ Content-Security-Policy: default-src * wss://*.zopim.com 'unsafe-inline' 'unsafe-eval'; frame-ancesto
+  [LOW     ] conf= 89  CSP Missing base-uri Directive
+      GET https://www.zendesk.com/ Content-Security-Policy: default-src * wss://*.zopim.com 'unsafe-inline' 'unsafe-eval'; frame-ancesto
+  [LOW     ] conf= 82  Missing Referrer-Policy Header
+      GET https://www.zendesk.com/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 82  Missing Permissions-Policy Header
+      GET https://www.zendesk.com/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://www.zendesk.com/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.zendesk.com/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://www.zendesk.com/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 83  DMARC Record Missing Aggregate Report Address (rua=)
+      TXT record: v=DMARC1; p=reject
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for www.zendesk.com or zendesk.com (NOERROR (name exists)).
+  [LOW     ] conf= 80  JavaScript Source Map Exposed — Third-Party Library Code
+      Source map URL: https://www.zendesk.com/web-assets/_next/static/chunks/52340.ce52e27f4725bdb5.js.map Source files mapped: 30, of w
+  [HIGH    ] conf= 97  JavaScript Source Map Exposed — Full Source Code Accessible
+      Source map URL: https://www.zendesk.com/web-assets/_next/static/chunks/29175.a13b535b7158a18c.js.map Source files mapped: 5 Full s
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.airtable.com === 11 findings, 3 actionable
+  [HIGH    ] conf= 89  Missing Content-Security-Policy (CSP)
+      GET https://www.airtable.com/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [MEDIUM  ] conf= 77  Missing Clickjacking Protection (X-Frame-Options)
+      GET https://www.airtable.com/ X-Frame-Options: (header absent) CSP frame-ancestors: (not present in Content-Security-Policy)
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://www.airtable.com/ X-Content-Type-Options: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://www.airtable.com/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.airtable.com/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://www.airtable.com/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 56  X-Powered-By Header Discloses Technology Stack
+      GET https://www.airtable.com/ X-Powered-By: Next.js
+  [INFO    ] conf= 68  Non-Session Cookie Readable by JavaScript
+      Affected cookies: brw, marketing-homepage-e4-segment, brw, marketing-homepage-e4-segment
+  [INFO    ] conf= 75  Missing security.txt (RFC 9116)
+      GET https://www.airtable.com/.well-known/security.txt → HTTP 404 GET https://www.airtable.com/security.txt → HTTP 404
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for www.airtable.com or airtable.com (NOERROR (name exists)).
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.intercom.com === 10 findings, 4 actionable
+  [MEDIUM  ] conf= 86  Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)
+      GET https://www.intercom.com/ Content-Security-Policy: default-src 'self' *.amazonaws.com *.cloudfront.net; frame-ancestors 'self'
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://www.intercom.com/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 82  Missing Referrer-Policy Header
+      GET https://www.intercom.com/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 82  Missing Permissions-Policy Header
+      GET https://www.intercom.com/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://www.intercom.com/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.intercom.com/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 56  X-Powered-By Header Discloses Technology Stack
+      GET https://www.intercom.com/ X-Powered-By: Next.js
+  [INFO    ] conf= 68  Non-Session Cookie Readable by JavaScript
+      Affected cookie: gtm_id
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for www.intercom.com or intercom.com (NOERROR (name exists)).
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.mailchimp.com === 12 findings, 5 actionable
+  [HIGH    ] conf= 77  Missing Content-Security-Policy (CSP)
+      GET https://mailchimp.com/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://mailchimp.com/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 77  Missing Referrer-Policy Header
+      GET https://mailchimp.com/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://mailchimp.com/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://mailchimp.com/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://mailchimp.com/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://mailchimp.com/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cache-Control Headers
+      GET https://mailchimp.com/ Cache-Control: (header absent) Pragma: (header absent)
+  [MEDIUM  ] conf= 73  External Resources Missing Subresource Integrity (SRI)
+      <script/link src="https://cdn.optimizely.com/js/8896740779.js" (no integrity= attribute)> [vendor-updated tag]
+  [INFO    ] conf= 87  Rate Limiting Not Advertised in Response Headers
+      GET https://mailchimp.com/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and c
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for mailchimp.com (NOERROR (name exists)).
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://www.squarespace.com === 20 findings, 8 actionable
+  [HIGH    ] conf= 77  Missing Content-Security-Policy (CSP)
+      GET https://www.squarespace.com/ Content-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the pag
+  [MEDIUM  ] conf= 77  Missing Clickjacking Protection (X-Frame-Options)
+      GET https://www.squarespace.com/ X-Frame-Options: (header absent) CSP frame-ancestors: (not present in Content-Security-Policy)
+  [LOW     ] conf= 77  Missing Referrer-Policy Header
+      GET https://www.squarespace.com/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://www.squarespace.com/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://www.squarespace.com/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://www.squarespace.com/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://www.squarespace.com/ Cross-Origin-Resource-Policy: (header absent from response)
+  [LOW     ] conf= 70  Non-Session Cookie Missing Secure Flag
+      Affected cookie: SS_MID
+  [INFO    ] conf= 60  Non-Session Cookie Readable by JavaScript
+      Affected cookies: crumb, SS_MID
+  [INFO    ] conf= 60  Non-Session Cookie Missing SameSite Attribute
+      Affected cookies: crumb, SS_MID
+  [INFO    ] conf= 77  Missing Cache-Control Headers
+      GET https://www.squarespace.com/ Cache-Control: (header absent) Pragma: (header absent)
+  [LOW     ] conf= 77  Strict-Transport-Security Missing on 2 Internal Routes
+      Routes missing Strict-Transport-Security: • /preise (crawled) • /healthz (probed)
+  [MEDIUM  ] conf= 77  X-Content-Type-Options Missing on 2 Internal Routes
+      Routes missing X-Content-Type-Options: • /preise (crawled) • /healthz (probed)
+  [INFO    ] conf= 60  Non-Session Cookie Readable by JavaScript on Inner Page
+      GET https://www.squarespace.com/preise Set-Cookie: SS_ANALYTICS_ID=<redacted>; Path=/; Expires=Thu, 04 Nov 2027 16:48:46 GMT; Max-
+  [INFO    ] conf= 51  robots.txt Discloses Sensitive Application Paths
+      GET https://www.squarespace.com/robots.txt → HTTP 200 Disallow: /config
+  [INFO    ] conf= 87  Rate Limiting Not Advertised in Response Headers
+      GET https://www.squarespace.com/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After,
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for www.squarespace.com or squarespace.com (NOERROR (name exists)).
+  [LOW     ] conf= 90  Social Preview Asset Referenced Over HTTP
+      <meta property="og:image" content="http://static1.squarespace.com/static/5134cbefe4b0c6fb04df8065/t/6a8c4a1bc1eded3ace8618c3/17875
+  [INFO    ] conf= 95  Incomplete Open Graph Metadata
+      og:title: Website Builder – Easily Create Your Own Website &mdash; Squarespace og:description: (absent) og:image: http://static1.s
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://webflow.com === 16 findings, 9 actionable
+  [LOW     ] conf= 74  Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)
+      GET https://webflow.com/ Content-Security-Policy: frame-ancestors 'self' https://webflow.com https://*.webflow.com https://app.int
+  [MEDIUM  ] conf= 77  CSP Missing object-src 'none' Directive
+      GET https://webflow.com/ Content-Security-Policy: frame-ancestors 'self' https://webflow.com https://*.webflow.com https://app.int
+  [LOW     ] conf= 77  CSP Missing base-uri Directive
+      GET https://webflow.com/ Content-Security-Policy: frame-ancestors 'self' https://webflow.com https://*.webflow.com https://app.int
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://webflow.com/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 77  Missing Permissions-Policy Header
+      GET https://webflow.com/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://webflow.com/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://webflow.com/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://webflow.com/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cache-Control Headers
+      GET https://webflow.com/ Cache-Control: (header absent) Pragma: (header absent)
+  [LOW     ] conf= 77  Strict-Transport-Security Missing on 1 Internal Route
+      Routes missing Strict-Transport-Security: • /apps (crawled)
+  [LOW     ] conf= 77  Referrer-Policy Missing on 1 Internal Route
+      Routes missing Referrer-Policy: • /apps (crawled)
+  [INFO    ] conf= 60  Non-Session Cookie Readable by JavaScript on Inner Page
+      [Direct probe] GET https://webflow.com/admin Set-Cookie: _pxhd=<redacted>; Secure; Expires=Sun, 10-Oct-27 16:49:14 GMT; Path=/
+  [MEDIUM  ] conf= 80  External Resources Missing Subresource Integrity (SRI)
+      <script/link src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" (no integrity= attribute)> <script/link src="ht
+  [MEDIUM  ] conf= 83  SPF Record Uses ?all (Neutral — No Enforcement)
+      TXT record: v=spf1 include:_spf.google.com include:spf.mailjet.com include:mail.zendesk.com include:_spf.salesforce.com include:ma
+  [INFO    ] conf= 83  DNSSEC Not Enabled
+      No DNSKEY records found for webflow.com (NOERROR (name exists)).
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+
+=== https://posthog.com === 14 findings, 7 actionable
+  [MEDIUM  ] conf= 93  Content-Security-Policy is report-only (not enforced)
+      GET https://posthog.com/ Content-Security-Policy: (absent) Content-Security-Policy-Report-Only: default-src 'self'; script-src 'se
+  [MEDIUM  ] conf= 77  Missing Clickjacking Protection (X-Frame-Options)
+      GET https://posthog.com/ X-Frame-Options: (header absent) CSP frame-ancestors: (not present in Content-Security-Policy)
+  [MEDIUM  ] conf= 77  Missing X-Content-Type-Options: nosniff
+      GET https://posthog.com/ X-Content-Type-Options: (header absent from response)
+  [LOW     ] conf= 82  Missing Referrer-Policy Header
+      GET https://posthog.com/ Referrer-Policy: (header absent from response)
+  [LOW     ] conf= 82  Missing Permissions-Policy Header
+      GET https://posthog.com/ Permissions-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Opener-Policy (COOP)
+      GET https://posthog.com/ Cross-Origin-Opener-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Embedder-Policy (COEP)
+      GET https://posthog.com/ Cross-Origin-Embedder-Policy: (header absent from response)
+  [INFO    ] conf= 77  Missing Cross-Origin-Resource-Policy (CORP)
+      GET https://posthog.com/ Cross-Origin-Resource-Policy: (header absent from response)
+  [INFO    ] conf= 97  Permissive CORS Policy (Wildcard Origin)
+      GET https://posthog.com/ Access-Control-Allow-Origin: *
+  [INFO    ] conf= 92  Rate Limiting Not Advertised in Response Headers
+      GET https://posthog.com/ No rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and com
+  [LOW     ] conf= 80  JavaScript Source Map Exposed — Third-Party Library Code
+      Source map URL: https://posthog.com/507a0916-d6225b717e81e4c3bc38.js.map Source files mapped: 1, of which the site's own: 0
+  [HIGH    ] conf= 97  JavaScript Source Map Exposed — Full Source Code Accessible
+      Source map URL: https://posthog.com/17c50846-74c8dea247d819a32d77.js.map Source files mapped: 1 Full sourcesContent included.
+  [INFO    ] conf= 92  Exposed API Documentation — OpenAPI JSON spec at /openapi.json
+      GET https://posthog.com/openapi.json HTTP 200 — OpenAPI JSON spec confirmed (spec structure validated)
+  [INFO    ] conf=100  Active security testing was skipped for this scan
+      No verified ownership on record for this domain at scan time.
+

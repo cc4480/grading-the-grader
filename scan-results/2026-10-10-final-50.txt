@@ -1,0 +1,86 @@
+# Final held-out sweep: 50 URLs, passive scan only (artifacts/api-server/scripts/live-scan.ts in the scanner repo).
+#
+# Run through SecScan on 2026-10-10 (scanner repo master e3d5875). Raw output: 2026-10-10-final-50/raw.json.
+# The list was curated on 2026-10-09 and is reused unchanged so SecScan and another scanner can be compared on the same
+# sites; only this header differs from the file it was copied from.
+#
+# Selection rules:
+#   1. HELD OUT. No host appears in any earlier sweep (the 30-site corpus, the
+#      20 guard targets, companies-50, tech-14, tls-mail-20) or in live-scan's own
+#      5 defaults, www. ignored. The earlier sets were used to tune the false-positive
+#      rules, so rescanning them mostly retests what is already fixed. This
+#      list measures whether those rules generalise.
+#   2. Large, well-resourced public sites. A passive scan is ~100-150 requests per
+#      site (74 sensitive-path probes, a 10-page crawl, TLS, DNS).
+#   3. No government, banking/payments, healthcare or critical-infrastructure
+#      sites, and no small or personal sites.
+#   4. Spread across stack and posture: strict-CSP framework sites, minimal
+#      static sites, WordPress, big media, SaaS marketing, cloud/security vendors.
+#
+# Run (no arguments = the 5 defaults, so always pass the list; DATABASE_URL only has to be set):
+#   cd artifacts/api-server
+#   DATABASE_URL=postgres://localhost/whatever npx tsx scripts/live-scan.ts --json <out.json> $(grep -v '^#' <this file>)
+
+# --- Languages, runtimes, frameworks and their docs (12) ---
+https://nodejs.org
+https://go.dev
+https://www.rust-lang.org
+https://www.typescriptlang.org
+https://kubernetes.io
+https://angular.dev
+https://astro.build
+https://laravel.com
+https://www.djangoproject.com
+https://rubyonrails.org
+https://playwright.dev
+https://vite.dev
+
+# --- Data and infrastructure projects and vendors (8) ---
+https://www.postgresql.org
+https://redis.io
+https://www.sqlite.org
+https://grafana.com
+https://prometheus.io
+https://www.elastic.co
+https://www.docker.com
+https://www.hashicorp.com
+
+# --- Open-source foundations, distros and community (7). Many are minimal static sites. ---
+https://www.debian.org
+https://ubuntu.com
+https://www.gnu.org
+https://www.kernel.org
+https://owasp.org
+https://www.openstreetmap.org
+https://www.linuxfoundation.org
+
+# --- Cloud and security vendors (4) ---
+https://aws.amazon.com
+https://cloud.google.com
+https://www.crowdstrike.com
+https://snyk.io
+
+# --- SaaS and product marketing (9) ---
+https://www.zendesk.com
+https://www.airtable.com
+https://www.intercom.com
+https://www.mailchimp.com
+https://www.squarespace.com
+https://webflow.com
+https://posthog.com
+https://miro.com
+https://calendly.com
+
+# --- Media, content and community (6). Includes WordPress and an extremely minimal site. ---
+https://arstechnica.com
+https://www.theverge.com
+https://www.npr.org
+https://css-tricks.com
+https://dev.to
+https://news.ycombinator.com
+
+# --- Consumer, commerce and education (4) ---
+https://www.duolingo.com
+https://www.khanacademy.org
+https://www.coursera.org
+https://www.zalando.com
