@@ -18,6 +18,155 @@ DATABASE_URL=postgres://localhost/anything \
 `DATABASE_URL` only has to be *set* — the scanner module imports the db layer at
 load time. It is never read by a passive scan.
 
+## 2026-10-09 (later) — hand check of the categories earlier rounds did not verify
+
+Eight sites (nextjs.org, vuejs.org, linear.app, hubspot.com, plaid.com, bolt.new, cursor.com, huggingface.co), one
+page each plus a few routes, scanned live and every claim recomputed with plain fetch and no scanner code. Passive only.
+
+**Agreed:** weak CSP (including HubSpot, whose `unsafe-inline` beside a nonce and `strict-dynamic` is correctly ignored
+and which is flagged only for the `unsafe-eval` that stays in effect), `object-src` and `base-uri` on all 8, non-session
+cookie flags (plaid, cursor), source maps (hubspot and plaid return 200 with valid JSON and `sourcesContent`), and the
+"missing on N internal routes" findings on every route re-fetched. No CVE finding appeared on any of the 8, so
+version-to-CVE matching was not exercised.
+
+### Fixed
+
+| Was reported | Benign trigger | Now |
+|---|---|---|
+| `Session Cookie Missing HttpOnly Flag` (MEDIUM) | bolt.new's `ajs_session_id`, a Segment analytics id the vendor script has to read | Analytics identifiers (`ajs_`, `_hj`, `mp_`, `amplitude_`, `ph_phc_`, `_pk_`, `_ga`, `_gid`) are not session cookies; they are judged as non-session, as `ajs_anonymous_id` already was |
+| `External Resources Missing SRI` told the site to add `integrity` | AWS WAF's `challenge.js` on `<id>.edge.sdk.awswaf.com`, which cannot be pinned | Not reported, like the other bot-protection tags (`DYNAMIC_SUFFIXES`) |
+| The same, with pinning advice | Fathom's `cdn.usefathom.com/script.js`, edited in place | Still reported, with the vendor-updated advice |
+| The same | HubSpot's own `hsappstatic.net` and `hs-banner.com` | Counted as HubSpot's own CDN (`OWNED_CDNS`) |
+
+Each has a test that fails on the old code and a twin showing a real session cookie or a real third party is still reported.
+
+### Narrowed on purpose
+
+- A session cookie whose name starts with an analytics prefix (`ajs_`, `_hj`, `mp_`, `_ga` and the rest) is no longer
+  treated as a login cookie, so a real one named that way would be missed.
+
+## 2026-10-09 — code review against seclayer's fixes, and the fixes
+
+A code-only round: each false-positive class fixed in seclayer was checked against this scanner, and
+every claim below was reproduced by calling the real check code on a benign input (the clickjacking
+cases through a loopback server) before it was changed. No live sites were scanned.
+
+### Fixed
+
+| Was reported | Benign trigger | Now |
+|---|---|---|
+| `X-Frame-Options Header Misconfigured` (MEDIUM) | The header sent twice, which fetch joins as `SAMEORIGIN, SAMEORIGIN` (app and proxy both add it) | Values are split, lowercased and de-duplicated as the HTML spec does (`xfoBlocksFraming`): the same duplicate rule as `nosniff` |
+| The same (MEDIUM) | Legacy `ALLOW-FROM` kept next to CSP `frame-ancestors` | Not judged: browsers that support CSP ignore X-Frame-Options when `frame-ancestors` is set. The check computed this and never used it |
+| `Apache Server Info Page Exposed` (MEDIUM) | A bot or game-server dashboard at `/server-info` with a "Server Settings" heading | Needs "Apache Server Information", or "Server Settings" with mod_info's "Module Name:" entries |
+| `jQuery 1.12.4 — Known Vulnerability` and the like | A changelog sentence, an install snippet shown as escaped text, a download link, page-state JSON | Versions come only from what the page loads or runs: real `<script src>` / `<link href>` tags, import maps, executable inline scripts and styles, generator meta tags |
+| `Bootstrap 2.10.0 — Known Vulnerability` | `react-bootstrap@2.10.0` | A package whose name ends in the library's name is a different package (`(?<![\w-])`); same for `isomorphic-dompurify`, `chartjs-adapter-moment` |
+| Bootstrap CVEs | A Bootstrap stylesheet with no Bootstrap JavaScript | Bootstrap needs its script loaded; every advisory is in its JavaScript plugins |
+| Library CVEs at the wrong version | A WordPress theme's `bootstrap.min.css?ver=1.0.0` (the theme's version) | `?ver=` is trusted only on `wp-includes` paths, where core registers the library's real version |
+| "WordPress 3.7.1" in the technology list | WordPress core's `jquery.min.js?ver=3.7.1`, which is jQuery's version | That pattern no longer sets the WordPress version |
+| `TLS Certificate Expires Soon` with "renewal is not working" | Any healthy short-lived certificate (Let's Encrypt's 6-day profile) | The window is the last third of the certificate's lifetime, capped at 14 days; a 90-day certificate is judged as before |
+
+Each fix has a test that fails on the old code and a twin showing the real problem is still reported:
+`probesHttp.clickjacking.test.ts`, `cveCheckVersions.test.ts`, `probes-data.test.ts` (`/server-info`),
+`tlsCheckFindings.test.ts`.
+
+### Narrowed on purpose (a real problem in these shapes can now be missed)
+
+- A library version that appears only in non-executable markup (prose, `<pre>`, JSON data blocks, HTML
+  comments, `<a href>`) is no longer read.
+- A WordPress theme or plugin that passes a library's real version in `?ver=` outside `wp-includes`
+  is missed.
+- A page that ships Bootstrap's JavaScript inside its own bundle, with only the Bootstrap stylesheet
+  visible, is not reported.
+
+### Not verified, or still open
+
+- `TRACE` is still reported from the `Allow` header without confirming the server honours it. Not a
+  confirmed false positive; confirming would mean sending the method.
+
+## 2026-10-05 (later) — 50 companies not tested before
+
+`sweep-lists/2026-10-05-companies-50.txt`: 50 sites with no overlap with any earlier sweep or with the
+20 guard targets, grouped by what each group stresses (AI app builders and BaaS, framework docs, SaaS
+marketing, PaaS, identity vendors, fintech, consumer apps, media, retail, government/education/health).
+Passive only. Raw output: `scan-results/2026-10-05-companies-50.json`. All 50 scans completed.
+
+**Withheld as bot challenges, correctly:** lovable.dev, canva.com, coinbase.com, nih.gov, mayoclinic.org.
+
+**Independent re-derivation.** For every site the scan reported on, the live response was fetched again
+with the scanner's User-Agent and these claims recomputed without any scanner code: missing CSP (9),
+missing `nosniff` (14), missing clickjacking protection (7), HSTS max-age too short (2), missing DMARC
+(3), DMARC `p=none` (3), DMARC without `rua` (1), missing SPF (2), SPF `?all` (3). **Every one agreed.**
+Nine sites refused the plain re-fetch (403, 406, 429) and were not re-derived: salesforce, intuit,
+spotify, airbnb, cdc.gov, mit.edu, lovable, coinbase, mayoclinic. Three sites looked like a missed
+"Missing CSP" (replit.com, netflix.com, booking.com): all three send only
+`Content-Security-Policy-Report-Only`, which the scanner reports as "not enforced", correctly.
+
+**Not hand-checked this round:** SRI (19 sites), weak CSP (19), `object-src` and `base-uri` (21 and 20),
+non-session cookie findings, technology and CVE matches, source maps, and the "on N internal routes"
+findings. Earlier rounds verified the logic behind these; nothing here re-verified them site by site.
+
+### Fixed: an AWS WAF challenge with a `<noscript>` heading was graded as the site
+
+booking.com answers the scanner with HTTP 202 and a 3.9 KB AWS WAF stub: an empty title, an empty
+`#challenge-container`, `challenge.js`, `AwsWafIntegration` calls and
+`<noscript><h1>JavaScript is disabled</h1>...`. The detector already knows the AWS WAF SDK, but only on a
+"stub document", and `isStubDocument` took the `<h1>` for page structure. The scan reported 12 findings
+(5 actionable) about the interstitial. `<noscript>` content now counts for neither structure nor visible
+text. Real capture saved as `__fixtures__/aws-waf-challenge-booking.html`; the detection test fails on
+the old code, and two clean twins (a real page loading the AWS WAF SDK with a noscript fallback) stay
+unflagged. Re-scan: 3 findings, 0 actionable, "intercepted by a bot-protection challenge".
+
+### Coverage gap, not a bug
+
+`renderedWithBrowser` is false for every site in every sweep to date (0 of 20, 30 and 50). None of these
+sites serves an empty single-page-app shell, so the headless-browser path, which matters most for sites
+built with Lovable, Bolt and similar tools, is never exercised by the sweep. A future list needs a few
+client-rendered app shells that do not challenge the scanner.
+
+## 2026-10-05 — passive sweep of the 20 guard sites, plus the TLS and mail checks
+
+Same 20 targets and mode as 2026-09-30 (`live-scan.ts`, passive). Raw output:
+`scan-results/2026-10-05-guards-20.json`. The new TLS configuration check (2026-10-05) and the mail
+transport check run in the worker, not in `runScan`, so `live-scan.ts` never exercises them; they were
+run separately against the same 20 sites: `scan-results/2026-10-05-tls-mail-20.json`.
+
+**Against 2026-09-30:** unchanged. Every difference was a route count inside a finding's name ("on 9
+Internal Routes" now "on 8"), dropbox swapping one info finding for another, and paypal losing one info
+note. stackoverflow.com and npmjs.com are no longer on the list (they answer this scanner with a
+challenge); pypi.org and rubygems.org replaced them. etsy, nytimes and reddit are withheld as bot
+challenges and report only the coverage notes, as intended.
+
+**New targets, checked against the live response (scanner User-Agent):** all findings on pypi.org and
+rubygems.org reproduced, apart from the one below. `/search/` on pypi has no CSP or Referrer-Policy;
+rubygems `/admin` is a real login page and lacks `nosniff`; pypi's root has no `Cache-Control`.
+
+**TLS and mail transport:** 18 of 20 sites produced no TLS finding; the two that did
+(google.com, mozilla.org: "Deprecated TLS Protocol Versions Accepted") were re-tested with plain
+`openssl s_client -tls1 / -tls1_1` in a container: both complete TLS 1.0 and 1.1 handshakes, and
+github.com, which the scanner passed, refuses them with a protocol-version alert. True positives. No
+mail-transport findings on any site (port 25 was reachable from the test machine for at least
+google's MX; a host that does not answer produces no finding by design).
+
+### Fixed: inner-page cookie check disagreed with the root check
+
+Found on pypi.org. `/account/login/` clears `user_id__insecure` (`Max-Age=0`, `expires` in 1997) and the
+crawler reported it as "Non-Session Cookie Readable by JavaScript on Inner Page". The root-page check
+already skips a cookie the server is clearing; the crawler's `checkPageCookies` and
+`seedCookieIssuesFromRoot` did not, and tested flags with `/secure/i` and `/httponly/i` over the whole
+Set-Cookie line. That also matched the word in the cookie's *name*: with the name `user_id__insecure`
+the cookie counted as `Secure`, so a live cookie of that name without the flag would never have been
+reported. Both now use `parseSetCookie`, as the root scan does. Tests fail on the old code (deleted
+cookie, live cookie with "insecure" in its name, `secure_pref` / `httponly_hint`, and the root seeding)
+and a clean twin keeps the real findings.
+
+### Left as is
+
+- pypi.org "JavaScript Source Map Exposed" (High): the map exists and embeds `sourcesContent`, as
+  reported. pypi's code is open source, which the scanner cannot know; the rating follows the existing
+  rule (a map is rated by whose code it embeds).
+- pypi.org SRI on `analytics.python.org`: a different registrable domain from pypi.org, so third-party
+  by the scanner's rule; arguable, not wrong.
+
 ## 2026-09-30 (evening) — full passive sweep after the probe-review fixes
 
 Live sweep, passive only: the 30-site list from 2026-09-24 plus the 20 guard targets built into

@@ -7,7 +7,7 @@ Every finding the scanner can emit, read out of `artifacts/api-server/src/lib`. 
 complete list; [SCAN_COVERAGE.md](SCAN_COVERAGE.md) is the readable one, grouped by module with
 the Basic/Deep tier and the methodology behind each group.
 
-**315 findings across 60 modules**, in 38 categories. 85 critical, 73 high, 55 medium, 32 low, 70 info.
+**327 findings across 61 modules**, in 38 categories. 85 critical, 78 high, 60 medium, 34 low, 70 info.
 
 A finding is a distinct name the scanner can put in a report, which is not the same as a check
 type: the data-table modules below define many findings from one piece of detection logic —
@@ -22,9 +22,11 @@ module does. `none` — neither, so no test exercises it at all.
 | Module | Findings | Lines | Tests | Coverage |
 |---|---:|---:|---:|---|
 | `recon-data.ts` | 14 | 178 | 12 | direct |
+| `tlsCheckFindings.ts` | 12 | 393 | 36 | direct |
 | `nextjsProbe.ts` | 9 | 255 | 8 | direct |
 | `structuredData.ts` | 9 | 285 | 36 | direct |
 | `crawler-data.ts` | 8 | 181 | 35 | direct |
+| `probesHttp.ts` | 7 | 240 | 2 | direct |
 | `scannerCspChecks.ts` | 7 | 155 | 10 | direct |
 | `scannerHeaderChecks.ts` | 7 | 142 | 3 | direct |
 | `jwtAnalysis.ts` | 6 | 267 | 9 | direct |
@@ -39,9 +41,9 @@ module does. `none` — neither, so no test exercises it at all.
 | `baasProbes.ts` | 2 | 166 | 11 | direct |
 | `graphqlExtra.ts` | 2 | 105 | 8 | direct |
 | `graphqlProbe.ts` | 2 | 256 | 12 | direct |
-| `injectionExtra.ts` | 2 | 140 | 9 | direct |
-| `injectionProbe.ts` | 2 | 283 | 13 | direct |
-| `scanner.ts` | 2 | 388 | 6 | direct |
+| `injectionExtra.ts` | 2 | 132 | 9 | direct |
+| `injectionProbe.ts` | 2 | 270 | 13 | direct |
+| `scanner.ts` | 2 | 389 | 6 | direct |
 | `sourceMaps.ts` | 2 | 236 | 19 | direct |
 | `supabase-probes.ts` | 2 | 104 | 7 | direct |
 | `apiDocsProbe.ts` | 1 | 129 | 9 | direct |
@@ -53,19 +55,19 @@ module does. `none` — neither, so no test exercises it at all.
 | `promptInjectionProbe.ts` | 1 | 214 | 26 | direct |
 | `raceConditionProbe.ts` | 1 | 181 | 21 | direct |
 | `ssrfProbe.ts` | 1 | 200 | 7 | direct |
+| `workerSideChecks.ts` | 1 | 186 | 11 | direct |
 | `probes-data-vcs.ts` | 24 | 244 | — | indirect, via probes-data.test.ts (split from probes-data) |
 | `probes-data-config.ts` | 23 | 273 | — | indirect, via probes-data.test.ts (split from probes-data) |
 | `secret-pattern-vendors.ts` | 21 | 247 | — | indirect, via secret-pattern-data.test.ts (split from secret-pattern-data) |
 | `subdomain-service-data.ts` | 19 | 172 | — | indirect, via subdomainTakeover.test.ts |
-| `probes-data-server.ts` | 17 | 177 | — | indirect, via probes-data.test.ts (split from probes-data) |
+| `probes-data-server.ts` | 17 | 180 | — | indirect, via probes-data.test.ts (split from probes-data) |
 | `probes-data-infra.ts` | 14 | 148 | — | indirect, via probes-data.test.ts (split from probes-data) |
 | `dnsChecksMail.ts` | 8 | 205 | — | indirect, via dnsChecks.test.ts (split from dnsChecks) |
 | `apiProbeFindings.ts` | 7 | 215 | — | indirect, via apiProbe.test.ts (split from apiProbe) |
-| `probesHttp.ts` | 7 | 218 | — | indirect, via probes.test.ts (split from probes) |
 | `secret-pattern-generic.ts` | 7 | 144 | — | indirect, via secret-pattern-data.test.ts (split from secret-pattern-data) |
 | `supabase-probes-report.ts` | 7 | 234 | — | indirect, via supabase-probes.test.ts (split from supabase-probes) |
 | `scannerCookies.ts` | 6 | 205 | — | indirect, via scanner.test.ts (split from scanner) |
-| `crawlerHeaders.ts` | 5 | 202 | — | indirect, via crawler.test.ts (split from crawler) |
+| `crawlerHeaders.ts` | 5 | 203 | — | indirect, via crawler.test.ts (split from crawler) |
 | `cveCheckLocal.ts` | 5 | 225 | — | indirect, via cveCheck.test.ts (split from cveCheck) |
 | `secret-pattern-ai.ts` | 5 | 62 | — | indirect, via secret-pattern-generic.test.ts |
 | `accessControlFindings.ts` | 3 | 129 | — | indirect, via accessControlProbe.test.ts |
@@ -73,14 +75,13 @@ module does. `none` — neither, so no test exercises it at all.
 | `probesPage.ts` | 3 | 244 | — | indirect, via probes.test.ts (split from probes) |
 | `scannerTransportChecks.ts` | 3 | 70 | — | indirect, via scanner.test.ts (split from scanner) |
 | `baasProbesPocketbase.ts` | 2 | 133 | — | indirect, via baasProbes.test.ts (split from baasProbes) |
-| `crawlerCookies.ts` | 2 | 178 | — | indirect, via crawler.test.ts (split from crawler) |
+| `crawlerCookies.ts` | 2 | 184 | — | indirect, via crawler.test.ts (split from crawler) |
 | `scannerPageChecks.ts` | 2 | 56 | — | indirect, via scanner.test.ts (split from scanner) |
 | `secret-pattern-jwt.ts` | 2 | 81 | — | indirect, via secret-pattern-generic.test.ts |
 | `workerAi.ts` | 2 | 100 | — | indirect, via worker.test.ts (split from worker) |
 | `bannerRules.ts` | 1 | 112 | — | indirect, via cveCheckLocal.test.ts, cveCheckVersions.test.ts |
 | `githubFindings.ts` | 1 | 60 | — | indirect, via githubSourceProbe.test.ts |
 | `probesSri.ts` | 1 | 79 | — | indirect, via probes.test.ts (split from probes) |
-| `workerSideChecks.ts` | 1 | 125 | — | indirect, via worker.test.ts (split from worker) |
 
 ## Findings by module
 
@@ -178,7 +179,7 @@ module does. `none` — neither, so no test exercises it at all.
 
 ### `crawlerCookies.ts`
 
-*2 findings · 178 lines · no test file.*
+*2 findings · 184 lines · no test file.*
 
 | Finding | Severity | Category | CVSS | CWE | WSTG |
 |---|---|---|---:|---|---|
@@ -187,7 +188,7 @@ module does. `none` — neither, so no test exercises it at all.
 
 ### `crawlerHeaders.ts`
 
-*5 findings · 202 lines · no test file.*
+*5 findings · 203 lines · no test file.*
 
 | Finding | Severity | Category | CVSS | CWE | WSTG |
 |---|---|---|---:|---|---|
@@ -295,7 +296,7 @@ module does. `none` — neither, so no test exercises it at all.
 
 ### `injectionExtra.ts`
 
-*2 findings · 140 lines · 9 tests.*
+*2 findings · 132 lines · 9 tests.*
 
 | Finding | Severity | Category | CVSS | CWE | WSTG |
 |---|---|---|---:|---|---|
@@ -304,7 +305,7 @@ module does. `none` — neither, so no test exercises it at all.
 
 ### `injectionProbe.ts`
 
-*2 findings · 283 lines · 13 tests.*
+*2 findings · 270 lines · 13 tests.*
 
 | Finding | Severity | Category | CVSS | CWE | WSTG |
 |---|---|---|---:|---|---|
@@ -421,7 +422,7 @@ module does. `none` — neither, so no test exercises it at all.
 
 ### `probes-data-server.ts`
 
-*17 findings · 177 lines · no test file.*
+*17 findings · 180 lines · no test file.*
 
 | Finding | Severity | Category | CVSS | CWE | WSTG |
 |---|---|---|---:|---|---|
@@ -486,7 +487,7 @@ module does. `none` — neither, so no test exercises it at all.
 
 ### `probesHttp.ts`
 
-*7 findings · 218 lines · no test file.*
+*7 findings · 240 lines · 2 tests.*
 
 | Finding | Severity | Category | CVSS | CWE | WSTG |
 |---|---|---|---:|---|---|
@@ -565,7 +566,7 @@ module does. `none` — neither, so no test exercises it at all.
 
 ### `scanner.ts`
 
-*2 findings · 388 lines · 6 tests.*
+*2 findings · 389 lines · 6 tests.*
 
 | Finding | Severity | Category | CVSS | CWE | WSTG |
 |---|---|---|---:|---|---|
@@ -802,6 +803,25 @@ module does. `none` — neither, so no test exercises it at all.
 | Supabase Tables Returned Empty Results To Anonymous Requests (Inconclusive) | Info | Broken Access Control | 0 | — | — |
 | Supabase Write Access Not Confirmed (Inconclusive Probe Response) | Info | Broken Access Control | 0 | — | — |
 
+### `tlsCheckFindings.ts`
+
+*12 findings · 393 lines · 36 tests.*
+
+| Finding | Severity | Category | CVSS | CWE | WSTG |
+|---|---|---|---:|---|---|
+| Self-Signed TLS Certificate | High | Transport Security | 7.4 | CWE-295 | WSTG-CRYP-01 |
+| TLS Certificate Does Not Match the Hostname | High | Transport Security | 7.4 | CWE-297 | WSTG-CRYP-01 |
+| TLS Certificate Expired | High | Transport Security | 7.4 | CWE-298 | WSTG-CRYP-01 |
+| TLS Certificate Not Trusted | High | Transport Security | 7.4 | CWE-295 | WSTG-CRYP-01 |
+| TLS Certificate Not Yet Valid | High | Transport Security | 7.4 | CWE-298 | WSTG-CRYP-01 |
+| Deprecated TLS Protocol Versions Accepted | Medium | Transport Security | 5.3 | CWE-326 | WSTG-CRYP-01 |
+| TLS Certificate Chain Incomplete | Medium | Transport Security | 5.3 | CWE-295 | WSTG-CRYP-01 |
+| TLS Certificate Key Too Short | Medium | Transport Security | 5.9 | CWE-326 | WSTG-CRYP-01 |
+| TLS Certificate Signed With a Weak Hash | Medium | Transport Security | 5.9 | CWE-328 | WSTG-CRYP-01 |
+| Weak Cipher Suite Negotiated | Medium | Transport Security | 5.9 | CWE-327 | WSTG-CRYP-01 |
+| Cipher Suite Without Forward Secrecy | Low | Transport Security | 3.7 | CWE-326 | WSTG-CRYP-01 |
+| TLS Certificate Expires Soon | Low | Transport Security | 3.1 | CWE-298 | WSTG-CRYP-01 |
+
 ### `workerAi.ts`
 
 *2 findings · 100 lines · no test file.*
@@ -813,7 +833,7 @@ module does. `none` — neither, so no test exercises it at all.
 
 ### `workerSideChecks.ts`
 
-*1 findings · 125 lines · no test file.*
+*1 findings · 186 lines · 11 tests.*
 
 | Finding | Severity | Category | CVSS | CWE | WSTG |
 |---|---|---|---:|---|---|
