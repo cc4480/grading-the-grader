@@ -1,7 +1,7 @@
 # Artifacts
 
 Snapshots of the claude.ai artifacts that grade SecScan: test reports, scans, audits and the field report. Each file is the page exactly as published; the live version is at the link, which may be newer. Seclayer build, deploy and market-research pages are kept out of this repo on purpose.
-Snapshot taken 2026-10-03.
+Snapshot taken 2026-10-03. Re-snapshotted 2026-10-10: Grading the Grader (update 20 to 23), and SecScan Against the Field and SecScan Improvement Plan (same text, now saved with the page wrapper the live page has).
 
 Open a snapshot by downloading the `.html` file and opening it in a browser. Fonts load from Google Fonts, so they need a connection.
 
