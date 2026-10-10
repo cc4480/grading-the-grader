@@ -24,7 +24,7 @@ Agents and people: read [`AGENTS.md`](AGENTS.md), then [`docs/STATUS.md`](docs/S
 | `docs/FALSE-POSITIVE-AUDIT.md`, `RETEST.md`, `SCAN-RESULTS.md` | Hand-checked findings, retests and scores |
 | `docs/CHANGELOG.md`, `SCAN_TESTS.md`, `SCAN_COVERAGE.md`, `SCAN_CHECKS.md` | What shipped, and what the scanner tests, covers and checks |
 | `artifacts/` | Snapshots of the claude.ai reports (HTML); see `artifacts/INDEX.md` |
-| `scan-results/` | Raw scan output, one file or folder per run, named `YYYY-MM-DD-<name>` |
+| `scan-results/` | Raw scan output, one file or folder per run, named `YYYY-MM-DD-<name>`; a sweep's URL list sits beside it as `.txt` |
 | `benchmark/` | The existing cross-scanner benchmark (copy from the scanner repo) |
 | `benchmark-runs/` | Raw output of new benchmark runs, one dated folder each |
 
