@@ -2,6 +2,35 @@
 
 Living log. Newest first. Update it with every piece of work: what changed, how you know, what is still open.
 
+## 2026-10-10: mirror brought up to date with the scanner repo; code audit held back
+
+Carlos asked for this repo to be the home for the documentation, with new docs added as they appear. It was cloned to his
+PC and synced from the scanner repo at `master` = `e3d5875`, a clean tree equal to `origin/master` (**Verified**).
+
+- **Synced (`5a69b00`).** `docs/FALSE-POSITIVE-AUDIT.md` +149 lines (the 2026-10-05 and 2026-10-09 entries), `CHANGELOG.md`
+  +24, and `SCAN_TESTS.md`, `SCAN_COVERAGE.md`, `SCAN_CHECKS.md` updated. `RETEST.md`, `SCAN-RESULTS.md` and `benchmark/` were
+  already identical (**Reran** `sync.sh`, then compared with line endings ignored).
+- **Added (`bcad9d8`).** Three 2026-10-05 captures (`companies-50`, `guards-20`, `tls-mail-20`) and the 50-company URL list.
+  `sync.sh` now also copies the scanner's `sweep-lists/` beside the captures. A pattern scan of the new files found no keys,
+  tokens or unredacted cookies (**Reran**).
+- **Re-snapshotted (`bf10977`, `ffcac03`).** Grading the Grader was at update 20; the live report is at update 23, about 470
+  text lines added and 166 changed (**Verified** by text diff of the old snapshot against the live page). Against the Field
+  and Improvement Plan are unchanged in text; their old snapshots only lacked the page wrapper.
+- **Scanner repo, for the record.** PR 39 (clickjacking, `/server-info`, library-version and short-lived-cert false
+  positives) and PR 41 (analytics-cookie and unpinnable-tag SRI false positives) merged 2026-10-10. PRs 22 to 25 (the
+  2026-10-04 code-audit fixes) merged 2026-10-04 and 2026-10-05 (**Verified** with `gh`).
+- **Held back: the SecScan code audit (master `832fb75`, 2026-10-04).** It is a Docs artifact, so it needs exporting to
+  markdown rather than saving as HTML, and it describes how each of its three High findings was reproduced. PRs 22 to 25 are
+  merged, but whether they close those findings is **Reported** by their titles, not re-checked, and nothing here shows a
+  deploy. This repo is public. See decision 11.
+- **Seclayer stays out.** Its scan rounds, including the 2026-10-09 final 50, are in `seclayer.io2026/docs/scan-results/`.
+  See decision 12.
+- **Still open.** (1) `docs/SCAN-RESULTS.md` is the scanner repo's index and stops at Round 6 (2026-09-24); later runs are
+  covered only by the audit log. (2) The raw capture behind "The SecScan 100" (100 sites, 1,134 findings) was not found in
+  either repo (**Inference**: searched by name and content). (3) `benchmark-runs/` has no runs; the independent head-to-head
+  waits on decisions 1a to 1c. (4) As of 2026-10-05 no sweep exercised the headless-browser path (`renderedWithBrowser` was
+  false on every site; **Reported** in the audit log).
+
 ## 2026-10-03: pricing and About pages are live (merged and redeployed by Carlos)
 
 Carlos merged-and-redeployed, and reported "redeploy successful" for each. Not checked on the live sites from the cloud
