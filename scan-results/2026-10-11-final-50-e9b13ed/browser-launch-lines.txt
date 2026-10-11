@@ -1,0 +1,5 @@
+# Browser-launch lines from the first batch of each pass (full console logs are kept outside the vault: local paths and stack traces)
+## no-browser pass
+[04:01:55.699] WARN (20192): Failed to launch headless browser — SPA rendering disabled
+## browser pass
+[04:14:53.430] INFO (12352): Headless browser initialised — SPA rendering enabled

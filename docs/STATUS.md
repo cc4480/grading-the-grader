@@ -2,6 +2,17 @@
 
 Living log. Newest first. Update it with every piece of work: what changed, how you know, what is still open.
 
+## 2026-10-11: held-out final 50 repeated on the commit that is live (`e9b13ed`)
+
+Carlos asked for the final 50 again on the deployed commit, because the 2026-10-10 run was one commit behind what production later ran. Record: `scan-results/2026-10-11-final-50-e9b13ed/`.
+
+- **Engine (Verified).** `e9b13ed` is the head of `master` and the `secscan / production` deployment of 2026-10-11 06:06 UTC. Since `e3d5875` the scanner code differs only by PR 38 and a Stripe bump.
+- **Two passes (Reran).** Pass 1: the headless browser did not start, because the lockfile's Playwright 1.64.0 wants Chromium revision 1248 and this PC has 1234; 638 findings. Pass 2: Playwright 1.62.1 (the version this PC has a browser for, older than the lockfile's), browser started in all five batches; 48 of 50 scanned, 612 findings (0 critical, 41 high, 103 medium, 110 low, 358 info). The browser rendered 1 of 48 sites (duolingo.com). **Pass 2 is the closest run to production this PC can do, not an exact copy.** About 11 minutes a pass.
+- **Against the 2026-10-10 run** the same findings, grade and HTTP status on 41 of 50 sites (pass 1: 42). The differences are the sites: five sites changed between 200, 429, 406 and 503 within minutes.
+- **Decision 14 reproduced on the live commit.** `elastic.co` answered HTTP 406 in pass 2 and SecScan again reported the five claims that are false of the real page. In pass 1 it answered 200.
+- **Not done.** The independent re-check was not repeated on this output. An exact-match run needs `playwright install chromium` for 1.64.0 (about 150 MB), not done.
+- **Note on the link script.** The version pins in my scratch `link-engine.ps1` were right for `ac8fdf6` and are stale for `e9b13ed` (Playwright 1.62.1 there, 1.64.0 in the lockfile). Use `-NoPin` for exports of newer commits.
+
 ## 2026-10-10 (night): Lovable-style target built; first results for SecScan (local only, nothing published)
 
 Carlos asked for an app "based on Lovable's protocols and dependencies" to test on. That answers decision 1a (build the vibe-stack set). Decision 1b

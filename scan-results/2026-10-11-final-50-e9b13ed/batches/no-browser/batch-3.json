@@ -1,0 +1,1214 @@
+{
+ "scannedAt": "2026-10-11T09:08:21.774Z",
+ "results": [
+  {
+   "url": "https://www.debian.org",
+   "finalUrl": "https://www.debian.org/",
+   "statusCode": 200,
+   "server": "Apache",
+   "tlsGrade": null,
+   "technologies": [
+    "Apache"
+   ],
+   "pagesScanned": 10,
+   "renderedWithBrowser": false,
+   "elapsedMs": 4276,
+   "findings": [
+    {
+     "name": "Missing Content-Security-Policy (CSP)",
+     "severity": "high",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 7.2,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://www.debian.org/\nContent-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.debian.org/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.debian.org/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.debian.org/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Rate Limiting Not Advertised in Response Headers",
+     "severity": "info",
+     "category": "Brute Force Protection",
+     "cweId": "CWE-307",
+     "cvssScore": 0,
+     "wstgId": "WSTG-ATHN-03",
+     "confidence": 87,
+     "evidence": "GET https://www.debian.org/\nNo rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and common CDN/WAF infrastructure signals)\nThis observes the homepage response only, and cannot show whether login or API routes are throttled."
+    },
+    {
+     "name": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+     "severity": "medium",
+     "category": "Email Security",
+     "cweId": "CWE-290",
+     "cvssScore": 5.3,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "TXT record: v=DMARC1; p=none; rua=mailto:dmarc-reports@debian.org"
+    },
+    {
+     "name": "No Structured Data Found",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "No <script type=\"application/ld+json\"> blocks in https://www.debian.org/"
+    },
+    {
+     "name": "Incomplete Open Graph Metadata",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "og:title: (absent)\nog:description: (absent)\nog:image: (absent)"
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://ubuntu.com",
+   "finalUrl": "https://ubuntu.com/",
+   "statusCode": 200,
+   "server": "nginx/1.14.0 (Ubuntu)",
+   "tlsGrade": null,
+   "technologies": [
+    "Nginx 1.14.0",
+    "Google Tag Manager"
+   ],
+   "pagesScanned": 6,
+   "renderedWithBrowser": false,
+   "elapsedMs": 30979,
+   "findings": [
+    {
+     "name": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+     "severity": "medium",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 5.4,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 74,
+     "evidence": "GET https://ubuntu.com/\nContent-Security-Policy: default-src 'self'; img-src data: blob: *; script-src-elem 'self' 'strict-dynamic' assets.ubuntu.com www.google-analytics.com www.googletagmanager.com dev.visualwebsiteoptimizer.com www.youtube.com asciinema.org player.vimeo.com script.crazyegg.com w.usabilla.com munchkin.marketo.net serve.nrich.ai ml314.com scout-cdn.salesloft.com snippet.maze.co www.googleadservices.com js.zi-scripts.com *.g.doubleclick.net www.google.com www.gstatic.com *.googlesyndication.com js.stripe.com d3js.org www.brighttalk.com static.ads-twitter.com www.redditstatic.com snap.licdn.com connect.facebook.net cdn.livechatinc.com api.livechatinc.com secure.livechatinc.com www.tfaforms.com api.usabilla.com cdn.jsdelivr.net extend.vimeocdn.com tracking-api.g2.com 'nonce-uUSDyjlHu_k6nUeVx54wrQ'; font-src 'self' data: assets.ubuntu.com cdn.livechatinc.com secure.livechatinc.com fonts.google.com; script-src 'self' blob: *.livechatinc.com *.youtube.com *.google.com *.livechat-static.com 'unsafe-eval' 'nonce-uUSDyjlHu_k6nUeVx54wrQ'; connect-src 'self' *.googlesyndication.com www.google.com ubuntu.com analytics.google.com www.googletagmanager.com o4510662863749120.ingest.de.sentry.io www.google-analytics.com *.crazyegg.com scout.salesloft.com *.g.doubleclick.net js.zi-scripts.com *.mktoresp.com prompts.maze.co *.google-analytics.com pixel-config.reddit.com www.redditstatic.com conversions-config.reddit.com px.ads.linkedin.com ws.zoominfo.com youtube.com google.com www.google.com www.google.ad www.google.ae www.google.com.af www.google.com.ag www.google.al www.google.am www.google.co.ao www.google.com.ar www.google.as www.google.at www.google.com.au www.google.az www.google.ba www.google.com.bd www.google.be www.google.bf www.google.bg www.google.com.bh www.google.bi www.google.bj www.google.com.bn www.google.com.bo www.google.com.br www.google.bs www.google.bt www.google.co.bw www.google.by www.google.com.bz www.google.ca www.google.cd www.google.cf www.google.cg www.google.ch www.google.ci www.google.co.ck www.google.cl www.google.cm www.google.cn www.google.com.co www.google.co.cr www.google.com.cu www.google.cv www.google.com.cy www.google.cz www.google.de www.google.dj www.google.dk www.google.dm www.google.com.do www.google.dz www.google.com.ec www.google.ee www.google.com.eg www.google.es www.google.com.et www.google.fi www.google.com.fj www.google.fm www.google.fr www.google.ga www.google.ge www.google.gg www.google.com.gh www.google.com.gi www.google.gl www.google.gm www.google.gr www.google.com.gt www.google.gy www.google.com.hk www.google.hn www.google.hr www.google.ht www.google.hu www.google.co.id www.google.ie www.google.co.il www.google.im www.google.co.in www.google.iq www.google.is www.google.it www.google.je www.google.com.jm www.google.jo www.google.co.jp www.google.co.ke www.google.com.kh www.google.ki www.google.kg www.google.co.kr www.google.com.kw www.google.kz www.google.la www.google.com.lb www.google.li www.google.lk www.google.co.ls www.google.lt www.google.lu www.google.lv www.google.com.ly www.google.co.ma www.google.md www.google.me www.google.mg www.google.mk www.google.ml www.google.com.mm www.google.mn www.google.com.mt www.google.mu www.google.mv www.google.mw www.google.com.mx www.google.com.my www.google.co.mz www.google.com.na www.google.com.ng www.google.com.ni www.google.ne www.google.nl www.google.no www.google.com.np www.google.nr www.google.nu www.google.co.nz www.google.com.om www.google.com.pa www.google.com.pe www.google.com.pg www.google.com.ph www.google.com.pk www.google.pl www.google.pn www.google.com.pr www.google.ps www.google.pt www.google.com.py www.google.com.qa www.google.ro www.google.ru www.google.rw www.google.com.sa www.google.com.sb www.google.sc www.google.se www.google.com.sg www.google.sh www.google.si www.google.sk www.google.com.sl www.google.sn www.google.so www.google.sm www.google.sr www.google.st www.google.com.sv www.google.td www.google.tg www.g"
+    },
+    {
+     "name": "CSP Missing object-src 'none' Directive",
+     "severity": "medium",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://ubuntu.com/\nContent-Security-Policy: default-src 'self'; img-src data: blob: *; script-src-elem 'self' 'strict-dynamic' assets.ubuntu.com www.google-analytics.com www.googletagmanager.com dev.visualwebsiteoptimizer.com www.youtube.com asciinema.org player.vimeo.com script.crazyegg.com w.usabilla.com munchkin.marketo.net serve.nrich.ai ml314.com scout-cdn.salesloft.com snippet.maze.co www.googleadservices.com js.zi-scripts.com *.g.doubleclick.net www.google.com www.gstatic.com *.googlesyndication.com js.stripe.com d3js.org www.brighttalk.com static.ads-twitter.com www.redditstatic.com snap.licdn.com connect.facebook.net cdn.livechatinc.com api.livechatinc.com secure.livechatinc.com www.tfaforms.com api.usabilla.com cdn.jsdelivr.net extend.vimeocdn.com tracking-api.g2.com 'nonce-uUSDyjlHu_k6nUeVx54wrQ'; font-src 'self' data: assets.ubuntu.com cdn.livechatinc.com secure.livechatinc.com fonts.google.com; script-src 'self' blob: *.livechatinc.com *.youtube.com *.google.com *.livechat-static.com 'unsafe-eval' 'nonce-uUSDyjlHu_k6nUeVx54wrQ'; connect-src 'self' *.googlesyndication.com www.google.com ubuntu.com analytics.google.com www.googletagmanager.com o4510662863749120.ingest.de.sentry.io www.google-analytics.com *.crazyegg.com scout.salesloft.com *.g.doubleclick.net js.zi-scripts.com *.mktoresp.com prompts.maze.co *.google-analytics.com pixel-config.reddit.com www.redditstatic.com conversions-config.reddit.com px.ads.linkedin.com ws.zoominfo.com youtube.com google.com www.google.com www.google.ad www.google.ae www.google.com.af www.google.com.ag www.google.al www.google.am www.google.co.ao www.google.com.ar www.google.as www.google.at www.google.com.au www.google.az www.google.ba www.google.com.bd www.google.be www.google.bf www.google.bg www.google.com.bh www.google.bi www.google.bj www.google.com.bn www.google.com.bo www.google.com.br www.google.bs www.google.bt www.google.co.bw www.google.by www.google.com.bz www.google.ca www.google.cd www.google.cf www.google.cg www.google.ch www.google.ci www.google.co.ck www.google.cl www.google.cm www.google.cn www.google.com.co www.google.co.cr www.google.com.cu www.google.cv www.google.com.cy www.google.cz www.google.de www.google.dj www.google.dk www.google.dm www.google.com.do www.google.dz www.google.com.ec www.google.ee www.google.com.eg www.google.es www.google.com.et www.google.fi www.google.com.fj www.google.fm www.google.fr www.google.ga www.google.ge www.google.gg www.google.com.gh www.google.com.gi www.google.gl www.google.gm www.google.gr www.google.com.gt www.google.gy www.google.com.hk www.google.hn www.google.hr www.google.ht www.google.hu www.google.co.id www.google.ie www.google.co.il www.google.im www.google.co.in www.google.iq www.google.is www.google.it www.google.je www.google.com.jm www.google.jo www.google.co.jp www.google.co.ke www.google.com.kh www.google.ki www.google.kg www.google.co.kr www.google.com.kw www.google.kz www.google.la www.google.com.lb www.google.li www.google.lk www.google.co.ls www.google.lt www.google.lu www.google.lv www.google.com.ly www.google.co.ma www.google.md www.google.me www.google.mg www.google.mk www.google.ml www.google.com.mm www.google.mn www.google.com.mt www.google.mu www.google.mv www.google.mw www.google.com.mx www.google.com.my www.google.co.mz www.google.com.na www.google.com.ng www.google.com.ni www.google.ne www.google.nl www.google.no www.google.com.np www.google.nr www.google.nu www.google.co.nz www.google.com.om www.google.com.pa www.google.com.pe www.google.com.pg www.google.com.ph www.google.com.pk www.google.pl www.google.pn www.google.com.pr www.google.ps www.google.pt www.google.com.py www.google.com.qa www.google.ro www.google.ru www.google.rw www.google.com.sa www.google.com.sb www.google.sc www.google.se www.google.com.sg www.google.sh www.google.si www.google.sk www.google.com.sl www.google.sn www.google.so www.google.sm www.google.sr www.google.st www.google.com.sv www.google.td www.google.tg www.g"
+    },
+    {
+     "name": "CSP Missing base-uri Directive",
+     "severity": "low",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 3.5,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://ubuntu.com/\nContent-Security-Policy: default-src 'self'; img-src data: blob: *; script-src-elem 'self' 'strict-dynamic' assets.ubuntu.com www.google-analytics.com www.googletagmanager.com dev.visualwebsiteoptimizer.com www.youtube.com asciinema.org player.vimeo.com script.crazyegg.com w.usabilla.com munchkin.marketo.net serve.nrich.ai ml314.com scout-cdn.salesloft.com snippet.maze.co www.googleadservices.com js.zi-scripts.com *.g.doubleclick.net www.google.com www.gstatic.com *.googlesyndication.com js.stripe.com d3js.org www.brighttalk.com static.ads-twitter.com www.redditstatic.com snap.licdn.com connect.facebook.net cdn.livechatinc.com api.livechatinc.com secure.livechatinc.com www.tfaforms.com api.usabilla.com cdn.jsdelivr.net extend.vimeocdn.com tracking-api.g2.com 'nonce-uUSDyjlHu_k6nUeVx54wrQ'; font-src 'self' data: assets.ubuntu.com cdn.livechatinc.com secure.livechatinc.com fonts.google.com; script-src 'self' blob: *.livechatinc.com *.youtube.com *.google.com *.livechat-static.com 'unsafe-eval' 'nonce-uUSDyjlHu_k6nUeVx54wrQ'; connect-src 'self' *.googlesyndication.com www.google.com ubuntu.com analytics.google.com www.googletagmanager.com o4510662863749120.ingest.de.sentry.io www.google-analytics.com *.crazyegg.com scout.salesloft.com *.g.doubleclick.net js.zi-scripts.com *.mktoresp.com prompts.maze.co *.google-analytics.com pixel-config.reddit.com www.redditstatic.com conversions-config.reddit.com px.ads.linkedin.com ws.zoominfo.com youtube.com google.com www.google.com www.google.ad www.google.ae www.google.com.af www.google.com.ag www.google.al www.google.am www.google.co.ao www.google.com.ar www.google.as www.google.at www.google.com.au www.google.az www.google.ba www.google.com.bd www.google.be www.google.bf www.google.bg www.google.com.bh www.google.bi www.google.bj www.google.com.bn www.google.com.bo www.google.com.br www.google.bs www.google.bt www.google.co.bw www.google.by www.google.com.bz www.google.ca www.google.cd www.google.cf www.google.cg www.google.ch www.google.ci www.google.co.ck www.google.cl www.google.cm www.google.cn www.google.com.co www.google.co.cr www.google.com.cu www.google.cv www.google.com.cy www.google.cz www.google.de www.google.dj www.google.dk www.google.dm www.google.com.do www.google.dz www.google.com.ec www.google.ee www.google.com.eg www.google.es www.google.com.et www.google.fi www.google.com.fj www.google.fm www.google.fr www.google.ga www.google.ge www.google.gg www.google.com.gh www.google.com.gi www.google.gl www.google.gm www.google.gr www.google.com.gt www.google.gy www.google.com.hk www.google.hn www.google.hr www.google.ht www.google.hu www.google.co.id www.google.ie www.google.co.il www.google.im www.google.co.in www.google.iq www.google.is www.google.it www.google.je www.google.com.jm www.google.jo www.google.co.jp www.google.co.ke www.google.com.kh www.google.ki www.google.kg www.google.co.kr www.google.com.kw www.google.kz www.google.la www.google.com.lb www.google.li www.google.lk www.google.co.ls www.google.lt www.google.lu www.google.lv www.google.com.ly www.google.co.ma www.google.md www.google.me www.google.mg www.google.mk www.google.ml www.google.com.mm www.google.mn www.google.com.mt www.google.mu www.google.mv www.google.mw www.google.com.mx www.google.com.my www.google.co.mz www.google.com.na www.google.com.ng www.google.com.ni www.google.ne www.google.nl www.google.no www.google.com.np www.google.nr www.google.nu www.google.co.nz www.google.com.om www.google.com.pa www.google.com.pe www.google.com.pg www.google.com.ph www.google.com.pk www.google.pl www.google.pn www.google.com.pr www.google.ps www.google.pt www.google.com.py www.google.com.qa www.google.ro www.google.ru www.google.rw www.google.com.sa www.google.com.sb www.google.sc www.google.se www.google.com.sg www.google.sh www.google.si www.google.sk www.google.com.sl www.google.sn www.google.so www.google.sm www.google.sr www.google.st www.google.com.sv www.google.td www.google.tg www.g"
+    },
+    {
+     "name": "Server Version Disclosure",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": null,
+     "wstgId": "WSTG-INFO-02",
+     "confidence": 51,
+     "evidence": "GET https://ubuntu.com/\nServer: nginx/1.14.0 (Ubuntu)"
+    },
+    {
+     "name": "robots.txt Discloses Sensitive Application Paths",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": null,
+     "wstgId": "WSTG-INFO-01",
+     "confidence": 54,
+     "evidence": "GET https://ubuntu.com/robots.txt → HTTP 200\nDisallow: /sentry-debug\nDisallow: /credentials/exam*\nDisallow: /sentry-debug\nDisallow: /credentials/exam*"
+    },
+    {
+     "name": "Rate Limiting Not Advertised in Response Headers",
+     "severity": "info",
+     "category": "Brute Force Protection",
+     "cweId": "CWE-307",
+     "cvssScore": 0,
+     "wstgId": "WSTG-ATHN-03",
+     "confidence": 87,
+     "evidence": "GET https://ubuntu.com/\nNo rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and common CDN/WAF infrastructure signals)\nThis observes the homepage response only, and cannot show whether login or API routes are throttled."
+    },
+    {
+     "name": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+     "severity": "medium",
+     "category": "Email Security",
+     "cweId": "CWE-290",
+     "cvssScore": 5.3,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "TXT record: v=DMARC1; p=none; pct=100; rua=mailto:dmarc-rua+ubuntu@admin.canonical.com"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for ubuntu.com (NOERROR (name exists))."
+    },
+    {
+     "name": "Nginx 1.14.0 — Verify Distro Package Against CVE-2026-42533",
+     "severity": "low",
+     "category": "Outdated Software",
+     "cweId": "CWE-1104",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 25,
+     "evidence": "Server: Nginx/1.14.0 (distro-packaged)"
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://www.gnu.org",
+   "failed": "Failed to reach target URL: fetch failed"
+  },
+  {
+   "url": "https://www.kernel.org",
+   "finalUrl": "https://www.kernel.org/",
+   "statusCode": 200,
+   "server": "nginx",
+   "tlsGrade": null,
+   "technologies": [
+    "Nginx",
+    "Fastly",
+    "Varnish Cache"
+   ],
+   "pagesScanned": 5,
+   "renderedWithBrowser": false,
+   "elapsedMs": 4327,
+   "findings": [
+    {
+     "name": "CSP Missing object-src 'none' Directive",
+     "severity": "medium",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://www.kernel.org/\nContent-Security-Policy: default-src 'self' *.kernel.org; img-src https: data:\n(object-src directive absent — plugin content unrestricted)"
+    },
+    {
+     "name": "CSP Missing base-uri Directive",
+     "severity": "low",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 3.5,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://www.kernel.org/\nContent-Security-Policy: default-src 'self' *.kernel.org; img-src https: data:\n(base-uri directive absent)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.kernel.org/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.kernel.org/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.kernel.org/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.kernel.org/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cache-Control Headers",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-524",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.kernel.org/\nCache-Control: (header absent)\nPragma: (header absent)"
+    },
+    {
+     "name": "External Resources Missing Subresource Integrity (SRI)",
+     "severity": "medium",
+     "category": "Supply Chain Security",
+     "cweId": "CWE-353",
+     "cvssScore": 6.1,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 73,
+     "evidence": "<script/link src=\"https://html5shiv.googlecode.com/svn/trunk/html5.js\" (no integrity= attribute)>"
+    },
+    {
+     "name": "Rate Limiting Not Advertised in Response Headers",
+     "severity": "info",
+     "category": "Brute Force Protection",
+     "cweId": "CWE-307",
+     "cvssScore": 0,
+     "wstgId": "WSTG-ATHN-03",
+     "confidence": 87,
+     "evidence": "GET https://www.kernel.org/\nNo rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and common CDN/WAF infrastructure signals)\nThis observes the homepage response only, and cannot show whether login or API routes are throttled."
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for www.kernel.org or kernel.org (NOERROR (name exists))."
+    },
+    {
+     "name": "No Structured Data Found",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "No <script type=\"application/ld+json\"> blocks in https://www.kernel.org/"
+    },
+    {
+     "name": "Incomplete Open Graph Metadata",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "og:title: (absent)\nog:description: (absent)\nog:image: (absent)"
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://owasp.org",
+   "finalUrl": "https://owasp.org/",
+   "statusCode": 200,
+   "server": "Vercel",
+   "tlsGrade": null,
+   "technologies": [
+    "Vercel",
+    "Next.js",
+    "Tailwind CSS"
+   ],
+   "pagesScanned": 0,
+   "renderedWithBrowser": false,
+   "elapsedMs": 4059,
+   "findings": [
+    {
+     "name": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+     "severity": "medium",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 5.4,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 86,
+     "evidence": "GET https://owasp.org/\nContent-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' https://remssssfmrgmyzqnpeas.supabase.co https://*.supabase.co https://owasp.org https://dependencytrack.org https://assets.ot.digital https://images.unsplash.com https://i.ytimg.com https://img.youtube.com https://*.googleusercontent.com data:; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://remssssfmrgmyzqnpeas.supabase.co wss://remssssfmrgmyzqnpeas.supabase.co; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com https://calendar.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https://accounts.google.com; frame-ancestors 'none'; upgrade-insecure-requests; report-uri /api/csp-report; report-to csp-endpoint\n(unsafe-inline (no nonce/hash/strict-dynamic to override it) in effect for scripts)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://owasp.org/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "X-Powered-By Header Discloses Technology Stack",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": null,
+     "wstgId": "WSTG-INFO-09",
+     "confidence": 56,
+     "evidence": "GET https://owasp.org/\nX-Powered-By: Next.js"
+    },
+    {
+     "name": "Non-Session Cookie Missing Secure Flag",
+     "severity": "low",
+     "category": "Session Management",
+     "cweId": "CWE-614",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 78,
+     "evidence": "Affected cookie: owasp-locale"
+    },
+    {
+     "name": "robots.txt Discloses Sensitive Application Paths",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": null,
+     "wstgId": "WSTG-INFO-01",
+     "confidence": 51,
+     "evidence": "GET https://owasp.org/robots.txt → HTTP 200\nDisallow: /admin"
+    },
+    {
+     "name": "Rate Limiting Not Advertised in Response Headers",
+     "severity": "info",
+     "category": "Brute Force Protection",
+     "cweId": "CWE-307",
+     "cvssScore": 0,
+     "wstgId": "WSTG-ATHN-03",
+     "confidence": 92,
+     "evidence": "GET https://owasp.org/\nNo rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and common CDN/WAF infrastructure signals)\nThis observes the homepage response only, and cannot show whether login or API routes are throttled."
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for owasp.org (NOERROR (name exists))."
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://www.openstreetmap.org",
+   "finalUrl": "https://www.openstreetmap.org/",
+   "statusCode": 200,
+   "server": "Apache",
+   "tlsGrade": null,
+   "technologies": [
+    "Apache",
+    "Fastly",
+    "Varnish Cache",
+    "Tailwind CSS",
+    "Bootstrap",
+    "Ruby on Rails"
+   ],
+   "pagesScanned": 2,
+   "renderedWithBrowser": false,
+   "elapsedMs": 9170,
+   "findings": [
+    {
+     "name": "CSP Missing base-uri Directive",
+     "severity": "low",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 3.5,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://www.openstreetmap.org/\nContent-Security-Policy: default-src 'self'; child-src 'self'; font-src 'self'; frame-ancestors 'self'; frame-src 'self'; manifest-src 'self'; media-src 'none'; object-src 'none'; worker-src blob:; connect-src 'self' tile.openstreetmap.org api.thunderforest.com tile.tracestrack.com *.openstreetmap.fr vector.openstreetmap.org api.maptiler.com matomo.openstreetmap.org http://127.0.0.1:8111 https://vector.openstreetmap.org https://api.maptiler.com https://tile.thunderforest.com https://render.openstreetmap.org https://nominatim.openstreetmap.org/ https://query.openstreetmap.org/query-features https://routing.openstreetmap.de/ https://graphhopper.com/api/1/route https://valhalla1.openstreetmap.de/route https://www.wikidata.org/w/api.php https://commons.wikimedia.org; form-action 'self' render.openstreetmap.org tile.thunderforest.com; img-src 'self' data: www.gravatar.com *.wp.com tile.openstreetmap.org gps.tile.openstreetmap.org api.thunderforest.com tile.tracestrack.com *.openstreetmap.fr matomo.openstreetmap.org https://openstreetmap-user-avatars.s3.dualstack.eu-west-1.amazonaws.com https://openstreetmap-gps-images.s3.dualstack.eu-west-1.amazonaws.com https://commons.wikimedia.org upload.wikimedia.org thumb.wikimedia.org; script-src 'self' matomo.openstreetmap.org 'wasm-unsafe-eval' 'nonce-InpWe4aYPJ5nhh1cpdIDKBkBvTJRfohk'; style-src 'self' 'unsafe-inline' 'nonce-InpWe4aYPJ5nhh1cpdIDKBkBvTJRfohk'\n(base-uri directive absent)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.openstreetmap.org/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.openstreetmap.org/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.openstreetmap.org/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "X-Powered-By Header Discloses Technology Stack",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": null,
+     "wstgId": "WSTG-INFO-09",
+     "confidence": 51,
+     "evidence": "GET https://www.openstreetmap.org/\nX-Powered-By: Phusion Passenger(R) 6.2.0"
+    },
+    {
+     "name": "Non-Session Cookie Readable by JavaScript",
+     "severity": "info",
+     "category": "Session Management",
+     "cweId": "CWE-1004",
+     "cvssScore": 2.6,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 60,
+     "evidence": "Affected cookie: _osm_banner_31day_2026"
+    },
+    {
+     "name": "Apache Server Status Page Exposed",
+     "severity": "medium",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 5.3,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 81,
+     "evidence": "GET https://www.openstreetmap.org/server-status → HTTP 200 (312,226 bytes)\nContent-Type: text/html; charset=ISO-8859-1"
+    },
+    {
+     "name": "Apache Server Info Page Exposed",
+     "severity": "medium",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 5.3,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 81,
+     "evidence": "GET https://www.openstreetmap.org/server-info → HTTP 200 (190,757 bytes)\nContent-Type: text/html; charset=ISO-8859-1"
+    },
+    {
+     "name": "Rate Limiting Not Advertised in Response Headers",
+     "severity": "info",
+     "category": "Brute Force Protection",
+     "cweId": "CWE-307",
+     "cvssScore": 0,
+     "wstgId": "WSTG-ATHN-03",
+     "confidence": 87,
+     "evidence": "GET https://www.openstreetmap.org/\nNo rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and common CDN/WAF infrastructure signals)\nThis observes the homepage response only, and cannot show whether login or API routes are throttled."
+    },
+    {
+     "name": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+     "severity": "medium",
+     "category": "Email Security",
+     "cweId": "CWE-290",
+     "cvssScore": 5.3,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "TXT record: v=DMARC1; p=none; rua=mailto:openstreetmap-d@dmarc.report-uri.com"
+    },
+    {
+     "name": "No DKIM Records Found Under Common Selectors",
+     "severity": "low",
+     "category": "Email Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 40,
+     "evidence": "Checked selectors: default, google, mail, smtp, k1, k2, selector1, selector2, and 34 more — none returned a valid DKIM record."
+    },
+    {
+     "name": "Twitter Card Metadata Absent",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 90,
+     "evidence": "twitter:card: (absent)"
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://www.linuxfoundation.org",
+   "finalUrl": "https://www.linuxfoundation.org/",
+   "statusCode": 200,
+   "server": "cloudflare",
+   "tlsGrade": null,
+   "technologies": [
+    "Cloudflare",
+    "Google Tag Manager",
+    "jQuery 3.7.1"
+   ],
+   "pagesScanned": 1,
+   "renderedWithBrowser": false,
+   "elapsedMs": 4493,
+   "findings": [
+    {
+     "name": "CSP Missing object-src 'none' Directive",
+     "severity": "medium",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://www.linuxfoundation.org/\nContent-Security-Policy: upgrade-insecure-requests\n(object-src directive absent — plugin content unrestricted)"
+    },
+    {
+     "name": "CSP Missing base-uri Directive",
+     "severity": "low",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 3.5,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://www.linuxfoundation.org/\nContent-Security-Policy: upgrade-insecure-requests\n(base-uri directive absent)"
+    },
+    {
+     "name": "Missing X-Content-Type-Options: nosniff",
+     "severity": "medium",
+     "category": "Content Sniffing",
+     "cweId": "CWE-16",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.linuxfoundation.org/\nX-Content-Type-Options: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.linuxfoundation.org/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.linuxfoundation.org/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.linuxfoundation.org/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.linuxfoundation.org/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "External Resources Missing Subresource Integrity (SRI)",
+     "severity": "medium",
+     "category": "Supply Chain Security",
+     "cweId": "CWE-353",
+     "cvssScore": 6.1,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 77,
+     "evidence": "<script/link src=\"//d2c7xlmseob604.cloudfront.net/tracker.min.js\" (no integrity= attribute)>\n<script/link src=\"https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js\" (no integrity= attribute)>\n<script/link src=\"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js\" (no integrity= attribute)>"
+    },
+    {
+     "name": "Missing security.txt (RFC 9116)",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-205",
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 75,
+     "evidence": "GET https://www.linuxfoundation.org/.well-known/security.txt → HTTP 404\nGET https://www.linuxfoundation.org/security.txt → HTTP 404"
+    },
+    {
+     "name": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+     "severity": "medium",
+     "category": "Email Security",
+     "cweId": "CWE-290",
+     "cvssScore": 5.3,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "TXT record: v=DMARC1; p=none; rua=mailto:2916a81a47f3417fb1ddf8487b20b2a5@dmarc-reports.cloudflare.net"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for www.linuxfoundation.org or linuxfoundation.org (NOERROR (name exists))."
+    },
+    {
+     "name": "No Structured Data Found",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "No <script type=\"application/ld+json\"> blocks in https://www.linuxfoundation.org/"
+    },
+    {
+     "name": "Incomplete Open Graph Metadata",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "og:title: Linux Foundation - Decentralized innovation, built with trust\nog:description: Helping open technology projects build world class open source software, communities and companies.\nog:image: (absent)"
+    },
+    {
+     "name": "JavaScript Source Map Exposed — Full Source Code Accessible",
+     "severity": "high",
+     "category": "Source Code Exposure",
+     "cweId": "CWE-540",
+     "cvssScore": 7.5,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 97,
+     "evidence": "Source map URL: https://www.linuxfoundation.org/hs/hsstatic/content-cwv-embed/static-1.1293/embed.js.map\nSource files mapped: 12\nFull sourcesContent included."
+    },
+    {
+     "name": "JavaScript Source Map Exposed — Third-Party Library Code",
+     "severity": "low",
+     "category": "Source Code Exposure",
+     "cweId": "CWE-540",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 80,
+     "evidence": "Source map URL: https://www.linuxfoundation.org/hs/hsstatic/cos-i18n/static-1.53/bundles/project.js.map\nSource files mapped: 1, of which the site's own: 0"
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://aws.amazon.com",
+   "finalUrl": "https://aws.amazon.com/",
+   "statusCode": 200,
+   "server": "Server",
+   "tlsGrade": null,
+   "technologies": [
+    "AWS CloudFront"
+   ],
+   "pagesScanned": 22,
+   "renderedWithBrowser": false,
+   "elapsedMs": 29533,
+   "findings": [
+    {
+     "name": "Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)",
+     "severity": "low",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 74,
+     "evidence": "GET https://aws.amazon.com/\n<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' data: https://a0.awsstatic.com https://prod.us-east-1.ui.gcr-chat.marketing.aws.dev; base-uri 'none'; connect-src 'self' https://*.analytics.console.aws.a2z.com https://*.corrivium.live https://*.harmony.a2z.com https://*.kaltura.com https://*.marketing.aws.dev https://*.panorama.console.api.aws https://*.prod.chc-features.uxplatform.aws.dev https://*.prod.cxm.marketing.aws.dev https://*.us-east-1.prod.mrc-sunrise.marketing.aws.dev https://0vctm1i0if.execute-api.eusc-de-east-1.amazonaws.eu/gamma/spot.json https://112-tzm-766.mktoresp.com https://112-tzm-766.mktoutil.com https://8810.clrt.ai https://a0.awsstatic.com https://a0.p.awsstatic.com https://a1.awsstatic.com https://amazonwebservices.d2.sc.omtrdc.net https://amazonwebservicesinc.tt.omtrdc.net https://api-v2.builderprofile.aws.dev https://api.builderprofile.aws.dev https://api.prod.tools.shortbread.aws.dev https://api.pulse.aws https://api.regional-table.region-services.aws.a2z.com https://api.us-west-2.prod.pricing.aws.a2z.com https://api2.amplitude.com https://artifacts.us-west-2.prod.plc.billing.aws.dev https://assets.storylane.io https://auth.aws.amazon.com https://auth.aws.com https://auth.builder-profile-auth.aws.com https://aws.amazon.com https://aws.amazon.com/p/sf/ https://aws.com https://aws.com/p/sf/ https://aws.demdex.net https://b0.p.awsstatic.com https://c0.b0.p.awsstatic.com https://calculator.aws https://chatbot-api.us-east-1.prod.mrc-sunrise.marketing.aws.dev https://chatbot-stream-api.us-east-1.prod.mrc-sunrise.marketing.aws.dev https://clientlogger.marketplace.aws.a2z.com https://cm.everesttech.net https://csml-plc-prod.us-west-2.api.aws/plc/csml/logging https://cx0.m.awsstatic.com https://cxm.external.ignite.marketing.aws.dev https://d0.awsstatic.com https://d0.m.awsstatic.com https://d1.awsstatic.com https://d1fgizr415o1r6.cloudfront.net https://d2bmgek65me099.cloudfront.net https://d2c.aws.amazon.com https://d3borx6sfvnesb.cloudfront.net https://dftu77xade0tc.cloudfront.net https://dpm.demdex.net https://edge.adobedc.net https://external.ignite.marketing.aws.dev https://fls-na.amazon.com https://global-api-v2.builderprofile.aws.dev https://global-api.builderprofile.aws.dev https://i18n-string.us-west-2.prod.pricing.aws.a2z.com https://iad.staging.prod.tv.awsstatic.com https://infra-api.us-east-1.prod.mrc-sunrise.marketing.aws.dev https://ingestion.aperture-public-api.feedback.console.aws.dev https://insights.builderprofile.aws.dev https://livechat-api.us-east-1.prod.mrc-sunrise.marketing.aws.dev https://log.clrt.ai https://pricing-table.us-west-2.prod.site.p.awsstatic.com https://prod-agenda-builder-api.awseventservices.com https://prod-api.awseventservices.com https://prod-cms-events.awseventservices.com https://prod-us-west-2.csp-report.marketing.aws.dev https://prod.log.shortbread.aws.dev https://prod.tools.shortbread.aws.dev https://prod.us-east-1.api.gcr-chat.marketing.aws.dev https://prod.us-east-1.rest-bot.gcr-chat.marketing.aws.dev https://prod.us-east-1.ui.gcr-chat.marketing.aws.dev https://public.lotus.awt.aws.a2z.com https://r0.m.awsstatic.com https://s0.awsstatic.com https://s3.amazonaws.com/aws-messaging-pricing-information/ https://s3.amazonaws.com/aws-messaging-pricing-information/TextMessageInbound/prices.json https://s3.amazonaws.com/aws-messaging-pricing-information/TextMessageOutbound/prices.json https://s3.amazonaws.com/public-pricing-agc/ https://s3.eusc-de-east-1.amazonaws.eu/aws-messaging-pricing-information/TextMessageInbound/prices.json https://s3.eusc-de-east-1.amazonaws.eu/aws-messaging-pricing-information/TextMessageOutbound/prices.json https://spot-bid-advisor.s3.amazonaws.com https://spot-price-gamma-iad.s3.us-east-1.amazonaws.com/spot.json https://t0.m.awsstatic.com https://target.aws.amazon.com https://target.aws.com https://tes.builder-profile-auth.aws.com https://token.us-west-2.prod.site.p.awsstatic.com https://tv.aw"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://aws.amazon.com/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://aws.amazon.com/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://aws.amazon.com/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://aws.amazon.com/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://aws.amazon.com/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Non-Session Cookie Missing Secure Flag",
+     "severity": "low",
+     "category": "Session Management",
+     "cweId": "CWE-614",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 70,
+     "evidence": "Affected cookie: aws_lang"
+    },
+    {
+     "name": "Non-Session Cookie Readable by JavaScript",
+     "severity": "info",
+     "category": "Session Management",
+     "cweId": "CWE-1004",
+     "cvssScore": 2.6,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 60,
+     "evidence": "Affected cookie: aws-priv"
+    },
+    {
+     "name": "Non-Session Cookie Missing SameSite Attribute",
+     "severity": "info",
+     "category": "CSRF Protection",
+     "cweId": "CWE-352",
+     "cvssScore": 2.1,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 60,
+     "evidence": "Affected cookies: aws-priv, aws_lang"
+    },
+    {
+     "name": "Missing Cache-Control Headers",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-524",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://aws.amazon.com/\nCache-Control: (header absent)\nPragma: (header absent)"
+    },
+    {
+     "name": "Session Cookie Missing HttpOnly Flag on Inner Page",
+     "severity": "medium",
+     "category": "Session Management",
+     "cweId": "CWE-1004",
+     "cvssScore": 5.3,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 77,
+     "evidence": "GET https://aws.amazon.com/marketplace\nSet-Cookie: aws-session-id=<redacted>; Domain=.amazon.com; Expires=Mon, 11 Oct 2027 09:07:16 GMT; Path=/; Secure"
+    },
+    {
+     "name": "Session Cookie Missing Secure Flag on Inner Page",
+     "severity": "high",
+     "category": "Session Management",
+     "cweId": "CWE-614",
+     "cvssScore": 6.5,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 77,
+     "evidence": "GET https://aws.amazon.com/marketplace\nSet-Cookie: JSESSIONID=<redacted>; Path=/; HttpOnly"
+    },
+    {
+     "name": "Session Cookie Missing HttpOnly Flag on Inner Page",
+     "severity": "medium",
+     "category": "Session Management",
+     "cweId": "CWE-1004",
+     "cvssScore": 5.3,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 77,
+     "evidence": "GET https://aws.amazon.com/marketplace\nSet-Cookie: aws-session-id-time=<redacted>; domain=.amazon.com; path=/; max-age=31536000; SameSite=Lax; Secure"
+    },
+    {
+     "name": "robots.txt Discloses Sensitive Application Paths",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": null,
+     "wstgId": "WSTG-INFO-01",
+     "confidence": 51,
+     "evidence": "GET https://aws.amazon.com/robots.txt → HTTP 200\nDisallow: /careers/database-hiring/"
+    },
+    {
+     "name": "External Resources Missing Subresource Integrity (SRI)",
+     "severity": "medium",
+     "category": "Supply Chain Security",
+     "cweId": "CWE-353",
+     "cvssScore": 6.1,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 80,
+     "evidence": "<script/link src=\"https://a0.awsstatic.com/eb-csr/2.0.19/polyfills/es-module-shims/es-module-shims.js\" (no integrity= attribute)>\n<script/link src=\"https://a0.awsstatic.com/awsm-core/0.1.9/bundle/gdeps.js\" (no integrity= attribute)>\n<script/link src=\"https://a0.awsstatic.com/awsm-core/0.1.9/bundle/head.js\" (no integrity= attribute)>\n<script/link src=\"https://a0.awsstatic.com/awsm-core/0.1.9/bundle/munchkin.min.js\" (no integrity= attribute)>\n<script/link src=\"https://a0.awsstatic.com/eb-csr/2.0.19/orchestrate.js\" (no integrity= attribute)>"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for aws.amazon.com or amazon.com (NOERROR (name exists))."
+    },
+    {
+     "name": "Incomplete Open Graph Metadata",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "og:title: Cloud Computing Services - Amazon Web Services (AWS)\nog:description: Amazon Web Services offers reliable, scalable, and inexpensive cloud computing services. Free to join, pay only for what you use.\nog:image: (absent)"
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://cloud.google.com",
+   "finalUrl": "https://cloud.google.com/",
+   "statusCode": 200,
+   "server": "ESF",
+   "tlsGrade": null,
+   "technologies": [],
+   "pagesScanned": 39,
+   "renderedWithBrowser": false,
+   "elapsedMs": 28793,
+   "findings": [
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://cloud.google.com/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://cloud.google.com/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Non-Session Cookie Missing Secure Flag",
+     "severity": "low",
+     "category": "Session Management",
+     "cweId": "CWE-614",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 70,
+     "evidence": "Affected cookie: NID"
+    },
+    {
+     "name": "Non-Session Cookie Missing SameSite Attribute",
+     "severity": "info",
+     "category": "CSRF Protection",
+     "cweId": "CWE-352",
+     "cvssScore": 2.1,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 60,
+     "evidence": "Affected cookie: NID"
+    },
+    {
+     "name": "External Resources Missing Subresource Integrity (SRI)",
+     "severity": "medium",
+     "category": "Supply Chain Security",
+     "cweId": "CWE-353",
+     "cvssScore": 6.1,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 73,
+     "evidence": "<script/link src=\"https://www.gstatic.com/_/mss/boq-cloudx-web-cgc/_/js/k=boq-cloudx-web-cgc.GoogleCloudUxWebAppCgcUi.en_US.7my3TGMCUt8.2018.O/am=QAQBMAAAAAAAAQhM/d=1/excm=_b,_tp,homeview/ed=1/dg=0/wt=2/ujg=1/rs=AF2DL4wSCvxS4UoA4N_hfmFjvJM20MIvcw/dti=1/m=_b,_tp\" (no integrity= attribute)>"
+    },
+    {
+     "name": "Missing security.txt (RFC 9116)",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-205",
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 75,
+     "evidence": "GET https://cloud.google.com/.well-known/security.txt → HTTP 200 with an HTML page (the site's catch-all answer for unknown paths), not a security.txt file\nGET https://cloud.google.com/security.txt → HTTP 200 with an HTML page (the site's catch-all answer for unknown paths), not a security.txt file"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for cloud.google.com or google.com (NOERROR (name exists))."
+    },
+    {
+     "name": "Google API Key in Client Code (verify referrer restrictions)",
+     "severity": "info",
+     "category": "Exposed Secrets / Credentials",
+     "cweId": "CWE-798",
+     "cvssScore": 0,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 97,
+     "evidence": "Source: inline <script> block\nMatch (redacted): AIzaSy...EUeg\nContext: ...[\\\"ja\\\",\\\"\\\\u202a日本語\\\\u202c\\\",true,\\\"ja\\\"],[\\\"ko\\\",\\\"\\\\u202a한국어\\\\u202c\\\",true,\\\"ko\\\"]],[\\\"83405\\\",\\\"AIzaSy...EUeg\\\"],\\\"en\\\",null,null,[],[[\\\"https://cloud.google.com/innovators\\\",\\\"https://cloud.googl..."
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://www.crowdstrike.com",
+   "finalUrl": "https://www.crowdstrike.com/en-us/",
+   "statusCode": 200,
+   "server": null,
+   "tlsGrade": null,
+   "technologies": [
+    "Fastly"
+   ],
+   "pagesScanned": 13,
+   "renderedWithBrowser": false,
+   "elapsedMs": 22204,
+   "findings": [
+    {
+     "name": "CSP Missing object-src 'none' Directive",
+     "severity": "medium",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://www.crowdstrike.com/en-us/\nContent-Security-Policy: upgrade-insecure-requests;report-uri /csp-violation-report-endpoint/\n(object-src directive absent — plugin content unrestricted)"
+    },
+    {
+     "name": "CSP Missing base-uri Directive",
+     "severity": "low",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 3.5,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://www.crowdstrike.com/en-us/\nContent-Security-Policy: upgrade-insecure-requests;report-uri /csp-violation-report-endpoint/\n(base-uri directive absent)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.crowdstrike.com/en-us/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.crowdstrike.com/en-us/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.crowdstrike.com/en-us/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.crowdstrike.com/en-us/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.crowdstrike.com/en-us/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Non-Session Cookie Missing SameSite Attribute",
+     "severity": "info",
+     "category": "CSRF Protection",
+     "cweId": "CWE-352",
+     "cvssScore": 2.1,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 60,
+     "evidence": "Affected cookies: affinity, AKA_A2"
+    },
+    {
+     "name": "External Resources Missing Subresource Integrity (SRI)",
+     "severity": "medium",
+     "category": "Supply Chain Security",
+     "cweId": "CWE-353",
+     "cvssScore": 6.1,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 77,
+     "evidence": "<script/link src=\"//assets.adobedtm.com/d72cd986aea0/6c9104833b6e/launch-bacc530d480b.min.js\" (no integrity= attribute)>\n<script/link src=\"https://addsearch.com/js/?key=7737a29b854de71521b1cd72c4118cfc\" (no integrity= attribute)>"
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  }
+ ]
+}

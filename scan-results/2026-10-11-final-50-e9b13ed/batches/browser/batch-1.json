@@ -1,0 +1,1397 @@
+{
+ "scannedAt": "2026-10-11T09:15:52.501Z",
+ "results": [
+  {
+   "url": "https://nodejs.org",
+   "finalUrl": "https://nodejs.org/en",
+   "statusCode": 200,
+   "server": "cloudflare",
+   "tlsGrade": null,
+   "technologies": [
+    "Cloudflare",
+    "Vercel",
+    "Next.js",
+    "Tailwind CSS"
+   ],
+   "pagesScanned": 13,
+   "renderedWithBrowser": false,
+   "elapsedMs": 7481,
+   "findings": [
+    {
+     "name": "Missing Content-Security-Policy (CSP)",
+     "severity": "high",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 7.2,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 89,
+     "evidence": "GET https://nodejs.org/en\nContent-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)"
+    },
+    {
+     "name": "Missing Clickjacking Protection (X-Frame-Options)",
+     "severity": "medium",
+     "category": "UI Security",
+     "cweId": "CWE-1021",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CLNT-09",
+     "confidence": 77,
+     "evidence": "GET https://nodejs.org/en\nX-Frame-Options: (header absent)\nCSP frame-ancestors: (not present in Content-Security-Policy)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://nodejs.org/en\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://nodejs.org/en\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://nodejs.org/en\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://nodejs.org/en\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://nodejs.org/en\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "X-Powered-By Header Discloses Technology Stack",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": null,
+     "wstgId": "WSTG-INFO-09",
+     "confidence": 56,
+     "evidence": "GET https://nodejs.org/en\nX-Powered-By: Next.js"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for nodejs.org (NOERROR (name exists))."
+    },
+    {
+     "name": "No Structured Data Found",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "No <script type=\"application/ld+json\"> blocks in https://nodejs.org/en"
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://go.dev",
+   "finalUrl": "https://go.dev/",
+   "statusCode": 200,
+   "server": "Google Frontend",
+   "tlsGrade": null,
+   "technologies": [
+    "Google Cloud / GFE",
+    "jQuery",
+    "Google Tag Manager"
+   ],
+   "pagesScanned": 17,
+   "renderedWithBrowser": false,
+   "elapsedMs": 8750,
+   "findings": [
+    {
+     "name": "Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)",
+     "severity": "low",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 74,
+     "evidence": "GET https://go.dev/\nContent-Security-Policy: connect-src 'self' www.google-analytics.com stats.g.doubleclick.net ; default-src 'self' ; font-src 'self' fonts.googleapis.com fonts.gstatic.com data: ; frame-ancestors 'self' ; frame-src 'self' www.google.com feedback.googleusercontent.com www.googletagmanager.com scone-pa.clients6.google.com www.youtube.com player.vimeo.com ; img-src 'self' www.google.com www.google-analytics.com ssl.gstatic.com www.gstatic.com gstatic.com data: * ; object-src 'none' ; script-src 'self' 'sha256-n6OdwTrm52KqKm6aHYgD0TFUdMgww4a0GQlIAVrMzck=' 'sha256-4ryYrf7Y5daLOBv0CpYtyBIcJPZkRD2eBPdfqsN3r1M=' 'sha256-sVKX08+SqOmnWhiySYk3xC7RDUgKyAkmbXV2GWts4fo=' www.google.com apis.google.com www.gstatic.com gstatic.com support.google.com www.googletagmanager.com www.google-analytics.com ssl.google-analytics.com tagmanager.google.com ; style-src 'self' 'unsafe-inline' fonts.googleapis.com feedback.googleusercontent.com www.gstatic.com gstatic.com tagmanager.google.com ;\n(unsafe-inline in style-src only — script-src is clean, no JS execution risk)"
+    },
+    {
+     "name": "CSP Missing base-uri Directive",
+     "severity": "low",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 3.5,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://go.dev/\nContent-Security-Policy: connect-src 'self' www.google-analytics.com stats.g.doubleclick.net ; default-src 'self' ; font-src 'self' fonts.googleapis.com fonts.gstatic.com data: ; frame-ancestors 'self' ; frame-src 'self' www.google.com feedback.googleusercontent.com www.googletagmanager.com scone-pa.clients6.google.com www.youtube.com player.vimeo.com ; img-src 'self' www.google.com www.google-analytics.com ssl.gstatic.com www.gstatic.com gstatic.com data: * ; object-src 'none' ; script-src 'self' 'sha256-n6OdwTrm52KqKm6aHYgD0TFUdMgww4a0GQlIAVrMzck=' 'sha256-4ryYrf7Y5daLOBv0CpYtyBIcJPZkRD2eBPdfqsN3r1M=' 'sha256-sVKX08+SqOmnWhiySYk3xC7RDUgKyAkmbXV2GWts4fo=' www.google.com apis.google.com www.gstatic.com gstatic.com support.google.com www.googletagmanager.com www.google-analytics.com ssl.google-analytics.com tagmanager.google.com ; style-src 'self' 'unsafe-inline' fonts.googleapis.com feedback.googleusercontent.com www.gstatic.com gstatic.com tagmanager.google.com ;\n(base-uri directive absent)"
+    },
+    {
+     "name": "Missing X-Content-Type-Options: nosniff",
+     "severity": "medium",
+     "category": "Content Sniffing",
+     "cweId": "CWE-16",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://go.dev/\nX-Content-Type-Options: (header absent from response)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://go.dev/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://go.dev/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://go.dev/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://go.dev/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://go.dev/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cache-Control Headers",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-524",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://go.dev/\nCache-Control: (header absent)\nPragma: (header absent)"
+    },
+    {
+     "name": "Missing security.txt (RFC 9116)",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-205",
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 75,
+     "evidence": "GET https://go.dev/.well-known/security.txt → HTTP 404\nGET https://go.dev/security.txt → HTTP 404"
+    },
+    {
+     "name": "Missing SPF Record — Email Spoofing Possible",
+     "severity": "high",
+     "category": "Email Security",
+     "cweId": "CWE-290",
+     "cvssScore": 7.5,
+     "wstgId": null,
+     "confidence": 90,
+     "evidence": "DNS TXT queries: go.dev\nStatus: NOERROR (name exists)\nNo v=spf1 record found at the host or any parent domain\nMX records present (5) — domain actively sends email"
+    },
+    {
+     "name": "Missing DMARC Record — No Email Authentication Enforcement",
+     "severity": "high",
+     "category": "Email Security",
+     "cweId": "CWE-290",
+     "cvssScore": 7.5,
+     "wstgId": null,
+     "confidence": 87,
+     "evidence": "DNS TXT queries: _dmarc.go.dev\nStatus: NXDOMAIN (name does not exist)\nNo v=DMARC1 record found at the host or any parent domain"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for go.dev (NOERROR (name exists))."
+    },
+    {
+     "name": "No Structured Data Found",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "No <script type=\"application/ld+json\"> blocks in https://go.dev/"
+    },
+    {
+     "name": "Google API Key in Client Code (verify referrer restrictions)",
+     "severity": "info",
+     "category": "Exposed Secrets / Credentials",
+     "cweId": "CWE-798",
+     "cvssScore": 0,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 97,
+     "evidence": "Source: external script /js/hats.js\nMatch (redacted): AIzaSy...7MMc\nContext: ...nload = function () {         var helpApi = window.help.service.Lazy.create(0, {           apiKey: 'AIzaSy...7MMc',           locale: 'en-US',         });          helpApi.requestSurvey({           tr..."
+    },
+    {
+     "name": "API Key in Client Code (verify restrictions)",
+     "severity": "info",
+     "category": "Exposed Secrets / Credentials",
+     "cweId": "CWE-798",
+     "cvssScore": 0,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 97,
+     "evidence": "Source: external script /js/hats.js\nMatch (redacted): apiKey...MMc'\nContext: ...tag.onload = function () {         var helpApi = window.help.service.Lazy.create(0, {           apiKey...MMc',           locale: 'en-US',         });          helpApi.requestSurvey({           trigger..."
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://www.rust-lang.org",
+   "finalUrl": "https://rust-lang.org/",
+   "statusCode": 200,
+   "server": "GitHub.com",
+   "tlsGrade": null,
+   "technologies": [
+    "GitHub Pages",
+    "Fastly",
+    "Varnish Cache"
+   ],
+   "pagesScanned": 10,
+   "renderedWithBrowser": false,
+   "elapsedMs": 3959,
+   "findings": [
+    {
+     "name": "Missing Content-Security-Policy (CSP)",
+     "severity": "high",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 7.2,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://rust-lang.org/\nContent-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)"
+    },
+    {
+     "name": "Missing Clickjacking Protection (X-Frame-Options)",
+     "severity": "medium",
+     "category": "UI Security",
+     "cweId": "CWE-1021",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CLNT-09",
+     "confidence": 77,
+     "evidence": "GET https://rust-lang.org/\nX-Frame-Options: (header absent)\nCSP frame-ancestors: (not present in Content-Security-Policy)"
+    },
+    {
+     "name": "Missing X-Content-Type-Options: nosniff",
+     "severity": "medium",
+     "category": "Content Sniffing",
+     "cweId": "CWE-16",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://rust-lang.org/\nX-Content-Type-Options: (header absent from response)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://rust-lang.org/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://rust-lang.org/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://rust-lang.org/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://rust-lang.org/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://rust-lang.org/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Permissive CORS Policy (Wildcard Origin)",
+     "severity": "info",
+     "category": "CORS Misconfiguration",
+     "cweId": "CWE-942",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 87,
+     "evidence": "GET https://rust-lang.org/\nAccess-Control-Allow-Origin: *"
+    },
+    {
+     "name": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+     "severity": "medium",
+     "category": "Email Security",
+     "cweId": "CWE-290",
+     "cvssScore": 5.3,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "TXT record: v=DMARC1;p=none;pct=100;rua=mailto:dmarc-rua@rust-lang.org;ruf=mailto:dmarc-rua@rust-lang.org"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for rust-lang.org (NOERROR (name exists))."
+    },
+    {
+     "name": "Incomplete Open Graph Metadata",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "og:title: \nog:description: A language empowering everyone to build reliable and efficient software.\nog:image: https://www.rust-lang.org/static/images/rust-social-wide.jpg"
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://www.typescriptlang.org",
+   "finalUrl": "https://www.typescriptlang.org/",
+   "statusCode": 200,
+   "server": "GitHub.com",
+   "tlsGrade": null,
+   "technologies": [
+    "GitHub Pages",
+    "Fastly",
+    "Varnish Cache",
+    "Gatsby"
+   ],
+   "pagesScanned": 7,
+   "renderedWithBrowser": false,
+   "elapsedMs": 2979,
+   "findings": [
+    {
+     "name": "Missing Content-Security-Policy (CSP)",
+     "severity": "high",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 7.2,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 89,
+     "evidence": "GET https://www.typescriptlang.org/\nContent-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)"
+    },
+    {
+     "name": "Missing Clickjacking Protection (X-Frame-Options)",
+     "severity": "medium",
+     "category": "UI Security",
+     "cweId": "CWE-1021",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CLNT-09",
+     "confidence": 77,
+     "evidence": "GET https://www.typescriptlang.org/\nX-Frame-Options: (header absent)\nCSP frame-ancestors: (not present in Content-Security-Policy)"
+    },
+    {
+     "name": "Missing X-Content-Type-Options: nosniff",
+     "severity": "medium",
+     "category": "Content Sniffing",
+     "cweId": "CWE-16",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.typescriptlang.org/\nX-Content-Type-Options: (header absent from response)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://www.typescriptlang.org/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://www.typescriptlang.org/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.typescriptlang.org/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.typescriptlang.org/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.typescriptlang.org/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Permissive CORS Policy (Wildcard Origin)",
+     "severity": "info",
+     "category": "CORS Misconfiguration",
+     "cweId": "CWE-942",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 97,
+     "evidence": "GET https://www.typescriptlang.org/\nAccess-Control-Allow-Origin: *"
+    },
+    {
+     "name": "Missing security.txt (RFC 9116)",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-205",
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 75,
+     "evidence": "GET https://www.typescriptlang.org/.well-known/security.txt → HTTP 404\nGET https://www.typescriptlang.org/security.txt → HTTP 404"
+    },
+    {
+     "name": "Missing SPF Record — Email Spoofing Possible",
+     "severity": "medium",
+     "category": "Email Security",
+     "cweId": "CWE-290",
+     "cvssScore": 5.3,
+     "wstgId": null,
+     "confidence": 87,
+     "evidence": "DNS TXT queries: www.typescriptlang.org, typescriptlang.org\nStatus: NOERROR (name exists)\nNo v=spf1 record found at the host or any parent domain"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for www.typescriptlang.org or typescriptlang.org (NOERROR (name exists))."
+    },
+    {
+     "name": "No Structured Data Found",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "No <script type=\"application/ld+json\"> blocks in https://www.typescriptlang.org/"
+    },
+    {
+     "name": "Incomplete Open Graph Metadata",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "og:title: JavaScript With Syntax For Types.\nog:description: TypeScript extends JavaScript by adding types to the language. TypeScript speeds up your development experience by catching errors and providing fixes before you even run your code.\nog:image: (absent)"
+    },
+    {
+     "name": "Twitter Card Metadata Absent",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 90,
+     "evidence": "twitter:card: (absent)"
+    },
+    {
+     "name": "JavaScript Source Map Exposed — Full Source Code Accessible",
+     "severity": "high",
+     "category": "Source Code Exposure",
+     "cweId": "CWE-540",
+     "cvssScore": 7.5,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 97,
+     "evidence": "Source map URL: https://www.typescriptlang.org/webpack-runtime-390038cab046f21b4242.js.map\nSource files mapped: 15\nFull sourcesContent included."
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://kubernetes.io",
+   "finalUrl": "https://kubernetes.io/",
+   "statusCode": 200,
+   "server": "Netlify",
+   "tlsGrade": null,
+   "technologies": [
+    "Netlify",
+    "Tailwind CSS",
+    "Bootstrap",
+    "jQuery 3.7.1",
+    "Google Analytics"
+   ],
+   "pagesScanned": 0,
+   "renderedWithBrowser": false,
+   "elapsedMs": 3051,
+   "findings": [
+    {
+     "name": "Missing Content-Security-Policy (CSP)",
+     "severity": "high",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 7.2,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 89,
+     "evidence": "GET https://kubernetes.io/\nContent-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)"
+    },
+    {
+     "name": "Missing Clickjacking Protection (X-Frame-Options)",
+     "severity": "medium",
+     "category": "UI Security",
+     "cweId": "CWE-1021",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CLNT-09",
+     "confidence": 77,
+     "evidence": "GET https://kubernetes.io/\nX-Frame-Options: (header absent)\nCSP frame-ancestors: (not present in Content-Security-Policy)"
+    },
+    {
+     "name": "Missing X-Content-Type-Options: nosniff",
+     "severity": "medium",
+     "category": "Content Sniffing",
+     "cweId": "CWE-16",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://kubernetes.io/\nX-Content-Type-Options: (header absent from response)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://kubernetes.io/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://kubernetes.io/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://kubernetes.io/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://kubernetes.io/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://kubernetes.io/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Rate Limiting Not Advertised in Response Headers",
+     "severity": "info",
+     "category": "Brute Force Protection",
+     "cweId": "CWE-307",
+     "cvssScore": 0,
+     "wstgId": "WSTG-ATHN-03",
+     "confidence": 92,
+     "evidence": "GET https://kubernetes.io/\nNo rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and common CDN/WAF infrastructure signals)\nThis observes the homepage response only, and cannot show whether login or API routes are throttled."
+    },
+    {
+     "name": "Missing DMARC Record — No Email Authentication Enforcement",
+     "severity": "high",
+     "category": "Email Security",
+     "cweId": "CWE-290",
+     "cvssScore": 7.5,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "DNS TXT queries: _dmarc.kubernetes.io\nStatus: NXDOMAIN (name does not exist)\nNo v=DMARC1 record found at the host or any parent domain"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for kubernetes.io (NOERROR (name exists))."
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://angular.dev",
+   "finalUrl": "https://angular.dev/",
+   "statusCode": 200,
+   "server": null,
+   "tlsGrade": null,
+   "technologies": [
+    "Fastly",
+    "Angular"
+   ],
+   "pagesScanned": 33,
+   "renderedWithBrowser": false,
+   "elapsedMs": 2889,
+   "findings": [
+    {
+     "name": "Missing Content-Security-Policy (CSP)",
+     "severity": "high",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 7.2,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 89,
+     "evidence": "GET https://angular.dev/\nContent-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)"
+    },
+    {
+     "name": "Missing Clickjacking Protection (X-Frame-Options)",
+     "severity": "medium",
+     "category": "UI Security",
+     "cweId": "CWE-1021",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CLNT-09",
+     "confidence": 77,
+     "evidence": "GET https://angular.dev/\nX-Frame-Options: (header absent)\nCSP frame-ancestors: (not present in Content-Security-Policy)"
+    },
+    {
+     "name": "Missing X-Content-Type-Options: nosniff",
+     "severity": "medium",
+     "category": "Content Sniffing",
+     "cweId": "CWE-16",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://angular.dev/\nX-Content-Type-Options: (header absent from response)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://angular.dev/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://angular.dev/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://angular.dev/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Rate Limiting Not Advertised in Response Headers",
+     "severity": "info",
+     "category": "Brute Force Protection",
+     "cweId": "CWE-307",
+     "cvssScore": 0,
+     "wstgId": "WSTG-ATHN-03",
+     "confidence": 92,
+     "evidence": "GET https://angular.dev/\nNo rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and common CDN/WAF infrastructure signals)\nThis observes the homepage response only, and cannot show whether login or API routes are throttled."
+    },
+    {
+     "name": "Missing security.txt (RFC 9116)",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-205",
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 75,
+     "evidence": "GET https://angular.dev/.well-known/security.txt → HTTP 200 with an HTML page (the site's catch-all answer for unknown paths), not a security.txt file\nGET https://angular.dev/security.txt → HTTP 200 with an HTML page (the site's catch-all answer for unknown paths), not a security.txt file"
+    },
+    {
+     "name": "Missing SPF Record — Email Spoofing Possible",
+     "severity": "high",
+     "category": "Email Security",
+     "cweId": "CWE-290",
+     "cvssScore": 7.5,
+     "wstgId": null,
+     "confidence": 90,
+     "evidence": "DNS TXT queries: angular.dev\nStatus: NOERROR (name exists)\nNo v=spf1 record found at the host or any parent domain\nMX records present (1) — domain actively sends email"
+    },
+    {
+     "name": "Missing DMARC Record — No Email Authentication Enforcement",
+     "severity": "high",
+     "category": "Email Security",
+     "cweId": "CWE-290",
+     "cvssScore": 7.5,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "DNS TXT queries: _dmarc.angular.dev\nStatus: NXDOMAIN (name does not exist)\nNo v=DMARC1 record found at the host or any parent domain"
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://astro.build",
+   "finalUrl": "https://astro.build/",
+   "statusCode": 200,
+   "server": "cloudflare",
+   "tlsGrade": null,
+   "technologies": [
+    "Cloudflare",
+    "Astro",
+    "Tailwind CSS"
+   ],
+   "pagesScanned": 11,
+   "renderedWithBrowser": false,
+   "elapsedMs": 8628,
+   "findings": [
+    {
+     "name": "Missing Content-Security-Policy (CSP)",
+     "severity": "high",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 7.2,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 89,
+     "evidence": "GET https://astro.build/\nContent-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)"
+    },
+    {
+     "name": "Missing Clickjacking Protection (X-Frame-Options)",
+     "severity": "medium",
+     "category": "UI Security",
+     "cweId": "CWE-1021",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CLNT-09",
+     "confidence": 77,
+     "evidence": "GET https://astro.build/\nX-Frame-Options: (header absent)\nCSP frame-ancestors: (not present in Content-Security-Policy)"
+    },
+    {
+     "name": "Missing X-Content-Type-Options: nosniff",
+     "severity": "medium",
+     "category": "Content Sniffing",
+     "cweId": "CWE-16",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://astro.build/\nX-Content-Type-Options: (header absent from response)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://astro.build/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://astro.build/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://astro.build/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://astro.build/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://astro.build/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "External Resources Missing Subresource Integrity (SRI)",
+     "severity": "medium",
+     "category": "Supply Chain Security",
+     "cweId": "CWE-353",
+     "cvssScore": 6.1,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 73,
+     "evidence": "<script/link src=\"https://cdn.usefathom.com/script.js\" (no integrity= attribute)> [vendor-updated tag]"
+    },
+    {
+     "name": "Missing security.txt (RFC 9116)",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-205",
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 75,
+     "evidence": "GET https://astro.build/.well-known/security.txt → HTTP 404\nGET https://astro.build/security.txt → HTTP 404"
+    },
+    {
+     "name": "Missing SPF Record — Email Spoofing Possible",
+     "severity": "high",
+     "category": "Email Security",
+     "cweId": "CWE-290",
+     "cvssScore": 7.5,
+     "wstgId": null,
+     "confidence": 90,
+     "evidence": "DNS TXT queries: astro.build\nStatus: NOERROR (name exists)\nNo v=spf1 record found at the host or any parent domain\nMX records present (5) — domain actively sends email"
+    },
+    {
+     "name": "Missing DMARC Record — No Email Authentication Enforcement",
+     "severity": "high",
+     "category": "Email Security",
+     "cweId": "CWE-290",
+     "cvssScore": 7.5,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "DNS TXT queries: _dmarc.astro.build\nStatus: NXDOMAIN (name does not exist)\nNo v=DMARC1 record found at the host or any parent domain"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for astro.build (NOERROR (name exists))."
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://laravel.com",
+   "finalUrl": "https://laravel.com/",
+   "statusCode": 429,
+   "server": "cloudflare",
+   "tlsGrade": null,
+   "technologies": [
+    "Cloudflare"
+   ],
+   "pagesScanned": 0,
+   "renderedWithBrowser": false,
+   "elapsedMs": 3101,
+   "findings": [
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for laravel.com (NOERROR (name exists))."
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    },
+    {
+     "name": "Scan was intercepted by a bot-protection challenge",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "cf-mitigated response header: challenge"
+    }
+   ]
+  },
+  {
+   "url": "https://www.djangoproject.com",
+   "finalUrl": "https://www.djangoproject.com/",
+   "statusCode": 200,
+   "server": "nginx",
+   "tlsGrade": null,
+   "technologies": [
+    "Nginx",
+    "Fastly",
+    "Varnish Cache"
+   ],
+   "pagesScanned": 8,
+   "renderedWithBrowser": false,
+   "elapsedMs": 12371,
+   "findings": [
+    {
+     "name": "Missing Content-Security-Policy (CSP)",
+     "severity": "high",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 7.2,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://www.djangoproject.com/\nContent-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.djangoproject.com/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.djangoproject.com/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "robots.txt Discloses Sensitive Application Paths",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": null,
+     "wstgId": "WSTG-INFO-01",
+     "confidence": 51,
+     "evidence": "GET https://www.djangoproject.com/robots.txt → HTTP 200\nDisallow: /admin"
+    },
+    {
+     "name": "External Resources Missing Subresource Integrity (SRI)",
+     "severity": "medium",
+     "category": "Supply Chain Security",
+     "cweId": "CWE-353",
+     "cvssScore": 6.1,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 73,
+     "evidence": "<script/link src=\"https://analytics.python.org/js/pa-vpHLG0R-txTE4LicNIQU7.js\" (no integrity= attribute)>"
+    },
+    {
+     "name": "HTTP Traffic Not Redirected to HTTPS",
+     "severity": "medium",
+     "category": "Transport Security",
+     "cweId": "CWE-319",
+     "cvssScore": 5.3,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 81,
+     "evidence": "GET http://www.djangoproject.com/ (followed up to 5 redirect hops)\nResult: request chain never reached https://www.djangoproject.com/\nHSTS preload list: not preloaded"
+    },
+    {
+     "name": "Rate Limiting Not Advertised in Response Headers",
+     "severity": "info",
+     "category": "Brute Force Protection",
+     "cweId": "CWE-307",
+     "cvssScore": 0,
+     "wstgId": "WSTG-ATHN-03",
+     "confidence": 87,
+     "evidence": "GET https://www.djangoproject.com/\nNo rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and common CDN/WAF infrastructure signals)\nThis observes the homepage response only, and cannot show whether login or API routes are throttled."
+    },
+    {
+     "name": "DMARC Policy Set to None (Monitoring Only — No Enforcement)",
+     "severity": "medium",
+     "category": "Email Security",
+     "cweId": "CWE-290",
+     "cvssScore": 5.3,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "TXT record: v=DMARC1;p=none;np=reject;rua=mailto:re+hltq0oknct8@dmarc.postmarkapp.com"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for www.djangoproject.com or djangoproject.com (NOERROR (name exists))."
+    },
+    {
+     "name": "No Structured Data Found",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "No <script type=\"application/ld+json\"> blocks in https://www.djangoproject.com/"
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://rubyonrails.org",
+   "finalUrl": "https://rubyonrails.org/",
+   "statusCode": 200,
+   "server": "GitHub.com",
+   "tlsGrade": null,
+   "technologies": [
+    "GitHub Pages",
+    "Fastly",
+    "Varnish Cache",
+    "Plausible Analytics"
+   ],
+   "pagesScanned": 12,
+   "renderedWithBrowser": false,
+   "elapsedMs": 5857,
+   "findings": [
+    {
+     "name": "Missing Content-Security-Policy (CSP)",
+     "severity": "high",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 7.2,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://rubyonrails.org/\nContent-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)"
+    },
+    {
+     "name": "Missing Clickjacking Protection (X-Frame-Options)",
+     "severity": "medium",
+     "category": "UI Security",
+     "cweId": "CWE-1021",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CLNT-09",
+     "confidence": 77,
+     "evidence": "GET https://rubyonrails.org/\nX-Frame-Options: (header absent)\nCSP frame-ancestors: (not present in Content-Security-Policy)"
+    },
+    {
+     "name": "Missing X-Content-Type-Options: nosniff",
+     "severity": "medium",
+     "category": "Content Sniffing",
+     "cweId": "CWE-16",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://rubyonrails.org/\nX-Content-Type-Options: (header absent from response)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://rubyonrails.org/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://rubyonrails.org/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://rubyonrails.org/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://rubyonrails.org/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://rubyonrails.org/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Permissive CORS Policy (Wildcard Origin)",
+     "severity": "info",
+     "category": "CORS Misconfiguration",
+     "cweId": "CWE-942",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 87,
+     "evidence": "GET https://rubyonrails.org/\nAccess-Control-Allow-Origin: *"
+    },
+    {
+     "name": "External Resources Missing Subresource Integrity (SRI)",
+     "severity": "medium",
+     "category": "Supply Chain Security",
+     "cweId": "CWE-353",
+     "cvssScore": 6.1,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 73,
+     "evidence": "<script/link src=\"https://plausible.io/js/script.js\" (no integrity= attribute)>"
+    },
+    {
+     "name": "DMARC Record Missing Aggregate Report Address (rua=)",
+     "severity": "info",
+     "category": "Email Security",
+     "cweId": "CWE-778",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "TXT record: v=DMARC1; p=quarantine;"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for rubyonrails.org (NOERROR (name exists))."
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  }
+ ]
+}

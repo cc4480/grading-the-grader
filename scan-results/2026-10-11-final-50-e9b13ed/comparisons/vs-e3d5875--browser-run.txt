@@ -1,0 +1,53 @@
+sites: 50; identical finding sets, grade and status: 41; differing: 7
+rendered with browser: old 0, new 1; finding keys only in old 24, only in new 16
+https://laravel.com  status 200→429
+   - high|JavaScript Source Map Exposed — Full Source Code Accessible
+   - high|Missing Content-Security-Policy (CSP)
+   - info|Mapbox Public Token — Restrict to Your Domain
+   - info|Missing Cross-Origin-Embedder-Policy (COEP)
+   - info|Missing Cross-Origin-Opener-Policy (COOP)
+   - info|Missing Cross-Origin-Resource-Policy (CORP)
+   - info|Missing security.txt (RFC 9116)
+   - info|X-Powered-By Header Discloses Technology Stack
+   - low|JavaScript Source Map Exposed — Third-Party Library Code
+   - low|Missing Permissions-Policy Header
+   - medium|External Resources Missing Subresource Integrity (SRI)
+   + info|Scan was intercepted by a bot-protection challenge
+https://www.sqlite.org  status 503→200
+   - info|Scan was intercepted by a bot-protection challenge
+   + high|Missing Content-Security-Policy (CSP)
+   + info|Incomplete Open Graph Metadata
+   + info|Missing Cross-Origin-Embedder-Policy (COEP)
+   + info|Missing Cross-Origin-Opener-Policy (COOP)
+   + info|Missing Cross-Origin-Resource-Policy (CORP)
+   + info|No Structured Data Found
+   + info|Rate Limiting Not Advertised in Response Headers
+   + low|Missing Permissions-Policy Header
+   + low|Missing Referrer-Policy Header
+   + medium|Missing Clickjacking Protection (X-Frame-Options)
+   + medium|Missing X-Content-Type-Options: nosniff
+https://ubuntu.com  
+   + high|JavaScript Source Map Exposed — Full Source Code Accessible
+   + info|robots.txt Discloses Sensitive Application Paths
+https://www.gnu.org: old FAILED  | new FAILED 
+https://miro.com  
+   - high|Content-Security-Policy Missing on 1 Internal Route
+   - info|Non-Session Cookie Readable by JavaScript on Inner Page
+   - low|Non-Session Cookie Missing Secure Flag on Inner Page
+
+https://www.npr.org: old FAILED  | new FAILED 
+https://css-tricks.com  status 200→429
+   - high|JavaScript Source Map Exposed — Full Source Code Accessible
+   - high|Missing Content-Security-Policy (CSP)
+   - info|Missing Cross-Origin-Embedder-Policy (COEP)
+   - info|Missing Cross-Origin-Opener-Policy (COOP)
+   - info|Missing Cross-Origin-Resource-Policy (CORP)
+   - info|Missing security.txt (RFC 9116)
+   - info|robots.txt Discloses Sensitive Application Paths
+   - low|Missing Permissions-Policy Header
+   - medium|External Resources Missing Subresource Integrity (SRI)
+   + info|Scan was intercepted by a bot-protection challenge
+https://dev.to  
+   + info|Exposed API Documentation — API documentation UI at /api/docs
+https://www.duolingo.com  rendered false→true
+

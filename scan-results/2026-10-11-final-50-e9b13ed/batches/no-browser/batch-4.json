@@ -1,0 +1,1482 @@
+{
+ "scannedAt": "2026-10-11T09:11:02.386Z",
+ "results": [
+  {
+   "url": "https://snyk.io",
+   "finalUrl": "https://snyk.io/",
+   "statusCode": 200,
+   "server": "Vercel",
+   "tlsGrade": null,
+   "technologies": [
+    "Vercel",
+    "Next.js"
+   ],
+   "pagesScanned": 18,
+   "renderedWithBrowser": false,
+   "elapsedMs": 29762,
+   "findings": [
+    {
+     "name": "Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)",
+     "severity": "low",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 86,
+     "evidence": "GET https://snyk.io/\nContent-Security-Policy: default-src 'self';base-uri 'none';child-src https://*.qualified.com;script-src 'self'  https://*.qualified.com;script-src-elem 'self' 'unsafe-inline' blob: https://snyk.io https://*.snyk.io http://*.snyk.io https://*.dev.snyk.io https://*.usercentrics.eu bat.bing.com https://*.6sense.com https://*.6sc.co https://linkedin.com https://*.linkedin.com www.google.com www.google-analytics.com *.googletagmanager.com https://tagmanager.google.com www.googleadservices.com googleads.g.doubleclick.net https://*.doubleclick.net/ ssl.google-analytics.com https://www.gstatic.com https://assets.trendemon.com https://trackingapi.trendemon.com 479-bcc-915.mktoweb.com munchkin.marketo.net https://platform.twitter.com fast.wistia.com www.gartner.com https://cdnjs.cloudflare.com https://connect.facebook.net https://*.salesloft.com https://snap.licdn.com https://*.vercel-scripts.com https://vercel.live https://js.zi-scripts.com https://tracking.intentsify.io https://view.ceros.com/ https://www.redditstatic.com https://ads.reddit.com https://cdn.dreamdata.cloud https://widgets.peerspot.com https://static.ads-twitter.com https://js.storylane.io https://a.usbrowserspeed.com https://tags.srv.stackadapt.com https://qvdt3feo.com https://js.qualified.com https://*.qualified.com https://js.adsrvr.org https://cdn.jsdelivr.net https://bzrcdn.openai.com https://s.yimg.com;connect-src 'self'  https://*.snyk.io https://*.dev.snyk.io https://*.usercentrics.eu https://677-thp-415.mktoresp.com https://res.cloudinary.com https://bat.bing.com https://*.googleadservices.com *.google-analytics.com *.analytics.google.com *.googletagmanager.com *.g.doubleclick.net https://ad.doubleclick.net *.google.com fast.wistia.com https://embed-cloudfront.wistia.com https://distillery.wistia.com https://secure.adnxs.com https://cdn.linkedin.oribi.io https://*.6sense.com https://*.6sc.co https://linkedin.com https://*.linkedin.com https://*.salesloft.com https://storage.googleapis.com https://*.googlesyndication.com https://js.zi-scripts.com https://*.zoominfo.com https://vercel.live wss://ws-us3.pusher.com https://677-thp-415.mktoutil.com https://pixel-config.reddit.com https://alb.reddit.com https://www.redditstatic.com https://conversions-config.reddit.com https://ads.reddit.com https://cdn.dreamdata.cloud https://cdn.jsdelivr.net https://registration.qa.probely.dev https://registration.probely.com https://api.openai.com https://generativelanguage.googleapis.com https://tags.srv.stackadapt.com https://qvdt3feo.com https://app.qualified.com https://*.qualified.com wss://ws8.qualified.com wss://*.qualified.com https://insight.adsrvr.org https://bzr.openai.com https://bzrcdn.openai.com https://s.yimg.com https://relay.level-cdn.com;style-src 'self' 'unsafe-inline' 479-bcc-915.mktoweb.com *.snyk.io www.gartner.com fonts.googleapis.com https://www.googletagmanager.com https://tagmanager.google.com https://vercel.live https://tags.srv.stackadapt.com https://*.qualified.com;img-src 'self' data: blob: https://res.cloudinary.com https://*.usercentrics.eu https://bat.bing.com https://*.6sense.com https://*.6sc.co https://linkedin.com https://*.linkedin.com www.google-analytics.com www.googleadservices.com googleads.g.doubleclick.net *.google.com *.google.at *.google.be *.google.ca *.google.ch *.google.co.id *.google.co.il *.google.co.in *.google.co.jp *.google.co.nz *.google.co.uk *.google.com.au *.google.com.br *.google.com.mx *.google.com.sg *.google.de *.google.dk *.google.fi *.google.fr *.google.ie *.google.nl *.google.no *.google.pt *.google.ro *.google.se www.googletagmanager.com https://*.trendemon.com https://img.youtube.com https://i.ytimg.com fast.wistia.com *.salesloft.com https://syndication.twitter.com https://embed-ssl.wistia.com www.gartner.com https://reviews.static.gartner.com https://www.linkedin.com https://px.ads.linkedin.com https://px4.ads.linkedin.com https://vercel.live https://vercel.com https://alb.reddit.com https:/"
+    },
+    {
+     "name": "CSP Missing object-src 'none' Directive",
+     "severity": "medium",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 89,
+     "evidence": "GET https://snyk.io/\nContent-Security-Policy: default-src 'self';base-uri 'none';child-src https://*.qualified.com;script-src 'self'  https://*.qualified.com;script-src-elem 'self' 'unsafe-inline' blob: https://snyk.io https://*.snyk.io http://*.snyk.io https://*.dev.snyk.io https://*.usercentrics.eu bat.bing.com https://*.6sense.com https://*.6sc.co https://linkedin.com https://*.linkedin.com www.google.com www.google-analytics.com *.googletagmanager.com https://tagmanager.google.com www.googleadservices.com googleads.g.doubleclick.net https://*.doubleclick.net/ ssl.google-analytics.com https://www.gstatic.com https://assets.trendemon.com https://trackingapi.trendemon.com 479-bcc-915.mktoweb.com munchkin.marketo.net https://platform.twitter.com fast.wistia.com www.gartner.com https://cdnjs.cloudflare.com https://connect.facebook.net https://*.salesloft.com https://snap.licdn.com https://*.vercel-scripts.com https://vercel.live https://js.zi-scripts.com https://tracking.intentsify.io https://view.ceros.com/ https://www.redditstatic.com https://ads.reddit.com https://cdn.dreamdata.cloud https://widgets.peerspot.com https://static.ads-twitter.com https://js.storylane.io https://a.usbrowserspeed.com https://tags.srv.stackadapt.com https://qvdt3feo.com https://js.qualified.com https://*.qualified.com https://js.adsrvr.org https://cdn.jsdelivr.net https://bzrcdn.openai.com https://s.yimg.com;connect-src 'self'  https://*.snyk.io https://*.dev.snyk.io https://*.usercentrics.eu https://677-thp-415.mktoresp.com https://res.cloudinary.com https://bat.bing.com https://*.googleadservices.com *.google-analytics.com *.analytics.google.com *.googletagmanager.com *.g.doubleclick.net https://ad.doubleclick.net *.google.com fast.wistia.com https://embed-cloudfront.wistia.com https://distillery.wistia.com https://secure.adnxs.com https://cdn.linkedin.oribi.io https://*.6sense.com https://*.6sc.co https://linkedin.com https://*.linkedin.com https://*.salesloft.com https://storage.googleapis.com https://*.googlesyndication.com https://js.zi-scripts.com https://*.zoominfo.com https://vercel.live wss://ws-us3.pusher.com https://677-thp-415.mktoutil.com https://pixel-config.reddit.com https://alb.reddit.com https://www.redditstatic.com https://conversions-config.reddit.com https://ads.reddit.com https://cdn.dreamdata.cloud https://cdn.jsdelivr.net https://registration.qa.probely.dev https://registration.probely.com https://api.openai.com https://generativelanguage.googleapis.com https://tags.srv.stackadapt.com https://qvdt3feo.com https://app.qualified.com https://*.qualified.com wss://ws8.qualified.com wss://*.qualified.com https://insight.adsrvr.org https://bzr.openai.com https://bzrcdn.openai.com https://s.yimg.com https://relay.level-cdn.com;style-src 'self' 'unsafe-inline' 479-bcc-915.mktoweb.com *.snyk.io www.gartner.com fonts.googleapis.com https://www.googletagmanager.com https://tagmanager.google.com https://vercel.live https://tags.srv.stackadapt.com https://*.qualified.com;img-src 'self' data: blob: https://res.cloudinary.com https://*.usercentrics.eu https://bat.bing.com https://*.6sense.com https://*.6sc.co https://linkedin.com https://*.linkedin.com www.google-analytics.com www.googleadservices.com googleads.g.doubleclick.net *.google.com *.google.at *.google.be *.google.ca *.google.ch *.google.co.id *.google.co.il *.google.co.in *.google.co.jp *.google.co.nz *.google.co.uk *.google.com.au *.google.com.br *.google.com.mx *.google.com.sg *.google.de *.google.dk *.google.fi *.google.fr *.google.ie *.google.nl *.google.no *.google.pt *.google.ro *.google.se www.googletagmanager.com https://*.trendemon.com https://img.youtube.com https://i.ytimg.com fast.wistia.com *.salesloft.com https://syndication.twitter.com https://embed-ssl.wistia.com www.gartner.com https://reviews.static.gartner.com https://www.linkedin.com https://px.ads.linkedin.com https://px4.ads.linkedin.com https://vercel.live https://vercel.com https://alb.reddit.com https:/"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://snyk.io/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://snyk.io/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://snyk.io/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "X-Powered-By Header Discloses Technology Stack",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": null,
+     "wstgId": "WSTG-INFO-09",
+     "confidence": 56,
+     "evidence": "GET https://snyk.io/\nX-Powered-By: Next.js"
+    },
+    {
+     "name": "Content-Security-Policy Missing on 1 Internal Route",
+     "severity": "high",
+     "category": "Security Header Inconsistency",
+     "cweId": "CWE-79",
+     "cvssScore": 7.2,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 89,
+     "evidence": "Routes missing Content-Security-Policy:\n  • /api (probed)"
+    },
+    {
+     "name": "X-Frame-Options / frame-ancestors Missing on 1 Internal Route",
+     "severity": "medium",
+     "category": "Security Header Inconsistency",
+     "cweId": "CWE-1021",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CLNT-09",
+     "confidence": 82,
+     "evidence": "Routes missing X-Frame-Options / frame-ancestors:\n  • /api (probed)"
+    },
+    {
+     "name": "Referrer-Policy Missing on 1 Internal Route",
+     "severity": "low",
+     "category": "Security Header Inconsistency",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "Routes missing Referrer-Policy:\n  • /api (probed)"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for snyk.io (NOERROR (name exists))."
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://www.zendesk.com",
+   "finalUrl": "https://www.zendesk.com/",
+   "statusCode": 200,
+   "server": "cloudflare",
+   "tlsGrade": null,
+   "technologies": [
+    "Cloudflare",
+    "Next.js",
+    "Segment"
+   ],
+   "pagesScanned": 1,
+   "renderedWithBrowser": false,
+   "elapsedMs": 4547,
+   "findings": [
+    {
+     "name": "HSTS max-age Too Short",
+     "severity": "low",
+     "category": "Transport Security",
+     "cweId": "CWE-523",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 81,
+     "evidence": "GET https://www.zendesk.com/\nStrict-Transport-Security: max-age=0; preload\n(max-age=0 — minimum recommended: 15552000)"
+    },
+    {
+     "name": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+     "severity": "medium",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 5.4,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 86,
+     "evidence": "GET https://www.zendesk.com/\nContent-Security-Policy: default-src * wss://*.zopim.com 'unsafe-inline' 'unsafe-eval'; frame-ancestors 'self' *.zendesk.com *.zendesk.co.jp *.zendesk.co.uk *.zendesk.com.br *.zendesk.com.mx *.zendesk.de *.zendesk.es *.zendesk.fr *.zendesk.kr *.zendesk.nl *.zendesk.tw *.zendesk.hk staging500.resultsbydesign.com zendesk.ddev.site; font-src * data:; img-src * blob: data:; media-src * blob:;worker-src 'self' blob:\n(unsafe-inline (no nonce/hash/strict-dynamic to override it) and unsafe-eval in effect for scripts)"
+    },
+    {
+     "name": "CSP Missing object-src 'none' Directive",
+     "severity": "medium",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 89,
+     "evidence": "GET https://www.zendesk.com/\nContent-Security-Policy: default-src * wss://*.zopim.com 'unsafe-inline' 'unsafe-eval'; frame-ancestors 'self' *.zendesk.com *.zendesk.co.jp *.zendesk.co.uk *.zendesk.com.br *.zendesk.com.mx *.zendesk.de *.zendesk.es *.zendesk.fr *.zendesk.kr *.zendesk.nl *.zendesk.tw *.zendesk.hk staging500.resultsbydesign.com zendesk.ddev.site; font-src * data:; img-src * blob: data:; media-src * blob:;worker-src 'self' blob:\n(object-src directive absent — plugin content unrestricted)"
+    },
+    {
+     "name": "CSP Missing base-uri Directive",
+     "severity": "low",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 3.5,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 89,
+     "evidence": "GET https://www.zendesk.com/\nContent-Security-Policy: default-src * wss://*.zopim.com 'unsafe-inline' 'unsafe-eval'; frame-ancestors 'self' *.zendesk.com *.zendesk.co.jp *.zendesk.co.uk *.zendesk.com.br *.zendesk.com.mx *.zendesk.de *.zendesk.es *.zendesk.fr *.zendesk.kr *.zendesk.nl *.zendesk.tw *.zendesk.hk staging500.resultsbydesign.com zendesk.ddev.site; font-src * data:; img-src * blob: data:; media-src * blob:;worker-src 'self' blob:\n(base-uri directive absent)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://www.zendesk.com/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://www.zendesk.com/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.zendesk.com/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.zendesk.com/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.zendesk.com/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "DMARC Record Missing Aggregate Report Address (rua=)",
+     "severity": "info",
+     "category": "Email Security",
+     "cweId": "CWE-778",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "TXT record: v=DMARC1; p=reject"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for www.zendesk.com or zendesk.com (NOERROR (name exists))."
+    },
+    {
+     "name": "JavaScript Source Map Exposed — Third-Party Library Code",
+     "severity": "low",
+     "category": "Source Code Exposure",
+     "cweId": "CWE-540",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 80,
+     "evidence": "Source map URL: https://www.zendesk.com/web-assets/_next/static/chunks/52340.ce52e27f4725bdb5.js.map\nSource files mapped: 30, of which the site's own: 0"
+    },
+    {
+     "name": "JavaScript Source Map Exposed — Full Source Code Accessible",
+     "severity": "high",
+     "category": "Source Code Exposure",
+     "cweId": "CWE-540",
+     "cvssScore": 7.5,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 97,
+     "evidence": "Source map URL: https://www.zendesk.com/web-assets/_next/static/chunks/29175.a13b535b7158a18c.js.map\nSource files mapped: 5\nFull sourcesContent included."
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://www.airtable.com",
+   "finalUrl": "https://www.airtable.com/",
+   "statusCode": 200,
+   "server": "Vercel",
+   "tlsGrade": null,
+   "technologies": [
+    "Vercel",
+    "AWS CloudFront",
+    "Next.js",
+    "Tailwind CSS",
+    "Google Tag Manager"
+   ],
+   "pagesScanned": 0,
+   "renderedWithBrowser": false,
+   "elapsedMs": 8904,
+   "findings": [
+    {
+     "name": "Missing Content-Security-Policy (CSP)",
+     "severity": "high",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 7.2,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 89,
+     "evidence": "GET https://www.airtable.com/\nContent-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)"
+    },
+    {
+     "name": "Missing Clickjacking Protection (X-Frame-Options)",
+     "severity": "medium",
+     "category": "UI Security",
+     "cweId": "CWE-1021",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CLNT-09",
+     "confidence": 77,
+     "evidence": "GET https://www.airtable.com/\nX-Frame-Options: (header absent)\nCSP frame-ancestors: (not present in Content-Security-Policy)"
+    },
+    {
+     "name": "Missing X-Content-Type-Options: nosniff",
+     "severity": "medium",
+     "category": "Content Sniffing",
+     "cweId": "CWE-16",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.airtable.com/\nX-Content-Type-Options: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.airtable.com/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.airtable.com/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.airtable.com/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "X-Powered-By Header Discloses Technology Stack",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": null,
+     "wstgId": "WSTG-INFO-09",
+     "confidence": 56,
+     "evidence": "GET https://www.airtable.com/\nX-Powered-By: Next.js"
+    },
+    {
+     "name": "Non-Session Cookie Readable by JavaScript",
+     "severity": "info",
+     "category": "Session Management",
+     "cweId": "CWE-1004",
+     "cvssScore": 2.6,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 68,
+     "evidence": "Affected cookies: brw, marketing-homepage-e4-segment, brw, marketing-homepage-e4-segment"
+    },
+    {
+     "name": "Missing security.txt (RFC 9116)",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-205",
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 75,
+     "evidence": "GET https://www.airtable.com/.well-known/security.txt → HTTP 404\nGET https://www.airtable.com/security.txt → HTTP 404"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for www.airtable.com or airtable.com (NOERROR (name exists))."
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://www.intercom.com",
+   "finalUrl": "https://www.intercom.com/",
+   "statusCode": 200,
+   "server": "Vercel",
+   "tlsGrade": null,
+   "technologies": [
+    "Vercel",
+    "AWS CloudFront",
+    "Next.js",
+    "Tailwind CSS"
+   ],
+   "pagesScanned": 2,
+   "renderedWithBrowser": false,
+   "elapsedMs": 8505,
+   "findings": [
+    {
+     "name": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+     "severity": "medium",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 5.4,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 86,
+     "evidence": "GET https://www.intercom.com/\nContent-Security-Policy: default-src 'self' *.amazonaws.com *.cloudfront.net; frame-ancestors 'self' *.intercom.com fin.ai *.fin.ai https://app.contentful.com https://*.sanity.studio https://www.sanity.io; child-src 'self' http://intercom.test *.intercom.io *.intercom.com *.intercomcdn.com *.intercom-reporting.com intercom-sheets.com *.intercom-sheets.com *.doubleclick.net *.fls.doubleclick.net *.marketo.com *.contentful.com *.google.com www.google.com *.googletagmanager.com *.facebook.com *.googlesyndication.com *.youtube.com www.youtube-nocookie.com *.wistia.com *.wistia.net *.hotjar.com *.hotjar.io *.quora.com *.adsrvr.org *.chilipiper.com *.getreprise.com *.stackadapt.com *.o11.tech *.luma.com luma.com *.amazonaws.com *.cloudfront.net connect.facebook.net js.stripe.com vercel.live *.awswaf.com; connect-src 'self' http://intercom.test *.intercom.io wss://*.intercom.io *.intercom.com *.intercomcdn.com *.intercomassets.com *.intercomusercontent.com *.intercom-messenger.com wss://*.intercom-messenger.com fin.ai *.fin.ai boards-api.greenhouse.io *.marketo.com *.marketo.net *.mktoutil.com *.mktoresp.com *.sentry.io *.facebook.com *.contentful.com cdn.sanity.io *.api.sanity.io *.datadoghq.com *.browser-intake-datadoghq.com browser-intake-datadoghq.com *.googletagmanager.com *.google-analytics.com *.analytics.google.com *.google.com www.google.com *.googleadservices.com *.doubleclick.net *.g.doubleclick.net googleads.g.doubleclick.net *.googlesyndication.com *.linkedin.com *.ads.linkedin.com *.linkedin.oribi.io snap.licdn.com *.eppo.cloud *.onetrust.com *.bing.com *.bing.net *.reddit.com *.redditstatic.com *.adnxs.com *.hotjar.com:* *.hotjar.io:* wss://*.hotjar.com wss://*.hotjar.io *.akamaihd.net *.wistia.com *.wistia.net *.pingdom.net *.6sc.co *.6sense.com *.chilipiper.com *.getreprise.com *.jsdelivr.net *.litix.io *.stackadapt.com *.adsrvr.org *.influ2.com *.lu.ma *.claydar.com *.amazonaws.com *.cloudfront.net cdn.cookielaw.org connect.facebook.net *.gdn.smartling.com unpkg.com vercel.live vitals.vercel-insights.com *.awswaf.com; font-src 'self' data: https: *.amazonaws.com *.cloudfront.net; img-src 'self' data: blob: https: *.facebook.com *.ads.linkedin.com *.adsrvr.org *.amazonaws.com *.cloudfront.net; media-src 'self' data: blob: https: *.amazonaws.com *.cloudfront.net; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' *.intercom.io *.intercom.com fin.ai *.fin.ai *.intercomcdn.com *.intercomassets.com *.googleapis.com *.marketo.com *.marketo.net *.sentry-cdn.com *.sentry.io *.facebook.com *.doubleclick.net *.g.doubleclick.net googleads.g.doubleclick.net *.datadoghq.com *.google.com www.google.com *.google-analytics.com *.googleadservices.com *.googletagmanager.com *.googlesyndication.com *.linkedin.com snap.licdn.com *.adsymptotic.com *.bizographics.com *.contentful.com *.onetrust.com *.bing.com *.twitter.com *.wistia.com *.wistia.net *.stripe.com *.hotjar.com *.hotjar.io *.adnxs.com *.chilipiper.com *.getreprise.com *.getsmartling.com *.litix.io *.influ2.com a.usbrowserspeed.com *.6sc.co *.adsrvr.org *.redditstatic.com *.stackadapt.com tags.srv.stackadapt.com *.claydar.com *.o11.tech *.dpmsrv.com *.lu.ma *.amazonaws.com *.cloudfront.net cdn.cookielaw.org connect.facebook.net *.gdn.smartling.com unpkg.com vercel.live www.datadoghq-browser-agent.com *.awswaf.com; style-src 'self' 'unsafe-inline' *.intercom.com fin.ai *.fin.ai www.intercomstatus.com www.finstatus.com *.marketo.com *.intercomassets.com *.bootstrapcdn.com *.getsmartling.com *.googleapis.com *.gstatic.com *.googletagmanager.com *.fontawesome.com *.typekit.net *.chilipiper.com *.stackadapt.com tags.srv.stackadapt.com *.influ2.com *.lu.ma *.amazonaws.com *.cloudfront.net vercel.live *.awswaf.com; worker-src data: blob:; base-uri 'self'; report-uri https://o2129.ingest.us.sentry.io/api/4512095556665344/security/?sentry_key=03f940d733b9455062f401dfd9b9178a; upgrade-insecure-requests\n(unsafe-inline (no "
+    },
+    {
+     "name": "Missing X-Content-Type-Options: nosniff",
+     "severity": "medium",
+     "category": "Content Sniffing",
+     "cweId": "CWE-16",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.intercom.com/\nX-Content-Type-Options: (header absent from response)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://www.intercom.com/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://www.intercom.com/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.intercom.com/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.intercom.com/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "X-Powered-By Header Discloses Technology Stack",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": null,
+     "wstgId": "WSTG-INFO-09",
+     "confidence": 56,
+     "evidence": "GET https://www.intercom.com/\nX-Powered-By: Next.js"
+    },
+    {
+     "name": "Non-Session Cookie Readable by JavaScript",
+     "severity": "info",
+     "category": "Session Management",
+     "cweId": "CWE-1004",
+     "cvssScore": 2.6,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 68,
+     "evidence": "Affected cookie: gtm_id"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for www.intercom.com or intercom.com (NOERROR (name exists))."
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://www.mailchimp.com",
+   "finalUrl": "https://mailchimp.com/",
+   "statusCode": 200,
+   "server": "istio-envoy",
+   "tlsGrade": null,
+   "technologies": [
+    "Envoy Proxy"
+   ],
+   "pagesScanned": 9,
+   "renderedWithBrowser": false,
+   "elapsedMs": 26018,
+   "findings": [
+    {
+     "name": "Missing Content-Security-Policy (CSP)",
+     "severity": "high",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 7.2,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://mailchimp.com/\nContent-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)"
+    },
+    {
+     "name": "Missing X-Content-Type-Options: nosniff",
+     "severity": "medium",
+     "category": "Content Sniffing",
+     "cweId": "CWE-16",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://mailchimp.com/\nX-Content-Type-Options: (header absent from response)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://mailchimp.com/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://mailchimp.com/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://mailchimp.com/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://mailchimp.com/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://mailchimp.com/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cache-Control Headers",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-524",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://mailchimp.com/\nCache-Control: (header absent)\nPragma: (header absent)"
+    },
+    {
+     "name": "External Resources Missing Subresource Integrity (SRI)",
+     "severity": "medium",
+     "category": "Supply Chain Security",
+     "cweId": "CWE-353",
+     "cvssScore": 6.1,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 73,
+     "evidence": "<script/link src=\"https://cdn.optimizely.com/js/8896740779.js\" (no integrity= attribute)> [vendor-updated tag]"
+    },
+    {
+     "name": "Rate Limiting Not Advertised in Response Headers",
+     "severity": "info",
+     "category": "Brute Force Protection",
+     "cweId": "CWE-307",
+     "cvssScore": 0,
+     "wstgId": "WSTG-ATHN-03",
+     "confidence": 87,
+     "evidence": "GET https://mailchimp.com/\nNo rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and common CDN/WAF infrastructure signals)\nThis observes the homepage response only, and cannot show whether login or API routes are throttled."
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for mailchimp.com (NOERROR (name exists))."
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://www.squarespace.com",
+   "finalUrl": "https://www.squarespace.com/",
+   "statusCode": 200,
+   "server": "Squarespace",
+   "tlsGrade": null,
+   "technologies": [
+    "Squarespace"
+   ],
+   "pagesScanned": 23,
+   "renderedWithBrowser": false,
+   "elapsedMs": 22424,
+   "findings": [
+    {
+     "name": "Missing Content-Security-Policy (CSP)",
+     "severity": "high",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 7.2,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://www.squarespace.com/\nContent-Security-Policy: (header absent from response, and no <meta http-equiv> policy in the page)"
+    },
+    {
+     "name": "Missing Clickjacking Protection (X-Frame-Options)",
+     "severity": "medium",
+     "category": "UI Security",
+     "cweId": "CWE-1021",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CLNT-09",
+     "confidence": 77,
+     "evidence": "GET https://www.squarespace.com/\nX-Frame-Options: (header absent)\nCSP frame-ancestors: (not present in Content-Security-Policy)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.squarespace.com/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.squarespace.com/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.squarespace.com/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.squarespace.com/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.squarespace.com/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Non-Session Cookie Missing Secure Flag",
+     "severity": "low",
+     "category": "Session Management",
+     "cweId": "CWE-614",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 70,
+     "evidence": "Affected cookie: SS_MID"
+    },
+    {
+     "name": "Non-Session Cookie Readable by JavaScript",
+     "severity": "info",
+     "category": "Session Management",
+     "cweId": "CWE-1004",
+     "cvssScore": 2.6,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 60,
+     "evidence": "Affected cookies: crumb, SS_MID"
+    },
+    {
+     "name": "Non-Session Cookie Missing SameSite Attribute",
+     "severity": "info",
+     "category": "CSRF Protection",
+     "cweId": "CWE-352",
+     "cvssScore": 2.1,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 60,
+     "evidence": "Affected cookies: crumb, SS_MID"
+    },
+    {
+     "name": "Missing Cache-Control Headers",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-524",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://www.squarespace.com/\nCache-Control: (header absent)\nPragma: (header absent)"
+    },
+    {
+     "name": "Strict-Transport-Security Missing on 2 Internal Routes",
+     "severity": "low",
+     "category": "Security Header Inconsistency",
+     "cweId": "CWE-523",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "Routes missing Strict-Transport-Security:\n  • /preise (crawled)\n  • /healthz (probed)"
+    },
+    {
+     "name": "X-Content-Type-Options Missing on 2 Internal Routes",
+     "severity": "medium",
+     "category": "Security Header Inconsistency",
+     "cweId": "CWE-16",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "Routes missing X-Content-Type-Options:\n  • /preise (crawled)\n  • /healthz (probed)"
+    },
+    {
+     "name": "Non-Session Cookie Readable by JavaScript on Inner Page",
+     "severity": "info",
+     "category": "Session Management",
+     "cweId": "CWE-1004",
+     "cvssScore": 2.6,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 60,
+     "evidence": "GET https://www.squarespace.com/preise\nSet-Cookie: SS_ANALYTICS_ID=<redacted>; Path=/; Expires=Fri, 05 Nov 2027 09:09:46 GMT; Max-Age=33696000; Domain=.squarespace.com; Secure; SameSite=lax"
+    },
+    {
+     "name": "robots.txt Discloses Sensitive Application Paths",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": null,
+     "wstgId": "WSTG-INFO-01",
+     "confidence": 51,
+     "evidence": "GET https://www.squarespace.com/robots.txt → HTTP 200\nDisallow: /config"
+    },
+    {
+     "name": "Rate Limiting Not Advertised in Response Headers",
+     "severity": "info",
+     "category": "Brute Force Protection",
+     "cweId": "CWE-307",
+     "cvssScore": 0,
+     "wstgId": "WSTG-ATHN-03",
+     "confidence": 87,
+     "evidence": "GET https://www.squarespace.com/\nNo rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and common CDN/WAF infrastructure signals)\nThis observes the homepage response only, and cannot show whether login or API routes are throttled."
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for www.squarespace.com or squarespace.com (NOERROR (name exists))."
+    },
+    {
+     "name": "Social Preview Asset Referenced Over HTTP",
+     "severity": "low",
+     "category": "Transport Security",
+     "cweId": "CWE-311",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CRYP-03",
+     "confidence": 90,
+     "evidence": "<meta property=\"og:image\" content=\"http://static1.squarespace.com/static/5134cbefe4b0c6fb04df8065/t/6a8c4a1bc1eded3ace8618c3/1787578907734/Thumbnail.png?format=1500w\">\n<meta property=\"twitter:image\" content=\"http://static1.squarespace.com/static/5134cbefe4b0c6fb04df8065/t/6a8c4a1bc1eded3ace8618c3/1787578907734/Thumbnail.png?format=1500w\">"
+    },
+    {
+     "name": "Incomplete Open Graph Metadata",
+     "severity": "info",
+     "category": "Structured Data",
+     "cweId": null,
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 95,
+     "evidence": "og:title: Website Builder – Easily Create Your Own Website &mdash; Squarespace\nog:description: (absent)\nog:image: http://static1.squarespace.com/static/5134cbefe4b0c6fb04df8065/t/6a8c4a1bc1eded3ace8618c3/1787578907734/Thumbnail.png?format=1500w"
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://webflow.com",
+   "finalUrl": "https://webflow.com/",
+   "statusCode": 200,
+   "server": null,
+   "tlsGrade": null,
+   "technologies": [
+    "Cloudflare",
+    "Webflow"
+   ],
+   "pagesScanned": 4,
+   "renderedWithBrowser": false,
+   "elapsedMs": 9918,
+   "findings": [
+    {
+     "name": "Content-Security-Policy Allows Inline Styles (unsafe-inline in style-src)",
+     "severity": "low",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 74,
+     "evidence": "GET https://webflow.com/\nContent-Security-Policy: frame-ancestors 'self' https://webflow.com https://*.webflow.com https://app.intellimize.com; style-src 'self' 'unsafe-inline' https://webflow.com https://*.webflow.com https://d1otoma47x30pg.cloudfront.net https://d3e54v103j8qbb.cloudfront.net https://daks2k3a4ib2z.cloudfront.net https://dhygzobemt712.cloudfront.net https://accounts.google.com https://fonts.googleapis.com https://go.webflow.com https://app.pendo.io https://cdn.birdie.so https://cdn.jsdelivr.net https://cdn.pendo.io https://content-6312168775680000.static.pendo.io https://cdn.prod.website-files.com https://code-components.website-files.com https://transcend-cdn.com https://www.gstatic.com; img-src 'self' data: https://webflow.com https://*.webflow.com https://d1otoma47x30pg.cloudfront.net https://d3e54v103j8qbb.cloudfront.net https://daks2k3a4ib2z.cloudfront.net https://dhygzobemt712.cloudfront.net https://cdn.prod.website-files.com https://code-components.website-files.com https://connect.facebook.com https://*.ads.linkedin.com https://*.doubleclick.net https://www.facebook.com https://*.google.com https://webflow-assets.s3.us-east-1.amazonaws.com https://www.googleadservices.com https://www.google.ad https://www.google.ae https://www.google.al https://www.google.at https://www.google.az https://www.google.ba https://www.google.be https://www.google.bg https://www.google.bj https://www.google.by https://www.google.ca https://www.google.ch https://www.google.cl https://www.google.co.cr https://www.google.co.id https://www.google.co.il https://www.google.co.in https://www.google.co.jp https://www.google.co.ke https://www.google.co.kr https://www.google.co.ma https://www.google.co.nz https://www.google.co.th https://www.google.co.ug https://www.google.co.uk https://www.google.co.uz https://www.google.co.za https://www.google.co.zm https://www.google.com.ar https://www.google.com.au https://www.google.com.bd https://www.google.com.br https://www.google.com.co https://www.google.com.cy https://www.google.com.ec https://www.google.com.eg https://www.google.com.gh https://www.google.com.hk https://www.google.com.kw https://www.google.com.mx https://www.google.com.ng https://www.google.com.np https://www.google.com.ph https://www.google.com.pk https://www.google.com.pr https://www.google.com.qa https://www.google.com.sa https://www.google.com.sg https://www.google.com.sv https://www.google.com.tj https://www.google.com.tr https://www.google.com.tw https://www.google.com.ua https://www.google.com.uy https://www.google.com.vn https://www.google.cz https://www.google.de https://www.google.dk https://www.google.ee https://www.google.es https://www.google.fi https://www.google.fr https://www.google.ga https://www.google.ge https://www.google.gl https://www.google.gr https://www.google.hr https://www.google.hu https://www.google.ie https://www.google.it https://www.google.kg https://www.google.kz https://www.google.lk https://www.google.lt https://www.google.lu https://www.google.lv https://www.google.md https://www.google.mg https://www.google.mk https://www.google.mu https://www.google.mw https://www.google.my https://www.google.nl https://www.google.no https://www.google.pe https://www.google.pl https://www.google.pt https://www.google.ro https://www.google.rs https://www.google.ru https://www.google.se https://www.google.si https://www.google.sk https://www.google.tn https://webflow-assets-studio-temp-prod.s3.amazonaws.com https://*.webflow.com https://account-assets.knock.app https://alb.reddit.com https://analytics.twitter.com https://app.pendo.io https://b.6sc.co https://bat.bing.com https://bat.bing.net https://cdn.pendo.io https://content-6312168775680000.static.pendo.io https://data.pendo.io https://embed-ssl.wistia.com https://fast.wistia.com https://fonts.gstatic.com https://i.ytimg.com https://messenger-assets.qualified.com https://q.quora.com https://quickchart.io https://webflow.itsoffbrand.io https://www.goo"
+    },
+    {
+     "name": "CSP Missing object-src 'none' Directive",
+     "severity": "medium",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://webflow.com/\nContent-Security-Policy: frame-ancestors 'self' https://webflow.com https://*.webflow.com https://app.intellimize.com; style-src 'self' 'unsafe-inline' https://webflow.com https://*.webflow.com https://d1otoma47x30pg.cloudfront.net https://d3e54v103j8qbb.cloudfront.net https://daks2k3a4ib2z.cloudfront.net https://dhygzobemt712.cloudfront.net https://accounts.google.com https://fonts.googleapis.com https://go.webflow.com https://app.pendo.io https://cdn.birdie.so https://cdn.jsdelivr.net https://cdn.pendo.io https://content-6312168775680000.static.pendo.io https://cdn.prod.website-files.com https://code-components.website-files.com https://transcend-cdn.com https://www.gstatic.com; img-src 'self' data: https://webflow.com https://*.webflow.com https://d1otoma47x30pg.cloudfront.net https://d3e54v103j8qbb.cloudfront.net https://daks2k3a4ib2z.cloudfront.net https://dhygzobemt712.cloudfront.net https://cdn.prod.website-files.com https://code-components.website-files.com https://connect.facebook.com https://*.ads.linkedin.com https://*.doubleclick.net https://www.facebook.com https://*.google.com https://webflow-assets.s3.us-east-1.amazonaws.com https://www.googleadservices.com https://www.google.ad https://www.google.ae https://www.google.al https://www.google.at https://www.google.az https://www.google.ba https://www.google.be https://www.google.bg https://www.google.bj https://www.google.by https://www.google.ca https://www.google.ch https://www.google.cl https://www.google.co.cr https://www.google.co.id https://www.google.co.il https://www.google.co.in https://www.google.co.jp https://www.google.co.ke https://www.google.co.kr https://www.google.co.ma https://www.google.co.nz https://www.google.co.th https://www.google.co.ug https://www.google.co.uk https://www.google.co.uz https://www.google.co.za https://www.google.co.zm https://www.google.com.ar https://www.google.com.au https://www.google.com.bd https://www.google.com.br https://www.google.com.co https://www.google.com.cy https://www.google.com.ec https://www.google.com.eg https://www.google.com.gh https://www.google.com.hk https://www.google.com.kw https://www.google.com.mx https://www.google.com.ng https://www.google.com.np https://www.google.com.ph https://www.google.com.pk https://www.google.com.pr https://www.google.com.qa https://www.google.com.sa https://www.google.com.sg https://www.google.com.sv https://www.google.com.tj https://www.google.com.tr https://www.google.com.tw https://www.google.com.ua https://www.google.com.uy https://www.google.com.vn https://www.google.cz https://www.google.de https://www.google.dk https://www.google.ee https://www.google.es https://www.google.fi https://www.google.fr https://www.google.ga https://www.google.ge https://www.google.gl https://www.google.gr https://www.google.hr https://www.google.hu https://www.google.ie https://www.google.it https://www.google.kg https://www.google.kz https://www.google.lk https://www.google.lt https://www.google.lu https://www.google.lv https://www.google.md https://www.google.mg https://www.google.mk https://www.google.mu https://www.google.mw https://www.google.my https://www.google.nl https://www.google.no https://www.google.pe https://www.google.pl https://www.google.pt https://www.google.ro https://www.google.rs https://www.google.ru https://www.google.se https://www.google.si https://www.google.sk https://www.google.tn https://webflow-assets-studio-temp-prod.s3.amazonaws.com https://*.webflow.com https://account-assets.knock.app https://alb.reddit.com https://analytics.twitter.com https://app.pendo.io https://b.6sc.co https://bat.bing.com https://bat.bing.net https://cdn.pendo.io https://content-6312168775680000.static.pendo.io https://data.pendo.io https://embed-ssl.wistia.com https://fast.wistia.com https://fonts.gstatic.com https://i.ytimg.com https://messenger-assets.qualified.com https://q.quora.com https://quickchart.io https://webflow.itsoffbrand.io https://www.goo"
+    },
+    {
+     "name": "CSP Missing base-uri Directive",
+     "severity": "low",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 3.5,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://webflow.com/\nContent-Security-Policy: frame-ancestors 'self' https://webflow.com https://*.webflow.com https://app.intellimize.com; style-src 'self' 'unsafe-inline' https://webflow.com https://*.webflow.com https://d1otoma47x30pg.cloudfront.net https://d3e54v103j8qbb.cloudfront.net https://daks2k3a4ib2z.cloudfront.net https://dhygzobemt712.cloudfront.net https://accounts.google.com https://fonts.googleapis.com https://go.webflow.com https://app.pendo.io https://cdn.birdie.so https://cdn.jsdelivr.net https://cdn.pendo.io https://content-6312168775680000.static.pendo.io https://cdn.prod.website-files.com https://code-components.website-files.com https://transcend-cdn.com https://www.gstatic.com; img-src 'self' data: https://webflow.com https://*.webflow.com https://d1otoma47x30pg.cloudfront.net https://d3e54v103j8qbb.cloudfront.net https://daks2k3a4ib2z.cloudfront.net https://dhygzobemt712.cloudfront.net https://cdn.prod.website-files.com https://code-components.website-files.com https://connect.facebook.com https://*.ads.linkedin.com https://*.doubleclick.net https://www.facebook.com https://*.google.com https://webflow-assets.s3.us-east-1.amazonaws.com https://www.googleadservices.com https://www.google.ad https://www.google.ae https://www.google.al https://www.google.at https://www.google.az https://www.google.ba https://www.google.be https://www.google.bg https://www.google.bj https://www.google.by https://www.google.ca https://www.google.ch https://www.google.cl https://www.google.co.cr https://www.google.co.id https://www.google.co.il https://www.google.co.in https://www.google.co.jp https://www.google.co.ke https://www.google.co.kr https://www.google.co.ma https://www.google.co.nz https://www.google.co.th https://www.google.co.ug https://www.google.co.uk https://www.google.co.uz https://www.google.co.za https://www.google.co.zm https://www.google.com.ar https://www.google.com.au https://www.google.com.bd https://www.google.com.br https://www.google.com.co https://www.google.com.cy https://www.google.com.ec https://www.google.com.eg https://www.google.com.gh https://www.google.com.hk https://www.google.com.kw https://www.google.com.mx https://www.google.com.ng https://www.google.com.np https://www.google.com.ph https://www.google.com.pk https://www.google.com.pr https://www.google.com.qa https://www.google.com.sa https://www.google.com.sg https://www.google.com.sv https://www.google.com.tj https://www.google.com.tr https://www.google.com.tw https://www.google.com.ua https://www.google.com.uy https://www.google.com.vn https://www.google.cz https://www.google.de https://www.google.dk https://www.google.ee https://www.google.es https://www.google.fi https://www.google.fr https://www.google.ga https://www.google.ge https://www.google.gl https://www.google.gr https://www.google.hr https://www.google.hu https://www.google.ie https://www.google.it https://www.google.kg https://www.google.kz https://www.google.lk https://www.google.lt https://www.google.lu https://www.google.lv https://www.google.md https://www.google.mg https://www.google.mk https://www.google.mu https://www.google.mw https://www.google.my https://www.google.nl https://www.google.no https://www.google.pe https://www.google.pl https://www.google.pt https://www.google.ro https://www.google.rs https://www.google.ru https://www.google.se https://www.google.si https://www.google.sk https://www.google.tn https://webflow-assets-studio-temp-prod.s3.amazonaws.com https://*.webflow.com https://account-assets.knock.app https://alb.reddit.com https://analytics.twitter.com https://app.pendo.io https://b.6sc.co https://bat.bing.com https://bat.bing.net https://cdn.pendo.io https://content-6312168775680000.static.pendo.io https://data.pendo.io https://embed-ssl.wistia.com https://fast.wistia.com https://fonts.gstatic.com https://i.ytimg.com https://messenger-assets.qualified.com https://q.quora.com https://quickchart.io https://webflow.itsoffbrand.io https://www.goo"
+    },
+    {
+     "name": "Missing X-Content-Type-Options: nosniff",
+     "severity": "medium",
+     "category": "Content Sniffing",
+     "cweId": "CWE-16",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://webflow.com/\nX-Content-Type-Options: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://webflow.com/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://webflow.com/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://webflow.com/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://webflow.com/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cache-Control Headers",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-524",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://webflow.com/\nCache-Control: (header absent)\nPragma: (header absent)"
+    },
+    {
+     "name": "Strict-Transport-Security Missing on 1 Internal Route",
+     "severity": "low",
+     "category": "Security Header Inconsistency",
+     "cweId": "CWE-523",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "Routes missing Strict-Transport-Security:\n  • /apps (crawled)"
+    },
+    {
+     "name": "Referrer-Policy Missing on 1 Internal Route",
+     "severity": "low",
+     "category": "Security Header Inconsistency",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "Routes missing Referrer-Policy:\n  • /apps (crawled)"
+    },
+    {
+     "name": "Non-Session Cookie Readable by JavaScript on Inner Page",
+     "severity": "info",
+     "category": "Session Management",
+     "cweId": "CWE-1004",
+     "cvssScore": 2.6,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 60,
+     "evidence": "[Direct probe] GET https://webflow.com/admin\nSet-Cookie: _pxhd=<redacted>; Secure; Expires=Mon, 11-Oct-27 09:10:15 GMT; Path=/"
+    },
+    {
+     "name": "External Resources Missing Subresource Integrity (SRI)",
+     "severity": "medium",
+     "category": "Supply Chain Security",
+     "cweId": "CWE-353",
+     "cvssScore": 6.1,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 80,
+     "evidence": "<script/link src=\"https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js\" (no integrity= attribute)>\n<script/link src=\"https://cdn.jsdelivr.net/gh/webflow/brand_studio@00f6b61/global-brand-code/brand-color-modes.min.js\" (no integrity= attribute)>\n<script/link src=\"https://cdn.prod.website-files.com/gsap/3.15.0/gsap.min.js\" (no integrity= attribute)>\n<script/link src=\"https://cdn.prod.website-files.com/gsap/3.15.0/ScrollTrigger.min.js\" (no integrity= attribute)>\n<script/link src=\"https://cdn.prod.website-files.com/gsap/3.15.0/SplitText.min.js\" (no integrity= attribute)>"
+    },
+    {
+     "name": "SPF Record Uses ?all (Neutral — No Enforcement)",
+     "severity": "medium",
+     "category": "Email Security",
+     "cweId": "CWE-290",
+     "cvssScore": 5.3,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "TXT record: v=spf1 include:_spf.google.com include:spf.mailjet.com include:mail.zendesk.com include:_spf.salesforce.com include:mailgun.org ?all"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for webflow.com (NOERROR (name exists))."
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://posthog.com",
+   "finalUrl": "https://posthog.com/",
+   "statusCode": 200,
+   "server": "Vercel",
+   "tlsGrade": null,
+   "technologies": [
+    "Vercel",
+    "Gatsby",
+    "Tailwind CSS"
+   ],
+   "pagesScanned": 0,
+   "renderedWithBrowser": false,
+   "elapsedMs": 4289,
+   "findings": [
+    {
+     "name": "Content-Security-Policy is report-only (not enforced)",
+     "severity": "medium",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 5.3,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 93,
+     "evidence": "GET https://posthog.com/\nContent-Security-Policy: (absent)\nContent-Security-Policy-Report-Only: default-src 'self'; script-src 'self' https://*.posthog.com https://www.youtube.com https://fast.wistia.com https://fast.wistia.net https://import-cdn.default.com; style-src 'self' 'unsafe-inline' htt"
+    },
+    {
+     "name": "Missing Clickjacking Protection (X-Frame-Options)",
+     "severity": "medium",
+     "category": "UI Security",
+     "cweId": "CWE-1021",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CLNT-09",
+     "confidence": 77,
+     "evidence": "GET https://posthog.com/\nX-Frame-Options: (header absent)\nCSP frame-ancestors: (not present in Content-Security-Policy)"
+    },
+    {
+     "name": "Missing X-Content-Type-Options: nosniff",
+     "severity": "medium",
+     "category": "Content Sniffing",
+     "cweId": "CWE-16",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://posthog.com/\nX-Content-Type-Options: (header absent from response)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://posthog.com/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://posthog.com/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://posthog.com/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://posthog.com/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://posthog.com/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Permissive CORS Policy (Wildcard Origin)",
+     "severity": "info",
+     "category": "CORS Misconfiguration",
+     "cweId": "CWE-942",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 97,
+     "evidence": "GET https://posthog.com/\nAccess-Control-Allow-Origin: *"
+    },
+    {
+     "name": "Rate Limiting Not Advertised in Response Headers",
+     "severity": "info",
+     "category": "Brute Force Protection",
+     "cweId": "CWE-307",
+     "cvssScore": 0,
+     "wstgId": "WSTG-ATHN-03",
+     "confidence": 92,
+     "evidence": "GET https://posthog.com/\nNo rate-limit headers on this response (checked: X-RateLimit-Limit, RateLimit-Limit, Retry-After, and common CDN/WAF infrastructure signals)\nThis observes the homepage response only, and cannot show whether login or API routes are throttled."
+    },
+    {
+     "name": "JavaScript Source Map Exposed — Third-Party Library Code",
+     "severity": "low",
+     "category": "Source Code Exposure",
+     "cweId": "CWE-540",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 80,
+     "evidence": "Source map URL: https://posthog.com/507a0916-d6225b717e81e4c3bc38.js.map\nSource files mapped: 1, of which the site's own: 0"
+    },
+    {
+     "name": "JavaScript Source Map Exposed — Full Source Code Accessible",
+     "severity": "high",
+     "category": "Source Code Exposure",
+     "cweId": "CWE-540",
+     "cvssScore": 7.5,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 97,
+     "evidence": "Source map URL: https://posthog.com/17c50846-74c8dea247d819a32d77.js.map\nSource files mapped: 1\nFull sourcesContent included."
+    },
+    {
+     "name": "Exposed API Documentation — OpenAPI JSON spec at /openapi.json",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 0,
+     "wstgId": "WSTG-CONF-02",
+     "confidence": 92,
+     "evidence": "GET https://posthog.com/openapi.json\nHTTP 200 — OpenAPI JSON spec confirmed (spec structure validated)"
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://miro.com",
+   "finalUrl": "https://miro.com/",
+   "statusCode": 200,
+   "server": null,
+   "tlsGrade": null,
+   "technologies": [
+    "AWS CloudFront"
+   ],
+   "pagesScanned": 20,
+   "renderedWithBrowser": false,
+   "elapsedMs": 30271,
+   "findings": [
+    {
+     "name": "Weak Content-Security-Policy (unsafe-inline / unsafe-eval in script-src)",
+     "severity": "medium",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 5.4,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 74,
+     "evidence": "GET https://miro.com/\nContent-Security-Policy: default-src 'unsafe-inline' 'unsafe-eval' data: blob: filesystem: about: miroapp: wss: ws: *; frame-src 'unsafe-inline' 'unsafe-eval' data: blob: miroapp: *; base-uri 'unsafe-inline' about: data: *; form-action 'unsafe-inline' data: post-it-alpha: post-it: com.mmm.postit.miro: *; worker-src 'unsafe-inline' data: blob: miroapp: *; report-uri https://s.realtimeboard.com/api/25/security/?sentry_key=fb5e3001534f453e85d1771b1088b293&sentry_environment=production;\n(unsafe-inline (no nonce/hash/strict-dynamic to override it) and unsafe-eval in effect for scripts)"
+    },
+    {
+     "name": "CSP Missing object-src 'none' Directive",
+     "severity": "medium",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 77,
+     "evidence": "GET https://miro.com/\nContent-Security-Policy: default-src 'unsafe-inline' 'unsafe-eval' data: blob: filesystem: about: miroapp: wss: ws: *; frame-src 'unsafe-inline' 'unsafe-eval' data: blob: miroapp: *; base-uri 'unsafe-inline' about: data: *; form-action 'unsafe-inline' data: post-it-alpha: post-it: com.mmm.postit.miro: *; worker-src 'unsafe-inline' data: blob: miroapp: *; report-uri https://s.realtimeboard.com/api/25/security/?sentry_key=fb5e3001534f453e85d1771b1088b293&sentry_environment=production;\n(object-src directive absent — plugin content unrestricted)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://miro.com/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://miro.com/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Opener-Policy (COOP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://miro.com/\nCross-Origin-Opener-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://miro.com/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://miro.com/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Non-Session Cookie Missing Secure Flag",
+     "severity": "low",
+     "category": "Session Management",
+     "cweId": "CWE-614",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 70,
+     "evidence": "Affected cookies: server_experiment_viewed, server_experiment_viewed, __ff, server_experiment_viewed, geo_data"
+    },
+    {
+     "name": "Non-Session Cookie Readable by JavaScript",
+     "severity": "info",
+     "category": "Session Management",
+     "cweId": "CWE-1004",
+     "cvssScore": 2.6,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 60,
+     "evidence": "Affected cookies: ajs_anonymous_id, server_experiment_viewed, __ff_cookie_styles, server_experiment_viewed, __ff, server_experiment_viewed, geo_data"
+    },
+    {
+     "name": "Non-Session Cookie Missing SameSite Attribute",
+     "severity": "info",
+     "category": "CSRF Protection",
+     "cweId": "CWE-352",
+     "cvssScore": 2.1,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 60,
+     "evidence": "Affected cookies: server_experiment_viewed, server_experiment_viewed, __ff, server_experiment_viewed"
+    },
+    {
+     "name": "robots.txt Discloses Sensitive Application Paths",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": null,
+     "wstgId": "WSTG-INFO-01",
+     "confidence": 51,
+     "evidence": "GET https://miro.com/robots.txt → HTTP 200\nDisallow: /admin/\nDisallow: /wp-admin/"
+    },
+    {
+     "name": "External Resources Missing Subresource Integrity (SRI)",
+     "severity": "medium",
+     "category": "Supply Chain Security",
+     "cweId": "CWE-353",
+     "cvssScore": 6.1,
+     "wstgId": "WSTG-CONF-04",
+     "confidence": 80,
+     "evidence": "<script/link src=\"https://events.framer.com/script?v=2\" (no integrity= attribute)>\n<script/link src=\"https://framerusercontent.com/sites/4OLT6jMsyZ1Z4eMN7xvy4X/script_main.Crza93do.mjs\" (no integrity= attribute)>\n<script/link src=\"https://mirostatic.com/website/static/production-eu/framer-code-components/web-tracker.esm.js\" (no integrity= attribute)>\n<script/link src=\"https://mirostatic.com/website/services-provider-scripts/optanonWrapper.js\" (no integrity= attribute)>"
+    },
+    {
+     "name": "Missing security.txt (RFC 9116)",
+     "severity": "info",
+     "category": "Information Disclosure",
+     "cweId": "CWE-205",
+     "cvssScore": 0,
+     "wstgId": null,
+     "confidence": 75,
+     "evidence": "GET https://miro.com/.well-known/security.txt → HTTP 404\nGET https://miro.com/security.txt → HTTP 404"
+    },
+    {
+     "name": "DNSSEC Not Enabled",
+     "severity": "info",
+     "category": "DNS Security",
+     "cweId": "CWE-345",
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 83,
+     "evidence": "No DNSKEY records found for miro.com (NOERROR (name exists))."
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  },
+  {
+   "url": "https://calendly.com",
+   "finalUrl": "https://calendly.com/",
+   "statusCode": 200,
+   "server": "cloudflare",
+   "tlsGrade": null,
+   "technologies": [
+    "Cloudflare",
+    "AWS CloudFront",
+    "Astro",
+    "Tailwind CSS",
+    "Google Tag Manager"
+   ],
+   "pagesScanned": 21,
+   "renderedWithBrowser": false,
+   "elapsedMs": 10097,
+   "findings": [
+    {
+     "name": "Content-Security-Policy is report-only (not enforced)",
+     "severity": "medium",
+     "category": "Injection Defense",
+     "cweId": "CWE-79",
+     "cvssScore": 5.3,
+     "wstgId": "WSTG-CONF-12",
+     "confidence": 93,
+     "evidence": "GET https://calendly.com/\nContent-Security-Policy: (absent)\nContent-Security-Policy-Report-Only: default-src 'self' https:; base-uri 'self'; object-src 'none'; script-src 'self' https: 'report-sample'; style-src 'self' https: 'report-sample'; img-src 'self' data: https:; font-src 'self' data: htt"
+    },
+    {
+     "name": "Missing Clickjacking Protection (X-Frame-Options)",
+     "severity": "medium",
+     "category": "UI Security",
+     "cweId": "CWE-1021",
+     "cvssScore": 4.3,
+     "wstgId": "WSTG-CLNT-09",
+     "confidence": 77,
+     "evidence": "GET https://calendly.com/\nX-Frame-Options: (header absent)\nCSP frame-ancestors: (not present in Content-Security-Policy)"
+    },
+    {
+     "name": "Missing Referrer-Policy Header",
+     "severity": "low",
+     "category": "Information Disclosure",
+     "cweId": "CWE-200",
+     "cvssScore": 3.1,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://calendly.com/\nReferrer-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Permissions-Policy Header",
+     "severity": "low",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": 2.4,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 82,
+     "evidence": "GET https://calendly.com/\nPermissions-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Embedder-Policy (COEP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://calendly.com/\nCross-Origin-Embedder-Policy: (header absent from response)"
+    },
+    {
+     "name": "Missing Cross-Origin-Resource-Policy (CORP)",
+     "severity": "info",
+     "category": "Browser Feature Control",
+     "cweId": "CWE-16",
+     "cvssScore": null,
+     "wstgId": "WSTG-CONF-07",
+     "confidence": 77,
+     "evidence": "GET https://calendly.com/\nCross-Origin-Resource-Policy: (header absent from response)"
+    },
+    {
+     "name": "Non-Session Cookie Readable by JavaScript",
+     "severity": "info",
+     "category": "Session Management",
+     "cweId": "CWE-1004",
+     "cvssScore": 2.6,
+     "wstgId": "WSTG-SESS-02",
+     "confidence": 68,
+     "evidence": "Affected cookies: country, CALENDLY_AUTHENTICATED_USER_STATUS, cal_anonymous_id"
+    },
+    {
+     "name": "Active security testing was skipped for this scan",
+     "severity": "info",
+     "category": "Scan Coverage",
+     "cweId": null,
+     "cvssScore": null,
+     "wstgId": null,
+     "confidence": 100,
+     "evidence": "No verified ownership on record for this domain at scan time."
+    }
+   ]
+  }
+ ]
+}

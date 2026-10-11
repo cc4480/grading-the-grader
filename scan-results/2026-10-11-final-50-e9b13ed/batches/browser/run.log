@@ -1,0 +1,15 @@
+targets: 50
+engine: VibeScan-Enterprise-Build e9b13ede133ea9e4124ba4c03858273ee792b88f (read-only git archive export of the commit deployed to production)
+batch size: 10; min free memory to start a batch: 900000 KB; node v26.7.0
+mode: passive (live-scan.ts without --active), headless browser initialised by live-scan.ts
+batch 1 start 2026-10-11T09:14:49Z urls 10 free_kb=3452056
+batch 1 end 2026-10-11T09:15:53Z results: present
+batch 2 start 2026-10-11T09:15:55Z urls 10 free_kb=3480160
+batch 2 end 2026-10-11T09:17:35Z results: present
+batch 3 start 2026-10-11T09:17:36Z urls 10 free_kb=3094084
+batch 3 end 2026-10-11T09:20:27Z results: present
+batch 4 start 2026-10-11T09:20:28Z urls 10 free_kb=3402812
+batch 4 end 2026-10-11T09:23:05Z results: present
+batch 5 start 2026-10-11T09:23:06Z urls 10 free_kb=3140060
+batch 5 end 2026-10-11T09:25:24Z results: present
+all-batches-done 2026-10-11T09:25:24Z
