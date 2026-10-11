@@ -2,6 +2,30 @@
 
 Living log. Newest first. Update it with every piece of work: what changed, how you know, what is still open.
 
+## 2026-10-10 (night): Lovable-style target built; first results for SecScan (local only, nothing published)
+
+Carlos asked for an app "based on Lovable's protocols and dependencies" to test on. That answers decision 1a (build the vibe-stack set). Decision 1b
+(publish whatever the number is) is still open, so the target and its results are in a local repo, `C:\Users\Cho-zen\lovable-style-target` (3 commits, not
+pushed), and none of it is in this repo.
+
+- **What it is.** A React 19 + Vite 7 single-page app on the dependency list of a third-party Lovable boilerplate (Lovable's docs say apps from 2026-05-13
+  use TanStack Start; that variant is not built), in a vulnerable and a clean-twin build, with a mock Supabase behind fake `<ref>.supabase.co` hosts. 10
+  in-scope planted faults, 2 out of scope, 4 controls. The ground truth was written first, from the sources it cites (the primary one is Matt Palmer's
+  CVE-2025-48757 report), and committed with its hashes before the app or any scan (`894cdd6`). **It is not independent**: the assistant that wrote it also
+  edits the scanners.
+- **SecScan, master `ac8fdf6` (Reran).** As built it detected 2 of 10 in-scope faults (published source maps, missing headers). It missed tables with
+  RLS off, anonymous writes, the listable bucket, the service_role key and the OpenAI-shaped key. With the Supabase config also written into the HTML (a lab
+  control, not a real build) it detected 5 of 10. Causes, each reproduced: the Supabase, BaaS and storage checks are given only the page HTML, not the
+  bundle (**Verified**, plus the control); the secret scanner keeps only the first 512,000 bytes of a 761,001-byte bundle (**Reran**); the service_role
+  pattern needs a variable name that minification removes (**Reran**).
+- **False positives.** None as built. With the config visible: a CRITICAL "Tables Readable Without Authentication" on the clean twin for `announcements`, a
+  table that is public by design, and a MEDIUM about the ten-year lifetime of the anon key.
+- **Logged as decisions 15 to 17. Nothing was changed in the scanner repo.** Decision 1a is recorded as made; what remains for it is a review of the
+  ground truth by someone other than the scanner's authors.
+- **Not done.** The TanStack Start variant; pushing the ground truth before scanning (the runbook asks for it; it was only committed locally); an independent
+  reviewer; a run with the scanner's browser able to load the mock's data. The same target was also run through the other scanner; that record stays in the
+  target repo, not here.
+
 ## 2026-10-10 (later): SecScan run of the held-out final 50, with an independent re-check
 
 Carlos wanted the 50-URL final test run on SecScan. The first run of this list was on a different product, so this is the SecScan run. List: `scan-results/2026-10-10-final-50.txt`. Everything else: `scan-results/2026-10-10-final-50/`.
