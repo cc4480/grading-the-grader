@@ -1,0 +1,41 @@
+sites: 50; identical finding sets, grade and status: 41; differing: 7
+rendered with browser: old 0, new 0; finding keys only in old 16, only in new 13
+https://www.elastic.co  status 200→406
+   - info|Structured Data Missing @context or @type
+   - info|X-Powered-By Header Discloses Technology Stack
+   - low|CSP Missing base-uri Directive
+   - medium|CSP Missing object-src 'none' Directive
+   - medium|External Resources Missing Subresource Integrity (SRI)
+   - medium|Missing X-Content-Type-Options: nosniff
+   + high|Missing Content-Security-Policy (CSP)
+   + info|Incomplete Open Graph Metadata
+   + info|Missing Cache-Control Headers
+   + info|No Structured Data Found
+   + info|Scan started from an error response
+   + medium|Missing Clickjacking Protection (X-Frame-Options)
+https://ubuntu.com  
+   - info|robots.txt Discloses Sensitive Application Paths
+
+https://www.gnu.org: old FAILED  | new FAILED 
+https://www.squarespace.com  
+   + low|Internal IP Address Exposed
+https://posthog.com  
+   + info|API Key in Client Code (verify restrictions)
+   + info|Mapbox Public Token — Restrict to Your Domain
+   + low|AI Provider Called Directly From the Browser
+https://www.npr.org: old FAILED  | new FAILED 
+https://css-tricks.com  status 200→429
+   - high|JavaScript Source Map Exposed — Full Source Code Accessible
+   - high|Missing Content-Security-Policy (CSP)
+   - info|Missing Cross-Origin-Embedder-Policy (COEP)
+   - info|Missing Cross-Origin-Opener-Policy (COOP)
+   - info|Missing Cross-Origin-Resource-Policy (CORP)
+   - info|Missing security.txt (RFC 9116)
+   - info|robots.txt Discloses Sensitive Application Paths
+   - low|Missing Permissions-Policy Header
+   - medium|External Resources Missing Subresource Integrity (SRI)
+   + info|Scan was intercepted by a bot-protection challenge
+https://dev.to  
+   + info|Exposed API Documentation — Versioned API docs at /api/v1/docs
+https://www.coursera.org  
+   + info|Google API Key in Client Code (verify referrer restrictions)

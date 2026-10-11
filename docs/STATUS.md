@@ -2,6 +2,17 @@
 
 Living log. Newest first. Update it with every piece of work: what changed, how you know, what is still open.
 
+## 2026-10-11 (later): SecScan fixes for decisions 13 to 17 written on local branches; nothing pushed, merged or deployed
+
+Carlos asked for decisions 15 to 17 fixed on a branch (with tests, in a separate copy), 13 and 14 fixed, and the final 50 re-run on the live commit (that part is in the entry below). Done in clones outside the shared checkout: `C:UsersCho-zenworksecscan-fixes` (branch `fix/bundle-aware-supabase-checks`, 5 commits on master `e9b13ed`, head `220a4de`) and the worktree `secscan-fixes-b` (branch `fix/hsts-and-error-pages`, 2 commits, head `c0f9ea0`). The lab target's record: `lovable-style-target/RESULTS-2026-10-11-secscan-fixes.md`.
+
+- **15 to 17 (Reran, Verified).** Against the same Lovable-style target, scored with the unchanged pre-registered map: **7 of 10 in-scope faults as built (was 2 of 10)**, 7 of 10 with the config in the HTML (was 5), and **no medium-or-higher finding on the clean twin** in either variant (was a CRITICAL and a MEDIUM). F07, F08 and F10 stay missed: there is no check for them. The fixes were written after seeing this target, so it is no longer a held-out test of them.
+- **13, 14 (Reran).** HSTS: the redirect fallback and the 40-name hardcoded set are gone; of those 40, 23 are not on Chromium's own list (fetched 2026-10-11). 14: a bare 406/400/451 joins 403/429/503 as a refusal (elastic.co's 20-byte "406 Not Acceptable" reproduced with curl); other error pages' first-response findings are information. Judgement call for Carlos: such a scan can show a good grade although nothing about the app was assessed.
+- **A defect found on the way.** The JWT regexes took time growing with the square of the input on repeated `eyJ` (80 KB 6.7 s): on the page of every scan, in the secret scan, in the service_role search. Fixed on the branch, with hostile-input tests. It matters before any merge of a cap change, and independently of it.
+- **False positives from reading whole bundles on the 50 real sites** (`scan-results/2026-10-11-final-50-fixbranch/`): one known false positive (squarespace.com "Internal IP Address Exposed", an `example:` value in Sentry metadata) and one unverified (posthog.com AI provider). Not fixed on the branch.
+- **Tests.** SecScan branch: whole suite passes except `browserGuard` (4) and `tlsCheck` (1), which fail the same way on unmodified master here (no matching Chromium; openssl). Worktree branch: same two.
+- **Not done:** Seclayer's fixes are committed in its own clone but not run against the lab target (no score); the TanStack Start and AI-feature targets are not built; decisions 13 to 17 in `DECISIONS.md` are not updated; the validator fix for the false positive above; nothing pushed, no PR, so nothing merged or deployed. Seclayer material stays out of this repo.
+
 ## 2026-10-11: held-out final 50 repeated on the commit that is live (`e9b13ed`)
 
 Carlos asked for the final 50 again on the deployed commit, because the 2026-10-10 run was one commit behind what production later ran. Record: `scan-results/2026-10-11-final-50-e9b13ed/`.
