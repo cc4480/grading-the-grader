@@ -2,6 +2,24 @@
 
 Living log. Newest first. Update it with every piece of work: what changed, how you know, what is still open.
 
+## 2026-10-12 (later): GitHub repo scan run on the owner's public repos; one release branch built; nothing merged or deployed
+
+- **Reran:** the new whole-repo scan (branch `feat/github-repo-scan`) on the 14 of the owner's public repos that have code,
+  unauthenticated, then every finding checked against the source or OSV. The planted-secret fixture matched its README answer
+  key exactly (3 reported, 3 ignored files ignored). The dependency CVEs checked (6 of 15) matched real OSV advisories.
+- **Found and fixed (decisions 19 and 20):** one placeholder reported as a secret, one variable name in prose reported as a
+  client-exposed secret, three deliberate TLS probes shown as medium, and a Python repo (165 files, none read) that said
+  "scanned" with no note. Each has a test and a clean twin.
+- **Decided (decision 18):** a scan that starts on an error page gets grade `N/A`, not a letter.
+- **Built:** `release/ready-2026-10-12` on the scanner repo = master `448d4c5` plus the bundle-aware checks, HSTS and
+  error-page fixes and the repo scan, one import conflict resolved, then the decisions above. Full suite 3083 pass, 4 + 1
+  fail (`browserGuard` x4, `tlsCheck`: no Chromium or openssl on this PC; the same fail on unmodified master). Server bundle
+  builds. Not merged, not deployed.
+- **Not tested on a real repository:** the Supabase-migration and CI checks (none of the 14 repos has them; unit tests only).
+- **Not built:** the product side of private repos (account-to-installation table, install callback, repo picker, job
+  plumbing) and the GitHub App itself, which the owner has to register.
+- **Open:** live tests with the owner's accounts, starting with secscan.us.
+
 ## 2026-10-12: fix branches pushed (no PRs), validator fix, Seclayer scored
 
 Carlos asked for commit and push, no PRs. Pushed as branches only: SecScan `fix/bundle-aware-supabase-checks` (7 commits) and `fix/hsts-and-error-pages` (2), Seclayer `fix/supabase-bundle-and-keys` (2). Nothing merged or deployed; production is still SecScan `e9b13ed`, Seclayer `f0ac6e3`. Since the entry below: the squarespace.com false positive is fixed (a secret pattern's validator now sees the text before the match); the posthog.com AI-provider finding stays unverified (script returns 403). Seclayer against the lab target (record stays in the target repo): 2 to 5 of 10, clean twin clean, after adding first-party script capture. Still open: TanStack Start and AI-feature targets; the error-start grade judgement call.
