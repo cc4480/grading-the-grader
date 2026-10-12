@@ -1,4 +1,4 @@
-# Decisions
+**Fix written 2026-10-11/12, on a pushed branch, not merged:** `fix/bundle-aware-supabase-checks`; clean twin now clean. **Fix written 2026-10-11/12, on a pushed branch, not merged:** `fix/bundle-aware-supabase-checks`; also fixes a quadratic JWT regex. **Fix written 2026-10-11/12, on a pushed branch, not merged:** `fix/bundle-aware-supabase-checks`; lab target 2 of 10 to 7 of 10. **Fix written 2026-10-11/12, on a pushed branch, not merged:** `fix/hsts-and-error-pages`; judgement call open: an error-start scan can show a good grade. **Fix written 2026-10-11/12, on a pushed branch, not merged:** `fix/hsts-and-error-pages` (SecScan repo). # Decisions
 
 Do not act on a pending decision. Record a new one here with the date and the reason, in the same commit as the work.
 

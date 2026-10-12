@@ -2,6 +2,10 @@
 
 Living log. Newest first. Update it with every piece of work: what changed, how you know, what is still open.
 
+## 2026-10-12: fix branches pushed (no PRs), validator fix, Seclayer scored
+
+Carlos asked for commit and push, no PRs. Pushed as branches only: SecScan `fix/bundle-aware-supabase-checks` (7 commits) and `fix/hsts-and-error-pages` (2), Seclayer `fix/supabase-bundle-and-keys` (2). Nothing merged or deployed; production is still SecScan `e9b13ed`, Seclayer `f0ac6e3`. Since the entry below: the squarespace.com false positive is fixed (a secret pattern's validator now sees the text before the match); the posthog.com AI-provider finding stays unverified (script returns 403). Seclayer against the lab target (record stays in the target repo): 2 to 5 of 10, clean twin clean, after adding first-party script capture. Still open: TanStack Start and AI-feature targets; the error-start grade judgement call.
+
 ## 2026-10-11 (later): SecScan fixes for decisions 13 to 17 written on local branches; nothing pushed, merged or deployed
 
 Carlos asked for decisions 15 to 17 fixed on a branch (with tests, in a separate copy), 13 and 14 fixed, and the final 50 re-run on the live commit (that part is in the entry below). Done in clones outside the shared checkout: `C:UsersCho-zenworksecscan-fixes` (branch `fix/bundle-aware-supabase-checks`, 5 commits on master `e9b13ed`, head `220a4de`) and the worktree `secscan-fixes-b` (branch `fix/hsts-and-error-pages`, 2 commits, head `c0f9ea0`). The lab target's record: `lovable-style-target/RESULTS-2026-10-11-secscan-fixes.md`.
