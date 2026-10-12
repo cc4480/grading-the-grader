@@ -2,6 +2,25 @@
 
 Living log. Newest first. Update it with every piece of work: what changed, how you know, what is still open.
 
+## 2026-10-12 (evening): a full Lovable-export-shaped target; two real scanner defects found and fixed; nothing merged or deployed
+
+- **Reran:** a second target (`app-lovable/` in the local-only lab repo): the registered front end plus what a Lovable repository
+  carries in git (committed `.env`, `supabase/` migrations, `config.toml`, edge functions, a workflow) and code-split routes.
+  Ground truth and match map committed before the app or any scan existed. Repo scan: 7 of 11 faults found as predicted, then
+  11 of 11 after engine changes made in response (so that second figure is not held out). Clean twin: nothing at medium or above.
+- **Real defects found (decisions 21 to 23):** source maps over 5 MiB missed; lazily loaded chunks never read; every
+  `verify_jwt = false` treated alike; a public contact form reported as high; no rule for three common Supabase linter classes.
+- **Mock error, not a scanner error:** the first live scan showed a critical false positive on the clean twin. Cause was the
+  lab's mock returning an inserted row to a caller with no SELECT policy; PostgREST refuses that (Researched, secondary sources;
+  not verified against a live Supabase). The mock was corrected and the scans rerun. Side effect for real sites: an insert-only
+  table that truly accepts anonymous writes is invisible to the live write probe.
+- **Final live numbers on that target (registered map, vulnerable origin, clean twin clean):** SecScan `1bfcaa3` 7 of 10.
+  Missed: edge function without a JWT check, unsigned webhook, sensitive comment and debug header (no check exists).
+- **Not independent, not held out:** the same assistant wrote the faults, the engine and the fixes. Full record:
+  `RESULTS-app-lovable.md` in the lab repo (not published).
+- **Branch:** `release/ready-2026-10-12` now at `1bfcaa3`. Full suite 3093 pass; the 5 failures (`browserGuard` x4, `tlsCheck`:
+  no Chromium or openssl on this PC) fail the same on unmodified master.
+
 ## 2026-10-12 (later): GitHub repo scan run on the owner's public repos; one release branch built; nothing merged or deployed
 
 - **Reran:** the new whole-repo scan (branch `feat/github-repo-scan`) on the 14 of the owner's public repos that have code,
